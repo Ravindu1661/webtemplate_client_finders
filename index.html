@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Web Template Gallery — Browse & Get Your Website</title>
   <meta name="description" content="Browse our premium collection of professional website templates. Pick your favourite and get a custom website built for your business today." />
+  <!-- Security: Prevent indexing of source -->
+  <meta name="robots" content="noindex, nofollow" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
@@ -684,8 +686,8 @@
 
 <script>
 // ══ Template Data ══════════════════════════════════════════
-// GitHub Pages base URL — update username after pushing
-const BASE = './';
+// GitHub Pages base URL
+const BASE = 'https://ravindu1661.github.io/webtemplate_client_finders/';
 const WA   = '94729825570';
 
 const CATEGORIES = {
@@ -925,6 +927,83 @@ window.addEventListener('scroll', () => {
 buildCards();
 updateCounts();
 applyFilters();
+</script>
+
+<!-- ══ Security Shield ══════════════════════════════════════ -->
+<script>
+(function() {
+  'use strict';
+
+  // ── 1. Disable Right Click ──────────────────────────────
+  document.addEventListener('contextmenu', function(e) {
+    e.preventDefault();
+    return false;
+  });
+
+  // ── 2. Disable Text Selection ───────────────────────────
+  document.addEventListener('selectstart', function(e) {
+    // Allow selection only inside input/textarea
+    if (!['INPUT','TEXTAREA'].includes(e.target.tagName)) {
+      e.preventDefault();
+    }
+  });
+
+  // ── 3. Disable Image Drag ────────────────────────────────
+  document.addEventListener('dragstart', function(e) {
+    if (e.target.tagName === 'IMG') e.preventDefault();
+  });
+
+  // ── 4. Block Keyboard Shortcuts ─────────────────────────
+  document.addEventListener('keydown', function(e) {
+    const k = e.key.toUpperCase();
+    // F12
+    if (e.key === 'F12') { e.preventDefault(); return false; }
+    // Ctrl+U (view source), Ctrl+S (save), Ctrl+Shift+I/J/C (DevTools)
+    if (e.ctrlKey && ['U','S'].includes(k)) { e.preventDefault(); return false; }
+    if (e.ctrlKey && e.shiftKey && ['I','J','C'].includes(k)) { e.preventDefault(); return false; }
+    // Ctrl+A (select all)
+    if (e.ctrlKey && k === 'A') { e.preventDefault(); return false; }
+  });
+
+  // ── 5. DevTools Detection ────────────────────────────────
+  let devtoolsOpen = false;
+  const threshold = 160;
+  setInterval(function() {
+    const widthDiff  = window.outerWidth  - window.innerWidth  > threshold;
+    const heightDiff = window.outerHeight - window.innerHeight > threshold;
+    if ((widthDiff || heightDiff) && !devtoolsOpen) {
+      devtoolsOpen = true;
+      document.body.innerHTML = `
+        <div style="min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;
+          background:#08080f;color:#e8e8f0;font-family:Outfit,sans-serif;text-align:center;padding:20px;">
+          <div style="font-size:4rem;margin-bottom:20px;">🔒</div>
+          <h1 style="font-size:2rem;margin-bottom:12px;background:linear-gradient(135deg,#7c6ef7,#e04cff);
+            -webkit-background-clip:text;-webkit-text-fill-color:transparent;">Access Restricted</h1>
+          <p style="color:#7878a0;max-width:400px;">Developer tools are not permitted on this page.<br/>Please close DevTools to continue.</p>
+        </div>`;
+    } else if (!(widthDiff || heightDiff) && devtoolsOpen) {
+      devtoolsOpen = false;
+      location.reload();
+    }
+  }, 1000);
+
+  // ── 6. Disable Print ────────────────────────────────────
+  window.addEventListener('beforeprint', function(e) {
+    e.stopImmediatePropagation();
+    e.preventDefault();
+  });
+  const noPrint = document.createElement('style');
+  noPrint.media = 'print';
+  noPrint.innerHTML = '* { display: none !important; }';
+  document.head.appendChild(noPrint);
+
+  // ── 7. Disable Copy ─────────────────────────────────────
+  document.addEventListener('copy', function(e) {
+    e.clipboardData.setData('text/plain', '© WebTemplates — Protected Content');
+    e.preventDefault();
+  });
+
+})();
 </script>
 </body>
 </html>
