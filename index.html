@@ -9,6 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
   <style>
     /* ══ RESET ════════════════════════════════════════════════ */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -99,25 +100,13 @@
     .nav-logo {
       display: flex;
       align-items: center;
-      gap: 8px;
-      font-family: 'Playfair Display', serif;
-      font-size: 1.3rem;
-      font-weight: 800;
-      color: var(--green);
-      letter-spacing: -0.5px;
       text-decoration: none;
     }
-    .nav-logo .logo-icon {
-      width: 34px;
-      height: 34px;
-      background: linear-gradient(135deg, var(--green), var(--green3));
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1rem;
-      color: #fff;
-      box-shadow: 0 4px 12px var(--green-glow);
+    .nav-logo img {
+      height: 36px;
+      width: auto;
+      display: block;
+      transition: opacity 0.3s;
     }
 
     .nav-right {
@@ -197,22 +186,54 @@
       justify-content: center;
     }
 
-    /* Hero gradient background */
-    .hero::before {
-      content: '';
+    /* Hero background image */
+    .hero-img-wrap {
       position: absolute;
       inset: 0;
-      background:
-        radial-gradient(ellipse 80% 60% at 50% -10%, rgba(67,163,110,0.18) 0%, transparent 70%),
-        radial-gradient(ellipse 60% 50% at 80% 80%, rgba(27,94,52,0.1) 0%, transparent 60%),
-        radial-gradient(ellipse 50% 40% at 10% 90%, rgba(67,163,110,0.08) 0%, transparent 60%);
       z-index: 0;
+      overflow: hidden;
     }
-    [data-theme="dark"] .hero::before {
-      background:
-        radial-gradient(ellipse 80% 60% at 50% -10%, rgba(67,163,110,0.25) 0%, transparent 70%),
-        radial-gradient(ellipse 60% 50% at 80% 80%, rgba(27,94,52,0.2) 0%, transparent 60%),
-        radial-gradient(ellipse 50% 40% at 10% 90%, rgba(67,163,110,0.12) 0%, transparent 60%);
+    .hero-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center right;
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 0.7s ease;
+    }
+    .hero-img-wrap img.active { opacity: 1; }
+
+    .hero-img-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background: linear-gradient(105deg,
+        rgba(244,250,246,0.95) 0%,
+        rgba(244,250,246,0.80) 40%,
+        rgba(244,250,246,0.15) 100%);
+      transition: background 0.5s;
+    }
+    [data-theme="dark"] .hero-img-overlay {
+      background: linear-gradient(105deg,
+        rgba(7,20,16,0.97) 0%,
+        rgba(7,20,16,0.82) 40%,
+        rgba(7,20,16,0.15) 100%);
+    }
+    @media (max-width: 640px) {
+      .hero-img-overlay {
+        background: linear-gradient(to bottom,
+          rgba(244,250,246,0.97) 0%,
+          rgba(244,250,246,0.90) 70%,
+          rgba(244,250,246,0.6) 100%);
+      }
+      [data-theme="dark"] .hero-img-overlay {
+        background: linear-gradient(to bottom,
+          rgba(7,20,16,0.98) 0%,
+          rgba(7,20,16,0.93) 70%,
+          rgba(7,20,16,0.7) 100%);
+      }
     }
 
     /* Floating blobs */
@@ -252,7 +273,14 @@
       z-index: 0;
     }
 
-    .hero-content { position: relative; z-index: 1; max-width: 680px; }
+    .hero-content { position: relative; z-index: 2; max-width: 580px; }
+    .hero { align-items: flex-start; padding-left: clamp(20px, 6vw, 80px); }
+    @media (max-width: 640px) {
+      .hero { align-items: center; padding-left: clamp(16px, 5vw, 48px); }
+      .hero-content { text-align: center; }
+      .hero-cta { justify-content: center; }
+      .hero-stats { justify-content: center; }
+    }
 
     .hero-badge {
       display: inline-flex;
@@ -666,9 +694,8 @@
 
 <!-- ══ NAVBAR ════════════════════════════════════════════════ -->
 <nav>
-  <a class="nav-logo" href="#">
-    <div class="logo-icon">W</div>
-    WebTemplates
+  <a class="nav-logo" href="#" id="navLogo">
+    <img src="hero/full_dark_logo.png" id="logoImg" alt="Nextrix Labs" />
   </a>
   <div class="nav-right">
     <button class="theme-toggle" id="themeToggle" title="Toggle light/dark mode" aria-label="Toggle theme">
@@ -684,9 +711,12 @@
 
 <!-- ══ HERO ══════════════════════════════════════════════════ -->
 <section class="hero">
-  <div class="hero-dots"></div>
-  <div class="hero-blob blob-1"></div>
-  <div class="hero-blob blob-2"></div>
+  <!-- Hero background images (light/dark) -->
+  <div class="hero-img-wrap">
+    <img src="hero/light02.png" id="heroImgLight" alt="" class="active" aria-hidden="true" />
+    <img src="hero/dark02.png"  id="heroImgDark"  alt="" aria-hidden="true" />
+  </div>
+  <div class="hero-img-overlay"></div>
   <div class="hero-content">
     <div class="hero-badge">Premium Website Templates</div>
     <h1>Your Business Deserves<br/>a <span class="grad">Beautiful Website</span></h1>
@@ -747,7 +777,9 @@
 
 <!-- ══ FOOTER ════════════════════════════════════════════════ -->
 <footer>
-  <div class="footer-logo">WebTemplates</div>
+  <div class="footer-logo">
+    <img src="hero/full_dark_logo.png" id="footerLogoImg" alt="Nextrix Labs" style="height:48px;width:auto;" />
+  </div>
   <p>Ready to get your business online?<br/>Chat with us — we'll help you get started! 😊</p>
   <a href="https://wa.me/94729825570?text=Hi%21%20I%20would%20like%20to%20get%20a%20website%20for%20my%20business." class="footer-wa" target="_blank" rel="noopener" id="footer-wa-btn">
     <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
@@ -760,15 +792,36 @@
 
 <script>
 // ══ THEME TOGGLE ═══════════════════════════════════════════
-const html = document.documentElement;
-const themeBtn = document.getElementById('themeToggle');
+const html    = document.documentElement;
+const themeBtn   = document.getElementById('themeToggle');
+const logoImg    = document.getElementById('logoImg');
+const heroLight  = document.getElementById('heroImgLight');
+const heroDark   = document.getElementById('heroImgDark');
+
 const saved = localStorage.getItem('wt-theme') || 'light';
 html.setAttribute('data-theme', saved);
+applyThemeAssets(saved);
+
+function applyThemeAssets(theme) {
+  const footerLogo = document.getElementById('footerLogoImg');
+  if (theme === 'dark') {
+    logoImg.src   = 'hero/full_white_logo.png';
+    if(footerLogo) footerLogo.src = 'hero/full_white_logo.png';
+    heroLight.classList.remove('active');
+    heroDark.classList.add('active');
+  } else {
+    logoImg.src   = 'hero/full_dark_logo.png';
+    if(footerLogo) footerLogo.src = 'hero/full_dark_logo.png';
+    heroDark.classList.remove('active');
+    heroLight.classList.add('active');
+  }
+}
 
 themeBtn.addEventListener('click', () => {
   const next = html.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
   html.setAttribute('data-theme', next);
   localStorage.setItem('wt-theme', next);
+  applyThemeAssets(next);
 });
 
 // ══ DATA ═══════════════════════════════════════════════════
