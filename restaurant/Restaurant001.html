@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<meta name="description" content="LUXE Restaurant - Experience Culinary Excellence. A premier Michelin-starred fine dining destination in Paris."/>
+<meta name="keywords" content="luxury restaurant, fine dining, Michelin star, Paris, culinary excellence"/>
+<title>LUXE Restaurant – Experience Culinary Excellence</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+<link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config={theme:{extend:{colors:{gold:{'DEFAULT':'#D4AF37',light:'#E8C96A',dark:'#A8861C'}},fontFamily:{playfair:['"Playfair Display"','serif'],poppins:['Poppins','sans-serif']}}}}
+</script>
+<style>
+:root{--gold:#D4AF37;--gold-l:#E8C96A;--gold-d:#A8861C;}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Poppins',sans-serif;background:#0A0A0A;color:#fff;overflow-x:hidden;}
+::-webkit-scrollbar{width:5px;}
+::-webkit-scrollbar-track{background:#0A0A0A;}
+::-webkit-scrollbar-thumb{background:#D4AF37;border-radius:3px;}
+
+/* ── LOADING ── */
+#ls{position:fixed;inset:0;background:#0A0A0A;z-index:9999;display:flex;align-items:center;justify-content:center;flex-direction:column;transition:opacity .8s,visibility .8s;}
+#ls.h{opacity:0;visibility:hidden;}
+.ll{font-family:'Playfair Display',serif;font-size:3rem;font-weight:800;background:linear-gradient(135deg,#D4AF37,#F2D56B,#A8861C);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:lp 1.5s ease-in-out infinite;}
+@keyframes lp{0%,100%{opacity:1;}50%{opacity:.5;}}
+.lb{width:200px;height:2px;background:#222;border-radius:2px;margin-top:1.5rem;overflow:hidden;}
+.lbi{height:100%;background:linear-gradient(90deg,#D4AF37,#E8C96A);animation:lbf 1.8s ease-in-out forwards;}
+@keyframes lbf{from{width:0}to{width:100%}}
+
+/* ── NAVBAR ── */
+#nb{position:fixed;top:0;left:0;right:0;z-index:1000;padding:1.4rem 0;transition:all .4s;}
+#nb.sc{background:rgba(10,10,10,.97);backdrop-filter:blur(20px);padding:.9rem 0;border-bottom:1px solid rgba(212,175,55,.15);box-shadow:0 4px 30px rgba(0,0,0,.5);}
+.nl{font-size:.8rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.85);transition:color .3s;position:relative;}
+.nl::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1px;background:#D4AF37;transition:width .3s;}
+.nl:hover{color:#D4AF37;}
+.nl:hover::after{width:100%;}
+
+/* ── UTILS ── */
+.gt{background:linear-gradient(135deg,#D4AF37,#F2D56B,#A8861C);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.bg{background:linear-gradient(135deg,#D4AF37,#E8C96A,#A8861C);color:#0A0A0A;font-weight:700;font-family:'Poppins',sans-serif;letter-spacing:.08em;text-transform:uppercase;font-size:.78rem;padding:.85rem 2rem;border-radius:50px;border:none;cursor:pointer;transition:all .3s;box-shadow:0 4px 20px rgba(212,175,55,.35);display:inline-flex;align-items:center;gap:.5rem;}
+.bg:hover{transform:translateY(-2px);box-shadow:0 8px 35px rgba(212,175,55,.55);}
+.bo{background:transparent;color:#fff;font-weight:500;font-family:'Poppins',sans-serif;letter-spacing:.08em;text-transform:uppercase;font-size:.78rem;padding:.85rem 2rem;border-radius:50px;border:1px solid rgba(255,255,255,.35);cursor:pointer;transition:all .3s;display:inline-flex;align-items:center;gap:.5rem;}
+.bo:hover{border-color:#D4AF37;color:#D4AF37;transform:translateY(-2px);}
+.sl{font-size:.72rem;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:#D4AF37;}
+.st{font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3.2rem);font-weight:700;line-height:1.2;}
+.gl{width:60px;height:2px;background:linear-gradient(90deg,#D4AF37,#E8C96A);border-radius:1px;}
+.ss{color:rgba(255,255,255,.5);line-height:1.8;max-width:600px;font-size:.98rem;}
+
+/* ── HERO ── */
+#hero{position:relative;height:100vh;min-height:700px;display:flex;align-items:center;justify-content:center;overflow:hidden;}
+#hbg{position:absolute;inset:0;background-image:url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1920&q=90');background-size:cover;background-position:center;will-change:transform;}
+.ho{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(10,10,10,.5),rgba(10,10,10,.75) 60%,rgba(10,10,10,.97));}
+.hc{position:relative;z-index:2;}
+.ht{font-family:'Playfair Display',serif;font-size:clamp(3.5rem,9vw,7rem);font-weight:800;line-height:1.0;}
+.si{position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);z-index:2;display:flex;flex-direction:column;align-items:center;gap:.5rem;animation:flt 2.5s ease-in-out infinite;}
+.sm{width:26px;height:40px;border:2px solid rgba(212,175,55,.6);border-radius:13px;display:flex;justify-content:center;padding-top:6px;}
+.sw{width:3px;height:8px;background:#D4AF37;border-radius:2px;animation:sw 1.5s ease-in-out infinite;}
+@keyframes sw{0%{opacity:1;transform:translateY(0)}100%{opacity:0;transform:translateY(10px)}}
+@keyframes flt{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(-10px)}}
+
+/* ── GLASS CARD ── */
+.gc{background:rgba(255,255,255,.04);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.08);border-radius:20px;transition:all .4s;}
+.gc:hover{background:rgba(255,255,255,.07);border-color:rgba(212,175,55,.25);transform:translateY(-6px);box-shadow:0 20px 60px rgba(0,0,0,.4);}
+.fi{width:60px;height:60px;border-radius:14px;background:rgba(212,175,55,.1);border:1px solid rgba(212,175,55,.2);display:flex;align-items:center;justify-content:center;font-size:1.4rem;color:#D4AF37;transition:all .3s;flex-shrink:0;}
+.gc:hover .fi{background:rgba(212,175,55,.18);transform:scale(1.1) rotate(3deg);}
+
+/* ── MENU ── */
+.mt{font-size:.78rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;padding:.65rem 1.4rem;border-radius:50px;cursor:pointer;transition:all .3s;border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.6);background:transparent;white-space:nowrap;}
+.mt.ac,.mt:hover{background:linear-gradient(135deg,#D4AF37,#A8861C);color:#0A0A0A;border-color:transparent;box-shadow:0 4px 20px rgba(212,175,55,.4);}
+.mc{background:#1A1A1A;border:1px solid #2A2A2A;border-radius:20px;overflow:hidden;transition:all .4s;}
+.mc:hover{border-color:rgba(212,175,55,.3);transform:translateY(-8px);box-shadow:0 25px 60px rgba(0,0,0,.5);}
+.mc img{width:100%;height:220px;object-fit:cover;transition:transform .6s;display:block;}
+.mc:hover img{transform:scale(1.08);}
+.pb{background:linear-gradient(135deg,#D4AF37,#A8861C);color:#0A0A0A;font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.3rem .8rem;border-radius:50px;}
+
+/* ── GALLERY ── */
+.gi{position:relative;overflow:hidden;border-radius:16px;cursor:pointer;}
+.gi img{width:100%;height:100%;object-fit:cover;transition:transform .6s;display:block;}
+.gi:hover img{transform:scale(1.1);}
+.gov{position:absolute;inset:0;background:rgba(0,0,0,.5);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .4s;}
+.gi:hover .gov{opacity:1;}
+
+/* ── CHEFS ── */
+.cc{position:relative;overflow:hidden;border-radius:24px;}
+.cc img{width:100%;height:400px;object-fit:cover;filter:grayscale(20%);transition:all .6s;display:block;}
+.cc:hover img{transform:scale(1.05);filter:grayscale(0%);}
+.cov{position:absolute;inset:0;background:linear-gradient(to top,rgba(10,10,10,.95),rgba(10,10,10,.3) 60%,transparent);}
+.ci{position:absolute;bottom:0;left:0;right:0;padding:1.8rem;transform:translateY(60px);transition:transform .4s;}
+.cc:hover .ci{transform:translateY(0);}
+.cs{opacity:0;transition:opacity .4s .1s;}
+.cc:hover .cs{opacity:1;}
+@media(max-width:768px){.cc img{height:320px;}.ci{transform:translateY(0);}.cs{opacity:1;}}
+
+/* ── STATS ── */
+.sn{font-family:'Playfair Display',serif;font-size:clamp(2.5rem,5vw,3.5rem);font-weight:700;}
+
+/* ── TESTIMONIAL ── */
+.ttr{display:flex;transition:transform .6s cubic-bezier(.25,.46,.45,.94);}
+.ts{min-width:100%;padding:0 .5rem;}
+
+/* ── FAQ ── */
+.fi2{border-bottom:1px solid #2A2A2A;}
+.fa{max-height:0;overflow:hidden;transition:max-height .4s;}
+.fa.op{max-height:300px;}
+
+/* ── FORM ── */
+.fg{position:relative;}
+.fin{width:100%;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:1.1rem 1.2rem .5rem;color:#fff;font-family:'Poppins',sans-serif;font-size:.9rem;transition:border-color .3s,background .3s;outline:none;}
+.fin:focus{border-color:#D4AF37;background:rgba(212,175,55,.04);}
+.fla{position:absolute;top:50%;left:1.2rem;transform:translateY(-50%);font-size:.88rem;color:rgba(255,255,255,.4);pointer-events:none;transition:all .3s;font-family:'Poppins',sans-serif;}
+.fin:focus~.fla,.fin:not(:placeholder-shown)~.fla{top:.55rem;font-size:.64rem;color:#D4AF37;letter-spacing:.05em;transform:none;}
+textarea.fin{min-height:110px;padding-top:1.4rem;resize:none;}
+textarea.fin~.fla{top:1.1rem;transform:none;}
+textarea.fin:focus~.fla,textarea.fin:not(:placeholder-shown)~.fla{top:.5rem;}
+
+/* ── NEWSLETTER ── */
+.ni{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:50px 0 0 50px;padding:.9rem 1.5rem;color:#fff;font-family:'Poppins',sans-serif;outline:none;flex:1;min-width:0;}
+.ni::placeholder{color:rgba(255,255,255,.35);}
+.ni:focus{border-color:#D4AF37;}
+
+/* ── FOOTER ── */
+.fl{color:rgba(255,255,255,.45);font-size:.88rem;transition:color .3s;}
+.fl:hover{color:#D4AF37;}
+
+/* ── BACK TOP ── */
+#bt{position:fixed;bottom:2rem;right:2rem;width:50px;height:50px;background:linear-gradient(135deg,#D4AF37,#A8861C);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#0A0A0A;font-size:1.1rem;cursor:pointer;z-index:999;opacity:0;visibility:hidden;transform:translateY(20px);transition:all .3s;box-shadow:0 4px 20px rgba(212,175,55,.5);border:none;}
+#bt.v{opacity:1;visibility:visible;transform:translateY(0);}
+#bt:hover{transform:translateY(-3px);box-shadow:0 8px 30px rgba(212,175,55,.6);}
+
+/* ── LIGHTBOX ── */
+#lb{position:fixed;inset:0;background:rgba(0,0,0,.94);z-index:9998;display:none;align-items:center;justify-content:center;backdrop-filter:blur(8px);}
+#lb.op{display:flex;}
+#lb img{max-width:90vw;max-height:85vh;border-radius:12px;box-shadow:0 30px 80px rgba(0,0,0,.8);object-fit:contain;}
+
+/* ── MOBILE MENU ── */
+#mm{position:fixed;inset:0;background:rgba(10,10,10,.98);backdrop-filter:blur(20px);z-index:998;display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transition:all .4s;}
+#mm.op{opacity:1;visibility:visible;}
+.mml{font-family:'Playfair Display',serif;font-size:2.4rem;font-weight:600;color:rgba(255,255,255,.8);text-align:center;display:block;padding:.45rem 0;transition:color .3s;}
+.mml:hover{color:#D4AF37;}
+
+/* ── SPECIAL DISH CARD ── */
+.spc{position:relative;border-radius:24px;overflow:hidden;}
+.spc img{width:100%;object-fit:cover;transition:transform .8s;display:block;}
+.spc:hover img{transform:scale(1.06);}
+.sov{position:absolute;inset:0;background:linear-gradient(to top,rgba(10,10,10,.98),rgba(10,10,10,.4) 50%,transparent);}
+.sct{position:absolute;bottom:0;left:0;right:0;padding:2.2rem;}
+
+/* ── INSTAGRAM ── */
+.ig{aspect-ratio:1;overflow:hidden;border-radius:12px;cursor:pointer;position:relative;}
+.ig img{width:100%;height:100%;object-fit:cover;transition:transform .5s;display:block;}
+.ig:hover img{transform:scale(1.12);}
+.iov{position:absolute;inset:0;background:rgba(212,175,55,.25);opacity:0;transition:opacity .4s;display:flex;align-items:center;justify-content:center;}
+.ig:hover .iov{opacity:1;}
+
+.stars{color:#D4AF37;letter-spacing:2px;}
+.f1{animation:flt2 6s ease-in-out infinite;}
+.f2{animation:flt2 6s ease-in-out 2s infinite;}
+@keyframes flt2{0%,100%{transform:translateY(0)}50%{transform:translateY(-16px)}}
+</style>
+</head>
+<body>
+
+<!-- LOADING -->
+<div id="ls"><div style="text-align:center"><div class="ll">LUXE</div><p style="font-size:.65rem;letter-spacing:.4em;color:rgba(255,255,255,.3);margin-top:.4rem;text-transform:uppercase;">Restaurant</p><div class="lb"><div class="lbi"></div></div><p style="font-size:.65rem;color:rgba(255,255,255,.2);margin-top:.9rem;letter-spacing:.15em;">Experience Culinary Excellence</p></div></div>
+
+<!-- NAVBAR -->
+<nav id="nb" class="w-full">
+  <div class="max-w-7xl mx-auto px-6 flex items-center justify-between">
+    <a href="#hero" class="flex items-center gap-2">
+      <span class="font-playfair text-2xl font-bold gt">LUXE</span>
+      <span style="width:1px;height:24px;background:rgba(212,175,55,.3);display:inline-block;"></span>
+      <span style="font-size:.62rem;letter-spacing:.2em;color:rgba(255,255,255,.38);text-transform:uppercase;">Restaurant</span>
+    </a>
+    <div class="hidden lg:flex items-center gap-7">
+      <a href="#about" class="nl">About</a><a href="#menu" class="nl">Menu</a><a href="#gallery" class="nl">Gallery</a><a href="#chefs" class="nl">Chefs</a><a href="#testimonials" class="nl">Reviews</a><a href="#faq" class="nl">FAQ</a><a href="#contact" class="nl">Contact</a>
+    </div>
+    <div class="hidden lg:flex"><a href="#reservation" class="bg"><i class="fa-solid fa-calendar-check"></i> Book Table</a></div>
+    <button id="hb" class="lg:hidden flex flex-col gap-1.5 z-[999] relative" aria-label="Toggle Menu">
+      <span class="hl" style="display:block;width:28px;height:2px;background:#fff;border-radius:2px;transition:all .3s;"></span>
+      <span class="hl" style="display:block;width:20px;height:2px;background:#D4AF37;border-radius:2px;transition:all .3s;"></span>
+      <span class="hl" style="display:block;width:28px;height:2px;background:#fff;border-radius:2px;transition:all .3s;"></span>
+    </button>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div id="mm">
+  <div style="text-align:center;display:flex;flex-direction:column;gap:.5rem;">
+    <a href="#about" class="mml" onclick="cMM()">About</a><a href="#menu" class="mml" onclick="cMM()">Menu</a><a href="#gallery" class="mml" onclick="cMM()">Gallery</a><a href="#chefs" class="mml" onclick="cMM()">Chefs</a><a href="#testimonials" class="mml" onclick="cMM()">Reviews</a><a href="#faq" class="mml" onclick="cMM()">FAQ</a><a href="#contact" class="mml" onclick="cMM()">Contact</a>
+    <a href="#reservation" class="bg" style="margin-top:1.5rem;justify-content:center;" onclick="cMM()"><i class="fa-solid fa-calendar-check"></i> Book Table</a>
+  </div>
+</div>
+
+<!-- HERO -->
+<section id="hero" class="relative">
+  <div id="hbg"></div>
+  <div class="ho"></div>
+  <div class="hc text-center px-6 max-w-5xl mx-auto">
+    <div data-aos="fade-down" data-aos-duration="800"><p class="sl mb-6">Since 1998 &nbsp;·&nbsp; Fine Dining Experience</p></div>
+    <h1 class="ht text-white mb-5" data-aos="fade-up" data-aos-delay="100" data-aos-duration="1000">Experience<br/><em class="gt">Culinary</em><br/>Excellence</h1>
+    <p style="font-size:1rem;font-weight:300;letter-spacing:.06em;color:rgba(255,255,255,.62);max-width:520px;margin:0 auto 2.5rem;line-height:1.85;" data-aos="fade-up" data-aos-delay="250">Where every dish tells a story of passion, precision, and the finest ingredients from around the world.</p>
+    <div class="flex flex-wrap items-center justify-center gap-4" data-aos="fade-up" data-aos-delay="400">
+      <a href="#reservation" class="bg"><i class="fa-solid fa-calendar-check"></i> Book a Table</a>
+      <a href="#menu" class="bo"><i class="fa-solid fa-utensils"></i> View Menu</a>
+    </div>
+    <div class="flex flex-wrap items-center justify-center gap-6 mt-14" data-aos="fade-up" data-aos-delay="550">
+      <div class="flex items-center gap-2" style="color:rgba(255,255,255,.42);font-size:.72rem;"><i class="fa-solid fa-star" style="color:#D4AF37;"></i><span style="letter-spacing:.1em;text-transform:uppercase;">Michelin Star 2024</span></div>
+      <span style="width:1px;height:14px;background:rgba(255,255,255,.15);"></span>
+      <div class="flex items-center gap-2" style="color:rgba(255,255,255,.42);font-size:.72rem;"><i class="fa-solid fa-award" style="color:#D4AF37;"></i><span style="letter-spacing:.1em;text-transform:uppercase;">Best Restaurant Europe</span></div>
+      <span style="width:1px;height:14px;background:rgba(255,255,255,.15);"></span>
+      <div class="flex items-center gap-2" style="color:rgba(255,255,255,.42);font-size:.72rem;"><i class="fa-solid fa-wine-glass" style="color:#D4AF37;"></i><span style="letter-spacing:.1em;text-transform:uppercase;">Wine Spectator Award</span></div>
+    </div>
+  </div>
+  <div class="si"><div class="sm"><div class="sw"></div></div><p style="font-size:.62rem;color:rgba(255,255,255,.28);letter-spacing:.3em;text-transform:uppercase;">Scroll</p></div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="py-28 relative overflow-hidden">
+  <div style="position:absolute;top:0;left:0;width:400px;height:400px;background:radial-gradient(circle,rgba(212,175,55,.05),transparent 70%);pointer-events:none;"></div>
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="grid lg:grid-cols-2 gap-16 items-center">
+      <div class="relative" data-aos="fade-right" data-aos-duration="900">
+        <div style="position:relative;border-radius:24px;overflow:hidden;aspect-ratio:4/5;">
+          <img src="https://images.unsplash.com/photo-1552566626-52f8b828a9b3?w=800&q=85" alt="LUXE Interior" style="width:100%;height:100%;object-fit:cover;"/>
+          <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(10,10,10,.6),transparent);"></div>
+        </div>
+        <div class="gc" style="position:absolute;bottom:-1.5rem;right:-1rem;padding:1.2rem;max-width:270px;z-index:10;" data-aos="zoom-in" data-aos-delay="300">
+          <div class="flex items-center gap-4"><div class="fi" style="width:46px;height:46px;font-size:1.1rem;flex-shrink:0;"><i class="fa-solid fa-trophy"></i></div><div><p style="color:#D4AF37;font-weight:600;font-size:.82rem;">Michelin Star</p><p style="color:rgba(255,255,255,.4);font-size:.7rem;">Awarded 2020–2024</p></div></div>
+        </div>
+        <div class="hidden sm:block f2" style="position:absolute;top:-1.5rem;right:-2.5rem;width:150px;height:200px;border-radius:16px;overflow:hidden;border:2px solid rgba(255,255,255,.08);box-shadow:0 20px 60px rgba(0,0,0,.5);z-index:10;"><img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400&q=80" alt="Signature Dish" style="width:100%;height:100%;object-fit:cover;"/></div>
+      </div>
+      <div data-aos="fade-left" data-aos-duration="900" data-aos-delay="100">
+        <p class="sl mb-3">Our Story</p>
+        <div class="gl mb-6"></div>
+        <h2 class="st text-white mb-6">A Legacy of <em class="gt">Passion</em><br/>&amp; Perfection</h2>
+        <p style="color:rgba(255,255,255,.5);line-height:1.85;margin-bottom:1.25rem;font-size:.95rem;">Founded in 1998 by Chef Alessandro Moretti, LUXE was born from a simple belief — that extraordinary food can transform an ordinary evening into an unforgettable memory. Nestled in the heart of Paris, we have spent over two decades curating an experience that marries classical French technique with the boldest flavours of the Mediterranean.</p>
+        <p style="color:rgba(255,255,255,.5);line-height:1.85;margin-bottom:2.5rem;font-size:.95rem;">Every dish is a canvas. Every ingredient is chosen with intention. Every guest is treated like royalty. This is not just a restaurant — this is LUXE.</p>
+        <div class="grid grid-cols-2 gap-4 mb-10">
+          <div class="flex items-start gap-3"><div class="fi" style="width:34px;height:34px;font-size:.85rem;flex-shrink:0;margin-top:2px;"><i class="fa-solid fa-leaf"></i></div><div><p style="font-weight:600;font-size:.85rem;margin-bottom:2px;">Farm to Table</p><p style="color:rgba(255,255,255,.35);font-size:.72rem;">Locally sourced, seasonal</p></div></div>
+          <div class="flex items-start gap-3"><div class="fi" style="width:34px;height:34px;font-size:.85rem;flex-shrink:0;margin-top:2px;"><i class="fa-solid fa-star"></i></div><div><p style="font-weight:600;font-size:.85rem;margin-bottom:2px;">Michelin Starred</p><p style="color:rgba(255,255,255,.35);font-size:.72rem;">5 consecutive years</p></div></div>
+          <div class="flex items-start gap-3"><div class="fi" style="width:34px;height:34px;font-size:.85rem;flex-shrink:0;margin-top:2px;"><i class="fa-solid fa-wine-bottle"></i></div><div><p style="font-weight:600;font-size:.85rem;margin-bottom:2px;">Curated Wine</p><p style="color:rgba(255,255,255,.35);font-size:.72rem;">500+ labels worldwide</p></div></div>
+          <div class="flex items-start gap-3"><div class="fi" style="width:34px;height:34px;font-size:.85rem;flex-shrink:0;margin-top:2px;"><i class="fa-solid fa-users"></i></div><div><p style="font-weight:600;font-size:.85rem;margin-bottom:2px;">Private Events</p><p style="color:rgba(255,255,255,.35);font-size:.72rem;">Bespoke dining</p></div></div>
+        </div>
+        <a href="#reservation" class="bg"><i class="fa-solid fa-calendar-check"></i> Reserve Your Table</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="py-24 relative overflow-hidden" style="background:linear-gradient(180deg,#111 0%,#0A0A0A 100%);">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="text-center mb-16" data-aos="fade-up"><p class="sl mb-3">Why Choose Us</p><div class="gl mx-auto mb-6"></div><h2 class="st text-white mb-4">The <em class="gt">LUXE</em> Difference</h2><p class="ss mx-auto text-center">Every detail crafted to deliver an unparalleled dining experience.</p></div>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div class="gc p-7" data-aos="fade-up" data-aos-delay="0"><div class="fi mb-5"><i class="fa-solid fa-gem"></i></div><h3 style="font-family:'Playfair Display',serif;font-weight:600;font-size:1.05rem;margin-bottom:.5rem;">Premium Ingredients</h3><p style="color:rgba(255,255,255,.4);font-size:.84rem;line-height:1.7;">Sourced from the world's finest farms, fisheries and artisan producers.</p></div>
+      <div class="gc p-7" data-aos="fade-up" data-aos-delay="80"><div class="fi mb-5"><i class="fa-solid fa-hat-chef"></i></div><h3 style="font-family:'Playfair Display',serif;font-weight:600;font-size:1.05rem;margin-bottom:.5rem;">Master Chefs</h3><p style="color:rgba(255,255,255,.4);font-size:.84rem;line-height:1.7;">Led by Michelin-starred chefs with decades of culinary mastery.</p></div>
+      <div class="gc p-7" data-aos="fade-up" data-aos-delay="160"><div class="fi mb-5"><i class="fa-solid fa-fish"></i></div><h3 style="font-family:'Playfair Display',serif;font-weight:600;font-size:1.05rem;margin-bottom:.5rem;">Fresh Seafood</h3><p style="color:rgba(255,255,255,.4);font-size:.84rem;line-height:1.7;">Daily coastal deliveries — from ocean to plate in hours.</p></div>
+      <div class="gc p-7" data-aos="fade-up" data-aos-delay="240"><div class="fi mb-5"><i class="fa-solid fa-seedling"></i></div><h3 style="font-family:'Playfair Display',serif;font-weight:600;font-size:1.05rem;margin-bottom:.5rem;">Organic &amp; Local</h3><p style="color:rgba(255,255,255,.4);font-size:.84rem;line-height:1.7;">Local organic farm partnerships for the purest flavours.</p></div>
+      <div class="gc p-7" data-aos="fade-up" data-aos-delay="0"><div class="fi mb-5"><i class="fa-solid fa-champagne-glasses"></i></div><h3 style="font-family:'Playfair Display',serif;font-weight:600;font-size:1.05rem;margin-bottom:.5rem;">Fine Dining</h3><p style="color:rgba(255,255,255,.4);font-size:.84rem;line-height:1.7;">Refined elegance for your most special occasions.</p></div>
+      <div class="gc p-7" data-aos="fade-up" data-aos-delay="80"><div class="fi mb-5"><i class="fa-solid fa-calendar-days"></i></div><h3 style="font-family:'Playfair Display',serif;font-weight:600;font-size:1.05rem;margin-bottom:.5rem;">Private Events</h3><p style="color:rgba(255,255,255,.4);font-size:.84rem;line-height:1.7;">Bespoke menus and exclusive spaces for private dining.</p></div>
+      <div class="gc p-7" data-aos="fade-up" data-aos-delay="160"><div class="fi mb-5"><i class="fa-solid fa-spa"></i></div><h3 style="font-family:'Playfair Display',serif;font-weight:600;font-size:1.05rem;margin-bottom:.5rem;">Luxury Atmosphere</h3><p style="color:rgba(255,255,255,.4);font-size:.84rem;line-height:1.7;">Award-winning interior design for every occasion.</p></div>
+      <div class="gc p-7" data-aos="fade-up" data-aos-delay="240"><div class="fi mb-5"><i class="fa-solid fa-clock"></i></div><h3 style="font-family:'Playfair Display',serif;font-weight:600;font-size:1.05rem;margin-bottom:.5rem;">Fast Reservation</h3><p style="color:rgba(255,255,255,.4);font-size:.84rem;line-height:1.7;">Instant table booking with confirmation within minutes.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- MENU -->
+<section id="menu" class="py-28 relative overflow-hidden">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="text-center mb-14" data-aos="fade-up"><p class="sl mb-3">Our Menu</p><div class="gl mx-auto mb-6"></div><h2 class="st text-white mb-4">A Symphony of <em class="gt">Flavours</em></h2><p class="ss mx-auto text-center">Each dish is a masterwork — conceived with creativity, executed with precision.</p></div>
+    <div class="flex items-center justify-center gap-3 mb-12 flex-wrap" data-aos="fade-up" data-aos-delay="100">
+      <button class="mt ac" onclick="switchTab(this,'starters')">Starters</button>
+      <button class="mt" onclick="switchTab(this,'mains')">Main Courses</button>
+      <button class="mt" onclick="switchTab(this,'seafood')">Seafood</button>
+      <button class="mt" onclick="switchTab(this,'desserts')">Desserts</button>
+      <button class="mt" onclick="switchTab(this,'drinks')">Drinks</button>
+    </div>
+
+    <div id="tab-starters" class="tc grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div class="mc" data-aos="zoom-in" data-aos-delay="0"><div style="position:relative;overflow:hidden;"><img src="https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=600&q=85" alt="Tuna Tartare"/><span class="pb" style="position:absolute;top:12px;left:12px;">Popular</span></div><div style="padding:1.2rem;"><div class="stars" style="font-size:.82rem;margin-bottom:.5rem;">&#9733;&#9733;&#9733;&#9733;&#9733;</div><h3 style="font-family:'Playfair Display',serif;font-weight:600;font-size:.98rem;margin-bottom:.35rem;">Tuna Tartare</h3><p style="color:rgba(255,255,255,.36);font-size:.76rem;margin-bottom:.9rem;line-height:1.6;">Bluefin tuna, avocado cream, yuzu, micro herbs</p><div style="display:flex;align-items:center;justify-content:space-between;"><span class="gt" style="font-family:'Playfair Display',serif;font-weight:700;font-size:1.15rem;">&#8364; 28</span><button class="addb">+</button></div></div></div>
+      <div class="mc" data-aos="zoom-in" data-aos-delay="80"><div style="position:relative;overflow:hidden;"><img src="https://images.unsplash.com/photo-1626082927389-6cd097cee6a3?w=600&q=85" alt="Burrata"/></div><div style="padding:1.2rem;"><div class="stars" style="font-size:.82rem;margin-bottom:.5rem;">&#9733;&#9733;&#9733;&#9733;&#9733;</div><h3 style="font-family:'Playfair Display',serif;font-weight:600;font-size:.98rem;margin-bottom:.35rem;">Burrata Royale</h3><p style="color:rgba(255,255,255,.36);font-size:.76rem;margin-bottom:.9rem;line-height:1.6;">Fresh burrata, heirloom tomatoes, black truffle</p><div style="display:flex;align-items:center;justify-content:space-between;"><span class="gt" style="font-family:'Playfair Display',serif;font-weight:700;font-size:1.15rem;">&#8364; 24</span><button class="addb">+</button></div></div></div>
+      <div class="mc" data-aos="zoom-in" data-aos-delay="160"><div style="position:relative;overflow:hidden;"><img src="https://images.unsplash.com/photo-1559847844-5315695dadae?w=600&q=85" alt="Foie Gras"/><span class="pb" style="position:absolute;top:12px;left:12px;">Chef's Pick</span></div><div style="padding:1.2rem;"><div class="stars" style="font-size:.82rem;margin-bottom:.5rem;">&#9733;&#9733;&#9733;&#9733;&#9733;</div><h3 style="font-family:'Playfair Display',serif;font-weight:600;font-size:.98rem;margin-bottom:.35rem;">Foie Gras Torchon</h3><p style="color:rgba(255,255,255,.36);font-size:.76rem;margin-bottom:.9rem;line-height:1.6;">Duck foie gras, Sauternes jelly, brioche</p><div style="display:flex;align-items:center;justify-content:space-between;"><span class="gt" style="font-family:'Playfair Display',serif;font-weight:700;font-size:1.15rem;">&#8364; 38</span><button class="addb">+</button></div></div></div>
+      <div class="mc" data-aos="zoom-in" data-aos-delay="240"><div style="position:relative;overflow:hidden;"><img src="https://images.unsplash.com/photo-1534482421-64566f976cfa?w=600&q=85" alt="Lobster Bisque"/></div><div style="padding:1.2rem;"><div class="stars" style="font-size:.82rem;margin-bottom:.5rem;">&#9733;&#9733;&#9733;&#9733;&#9734;</div><h3 style="font-family:'Playfair Display',serif;font-weight:600;font-size:.98rem;margin-bottom:.35rem;">Lobster Bisque</h3><p style="color:rgba(255,255,255,.36);font-size:.76rem;margin-bottom:.9rem;line-height:1.6;">Velvety lobster cream, Cognac foam, croutons</p><div style="display:flex;align-items:center;justify-content:space-between;"><span class="gt" style="font-family:'Playfair Display',serif;font-weight:700;font-size:1.15rem;">&#8364; 32</span><button class="addb">+</button></div></div></div>
+    </div>
+
+    <div id="tab-mains" class="tc hidden grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div class="mc" data-aos="zoom-in"><div style="position:relative;overflow:hidden;"><img src="https://images.unsplash.com/photo-1544025162-d76594e64ead?w=600&q=85" alt="Wagyu"/><span class="pb" style="position:absolute;top:12px;left:12px;">Signature</span></div><div style="padding:1.2rem;"><div class="stars" style="font-size:.82rem;margin-bottom:.5rem;">&#9733;&#9733;&#9733;&#9733;&#9733;</div><h3 style="font-family:'Playfair Display',serif;font-weight:600;font-size:.98rem;margin-bottom:.35rem;">A5 Wagyu Tenderloin</h3><p style="color:rgba(255,255,255,.36);font-size:.76rem;margin-bottom:.9rem;line-height:1.6;">Japanese Wagyu A5, bone marrow jus, truffle</p><div style="display:flex;align-items:center;justify-content:space-between;"><span class="gt" style="font-family:'Playfair Display',serif;font-weight:700;font-size:1.15rem;">&#8364; 145</span><button class="addb">+</button></div></div></div>
+      <div class="mc" data-aos="zoom-in" data-aos-delay="80"><div style="position:relative;overflow:hidden;"><img src="https://images.unsplash.com/photo-1611599537845-1c7aca0091c0?w=600&q=85" alt="Duck"/></div><div style="padding:1.2rem;"><div class="stars" style="font-size:.82rem;margin-bottom:.5rem;">&#9733;&#9733;&#9733;&#9733;&#9733;</div><h3 style="font-family:'Playfair Display',serif;font-weight:600;font-size:.98rem;margin-bottom:.35rem;">Duck Confit</h3><p style="color:rgba(255,255,255,.36);font-size:.76rem;margin-bottom:.9rem;line-height:1.6;">Slow-cooked duck, cherry gastrique, dauphinoise</p><div style="display:flex;align-items:center;justify-content:space-between;"><span class="gt" style="font-family:'Playfair Display',serif;font-weight:700;font-size:1.15rem;">&#8364; 68</span><button class="addb">+</button></div></div></div>
+      <div class="mc" data-aos="zoom-in" data-aos-delay="160"><div style="position:relative;overflow:hidden;"><img src="https://images.unsplash.com/photo-1432139509613-5c4255815697?w=600&q=85" alt="Lamb"/><span class="pb" style="position:absolute;top:12px;left:12px;">Best Seller</span></div><div style="padding:1.2rem;"><div class="stars" style="font-size:.82rem;margin-bottom:.5rem;">&#9733;&#9733;&#9733;&#9733;&#9733;</div><h3 style="font-family:'Playfair Display',serif;font-weight:600;font-size:.98rem;margin-bottom:.35rem;">Rack of Lamb</h3><p style="color:rgba(255,255,255,.36);font-size:.76rem;margin-bottom:.9rem;line-height:1.6;">Herb-crusted French rack, minted pea purée</p><div style="display:flex;align-items:center;justify-content:space-between;"><span class="gt" style="font-family:'Playfair Display',serif;font-weight:700;font-size:1.15rem;">&#8364; 85</span><button class="addb">+</button></div></div></div>
+      <div class="mc" data-aos="zoom-in" data-aos-delay="240"><div style="position:relative;overflow:hidden;"><img src="https://images.unsplash.com/photo-1476224203421-9ac39bcb3327?w=600&q=85" alt="Risotto"/></div><div style="padding:1.2rem;"><div class="stars" style="font-size:.82rem;margin-bottom:.5rem;">&#9733;&#9733;&#9733;&#9733;&#9733;</div><h3 style="font-family:'Playfair Display',serif;font-weight:600;font-size:.98rem;margin-bottom:.35rem;">Black Truffle Risotto</h3><p style="color:rgba(255,255,255,.36);font-size:.76rem;margin-bottom:.9rem;line-height:1.6;">Périgord truffle, aged Parmigiano, Champagne</p><div style="display:flex;align-items:center;justify-content:space-between;"><span class="gt" style="font-family:'Playfair Display',serif;font-weight:700;font-size:1.15rem;">&#8364; 72</span><button class="addb">+</button></div></div></div>
+    </div>
+
+    <div id="tab-seafood" class="tc hidden grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div class="mc" data-aos="zoom-in"><div style="position:relative;overflow:hidden;"><img src="https://images.unsplash.com/photo-1559742811-822873691df8?w=600&q=85" alt="Lobster"/><span class="pb" style="position:absolute;top:12px;left:12px;">Premium</span></div><div style="padding:1.2rem;"><div class="stars" style="font-size:.82rem;margin-bottom:.5rem;">&#9733;&#9733;&#9733;&#9733;&#9733;</div><h3 style="font-family:'Playfair Display',serif;font-weight:600;font-size:.98rem;margin-bottom:.35rem;">Lobster Thermidor</h3><p style="color:rgba(255,255,255,.36);font-size:.76rem;margin-bottom:.9rem;line-height:1.6;">Whole Atlantic lobster, Cognac cream, Gruyère</p><div style="display:flex;align-items:center;justify-content:space-between;"><span class="gt" style="font-family:'Playfair Display',serif;font-weight:700;font-size:1.15rem;">&#8364; 125</span><button class="addb">+</button></div></div></div>
+      <div class="mc" data-aos="zoom-in" data-aos-delay="80"><div style="position:relative;overflow:hidden;"><img src="https://images.unsplash.com/photo-1565680018434-b513d5e5fd47?w=600&q=85" alt="Sea Bass"/></div><div style="padding:1.2rem;"><div class="stars" style="font-size:.82rem;margin-bottom:.5rem;">&#9733;&#9733;&#9733;&#9733;&#9733;</div><h3 style="font-family:'Playfair Display',serif;font-weight:600;font-size:.98rem;margin-bottom:.35rem;">Pan-Seared Sea Bass</h3><p style="color:rgba(255,255,255,.36);font-size:.76rem;margin-bottom:.9rem;line-height:1.6;">Wild sea bass, saffron beurre blanc, samphire</p><div style="display:flex;align-items:center;justify-content:space-between;"><span class="gt" style="font-family:'Playfair Display',serif;font-weight:700;font-size:1.15rem;">&#8364; 68</span><button class="addb">+</button></div></div></div>
+      <div class="mc" data-aos="zoom-in" data-aos-delay="160"><div style="position:relative;overflow:hidden;"><img src="https://images.unsplash.com/photo-1485921325833-c519f76c4927?w=600&q=85" alt="Prawns"/></div><div style="padding:1.2rem;"><div class="stars" style="font-size:.82rem;margin-bottom:.5rem;">&#9733;&#9733;&#9733;&#9733;&#9734;</div><h3 style="font-family:'Playfair Display',serif;font-weight:600;font-size:.98rem;margin-bottom:.35rem;">Tiger King Prawns</h3><p style="color:rgba(255,255,255,.36);font-size:.76rem;margin-bottom:.9rem;line-height:1.6;">Jumbo tiger prawns, garlic bisque, lemon butter</p><div style="display:flex;align-items:center;justify-content:space-between;"><span class="gt" style="font-family:'Playfair Display',serif;font-weight:700;font-size:1.15rem;">&#8364; 55</span><button class="addb">+</button></div></div></div>
+      <div class="mc" data-aos="zoom-in" data-aos-delay="240"><div style="position:relative;overflow:hidden;"><img src="https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=600&q=85" alt="Salmon"/></div><div style="padding:1.2rem;"><div class="stars" style="font-size:.82rem;margin-bottom:.5rem;">&#9733;&#9733;&#9733;&#9733;&#9733;</div><h3 style="font-family:'Playfair Display',serif;font-weight:600;font-size:.98rem;margin-bottom:.35rem;">Sous Vide Salmon</h3><p style="color:rgba(255,255,255,.36);font-size:.76rem;margin-bottom:.9rem;line-height:1.6;">Norwegian salmon, dill crème fraîche, caviar</p><div style="display:flex;align-items:center;justify-content:space-between;"><span class="gt" style="font-family:'Playfair Display',serif;font-weight:700;font-size:1.15rem;">&#8364; 62</span><button class="addb">+</button></div></div></div>
+    </div>
+
+    <div id="tab-desserts" class="tc hidden grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div class="mc" data-aos="zoom-in"><div style="position:relative;overflow:hidden;"><img src="https://images.unsplash.com/photo-1488477181946-6428a0291777?w=600&q=85" alt="Creme Brulee"/><span class="pb" style="position:absolute;top:12px;left:12px;">Classic</span></div><div style="padding:1.2rem;"><div class="stars" style="font-size:.82rem;margin-bottom:.5rem;">&#9733;&#9733;&#9733;&#9733;&#9733;</div><h3 style="font-family:'Playfair Display',serif;font-weight:600;font-size:.98rem;margin-bottom:.35rem;">Vanilla Crème Brûlée</h3><p style="color:rgba(255,255,255,.36);font-size:.76rem;margin-bottom:.9rem;line-height:1.6;">Madagascar vanilla, caramelized crust, berries</p><div style="display:flex;align-items:center;justify-content:space-between;"><span class="gt" style="font-family:'Playfair Display',serif;font-weight:700;font-size:1.15rem;">&#8364; 18</span><button class="addb">+</button></div></div></div>
+      <div class="mc" data-aos="zoom-in" data-aos-delay="80"><div style="position:relative;overflow:hidden;"><img src="https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?w=600&q=85" alt="Fondant"/><span class="pb" style="position:absolute;top:12px;left:12px;">Popular</span></div><div style="padding:1.2rem;"><div class="stars" style="font-size:.82rem;margin-bottom:.5rem;">&#9733;&#9733;&#9733;&#9733;&#9733;</div><h3 style="font-family:'Playfair Display',serif;font-weight:600;font-size:.98rem;margin-bottom:.35rem;">Chocolate Fondant</h3><p style="color:rgba(255,255,255,.36);font-size:.76rem;margin-bottom:.9rem;line-height:1.6;">Valrhona dark chocolate, salted caramel centre</p><div style="display:flex;align-items:center;justify-content:space-between;"><span class="gt" style="font-family:'Playfair Display',serif;font-weight:700;font-size:1.15rem;">&#8364; 22</span><button class="addb">+</button></div></div></div>
+      <div class="mc" data-aos="zoom-in" data-aos-delay="160"><div style="position:relative;overflow:hidden;"><img src="https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?w=600&q=85" alt="Tart"/></div><div style="padding:1.2rem;"><div class="stars" style="font-size:.82rem;margin-bottom:.5rem;">&#9733;&#9733;&#9733;&#9733;&#9734;</div><h3 style="font-family:'Playfair Display',serif;font-weight:600;font-size:.98rem;margin-bottom:.35rem;">Lemon Tart</h3><p style="color:rgba(255,255,255,.36);font-size:.76rem;margin-bottom:.9rem;line-height:1.6;">Sicilian lemon curd, Italian meringue, almond</p><div style="display:flex;align-items:center;justify-content:space-between;"><span class="gt" style="font-family:'Playfair Display',serif;font-weight:700;font-size:1.15rem;">&#8364; 16</span><button class="addb">+</button></div></div></div>
+      <div class="mc" data-aos="zoom-in" data-aos-delay="240"><div style="position:relative;overflow:hidden;"><img src="https://images.unsplash.com/photo-1551024601-bec78aea704b?w=600&q=85" alt="Macarons"/></div><div style="padding:1.2rem;"><div class="stars" style="font-size:.82rem;margin-bottom:.5rem;">&#9733;&#9733;&#9733;&#9733;&#9733;</div><h3 style="font-family:'Playfair Display',serif;font-weight:600;font-size:.98rem;margin-bottom:.35rem;">French Macarons</h3><p style="color:rgba(255,255,255,.36);font-size:.76rem;margin-bottom:.9rem;line-height:1.6;">Ladurée-style macarons, gold leaf dusted</p><div style="display:flex;align-items:center;justify-content:space-between;"><span class="gt" style="font-family:'Playfair Display',serif;font-weight:700;font-size:1.15rem;">&#8364; 14</span><button class="addb">+</button></div></div></div>
+    </div>
+
+    <div id="tab-drinks" class="tc hidden grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div class="mc" data-aos="zoom-in"><div style="position:relative;overflow:hidden;"><img src="https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=600&q=85" alt="Wine"/><span class="pb" style="position:absolute;top:12px;left:12px;">Sommelier Pick</span></div><div style="padding:1.2rem;"><div class="stars" style="font-size:.82rem;margin-bottom:.5rem;">&#9733;&#9733;&#9733;&#9733;&#9733;</div><h3 style="font-family:'Playfair Display',serif;font-weight:600;font-size:.98rem;margin-bottom:.35rem;">Château Pétrus 2015</h3><p style="color:rgba(255,255,255,.36);font-size:.76rem;margin-bottom:.9rem;line-height:1.6;">Pomerol, Bordeaux — rich, plummy, exceptional</p><div style="display:flex;align-items:center;justify-content:space-between;"><span class="gt" style="font-family:'Playfair Display',serif;font-weight:700;font-size:1.15rem;">&#8364; 680</span><button class="addb">+</button></div></div></div>
+      <div class="mc" data-aos="zoom-in" data-aos-delay="80"><div style="position:relative;overflow:hidden;"><img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=85" alt="Champagne"/></div><div style="padding:1.2rem;"><div class="stars" style="font-size:.82rem;margin-bottom:.5rem;">&#9733;&#9733;&#9733;&#9733;&#9733;</div><h3 style="font-family:'Playfair Display',serif;font-weight:600;font-size:.98rem;margin-bottom:.35rem;">Dom Pérignon 2013</h3><p style="color:rgba(255,255,255,.36);font-size:.76rem;margin-bottom:.9rem;line-height:1.6;">Vintage Champagne, brioche notes, silky finish</p><div style="display:flex;align-items:center;justify-content:space-between;"><span class="gt" style="font-family:'Playfair Display',serif;font-weight:700;font-size:1.15rem;">&#8364; 380</span><button class="addb">+</button></div></div></div>
+      <div class="mc" data-aos="zoom-in" data-aos-delay="160"><div style="position:relative;overflow:hidden;"><img src="https://images.unsplash.com/photo-1551538827-9c037cb4f32a?w=600&q=85" alt="Cocktail"/></div><div style="padding:1.2rem;"><div class="stars" style="font-size:.82rem;margin-bottom:.5rem;">&#9733;&#9733;&#9733;&#9733;&#9734;</div><h3 style="font-family:'Playfair Display',serif;font-weight:600;font-size:.98rem;margin-bottom:.35rem;">Gold Rush Cocktail</h3><p style="color:rgba(255,255,255,.36);font-size:.76rem;margin-bottom:.9rem;line-height:1.6;">Aged Bourbon, honey, lemon, 24K gold flakes</p><div style="display:flex;align-items:center;justify-content:space-between;"><span class="gt" style="font-family:'Playfair Display',serif;font-weight:700;font-size:1.15rem;">&#8364; 38</span><button class="addb">+</button></div></div></div>
+      <div class="mc" data-aos="zoom-in" data-aos-delay="240"><div style="position:relative;overflow:hidden;"><img src="https://images.unsplash.com/photo-1544145945-f90425340c7e?w=600&q=85" alt="Coffee"/></div><div style="padding:1.2rem;"><div class="stars" style="font-size:.82rem;margin-bottom:.5rem;">&#9733;&#9733;&#9733;&#9733;&#9733;</div><h3 style="font-family:'Playfair Display',serif;font-weight:600;font-size:.98rem;margin-bottom:.35rem;">Black Ivory Coffee</h3><p style="color:rgba(255,255,255,.36);font-size:.76rem;margin-bottom:.9rem;line-height:1.6;">Thai Arabica, rare process, extraordinary finish</p><div style="display:flex;align-items:center;justify-content:space-between;"><span class="gt" style="font-family:'Playfair Display',serif;font-weight:700;font-size:1.15rem;">&#8364; 55</span><button class="addb">+</button></div></div></div>
+    </div>
+    <div class="text-center mt-14" data-aos="fade-up"><a href="#reservation" class="bo"><i class="fa-solid fa-book-open"></i> Download Full Menu</a></div>
+  </div>
+</section>
+
+<!-- SPECIAL DISHES -->
+<section class="py-24 relative overflow-hidden" style="background:#111;">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="text-center mb-14" data-aos="fade-up"><p class="sl mb-3">Featured Specials</p><div class="gl mx-auto mb-6"></div><h2 class="st text-white mb-4">Chef's <em class="gt">Masterpieces</em></h2></div>
+    <div class="grid lg:grid-cols-2 gap-8">
+      <div class="spc" data-aos="fade-right" data-aos-duration="900"><img src="https://images.unsplash.com/photo-1558030006-450675393462?w=900&q=85" alt="Wagyu Tasting" style="height:500px;"/><div class="sov"></div><div class="sct"><span class="sl" style="font-size:.62rem;margin-bottom:.5rem;display:block;">Signature Dish</span><h3 style="font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:700;margin-bottom:.7rem;line-height:1.2;">Golden Wagyu<br/>Tasting Experience</h3><p style="color:rgba(255,255,255,.5);font-size:.84rem;margin-bottom:1.2rem;">A five-course wagyu journey by Chef Alessandro</p><div style="display:flex;align-items:center;gap:1rem;"><span class="gt" style="font-family:'Playfair Display',serif;font-weight:700;font-size:1.5rem;">&#8364; 295/person</span><a href="#reservation" class="bg" style="padding:.5rem 1.2rem;font-size:.7rem;">Reserve</a></div></div></div>
+      <div style="display:grid;grid-template-rows:1fr 1fr;gap:2rem;">
+        <div class="spc" data-aos="fade-left" data-aos-delay="100"><img src="https://images.unsplash.com/photo-1534482421-64566f976cfa?w=900&q=85" alt="Seafood Tower" style="height:232px;"/><div class="sov"></div><div class="sct" style="padding:1.5rem;"><span class="sl" style="font-size:.62rem;margin-bottom:.4rem;display:block;">Weekend Special</span><h3 style="font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;margin-bottom:.6rem;">Royal Seafood Tower</h3><div style="display:flex;align-items:center;gap:.75rem;"><span class="gt" style="font-family:'Playfair Display',serif;font-weight:700;font-size:1.1rem;">&#8364; 165/person</span><a href="#reservation" class="bg" style="padding:.4rem 1rem;font-size:.7rem;">Reserve</a></div></div></div>
+        <div class="spc" data-aos="fade-left" data-aos-delay="200"><img src="https://images.unsplash.com/photo-1551024601-bec78aea704b?w=900&q=85" alt="Dessert" style="height:232px;"/><div class="sov"></div><div class="sct" style="padding:1.5rem;"><span class="sl" style="font-size:.62rem;margin-bottom:.4rem;display:block;">Pastry Special</span><h3 style="font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;margin-bottom:.6rem;">Dessert Dégustation</h3><div style="display:flex;align-items:center;gap:.75rem;"><span class="gt" style="font-family:'Playfair Display',serif;font-weight:700;font-size:1.1rem;">&#8364; 75/person</span><a href="#reservation" class="bg" style="padding:.4rem 1rem;font-size:.7rem;">Reserve</a></div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery" class="py-28 relative overflow-hidden">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="text-center mb-14" data-aos="fade-up"><p class="sl mb-3">Gallery</p><div class="gl mx-auto mb-6"></div><h2 class="st text-white mb-4">A Feast for <em class="gt">the Eyes</em></h2><p class="ss mx-auto text-center">Step inside our world — where beauty meets flavour.</p></div>
+    <div style="columns:2;column-gap:1rem;" class="md:columns-3 lg:columns-4" data-aos="fade-up" data-aos-delay="100">
+      <div class="gi" style="margin-bottom:1rem;height:190px;" onclick="openLB(this)"><img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600&q=80" alt="Dining"/><div class="gov"><i class="fa-solid fa-magnifying-glass-plus" style="color:#fff;font-size:1.5rem;"></i></div></div>
+      <div class="gi" style="margin-bottom:1rem;height:260px;" onclick="openLB(this)"><img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=600&q=80" alt="Interior"/><div class="gov"><i class="fa-solid fa-magnifying-glass-plus" style="color:#fff;font-size:1.5rem;"></i></div></div>
+      <div class="gi" style="margin-bottom:1rem;height:170px;" onclick="openLB(this)"><img src="https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=600&q=80" alt="Food"/><div class="gov"><i class="fa-solid fa-magnifying-glass-plus" style="color:#fff;font-size:1.5rem;"></i></div></div>
+      <div class="gi" style="margin-bottom:1rem;height:220px;" onclick="openLB(this)"><img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?w=600&q=80" alt="Chef"/><div class="gov"><i class="fa-solid fa-magnifying-glass-plus" style="color:#fff;font-size:1.5rem;"></i></div></div>
+      <div class="gi" style="margin-bottom:1rem;height:200px;" onclick="openLB(this)"><img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=600&q=80" alt="Dish"/><div class="gov"><i class="fa-solid fa-magnifying-glass-plus" style="color:#fff;font-size:1.5rem;"></i></div></div>
+      <div class="gi" style="margin-bottom:1rem;height:160px;" onclick="openLB(this)"><img src="https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=600&q=80" alt="Wine"/><div class="gov"><i class="fa-solid fa-magnifying-glass-plus" style="color:#fff;font-size:1.5rem;"></i></div></div>
+      <div class="gi" style="margin-bottom:1rem;height:245px;" onclick="openLB(this)"><img src="https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=600&q=80" alt="Desserts"/><div class="gov"><i class="fa-solid fa-magnifying-glass-plus" style="color:#fff;font-size:1.5rem;"></i></div></div>
+      <div class="gi" style="margin-bottom:1rem;height:190px;" onclick="openLB(this)"><img src="https://images.unsplash.com/photo-1537047902294-62a40c20a6ae?w=600&q=80" alt="Atmosphere"/><div class="gov"><i class="fa-solid fa-magnifying-glass-plus" style="color:#fff;font-size:1.5rem;"></i></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CHEFS -->
+<section id="chefs" class="py-24 relative overflow-hidden" style="background:#111;">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="text-center mb-14" data-aos="fade-up"><p class="sl mb-3">The Team</p><div class="gl mx-auto mb-6"></div><h2 class="st text-white mb-4">Meet Our <em class="gt">Masters</em></h2><p class="ss mx-auto text-center">World-class chefs united by one passion — the extraordinary.</p></div>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div class="cc" data-aos="fade-up" data-aos-delay="0"><img src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=500&q=85" alt="Alessandro"/><div class="cov"></div><div class="ci"><h3 style="font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;margin-bottom:.2rem;">Alessandro Moretti</h3><p style="color:#D4AF37;font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.2rem;">Executive Chef &amp; Founder</p><p style="color:rgba(255,255,255,.32);font-size:.72rem;margin-bottom:.7rem;">26 Years Experience</p><div class="cs" style="display:flex;gap:.5rem;"><a href="#" class="chi"><i class="fa-brands fa-instagram"></i></a><a href="#" class="chi"><i class="fa-brands fa-twitter"></i></a></div></div></div>
+      <div class="cc" data-aos="fade-up" data-aos-delay="80"><img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=500&q=85" alt="Sophia"/><div class="cov"></div><div class="ci"><h3 style="font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;margin-bottom:.2rem;">Sophia Laurent</h3><p style="color:#D4AF37;font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.2rem;">Head Pastry Chef</p><p style="color:rgba(255,255,255,.32);font-size:.72rem;margin-bottom:.7rem;">18 Years Experience</p><div class="cs" style="display:flex;gap:.5rem;"><a href="#" class="chi"><i class="fa-brands fa-instagram"></i></a><a href="#" class="chi"><i class="fa-brands fa-twitter"></i></a></div></div></div>
+      <div class="cc" data-aos="fade-up" data-aos-delay="160"><img src="https://images.unsplash.com/photo-1581299894007-aaa50297cf16?w=500&q=85" alt="Kenji"/><div class="cov"></div><div class="ci"><h3 style="font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;margin-bottom:.2rem;">Kenji Nakamura</h3><p style="color:#D4AF37;font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.2rem;">Seafood Specialist</p><p style="color:rgba(255,255,255,.32);font-size:.72rem;margin-bottom:.7rem;">22 Years Experience</p><div class="cs" style="display:flex;gap:.5rem;"><a href="#" class="chi"><i class="fa-brands fa-instagram"></i></a><a href="#" class="chi"><i class="fa-brands fa-twitter"></i></a></div></div></div>
+      <div class="cc" data-aos="fade-up" data-aos-delay="240"><img src="https://images.unsplash.com/photo-1607631568010-a87245c0daf8?w=500&q=85" alt="Isabelle"/><div class="cov"></div><div class="ci"><h3 style="font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;margin-bottom:.2rem;">Isabelle Rousseau</h3><p style="color:#D4AF37;font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.2rem;">Sommelier &amp; Chef</p><p style="color:rgba(255,255,255,.32);font-size:.72rem;margin-bottom:.7rem;">15 Years Experience</p><div class="cs" style="display:flex;gap:.5rem;"><a href="#" class="chi"><i class="fa-brands fa-instagram"></i></a><a href="#" class="chi"><i class="fa-brands fa-twitter"></i></a></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- STATISTICS -->
+<section class="py-24 relative overflow-hidden" style="background-image:url('https://images.unsplash.com/photo-1552566626-52f8b828a9b3?w=1920&q=80');background-size:cover;background-position:center;background-attachment:fixed;">
+  <div style="position:absolute;inset:0;background:rgba(10,10,10,.88);"></div>
+  <div class="max-w-7xl mx-auto px-6 relative" style="z-index:1;">
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-8 text-center">
+      <div data-aos="zoom-in" data-aos-delay="0"><div class="sn gt" data-target="26">0</div><div style="width:32px;height:2px;background:rgba(212,175,55,.4);margin:.5rem auto .75rem;"></div><p style="color:rgba(255,255,255,.42);font-size:.72rem;text-transform:uppercase;letter-spacing:.15em;">Years of Excellence</p></div>
+      <div data-aos="zoom-in" data-aos-delay="100"><div class="sn gt" data-target="50000">0</div><div style="width:32px;height:2px;background:rgba(212,175,55,.4);margin:.5rem auto .75rem;"></div><p style="color:rgba(255,255,255,.42);font-size:.72rem;text-transform:uppercase;letter-spacing:.15em;">Happy Guests</p></div>
+      <div data-aos="zoom-in" data-aos-delay="200"><div class="sn gt" data-target="280">0</div><div style="width:32px;height:2px;background:rgba(212,175,55,.4);margin:.5rem auto .75rem;"></div><p style="color:rgba(255,255,255,.42);font-size:.72rem;text-transform:uppercase;letter-spacing:.15em;">Signature Dishes</p></div>
+      <div data-aos="zoom-in" data-aos-delay="300"><div class="sn gt" data-target="48">0</div><div style="width:32px;height:2px;background:rgba(212,175,55,.4);margin:.5rem auto .75rem;"></div><p style="color:rgba(255,255,255,.42);font-size:.72rem;text-transform:uppercase;letter-spacing:.15em;">Prestigious Awards</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- RESERVATION -->
+<section id="reservation" class="py-28 relative overflow-hidden">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="grid lg:grid-cols-2 gap-16 items-start">
+      <div data-aos="fade-right" data-aos-duration="900">
+        <p class="sl mb-3">Make a Reservation</p><div class="gl mb-6"></div>
+        <h2 class="st text-white mb-6">Reserve Your <em class="gt">Table</em><br/>Tonight</h2>
+        <p style="color:rgba(255,255,255,.48);line-height:1.85;margin-bottom:2.5rem;font-size:.95rem;">Join us for an unforgettable evening of fine dining. For parties of 8+, please contact us directly for private dining arrangements.</p>
+        <div style="display:flex;flex-direction:column;gap:1.2rem;">
+          <div style="display:flex;align-items:center;gap:1rem;"><div class="fi" style="width:46px;height:46px;flex-shrink:0;"><i class="fa-solid fa-phone"></i></div><div><p style="font-size:.65rem;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:.12em;margin-bottom:.2rem;">Reservations</p><p style="font-weight:600;">+33 1 45 67 89 00</p></div></div>
+          <div style="display:flex;align-items:center;gap:1rem;"><div class="fi" style="width:46px;height:46px;flex-shrink:0;"><i class="fa-solid fa-envelope"></i></div><div><p style="font-size:.65rem;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:.12em;margin-bottom:.2rem;">Email</p><p style="font-weight:600;">reserve@luxerestaurant.com</p></div></div>
+          <div style="display:flex;align-items:center;gap:1rem;"><div class="fi" style="width:46px;height:46px;flex-shrink:0;"><i class="fa-solid fa-clock"></i></div><div><p style="font-size:.65rem;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:.12em;margin-bottom:.2rem;">Dining Hours</p><p style="font-weight:600;">Tue–Sat: 6:00 PM – 11:30 PM</p></div></div>
+        </div>
+      </div>
+      <div data-aos="fade-left" data-aos-duration="900" data-aos-delay="100">
+        <div class="gc" style="padding:2.5rem;">
+          <form id="rf" onsubmit="hRes(event)">
+            <div class="grid grid-cols-2 gap-4" style="margin-bottom:1.2rem;">
+              <div class="fg"><input type="text" class="fin" placeholder=" " required/><label class="fla">Full Name</label></div>
+              <div class="fg"><input type="tel" class="fin" placeholder=" " required/><label class="fla">Phone</label></div>
+            </div>
+            <div class="fg" style="margin-bottom:1.2rem;"><input type="email" class="fin" placeholder=" " required/><label class="fla">Email Address</label></div>
+            <div class="grid grid-cols-3 gap-4" style="margin-bottom:1.2rem;">
+              <div class="fg"><select class="fin" required style="color:rgba(255,255,255,.5);"><option value="" disabled selected></option><option class="bg-gray-900">1 Guest</option><option class="bg-gray-900">2 Guests</option><option class="bg-gray-900">3 Guests</option><option class="bg-gray-900">4 Guests</option><option class="bg-gray-900">5 Guests</option><option class="bg-gray-900">6 Guests</option></select><label class="fla">Guests</label></div>
+              <div class="fg"><input type="date" class="fin" style="color-scheme:dark;" required/><label class="fla">Date</label></div>
+              <div class="fg"><select class="fin" required style="color:rgba(255,255,255,.5);"><option value="" disabled selected></option><option class="bg-gray-900">18:00</option><option class="bg-gray-900">18:30</option><option class="bg-gray-900">19:00</option><option class="bg-gray-900">19:30</option><option class="bg-gray-900">20:00</option><option class="bg-gray-900">20:30</option><option class="bg-gray-900">21:00</option></select><label class="fla">Time</label></div>
+            </div>
+            <div class="fg" style="margin-bottom:1.5rem;"><textarea class="fin" placeholder=" " rows="3"></textarea><label class="fla">Special Requests</label></div>
+            <button type="submit" class="bg" style="width:100%;justify-content:center;padding:1rem;"><i class="fa-solid fa-calendar-check"></i> Confirm Reservation</button>
+          </form>
+          <div id="rs" style="display:none;text-align:center;padding:2rem 0;">
+            <div style="width:64px;height:64px;border-radius:50%;background:rgba(212,175,55,.1);border:1px solid rgba(212,175,55,.3);display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;font-size:1.5rem;color:#D4AF37;"><i class="fa-solid fa-circle-check"></i></div>
+            <h3 style="font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;margin-bottom:.6rem;">Reservation Confirmed!</h3>
+            <p style="color:rgba(255,255,255,.42);font-size:.88rem;">We will contact you within 30 minutes. We look forward to welcoming you.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials" class="py-24 relative overflow-hidden" style="background:#111;">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="text-center mb-14" data-aos="fade-up"><p class="sl mb-3">Testimonials</p><div class="gl mx-auto mb-6"></div><h2 class="st text-white mb-4">What Our <em class="gt">Guests</em> Say</h2></div>
+    <div class="relative max-w-4xl mx-auto" data-aos="fade-up" data-aos-delay="100">
+      <div style="overflow:hidden;">
+        <div class="ttr" id="ttr">
+          <div class="ts"><div class="gc" style="padding:3rem;text-align:center;"><i class="fa-solid fa-quote-left" style="font-size:3rem;color:rgba(212,175,55,.14);margin-bottom:1.5rem;display:block;"></i><p style="color:rgba(255,255,255,.7);font-size:1.05rem;line-height:1.9;font-family:'Playfair Display',serif;font-style:italic;margin-bottom:2rem;">"LUXE is, without question, the finest dining experience I have had in all of Europe. The A5 Wagyu was transcendent — cooked to absolute perfection. Chef Alessandro's passion is evident in every single bite. We will return for every anniversary."</p><div class="stars" style="font-size:1.1rem;margin-bottom:1rem;">&#9733;&#9733;&#9733;&#9733;&#9733;</div><div style="display:flex;align-items:center;justify-content:center;gap:1rem;"><img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop&q=80" alt="Isabella" style="width:54px;height:54px;border-radius:50%;object-fit:cover;border:2px solid rgba(212,175,55,.3);"/><div style="text-align:left;"><p style="font-weight:600;font-size:.88rem;">Isabella Chen</p><p style="color:rgba(255,255,255,.35);font-size:.72rem;">CEO, Horizon Ventures · London</p></div></div></div></div>
+          <div class="ts"><div class="gc" style="padding:3rem;text-align:center;"><i class="fa-solid fa-quote-left" style="font-size:3rem;color:rgba(212,175,55,.14);margin-bottom:1.5rem;display:block;"></i><p style="color:rgba(255,255,255,.7);font-size:1.05rem;line-height:1.9;font-family:'Playfair Display',serif;font-style:italic;margin-bottom:2rem;">"I've dined at three-Michelin-star restaurants across Paris and Tokyo, and LUXE holds its own with extraordinary confidence. The lobster bisque and the sommelier's wine pairing were simply unforgettable. A true jewel of European gastronomy."</p><div class="stars" style="font-size:1.1rem;margin-bottom:1rem;">&#9733;&#9733;&#9733;&#9733;&#9733;</div><div style="display:flex;align-items:center;justify-content:center;gap:1rem;"><img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&q=80" alt="Marcus" style="width:54px;height:54px;border-radius:50%;object-fit:cover;border:2px solid rgba(212,175,55,.3);"/><div style="text-align:left;"><p style="font-weight:600;font-size:.88rem;">Marcus Dubois</p><p style="color:rgba(255,255,255,.35);font-size:.72rem;">Food Critic, Le Monde · Paris</p></div></div></div></div>
+          <div class="ts"><div class="gc" style="padding:3rem;text-align:center;"><i class="fa-solid fa-quote-left" style="font-size:3rem;color:rgba(212,175,55,.14);margin-bottom:1.5rem;display:block;"></i><p style="color:rgba(255,255,255,.7);font-size:1.05rem;line-height:1.9;font-family:'Playfair Display',serif;font-style:italic;margin-bottom:2rem;">"We held our company's annual gala dinner at LUXE and the team went above and beyond. The private dining room was breathtaking, the bespoke tasting menu was world-class, and the service was white-glove perfection throughout."</p><div class="stars" style="font-size:1.1rem;margin-bottom:1rem;">&#9733;&#9733;&#9733;&#9733;&#9733;</div><div style="display:flex;align-items:center;justify-content:center;gap:1rem;"><img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=100&h=100&fit=crop&q=80" alt="Amara" style="width:54px;height:54px;border-radius:50%;object-fit:cover;border:2px solid rgba(212,175,55,.3);"/><div style="text-align:left;"><p style="font-weight:600;font-size:.88rem;">Amara Osei</p><p style="color:rgba(255,255,255,.35);font-size:.72rem;">Managing Director, Apex Group · Zürich</p></div></div></div></div>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;justify-content:center;gap:1rem;margin-top:2rem;">
+        <button onclick="pT()" class="tbtn"><i class="fa-solid fa-chevron-left" style="font-size:.8rem;"></i></button>
+        <div style="display:flex;gap:.5rem;" id="td"><button class="dot" onclick="gT(0)"></button><button class="dot" onclick="gT(1)"></button><button class="dot" onclick="gT(2)"></button></div>
+        <button onclick="nT()" class="tbtn"><i class="fa-solid fa-chevron-right" style="font-size:.8rem;"></i></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" class="py-24 relative overflow-hidden">
+  <div class="max-w-3xl mx-auto px-6">
+    <div class="text-center mb-14" data-aos="fade-up"><p class="sl mb-3">FAQ</p><div class="gl mx-auto mb-6"></div><h2 class="st text-white mb-4">Common <em class="gt">Questions</em></h2></div>
+    <div data-aos="fade-up" data-aos-delay="100">
+      <div class="fi2" style="padding:1.2rem 0;cursor:pointer;" onclick="tFaq(this)"><div style="display:flex;align-items:center;justify-content:space-between;gap:1rem;"><h3 style="font-family:'Playfair Display',serif;font-weight:600;font-size:.98rem;">Do you require a dress code?</h3><span class="fi2i" style="color:#D4AF37;font-size:1.1rem;flex-shrink:0;"><i class="fa-solid fa-plus"></i></span></div><div class="fa"><p style="color:rgba(255,255,255,.45);font-size:.86rem;line-height:1.75;padding-top:.75rem;">Yes. LUXE operates a smart elegant dress code. We ask that gentlemen wear a jacket and that all guests dress in a manner befitting our luxurious atmosphere.</p></div></div>
+      <div class="fi2" style="padding:1.2rem 0;cursor:pointer;" onclick="tFaq(this)"><div style="display:flex;align-items:center;justify-content:space-between;gap:1rem;"><h3 style="font-family:'Playfair Display',serif;font-weight:600;font-size:.98rem;">How far in advance should I book?</h3><span class="fi2i" style="color:#D4AF37;font-size:1.1rem;flex-shrink:0;"><i class="fa-solid fa-plus"></i></span></div><div class="fa"><p style="color:rgba(255,255,255,.45);font-size:.86rem;line-height:1.75;padding-top:.75rem;">We recommend 2–3 weeks for weekends, 1 week for weekdays. For private events or groups of 6+, please contact us at least 4 weeks prior.</p></div></div>
+      <div class="fi2" style="padding:1.2rem 0;cursor:pointer;" onclick="tFaq(this)"><div style="display:flex;align-items:center;justify-content:space-between;gap:1rem;"><h3 style="font-family:'Playfair Display',serif;font-weight:600;font-size:.98rem;">Can you accommodate dietary restrictions?</h3><span class="fi2i" style="color:#D4AF37;font-size:1.1rem;flex-shrink:0;"><i class="fa-solid fa-plus"></i></span></div><div class="fa"><p style="color:rgba(255,255,255,.45);font-size:.86rem;line-height:1.75;padding-top:.75rem;">Absolutely. We accommodate vegan, vegetarian, gluten-free, Halal, and Kosher menus. Please note requirements when booking.</p></div></div>
+      <div class="fi2" style="padding:1.2rem 0;cursor:pointer;" onclick="tFaq(this)"><div style="display:flex;align-items:center;justify-content:space-between;gap:1rem;"><h3 style="font-family:'Playfair Display',serif;font-weight:600;font-size:.98rem;">Do you offer private dining or events?</h3><span class="fi2i" style="color:#D4AF37;font-size:1.1rem;flex-shrink:0;"><i class="fa-solid fa-plus"></i></span></div><div class="fa"><p style="color:rgba(255,255,255,.45);font-size:.86rem;line-height:1.75;padding-top:.75rem;">Yes — three exclusive private dining rooms, each fully customisable with bespoke menus. Contact our events team for details and pricing.</p></div></div>
+      <div class="fi2" style="padding:1.2rem 0;cursor:pointer;" onclick="tFaq(this)"><div style="display:flex;align-items:center;justify-content:space-between;gap:1rem;"><h3 style="font-family:'Playfair Display',serif;font-weight:600;font-size:.98rem;">Is there a tasting menu available?</h3><span class="fi2i" style="color:#D4AF37;font-size:1.1rem;flex-shrink:0;"><i class="fa-solid fa-plus"></i></span></div><div class="fa"><p style="color:rgba(255,255,255,.45);font-size:.86rem;line-height:1.75;padding-top:.75rem;">Yes. Chef Alessandro's 9-course tasting menu is available Tue–Sat evenings, paired with a curated wine flight by our Head Sommelier. Pre-booking essential.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- INSTAGRAM -->
+<section class="py-16 relative overflow-hidden" style="background:#111;">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="text-center mb-10" data-aos="fade-up"><p class="sl mb-3">Follow Us</p><div class="gl mx-auto mb-4"></div><h2 style="font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;" class="mb-2"><span class="gt">@luxerestaurant</span></h2><p style="color:rgba(255,255,255,.35);font-size:.85rem;">Follow our culinary journey on Instagram</p></div>
+    <div class="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-6 gap-3" data-aos="fade-up" data-aos-delay="100">
+      <div class="ig"><img src="https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=300&h=300&fit=crop&q=80" alt="ig1"/><div class="iov"><i class="fa-brands fa-instagram" style="color:#fff;font-size:1.4rem;"></i></div></div>
+      <div class="ig"><img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=300&h=300&fit=crop&q=80" alt="ig2"/><div class="iov"><i class="fa-brands fa-instagram" style="color:#fff;font-size:1.4rem;"></i></div></div>
+      <div class="ig"><img src="https://images.unsplash.com/photo-1476224203421-9ac39bcb3327?w=300&h=300&fit=crop&q=80" alt="ig3"/><div class="iov"><i class="fa-brands fa-instagram" style="color:#fff;font-size:1.4rem;"></i></div></div>
+      <div class="ig"><img src="https://images.unsplash.com/photo-1551024601-bec78aea704b?w=300&h=300&fit=crop&q=80" alt="ig4"/><div class="iov"><i class="fa-brands fa-instagram" style="color:#fff;font-size:1.4rem;"></i></div></div>
+      <div class="ig"><img src="https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=300&h=300&fit=crop&q=80" alt="ig5"/><div class="iov"><i class="fa-brands fa-instagram" style="color:#fff;font-size:1.4rem;"></i></div></div>
+      <div class="ig"><img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=300&h=300&fit=crop&q=80" alt="ig6"/><div class="iov"><i class="fa-brands fa-instagram" style="color:#fff;font-size:1.4rem;"></i></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="py-20 relative overflow-hidden">
+  <div style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(212,175,55,.06),transparent 60%);pointer-events:none;"></div>
+  <div class="max-w-2xl mx-auto px-6 text-center relative" data-aos="zoom-in">
+    <p class="sl mb-3">Stay Connected</p>
+    <h2 class="st text-white mb-4">Join the <em class="gt">LUXE</em> Circle</h2>
+    <p style="color:rgba(255,255,255,.42);font-size:.9rem;line-height:1.8;margin-bottom:2rem;">Exclusive invitations to tasting events, seasonal menus, wine masterclasses and private dining evenings.</p>
+    <form onsubmit="hNL(event)" style="display:flex;max-width:420px;margin:0 auto;">
+      <input type="email" placeholder="Your email address" class="ni" required/>
+      <button type="submit" class="bg" style="border-radius:0 50px 50px 0;padding:.85rem 1.2rem;font-size:.72rem;white-space:nowrap;"><i class="fa-solid fa-paper-plane"></i> Subscribe</button>
+    </form>
+    <p style="color:rgba(255,255,255,.18);font-size:.7rem;margin-top:.9rem;">No spam, ever. Unsubscribe at any time.</p>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="py-24 relative overflow-hidden" style="background:#111;">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="text-center mb-14" data-aos="fade-up"><p class="sl mb-3">Find Us</p><div class="gl mx-auto mb-6"></div><h2 class="st text-white mb-4">Visit <em class="gt">LUXE</em></h2></div>
+    <div class="grid lg:grid-cols-3 gap-8 mb-12">
+      <div class="gc p-7" data-aos="fade-up" data-aos-delay="0"><div class="fi mb-5"><i class="fa-solid fa-location-dot"></i></div><h3 style="font-family:'Playfair Display',serif;font-weight:600;font-size:1.05rem;margin-bottom:.7rem;">Our Address</h3><p style="color:rgba(255,255,255,.42);font-size:.86rem;line-height:1.8;">14 Rue de la Paix,<br/>75002 Paris, France<br/><em style="color:rgba(255,255,255,.28);">Near Place Vendôme</em></p></div>
+      <div class="gc p-7" data-aos="fade-up" data-aos-delay="100"><div class="fi mb-5"><i class="fa-solid fa-clock"></i></div><h3 style="font-family:'Playfair Display',serif;font-weight:600;font-size:1.05rem;margin-bottom:.7rem;">Opening Hours</h3><div style="display:flex;flex-direction:column;gap:.6rem;font-size:.84rem;"><div style="display:flex;justify-content:space-between;"><span style="color:rgba(255,255,255,.42);">Tue–Thu</span><span style="color:#D4AF37;">18:00–23:00</span></div><div style="display:flex;justify-content:space-between;"><span style="color:rgba(255,255,255,.42);">Fri–Sat</span><span style="color:#D4AF37;">17:00–23:30</span></div><div style="display:flex;justify-content:space-between;"><span style="color:rgba(255,255,255,.42);">Sun–Mon</span><span style="color:rgba(255,255,255,.25);">Private Events</span></div></div></div>
+      <div class="gc p-7" data-aos="fade-up" data-aos-delay="200"><div class="fi mb-5"><i class="fa-solid fa-phone"></i></div><h3 style="font-family:'Playfair Display',serif;font-weight:600;font-size:1.05rem;margin-bottom:.7rem;">Get in Touch</h3><div style="display:flex;flex-direction:column;gap:.7rem;font-size:.84rem;"><div style="display:flex;align-items:center;gap:.7rem;"><i class="fa-solid fa-phone" style="color:#D4AF37;font-size:.78rem;"></i><span style="color:rgba(255,255,255,.5);">+33 1 45 67 89 00</span></div><div style="display:flex;align-items:center;gap:.7rem;"><i class="fa-solid fa-envelope" style="color:#D4AF37;font-size:.78rem;"></i><span style="color:rgba(255,255,255,.5);">hello@luxerestaurant.com</span></div><div style="display:flex;align-items:center;gap:.7rem;"><i class="fa-brands fa-instagram" style="color:#D4AF37;font-size:.78rem;"></i><span style="color:rgba(255,255,255,.5);">@luxerestaurant</span></div></div></div>
+    </div>
+    <div style="border-radius:16px;overflow:hidden;border:1px solid rgba(255,255,255,.08);height:320px;" data-aos="fade-up" data-aos-delay="100">
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2624.142!2d2.3281!3d48.8698!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e66e1e1a4c2b47%3A0x0!2sRue+de+la+Paix%2C+Paris!5e0!3m2!1sen!2sfr!4v1700000000000" width="100%" height="100%" style="border:0;filter:invert(90%) hue-rotate(180deg) brightness(.8) contrast(1.1);" allowfullscreen="" loading="lazy" title="LUXE Location"></iframe>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer style="background:#080808;border-top:1px solid rgba(212,175,55,.1);padding:5rem 0 2rem;">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-12" style="margin-bottom:4rem;">
+      <div><div style="display:flex;align-items:center;gap:.5rem;margin-bottom:1rem;"><span style="font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:700;" class="gt">LUXE</span><span style="width:1px;height:26px;background:rgba(212,175,55,.3);"></span><span style="font-size:.6rem;letter-spacing:.2em;color:rgba(255,255,255,.3);text-transform:uppercase;">Restaurant</span></div><p style="color:rgba(255,255,255,.35);font-size:.84rem;line-height:1.8;margin-bottom:1.5rem;">Michelin-starred dining in the heart of Paris. Where passion meets perfection.</p><div style="display:flex;gap:.5rem;"><a href="#" class="soi"><i class="fa-brands fa-instagram"></i></a><a href="#" class="soi"><i class="fa-brands fa-facebook-f"></i></a><a href="#" class="soi"><i class="fa-brands fa-twitter"></i></a><a href="#" class="soi"><i class="fa-brands fa-tiktok"></i></a></div></div>
+      <div><h4 style="font-family:'Playfair Display',serif;font-weight:600;font-size:.98rem;margin-bottom:1.5rem;">Quick Links</h4><ul style="display:flex;flex-direction:column;gap:.75rem;"><li><a href="#about" class="fl">About LUXE</a></li><li><a href="#menu" class="fl">Our Menu</a></li><li><a href="#gallery" class="fl">Gallery</a></li><li><a href="#chefs" class="fl">Our Chefs</a></li><li><a href="#reservation" class="fl">Reservations</a></li><li><a href="#contact" class="fl">Contact</a></li></ul></div>
+      <div><h4 style="font-family:'Playfair Display',serif;font-weight:600;font-size:.98rem;margin-bottom:1.5rem;">Opening Hours</h4><ul style="display:flex;flex-direction:column;gap:.6rem;font-size:.84rem;"><li style="display:flex;justify-content:space-between;"><span style="color:rgba(255,255,255,.38);">Tue–Thu</span><span style="color:#D4AF37;">18:00–23:00</span></li><li style="display:flex;justify-content:space-between;"><span style="color:rgba(255,255,255,.38);">Friday</span><span style="color:#D4AF37;">17:00–23:00</span></li><li style="display:flex;justify-content:space-between;"><span style="color:rgba(255,255,255,.38);">Saturday</span><span style="color:#D4AF37;">17:00–23:30</span></li><li style="display:flex;justify-content:space-between;"><span style="color:rgba(255,255,255,.38);">Sun–Mon</span><span style="color:rgba(255,255,255,.22);">Private Events</span></li></ul></div>
+      <div><h4 style="font-family:'Playfair Display',serif;font-weight:600;font-size:.98rem;margin-bottom:1.5rem;">Contact</h4><div style="display:flex;flex-direction:column;gap:1rem;font-size:.84rem;margin-bottom:1.5rem;"><div style="display:flex;gap:.7rem;"><i class="fa-solid fa-location-dot" style="color:#D4AF37;margin-top:2px;flex-shrink:0;"></i><span style="color:rgba(255,255,255,.4);">14 Rue de la Paix,<br/>75002 Paris, France</span></div><div style="display:flex;align-items:center;gap:.7rem;"><i class="fa-solid fa-phone" style="color:#D4AF37;flex-shrink:0;"></i><span style="color:rgba(255,255,255,.4);">+33 1 45 67 89 00</span></div><div style="display:flex;align-items:center;gap:.7rem;"><i class="fa-solid fa-envelope" style="color:#D4AF37;flex-shrink:0;"></i><span style="color:rgba(255,255,255,.4);">hello@luxerestaurant.com</span></div></div><a href="#reservation" class="bg" style="font-size:.7rem;"><i class="fa-solid fa-calendar-check"></i> Book Now</a></div>
+    </div>
+    <div style="border-top:1px solid rgba(255,255,255,.05);padding-top:2rem;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:1rem;">
+      <p style="color:rgba(255,255,255,.2);font-size:.75rem;">© 2024 LUXE Restaurant. All rights reserved. Crafted with passion in Paris.</p>
+      <div style="display:flex;gap:1.5rem;font-size:.75rem;"><a href="#" class="fl" style="font-size:.72rem;">Privacy Policy</a><a href="#" class="fl" style="font-size:.72rem;">Terms</a><a href="#" class="fl" style="font-size:.72rem;">Cookies</a></div>
+    </div>
+  </div>
+</footer>
+
+<!-- BACK TO TOP -->
+<button id="bt" onclick="sBT()" aria-label="Back to top"><i class="fa-solid fa-chevron-up"></i></button>
+
+<!-- LIGHTBOX -->
+<div id="lb" onclick="cLB()">
+  <button style="position:absolute;top:1.5rem;right:1.5rem;background:none;border:none;color:rgba(255,255,255,.6);font-size:1.5rem;cursor:pointer;z-index:10;" onclick="cLB()"><i class="fa-solid fa-xmark"></i></button>
+  <button style="position:absolute;left:1rem;top:50%;transform:translateY(-50%);background:none;border:none;color:rgba(255,255,255,.6);font-size:1.5rem;cursor:pointer;z-index:10;" onclick="event.stopPropagation();pG()"><i class="fa-solid fa-chevron-left"></i></button>
+  <img id="lbi" src="" alt="Gallery Image" onclick="event.stopPropagation()"/>
+  <button style="position:absolute;right:1rem;top:50%;transform:translateY(-50%);background:none;border:none;color:rgba(255,255,255,.6);font-size:1.5rem;cursor:pointer;z-index:10;" onclick="event.stopPropagation();nG()"><i class="fa-solid fa-chevron-right"></i></button>
+</div>
+
+<style>
+.addb{width:30px;height:30px;border-radius:50%;border:1px solid rgba(212,175,55,.3);background:transparent;color:#D4AF37;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.82rem;transition:all .3s;}
+.addb:hover{background:#D4AF37;color:#0A0A0A;}
+.tbtn{width:38px;height:38px;border-radius:50%;border:1px solid rgba(255,255,255,.18);background:transparent;color:rgba(255,255,255,.5);cursor:pointer;transition:all .3s;display:flex;align-items:center;justify-content:center;}
+.tbtn:hover{border-color:#D4AF37;color:#D4AF37;}
+.dot{width:10px;height:10px;border-radius:50%;border:none;cursor:pointer;transition:all .3s;}
+.chi{width:30px;height:30px;border-radius:50%;border:1px solid rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.45);font-size:.72rem;transition:all .3s;}
+.chi:hover{border-color:#D4AF37;color:#D4AF37;}
+.soi{width:34px;height:34px;border-radius:50%;border:1px solid rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.32);font-size:.78rem;transition:all .3s;}
+.soi:hover{border-color:#D4AF37;color:#D4AF37;}
+</style>
+
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script>
+AOS.init({duration:800,easing:'ease-out-cubic',once:true,offset:60});
+
+// Loading
+window.addEventListener('load',()=>{setTimeout(()=>{document.getElementById('ls').classList.add('h');},1900);});
+
+// Navbar + back-to-top
+const nb=document.getElementById('nb'),bt=document.getElementById('bt');
+window.addEventListener('scroll',()=>{const s=window.scrollY>80;nb.classList.toggle('sc',s);bt.classList.toggle('v',s);});
+function sBT(){window.scrollTo({top:0,behavior:'smooth'});}
+
+// Parallax
+const hbg=document.getElementById('hbg');
+window.addEventListener('scroll',()=>{if(hbg)hbg.style.transform=`translateY(${window.scrollY*.35}px)`;});
+
+// Mobile menu
+const hb=document.getElementById('hb'),mm=document.getElementById('mm');
+let mo=false;
+hb.addEventListener('click',()=>{mo=!mo;mm.classList.toggle('op',mo);const ls=hb.querySelectorAll('.hl');if(mo){ls[0].style.transform='rotate(45deg) translate(5px,5px)';ls[1].style.opacity='0';ls[2].style.transform='rotate(-45deg) translate(5px,-5px)';}else{ls.forEach(l=>{l.style.transform='';l.style.opacity='';})}});
+function cMM(){mo=false;mm.classList.remove('op');hb.querySelectorAll('.hl').forEach(l=>{l.style.transform='';l.style.opacity='';});}
+
+// Menu Tabs
+function switchTab(btn,id){
+  document.querySelectorAll('.mt').forEach(t=>t.classList.remove('ac'));
+  document.querySelectorAll('.tc').forEach(c=>{c.classList.add('hidden');c.classList.remove('grid');});
+  btn.classList.add('ac');
+  const t=document.getElementById('tab-'+id);
+  if(t){t.classList.remove('hidden');t.classList.add('grid');AOS.refresh();}
+}
+
+// Testimonials
+let cs=0,timer;
+function gT(i){cs=i;document.getElementById('ttr').style.transform=`translateX(-${i*100}%)`;document.querySelectorAll('.dot').forEach((d,j)=>d.style.background=j===i?'#D4AF37':'rgba(255,255,255,.2)');}
+function nT(){gT((cs+1)%3);rT();}
+function pT(){gT((cs+2)%3);rT();}
+function rT(){clearInterval(timer);timer=setInterval(nT,5500);}
+gT(0);rT();
+
+// FAQ
+function tFaq(item){
+  const open=item.classList.contains('fop');
+  document.querySelectorAll('.fi2.fop').forEach(i=>{i.classList.remove('fop');i.querySelector('.fa').classList.remove('op');i.querySelector('.fi2i').innerHTML='<i class="fa-solid fa-plus"></i>';});
+  if(!open){item.classList.add('fop');item.querySelector('.fa').classList.add('op');item.querySelector('.fi2i').innerHTML='<i class="fa-solid fa-minus"></i>';}
+}
+
+// Reservation
+function hRes(e){
+  e.preventDefault();
+  const f=document.getElementById('rf'),s=document.getElementById('rs'),b=f.querySelector('button[type=submit]');
+  b.innerHTML='<i class="fa-solid fa-spinner fa-spin"></i> Processing...';b.disabled=true;
+  setTimeout(()=>{f.style.display='none';s.style.display='block';},1500);
+}
+
+// Newsletter
+function hNL(e){
+  e.preventDefault();const b=e.target.querySelector('button');
+  b.innerHTML='<i class="fa-solid fa-check"></i> Subscribed!';b.style.background='linear-gradient(135deg,#1a5c1a,#2a8a2a)';
+  setTimeout(()=>{b.innerHTML='<i class="fa-solid fa-paper-plane"></i> Subscribe';b.style.background='';e.target.reset();},3000);
+}
+
+// Gallery lightbox
+let gImgs=[],gIdx=0;
+function openLB(item){
+  const img=item.querySelector('img');
+  gImgs=Array.from(document.querySelectorAll('.gi img')).map(i=>i.src);
+  gIdx=gImgs.indexOf(img.src);
+  document.getElementById('lbi').src=img.src;
+  document.getElementById('lb').classList.add('op');
+  document.body.style.overflow='hidden';
+}
+function cLB(){document.getElementById('lb').classList.remove('op');document.body.style.overflow='';}
+function nG(){gIdx=(gIdx+1)%gImgs.length;document.getElementById('lbi').src=gImgs[gIdx];}
+function pG(){gIdx=(gIdx-1+gImgs.length)%gImgs.length;document.getElementById('lbi').src=gImgs[gIdx];}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')cLB();else if(e.key==='ArrowRight')nG();else if(e.key==='ArrowLeft')pG();});
+
+// Counters
+function animCounter(el){
+  const t=parseInt(el.dataset.target),dur=2500,s=performance.now();
+  const u=now=>{const p=Math.min((now-s)/dur,1),ea=1-Math.pow(1-p,4),v=Math.floor(ea*t);
+    el.textContent=t>=10000?(v/1000).toFixed(1)+'K+':v+'+';
+    if(p<1)requestAnimationFrame(u);else el.textContent=t>=10000?(t/1000).toFixed(0)+'K+':t+'+';
+  };requestAnimationFrame(u);
+}
+const cObs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting&&!e.target.dataset.done){e.target.dataset.done='1';animCounter(e.target);}}),{threshold:.5});
+document.querySelectorAll('[data-target]').forEach(el=>cObs.observe(el));
+
+// Active nav
+const secs=document.querySelectorAll('section[id]'),nls=document.querySelectorAll('.nl');
+window.addEventListener('scroll',()=>{let cur='';secs.forEach(s=>{if(window.scrollY>=s.offsetTop-120)cur=s.id;});nls.forEach(l=>{l.style.color=l.getAttribute('href')==='#'+cur?'#D4AF37':'';});});
+
+// Glass tilt
+document.querySelectorAll('.gc').forEach(c=>{
+  c.addEventListener('mousemove',e=>{const r=c.getBoundingClientRect(),x=((e.clientX-r.left)/r.width-.5)*8,y=((e.clientY-r.top)/r.height-.5)*8;c.style.transform=`perspective(800px) rotateX(${-y}deg) rotateY(${x}deg) translateY(-6px)`;});
+  c.addEventListener('mouseleave',()=>c.style.transform='');
+});
+</script>
+</body>
+</html>

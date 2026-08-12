@@ -1,0 +1,2461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ÉLAN | Private Luxury Fitness Club</title>
+  <meta name="description" content="An exclusive fitness experience designed for those who seek excellence. Private luxury fitness club in Europe." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    /* ===== RESET & BASE ===== */
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    :root {
+      --ivory: #F8F5EF;
+      --gold: #C9A45C;
+      --gold-light: #e0c68a;
+      --gold-dark: #a8873e;
+      --emerald: #0B3D32;
+      --stone: #D8C7AE;
+      --dark: #151515;
+      --dark-soft: #1e1e1e;
+      --glass: rgba(255, 255, 255, 0.06);
+      --glass-border: rgba(255, 255, 255, 0.08);
+      --shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+      --shadow-gold: 0 20px 60px rgba(201, 164, 92, 0.15);
+      --radius: 16px;
+      --radius-lg: 24px;
+      --transition: 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      --font-serif: 'Cormorant Garamond', serif;
+      --font-sans: 'Inter', sans-serif;
+    }
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+    }
+    body {
+      font-family: var(--font-sans);
+      background: var(--ivory);
+      color: var(--dark);
+      overflow-x: hidden;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+    img {
+      max-width: 100%;
+      display: block;
+    }
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+    @media (max-width: 768px) {
+      .container {
+        padding: 0 24px;
+      }
+    }
+    .section-padding {
+      padding: 120px 0;
+    }
+    @media (max-width: 768px) {
+      .section-padding {
+        padding: 80px 0;
+      }
+    }
+    .section-label {
+      font-family: var(--font-serif);
+      font-size: 0.9rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 12px;
+      display: inline-block;
+      font-weight: 500;
+    }
+    .section-title {
+      font-family: var(--font-serif);
+      font-size: clamp(2.4rem, 5vw, 4.2rem);
+      font-weight: 600;
+      line-height: 1.1;
+      margin-bottom: 20px;
+      letter-spacing: -0.02em;
+    }
+    .section-title .gold {
+      color: var(--gold);
+    }
+    .section-subtitle {
+      font-size: 1.1rem;
+      color: rgba(21, 21, 21, 0.65);
+      max-width: 600px;
+      line-height: 1.8;
+      font-weight: 300;
+    }
+    .text-center {
+      text-align: center;
+    }
+    .text-center .section-subtitle {
+      margin: 0 auto;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 40px;
+      font-family: var(--font-sans);
+      font-weight: 500;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      border: none;
+      border-radius: 0;
+      cursor: pointer;
+      transition: var(--transition);
+      position: relative;
+      background: transparent;
+    }
+    .btn-primary {
+      background: var(--gold);
+      color: var(--ivory);
+    }
+    .btn-primary:hover {
+      background: var(--gold-dark);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-gold);
+    }
+    .btn-outline {
+      border: 1.5px solid var(--gold);
+      color: var(--gold);
+      background: transparent;
+    }
+    .btn-outline:hover {
+      background: var(--gold);
+      color: var(--ivory);
+      transform: translateY(-2px);
+    }
+    .btn-dark {
+      background: var(--dark);
+      color: var(--ivory);
+    }
+    .btn-dark:hover {
+      background: #2a2a2a;
+      transform: translateY(-2px);
+    }
+    .btn-sm {
+      padding: 12px 28px;
+      font-size: 0.75rem;
+    }
+    .gold-line {
+      width: 60px;
+      height: 2px;
+      background: var(--gold);
+      margin: 16px 0 24px;
+    }
+    .text-center .gold-line {
+      margin: 16px auto 24px;
+    }
+
+    /* ===== SCROLLBAR ===== */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: var(--ivory);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: var(--gold);
+      border-radius: 4px;
+    }
+
+    /* ===== NAVIGATION ===== */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      padding: 20px 0;
+      transition: var(--transition);
+      background: transparent;
+    }
+    .navbar.scrolled {
+      background: rgba(248, 245, 239, 0.95);
+      backdrop-filter: blur(20px);
+      padding: 12px 0;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.06);
+    }
+    .navbar .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-brand {
+      font-family: var(--font-serif);
+      font-size: 2rem;
+      font-weight: 600;
+      letter-spacing: 3px;
+      color: var(--ivory);
+      transition: var(--transition);
+    }
+    .navbar.scrolled .nav-brand {
+      color: var(--dark);
+    }
+    .nav-brand .gold {
+      color: var(--gold);
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 0.8rem;
+      font-weight: 400;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.7);
+      transition: var(--transition);
+      position: relative;
+    }
+    .navbar.scrolled .nav-links a {
+      color: rgba(21, 21, 21, 0.6);
+    }
+    .nav-links a:hover {
+      color: var(--gold);
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 1.5px;
+      background: var(--gold);
+      transition: var(--transition);
+    }
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+    .nav-cta .btn {
+      padding: 10px 28px;
+      font-size: 0.7rem;
+      letter-spacing: 2px;
+      background: var(--gold);
+      color: var(--ivory);
+      border: none;
+    }
+    .nav-cta .btn:hover {
+      background: var(--gold-dark);
+    }
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+      z-index: 1001;
+    }
+    .nav-toggle span {
+      display: block;
+      width: 28px;
+      height: 1.5px;
+      background: var(--ivory);
+      transition: var(--transition);
+      border-radius: 2px;
+    }
+    .navbar.scrolled .nav-toggle span {
+      background: var(--dark);
+    }
+    .nav-toggle.active span:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+    .nav-toggle.active span:nth-child(2) {
+      opacity: 0;
+    }
+    .nav-toggle.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(5px, -5px);
+    }
+
+    @media (max-width: 1024px) {
+      .nav-links {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background: rgba(248, 245, 239, 0.98);
+        backdrop-filter: blur(20px);
+        flex-direction: column;
+        justify-content: center;
+        gap: 28px;
+        transform: translateX(100%);
+        transition: var(--transition);
+        padding: 40px;
+      }
+      .nav-links.open {
+        transform: translateX(0);
+      }
+      .nav-links a {
+        color: var(--dark) !important;
+        font-size: 1.1rem;
+      }
+      .nav-cta {
+        margin-top: 12px;
+      }
+      .nav-toggle {
+        display: flex;
+      }
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      background: var(--dark);
+    }
+    .hero-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 0;
+      transform: scale(1.1);
+      animation: heroZoom 20s ease-in-out infinite alternate;
+    }
+    @keyframes heroZoom {
+      0% {
+        transform: scale(1.1);
+      }
+      100% {
+        transform: scale(1.3);
+      }
+    }
+    .hero-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg,
+          rgba(21, 21, 21, 0.7) 0%,
+          rgba(21, 21, 21, 0.2) 50%,
+          rgba(21, 21, 21, 0.6) 100%);
+      z-index: 1;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 820px;
+      padding: 120px 0 60px;
+    }
+    .hero-badge {
+      display: inline-block;
+      font-family: var(--font-serif);
+      font-size: 0.8rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--gold);
+      border: 1px solid rgba(201, 164, 92, 0.25);
+      padding: 8px 24px;
+      margin-bottom: 32px;
+      backdrop-filter: blur(10px);
+      background: rgba(201, 164, 92, 0.05);
+    }
+    .hero h1 {
+      font-family: var(--font-serif);
+      font-size: clamp(3.2rem, 10vw, 6.5rem);
+      font-weight: 600;
+      line-height: 1.05;
+      color: var(--ivory);
+      margin-bottom: 20px;
+      letter-spacing: -0.02em;
+    }
+    .hero h1 .gold {
+      color: var(--gold);
+    }
+    .hero p {
+      font-size: 1.2rem;
+      color: rgba(255, 255, 255, 0.7);
+      max-width: 540px;
+      line-height: 1.8;
+      font-weight: 300;
+      margin-bottom: 40px;
+    }
+    .hero-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 60px;
+    }
+    .hero-stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 40px 60px;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      padding-top: 40px;
+    }
+    .hero-stat {
+      display: flex;
+      flex-direction: column;
+    }
+    .hero-stat .number {
+      font-family: var(--font-serif);
+      font-size: 2.6rem;
+      font-weight: 600;
+      color: var(--ivory);
+      line-height: 1;
+      letter-spacing: -0.02em;
+    }
+    .hero-stat .number .gold {
+      color: var(--gold);
+    }
+    .hero-stat .label {
+      font-size: 0.7rem;
+      color: rgba(255, 255, 255, 0.4);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-top: 6px;
+      font-weight: 300;
+    }
+
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: clamp(2.4rem, 8vw, 3.6rem);
+      }
+      .hero-stats {
+        gap: 24px 32px;
+      }
+      .hero-stat .number {
+        font-size: 2rem;
+      }
+    }
+
+    /* ===== THE CLUB ===== */
+    .club {
+      background: var(--ivory);
+    }
+    .club-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+    .club-image {
+      position: relative;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      height: 520px;
+      background: var(--stone);
+    }
+    .club-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .club-image .badge-float {
+      position: absolute;
+      bottom: 30px;
+      right: 30px;
+      background: rgba(21, 21, 21, 0.9);
+      backdrop-filter: blur(10px);
+      padding: 24px 32px;
+      border-radius: var(--radius);
+      border-left: 3px solid var(--gold);
+    }
+    .club-image .badge-float strong {
+      font-family: var(--font-serif);
+      font-size: 1.6rem;
+      display: block;
+      color: var(--ivory);
+    }
+    .club-image .badge-float span {
+      font-size: 0.8rem;
+      color: rgba(255, 255, 255, 0.5);
+      font-weight: 300;
+    }
+    .club-text .section-title {
+      font-size: clamp(2rem, 4vw, 3.2rem);
+    }
+    .club-text p {
+      color: rgba(21, 21, 21, 0.7);
+      margin-bottom: 16px;
+      line-height: 1.8;
+      font-weight: 300;
+    }
+    .club-features {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px 24px;
+      margin-top: 28px;
+    }
+    .club-feature {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 400;
+      color: rgba(21, 21, 21, 0.8);
+      font-size: 0.95rem;
+    }
+    .club-feature i {
+      color: var(--gold);
+      font-size: 1rem;
+    }
+
+    @media (max-width: 1024px) {
+      .club-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+      .club-image {
+        height: 380px;
+        order: -1;
+      }
+      .club-features {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+    @media (max-width: 600px) {
+      .club-features {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ===== EXPERIENCES ===== */
+    .experiences {
+      background: var(--ivory);
+      border-top: 1px solid rgba(21, 21, 21, 0.04);
+    }
+    .experiences-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 30px;
+      margin-top: 50px;
+    }
+    .experience-card {
+      background: var(--ivory);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      transition: var(--transition);
+      border: 1px solid rgba(21, 21, 21, 0.04);
+      position: relative;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+    }
+    .experience-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-gold);
+      border-color: rgba(201, 164, 92, 0.15);
+    }
+    .experience-card .card-img {
+      height: 220px;
+      background: var(--stone);
+      overflow: hidden;
+      position: relative;
+    }
+    .experience-card .card-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: var(--transition);
+    }
+    .experience-card:hover .card-img img {
+      transform: scale(1.04);
+    }
+    .experience-card .card-img .gold-stripe {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 60px;
+      height: 3px;
+      background: var(--gold);
+    }
+    .experience-card .card-body {
+      padding: 28px 32px 32px;
+    }
+    .experience-card .card-body h3 {
+      font-family: var(--font-serif);
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+      letter-spacing: -0.01em;
+    }
+    .experience-card .card-body p {
+      color: rgba(21, 21, 21, 0.6);
+      font-size: 0.95rem;
+      line-height: 1.7;
+      font-weight: 300;
+    }
+    .experience-card .card-body .learn-more {
+      display: inline-block;
+      margin-top: 16px;
+      color: var(--gold);
+      font-weight: 500;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      transition: var(--transition);
+    }
+    .experience-card .card-body .learn-more:hover {
+      letter-spacing: 2.5px;
+    }
+
+    /* ===== COACHES ===== */
+    .coaches {
+      background: var(--ivory);
+      border-top: 1px solid rgba(21, 21, 21, 0.04);
+    }
+    .coaches-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 30px;
+      margin-top: 50px;
+    }
+    .coach-card {
+      background: var(--ivory);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      text-align: center;
+      transition: var(--transition);
+      border: 1px solid rgba(21, 21, 21, 0.04);
+      padding-bottom: 28px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+    }
+    .coach-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-gold);
+      border-color: rgba(201, 164, 92, 0.12);
+    }
+    .coach-card .coach-img {
+      height: 300px;
+      background: var(--stone);
+      overflow: hidden;
+      position: relative;
+    }
+    .coach-card .coach-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: var(--transition);
+    }
+    .coach-card:hover .coach-img img {
+      transform: scale(1.03);
+    }
+    .coach-card .coach-img .gold-stripe {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: var(--gold);
+    }
+    .coach-card .coach-info {
+      padding: 20px 20px 0;
+    }
+    .coach-card .coach-info h4 {
+      font-family: var(--font-serif);
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+    .coach-card .coach-info .role {
+      color: var(--gold);
+      font-size: 0.8rem;
+      font-weight: 400;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+    .coach-card .coach-info .exp {
+      font-size: 0.8rem;
+      color: rgba(21, 21, 21, 0.4);
+      margin: 6px 0 10px;
+      font-weight: 300;
+    }
+    .coach-card .coach-info .specialties {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      justify-content: center;
+      margin: 10px 0 16px;
+    }
+    .coach-card .coach-info .specialties span {
+      background: rgba(201, 164, 92, 0.06);
+      color: rgba(21, 21, 21, 0.6);
+      font-size: 0.7rem;
+      padding: 4px 16px;
+      border-radius: 50px;
+      border: 1px solid rgba(201, 164, 92, 0.08);
+      font-weight: 300;
+    }
+
+    /* ===== MEMBERSHIP ===== */
+    .membership {
+      background: var(--dark);
+      color: var(--ivory);
+    }
+    .membership .section-subtitle {
+      color: rgba(255, 255, 255, 0.5);
+    }
+    .membership .section-label {
+      color: var(--gold);
+    }
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 30px;
+      margin-top: 50px;
+    }
+    .pricing-card {
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(10px);
+      border-radius: var(--radius-lg);
+      padding: 44px 36px;
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      transition: var(--transition);
+      position: relative;
+    }
+    .pricing-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(201, 164, 92, 0.2);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+    }
+    .pricing-card.popular {
+      border-color: var(--gold);
+      background: rgba(201, 164, 92, 0.04);
+    }
+    .pricing-card .popular-badge {
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--gold);
+      color: var(--dark);
+      font-size: 0.6rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      padding: 4px 24px;
+      border-radius: 50px;
+      letter-spacing: 2px;
+    }
+    .pricing-card .plan-name {
+      font-family: var(--font-serif);
+      font-size: 1.4rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+    .pricing-card .plan-price {
+      font-family: var(--font-serif);
+      font-size: 3.2rem;
+      font-weight: 600;
+      margin: 12px 0 4px;
+    }
+    .pricing-card .plan-price .currency {
+      font-size: 1.6rem;
+      font-weight: 400;
+      vertical-align: top;
+      margin-right: 2px;
+      color: var(--gold);
+    }
+    .pricing-card .plan-price .period {
+      font-size: 0.9rem;
+      font-weight: 300;
+      color: rgba(255, 255, 255, 0.3);
+    }
+    .pricing-card .plan-desc {
+      color: rgba(255, 255, 255, 0.4);
+      font-size: 0.9rem;
+      font-weight: 300;
+      margin-bottom: 20px;
+    }
+    .pricing-card .plan-features {
+      list-style: none;
+      margin: 20px 0 28px;
+    }
+    .pricing-card .plan-features li {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 8px 0;
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 0.9rem;
+      font-weight: 300;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+    }
+    .pricing-card .plan-features li:last-child {
+      border-bottom: none;
+    }
+    .pricing-card .plan-features li i {
+      color: var(--gold);
+      font-size: 0.8rem;
+      width: 20px;
+    }
+    .pricing-card .btn {
+      width: 100%;
+      justify-content: center;
+    }
+
+    /* ===== FACILITIES ===== */
+    .facilities {
+      background: var(--ivory);
+      border-top: 1px solid rgba(21, 21, 21, 0.04);
+    }
+    .facilities-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 24px;
+      margin-top: 50px;
+    }
+    .facility-item {
+      position: relative;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      height: 280px;
+      background: var(--stone);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .facility-item:hover {
+      transform: scale(1.02);
+      box-shadow: var(--shadow-gold);
+    }
+    .facility-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: var(--transition);
+    }
+    .facility-item:hover img {
+      transform: scale(1.05);
+    }
+    .facility-item .facility-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      padding: 28px;
+      background: linear-gradient(transparent, rgba(21, 21, 21, 0.8));
+    }
+    .facility-item .facility-overlay h4 {
+      font-family: var(--font-serif);
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--ivory);
+    }
+    .facility-item .facility-overlay span {
+      font-size: 0.8rem;
+      color: rgba(255, 255, 255, 0.5);
+      font-weight: 300;
+    }
+
+    /* ===== TRANSFORMATIONS ===== */
+    .transformations {
+      background: var(--dark);
+      color: var(--ivory);
+    }
+    .transformations .section-subtitle {
+      color: rgba(255, 255, 255, 0.5);
+    }
+    .transformations-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 30px;
+      margin-top: 50px;
+    }
+    .transformation-card {
+      background: rgba(255, 255, 255, 0.02);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      transition: var(--transition);
+    }
+    .transformation-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(201, 164, 92, 0.15);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+    }
+    .transformation-card .transform-img {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      height: 220px;
+      overflow: hidden;
+    }
+    .transformation-card .transform-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .transformation-card .transform-body {
+      padding: 28px 32px;
+    }
+    .transformation-card .transform-body blockquote {
+      font-family: var(--font-serif);
+      font-size: 1.1rem;
+      font-style: italic;
+      color: rgba(255, 255, 255, 0.85);
+      line-height: 1.6;
+      margin-bottom: 12px;
+    }
+    .transformation-card .transform-body .author {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .transformation-card .transform-body .author .name {
+      font-weight: 500;
+    }
+    .transformation-card .transform-body .author .detail {
+      font-size: 0.8rem;
+      color: rgba(255, 255, 255, 0.3);
+      font-weight: 300;
+    }
+    .transformation-card .transform-body .result {
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px solid rgba(255, 255, 255, 0.04);
+      font-size: 0.8rem;
+      color: var(--gold);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    /* ===== WELLNESS ===== */
+    .wellness {
+      background: var(--ivory);
+      border-top: 1px solid rgba(21, 21, 21, 0.04);
+    }
+    .wellness-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 24px;
+      margin-top: 50px;
+    }
+    .wellness-item {
+      text-align: center;
+      padding: 32px 20px;
+      background: var(--ivory);
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(21, 21, 21, 0.04);
+      transition: var(--transition);
+    }
+    .wellness-item:hover {
+      transform: translateY(-4px);
+      border-color: rgba(201, 164, 92, 0.15);
+      box-shadow: var(--shadow-gold);
+    }
+    .wellness-item .icon {
+      font-size: 2.2rem;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+    .wellness-item h4 {
+      font-family: var(--font-serif);
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    .wellness-item p {
+      font-size: 0.85rem;
+      color: rgba(21, 21, 21, 0.5);
+      font-weight: 300;
+      line-height: 1.6;
+    }
+
+    /* ===== APPLICATION ===== */
+    .application {
+      background: var(--dark);
+      color: var(--ivory);
+      position: relative;
+      overflow: hidden;
+    }
+    .application::before {
+      content: '';
+      position: absolute;
+      top: -40%;
+      right: -20%;
+      width: 700px;
+      height: 700px;
+      background: radial-gradient(circle, rgba(201, 164, 92, 0.03), transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .application .section-subtitle {
+      color: rgba(255, 255, 255, 0.5);
+    }
+    .application-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+    .application-form {
+      background: rgba(255, 255, 255, 0.02);
+      backdrop-filter: blur(10px);
+      padding: 48px;
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(255, 255, 255, 0.04);
+    }
+    .application-form .form-group {
+      margin-bottom: 18px;
+    }
+    .application-form label {
+      display: block;
+      font-size: 0.7rem;
+      font-weight: 400;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: rgba(255, 255, 255, 0.3);
+      margin-bottom: 6px;
+    }
+    .application-form input,
+    .application-form select {
+      width: 100%;
+      padding: 14px 18px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 8px;
+      color: var(--ivory);
+      font-family: var(--font-sans);
+      font-size: 0.95rem;
+      transition: var(--transition);
+      outline: none;
+      font-weight: 300;
+    }
+    .application-form input:focus,
+    .application-form select:focus {
+      border-color: var(--gold);
+      background: rgba(255, 255, 255, 0.06);
+    }
+    .application-form select option {
+      background: var(--dark);
+    }
+    .application-form .btn {
+      width: 100%;
+      justify-content: center;
+      margin-top: 8px;
+    }
+    .application-text .section-title {
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      color: var(--ivory);
+    }
+    .application-text p {
+      color: rgba(255, 255, 255, 0.5);
+      line-height: 1.8;
+      font-weight: 300;
+    }
+    .application-text .benefits {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 24px;
+    }
+    .application-text .benefits li {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      color: rgba(255, 255, 255, 0.7);
+      font-weight: 300;
+      font-size: 0.95rem;
+    }
+    .application-text .benefits li i {
+      color: var(--gold);
+      font-size: 1rem;
+    }
+
+    @media (max-width: 1024px) {
+      .application-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+      .application-text {
+        order: -1;
+      }
+      .application-form {
+        padding: 32px 24px;
+      }
+    }
+
+    /* ===== TESTIMONIALS ===== */
+    .testimonials {
+      background: var(--ivory);
+      border-top: 1px solid rgba(21, 21, 21, 0.04);
+    }
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 30px;
+      margin-top: 50px;
+    }
+    .testimonial-card {
+      background: var(--ivory);
+      border-radius: var(--radius-lg);
+      padding: 36px 32px;
+      border: 1px solid rgba(21, 21, 21, 0.04);
+      transition: var(--transition);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+    }
+    .testimonial-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-gold);
+      border-color: rgba(201, 164, 92, 0.1);
+    }
+    .testimonial-card .stars {
+      color: var(--gold);
+      margin-bottom: 12px;
+      font-size: 0.9rem;
+      letter-spacing: 2px;
+    }
+    .testimonial-card blockquote {
+      font-family: var(--font-serif);
+      font-size: 1.1rem;
+      line-height: 1.7;
+      color: rgba(21, 21, 21, 0.85);
+      font-style: italic;
+      margin-bottom: 16px;
+    }
+    .testimonial-card .author {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .testimonial-card .author .avatar {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: var(--stone);
+      overflow: hidden;
+    }
+    .testimonial-card .author .avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .testimonial-card .author .name {
+      font-weight: 500;
+    }
+    .testimonial-card .author .detail {
+      font-size: 0.8rem;
+      color: rgba(21, 21, 21, 0.3);
+      font-weight: 300;
+    }
+
+    /* ===== JOURNAL ===== */
+    .journal {
+      background: var(--ivory);
+      border-top: 1px solid rgba(21, 21, 21, 0.04);
+    }
+    .journal-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 30px;
+      margin-top: 50px;
+    }
+    .journal-card {
+      background: var(--ivory);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      transition: var(--transition);
+      border: 1px solid rgba(21, 21, 21, 0.04);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+    }
+    .journal-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-gold);
+      border-color: rgba(201, 164, 92, 0.1);
+    }
+    .journal-card .journal-img {
+      height: 200px;
+      background: var(--stone);
+      overflow: hidden;
+    }
+    .journal-card .journal-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: var(--transition);
+    }
+    .journal-card:hover .journal-img img {
+      transform: scale(1.04);
+    }
+    .journal-card .journal-body {
+      padding: 24px 28px;
+    }
+    .journal-card .journal-body .category {
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--gold);
+      font-weight: 500;
+    }
+    .journal-card .journal-body h4 {
+      font-family: var(--font-serif);
+      font-size: 1.15rem;
+      font-weight: 600;
+      margin: 6px 0 10px;
+      line-height: 1.3;
+    }
+    .journal-card .journal-body p {
+      color: rgba(21, 21, 21, 0.5);
+      font-size: 0.9rem;
+      line-height: 1.7;
+      font-weight: 300;
+    }
+    .journal-card .journal-body .read-more {
+      display: inline-block;
+      margin-top: 12px;
+      color: var(--gold);
+      font-weight: 500;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      transition: var(--transition);
+    }
+    .journal-card .journal-body .read-more:hover {
+      letter-spacing: 2.5px;
+    }
+
+    /* ===== CONTACT ===== */
+    .contact {
+      background: var(--dark);
+      color: var(--ivory);
+    }
+    .contact .section-subtitle {
+      color: rgba(255, 255, 255, 0.5);
+    }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 50px;
+      margin-top: 40px;
+    }
+    .contact-map {
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      height: 400px;
+      background: var(--dark-soft);
+    }
+    .contact-map iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      filter: grayscale(0.5) invert(0.05) brightness(0.9);
+    }
+    .contact-info {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .contact-info .info-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 16px 20px;
+      background: rgba(255, 255, 255, 0.02);
+      border-radius: var(--radius);
+      border: 1px solid rgba(255, 255, 255, 0.04);
+    }
+    .contact-info .info-item i {
+      font-size: 1.2rem;
+      color: var(--gold);
+      width: 28px;
+      text-align: center;
+    }
+    .contact-info .info-item .text {
+      font-weight: 400;
+    }
+    .contact-info .info-item .sub {
+      font-size: 0.8rem;
+      color: rgba(255, 255, 255, 0.3);
+      font-weight: 300;
+    }
+    .contact-emergency {
+      margin-top: 8px;
+      padding: 20px;
+      background: rgba(201, 164, 92, 0.04);
+      border: 1px solid rgba(201, 164, 92, 0.08);
+      border-radius: var(--radius);
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .contact-emergency i {
+      font-size: 1.4rem;
+      color: var(--gold);
+    }
+    .contact-emergency .text {
+      font-weight: 400;
+    }
+    .contact-emergency .sub {
+      font-size: 0.8rem;
+      color: rgba(255, 255, 255, 0.3);
+    }
+    .contact-emergency .btn {
+      margin-left: auto;
+      padding: 10px 24px;
+      font-size: 0.7rem;
+    }
+    @media (max-width: 1024px) {
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+      .contact-map {
+        height: 280px;
+      }
+      .contact-emergency .btn {
+        margin-left: 0;
+        width: 100%;
+        justify-content: center;
+      }
+    }
+
+    /* ===== FOOTER ===== */
+    .footer {
+      background: var(--dark-soft);
+      padding: 60px 0 30px;
+      border-top: 1px solid rgba(255, 255, 255, 0.03);
+      color: var(--ivory);
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+    .footer-brand .nav-brand {
+      font-size: 1.8rem;
+      color: var(--ivory);
+    }
+    .footer-brand p {
+      color: rgba(255, 255, 255, 0.3);
+      font-size: 0.9rem;
+      margin-top: 12px;
+      max-width: 300px;
+      line-height: 1.7;
+      font-weight: 300;
+    }
+    .footer-brand .social {
+      display: flex;
+      gap: 14px;
+      margin-top: 18px;
+    }
+    .footer-brand .social a {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.03);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition);
+      color: rgba(255, 255, 255, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.04);
+    }
+    .footer-brand .social a:hover {
+      background: var(--gold);
+      color: var(--dark);
+      transform: translateY(-3px);
+      border-color: var(--gold);
+    }
+    .footer-col h5 {
+      font-family: var(--font-serif);
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      color: var(--ivory);
+    }
+    .footer-col ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .footer-col ul a {
+      color: rgba(255, 255, 255, 0.3);
+      font-size: 0.85rem;
+      transition: var(--transition);
+      font-weight: 300;
+    }
+    .footer-col ul a:hover {
+      color: var(--gold);
+    }
+    .footer-bottom {
+      border-top: 1px solid rgba(255, 255, 255, 0.03);
+      padding-top: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-size: 0.8rem;
+      color: rgba(255, 255, 255, 0.2);
+      font-weight: 300;
+    }
+    .footer-bottom .lang-select {
+      display: flex;
+      gap: 12px;
+    }
+    .footer-bottom .lang-select button {
+      background: none;
+      border: none;
+      color: rgba(255, 255, 255, 0.2);
+      font-size: 0.75rem;
+      cursor: pointer;
+      transition: var(--transition);
+      font-family: var(--font-sans);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .footer-bottom .lang-select button:hover,
+    .footer-bottom .lang-select button.active {
+      color: var(--gold);
+    }
+    @media (max-width: 1024px) {
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+    @media (max-width: 600px) {
+      .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 28px;
+      }
+      .footer-bottom {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+
+    /* ===== AI CONCIERGE ===== */
+    .concierge-toggle {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      z-index: 999;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: var(--gold);
+      color: var(--dark);
+      border: none;
+      font-size: 1.4rem;
+      cursor: pointer;
+      box-shadow: 0 8px 32px rgba(201, 164, 92, 0.25);
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .concierge-toggle:hover {
+      transform: scale(1.06);
+      box-shadow: 0 12px 48px rgba(201, 164, 92, 0.4);
+    }
+    .concierge-window {
+      position: fixed;
+      bottom: 100px;
+      right: 30px;
+      z-index: 998;
+      width: 380px;
+      max-width: calc(100vw - 40px);
+      max-height: 500px;
+      background: var(--ivory);
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(201, 164, 92, 0.15);
+      box-shadow: var(--shadow);
+      display: none;
+      flex-direction: column;
+      overflow: hidden;
+      animation: slideUp 0.3s ease;
+    }
+    .concierge-window.open {
+      display: flex;
+    }
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    .concierge-header {
+      padding: 18px 22px;
+      background: var(--dark);
+      color: var(--ivory);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .concierge-header h4 {
+      font-family: var(--font-serif);
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+    .concierge-header h4 i {
+      color: var(--gold);
+      margin-right: 8px;
+    }
+    .concierge-header .close-btn {
+      background: none;
+      border: none;
+      color: rgba(255, 255, 255, 0.3);
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .concierge-header .close-btn:hover {
+      color: var(--gold);
+    }
+    .concierge-messages {
+      flex: 1;
+      padding: 18px 22px;
+      overflow-y: auto;
+      max-height: 320px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      background: var(--ivory);
+    }
+    .concierge-messages .msg {
+      padding: 12px 18px;
+      border-radius: 12px;
+      max-width: 85%;
+      font-size: 0.9rem;
+      line-height: 1.5;
+      font-weight: 300;
+    }
+    .concierge-messages .msg.bot {
+      background: var(--dark);
+      color: var(--ivory);
+      align-self: flex-start;
+      border-bottom-left-radius: 4px;
+    }
+    .concierge-messages .msg.user {
+      background: var(--gold);
+      color: var(--dark);
+      align-self: flex-end;
+      border-bottom-right-radius: 4px;
+    }
+    .concierge-input {
+      padding: 14px 22px;
+      border-top: 1px solid rgba(21, 21, 21, 0.04);
+      display: flex;
+      gap: 10px;
+      background: var(--ivory);
+    }
+    .concierge-input input {
+      flex: 1;
+      padding: 12px 16px;
+      background: rgba(21, 21, 21, 0.04);
+      border: 1px solid rgba(21, 21, 21, 0.06);
+      border-radius: 8px;
+      color: var(--dark);
+      font-family: var(--font-sans);
+      font-size: 0.9rem;
+      outline: none;
+      font-weight: 300;
+    }
+    .concierge-input input:focus {
+      border-color: var(--gold);
+    }
+    .concierge-input button {
+      padding: 12px 18px;
+      background: var(--gold);
+      border: none;
+      border-radius: 8px;
+      color: var(--dark);
+      font-weight: 500;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .concierge-input button:hover {
+      background: var(--gold-dark);
+    }
+    @media (max-width: 600px) {
+      .concierge-window {
+        width: calc(100vw - 40px);
+        right: 20px;
+        bottom: 90px;
+        max-height: 440px;
+      }
+      .concierge-toggle {
+        width: 50px;
+        height: 50px;
+        font-size: 1.2rem;
+        bottom: 20px;
+        right: 20px;
+      }
+    }
+
+    /* ===== REVEAL UTILITY ===== */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.9s ease, transform 0.9s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== NAVIGATION ===== -->
+  <nav class="navbar" id="navbar">
+    <div class="container">
+      <a href="#" class="nav-brand">ÉLAN<span class="gold">.</span></a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#club">The Club</a></li>
+        <li><a href="#experiences">Experience</a></li>
+        <li><a href="#training">Training</a></li>
+        <li><a href="#coaches">Coaches</a></li>
+        <li><a href="#membership">Membership</a></li>
+        <li><a href="#lifestyle">Lifestyle</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#journal">Journal</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li class="nav-cta"><a href="#application" class="btn btn-sm">Apply Now</a></li>
+      </ul>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero" id="home">
+    <img class="hero-bg" src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1600&q=80" alt="Luxury fitness" />
+    <div class="hero-overlay"></div>
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-badge">Private Members Club · Since 2008</div>
+        <h1>
+          Elevate Your<br />
+          <span class="gold">Body.</span><br />
+          Refine Your <span class="gold">Lifestyle.</span>
+        </h1>
+        <p>An exclusive fitness experience designed for those who seek excellence.</p>
+        <div class="hero-buttons">
+          <a href="#application" class="btn btn-primary"><i class="fas fa-arrow-right"></i> Become A Member</a>
+          <a href="#application" class="btn btn-outline"><i class="fas fa-calendar-check"></i> Book Private Consultation</a>
+        </div>
+        <div class="hero-stats">
+          <div class="hero-stat">
+            <span class="number">15<span class="gold">+</span></span>
+            <span class="label">Years Excellence</span>
+          </div>
+          <div class="hero-stat">
+            <span class="number">3000<span class="gold">+</span></span>
+            <span class="label">Premium Members</span>
+          </div>
+          <div class="hero-stat">
+            <span class="number">40<span class="gold">+</span></span>
+            <span class="label">Expert Coaches</span>
+          </div>
+          <div class="hero-stat">
+            <span class="number">24<span class="gold">/</span>7</span>
+            <span class="label">Private Access</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== THE CLUB ===== -->
+  <section class="club section-padding" id="club">
+    <div class="container">
+      <div class="club-grid">
+        <div class="club-image reveal">
+          <img src="https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=800&q=80" alt="Private club interior" loading="lazy" />
+          <div class="badge-float">
+            <strong>Exclusive</strong>
+            <span>Private members since 2008</span>
+          </div>
+        </div>
+        <div class="club-text reveal">
+          <span class="section-label"><i class="fas fa-leaf"></i> The Club</span>
+          <h2 class="section-title">More Than A Gym.<br />A Complete <span class="gold">Lifestyle</span> Experience.</h2>
+          <div class="gold-line"></div>
+          <p>ÉLAN is a private sanctuary for those who demand the finest in fitness, wellness, and personal transformation. Set in an atmosphere of refined elegance, we offer a holistic approach to health that transcends traditional training.</p>
+          <p>Our philosophy is rooted in the belief that true excellence comes from a balance of physical mastery, mental clarity, and lifestyle refinement.</p>
+          <div class="club-features">
+            <div class="club-feature"><i class="fas fa-check-circle"></i> Private Training Spaces</div>
+            <div class="club-feature"><i class="fas fa-check-circle"></i> Premium Equipment</div>
+            <div class="club-feature"><i class="fas fa-check-circle"></i> Wellness Focused Approach</div>
+            <div class="club-feature"><i class="fas fa-check-circle"></i> Expert Guidance</div>
+            <div class="club-feature"><i class="fas fa-check-circle"></i> Exclusive Member Community</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== EXPERIENCES ===== -->
+  <section class="experiences section-padding" id="experiences">
+    <div class="container">
+      <div class="text-center reveal">
+        <span class="section-label"><i class="fas fa-star"></i> Signature Experiences</span>
+        <h2 class="section-title">Crafted for <span class="gold">Excellence</span></h2>
+        <p class="section-subtitle">Each program is meticulously designed to align with your personal aspirations and lifestyle.</p>
+        <div class="gold-line"></div>
+      </div>
+      <div class="experiences-grid">
+        <div class="experience-card reveal">
+          <div class="card-img">
+            <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600&q=80" alt="Personal Training" loading="lazy" />
+            <div class="gold-stripe"></div>
+          </div>
+          <div class="card-body">
+            <h3>Private Personal Training</h3>
+            <p>One-to-one coaching designed around your goals, with complete privacy and undivided attention.</p>
+            <a href="#application" class="learn-more">Discover →</a>
+          </div>
+        </div>
+        <div class="experience-card reveal">
+          <div class="card-img">
+            <img src="https://images.unsplash.com/photo-1534367507873-d2d7e24c797f?w=600&q=80" alt="Executive Fitness" loading="lazy" />
+            <div class="gold-stripe"></div>
+          </div>
+          <div class="card-body">
+            <h3>Executive Fitness Program</h3>
+            <p>Fitness solutions for busy professionals, optimized for efficiency and results.</p>
+            <a href="#application" class="learn-more">Discover →</a>
+          </div>
+        </div>
+        <div class="experience-card reveal">
+          <div class="card-img">
+            <img src="https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=600&q=80" alt="Transformation" loading="lazy" />
+            <div class="gold-stripe"></div>
+          </div>
+          <div class="card-body">
+            <h3>Body Transformation Program</h3>
+            <p>Complete transformation with integrated training, nutrition, and lifestyle coaching.</p>
+            <a href="#application" class="learn-more">Discover →</a>
+          </div>
+        </div>
+        <div class="experience-card reveal">
+          <div class="card-img">
+            <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=600&q=80" alt="Wellness Recovery" loading="lazy" />
+            <div class="gold-stripe"></div>
+          </div>
+          <div class="card-body">
+            <h3>Wellness Recovery</h3>
+            <p>Recovery, mobility and relaxation programs to restore and rejuvenate.</p>
+            <a href="#application" class="learn-more">Discover →</a>
+          </div>
+        </div>
+        <div class="experience-card reveal">
+          <div class="card-img">
+            <img src="https://images.unsplash.com/photo-1518310383802-640c2de311b2?w=600&q=80" alt="Athlete Performance" loading="lazy" />
+            <div class="gold-stripe"></div>
+          </div>
+          <div class="card-body">
+            <h3>Athlete Performance</h3>
+            <p>Advanced training for elite performance, combining science and precision.</p>
+            <a href="#application" class="learn-more">Discover →</a>
+          </div>
+        </div>
+        <div class="experience-card reveal">
+          <div class="card-img">
+            <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=600&q=80" alt="Lifestyle Coaching" loading="lazy" />
+            <div class="gold-stripe"></div>
+          </div>
+          <div class="card-body">
+            <h3>Holistic Lifestyle Coaching</h3>
+            <p>Integrated wellness, nutrition, sleep optimization and mental clarity.</p>
+            <a href="#application" class="learn-more">Discover →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== COACHES ===== -->
+  <section class="coaches section-padding" id="coaches">
+    <div class="container">
+      <div class="text-center reveal">
+        <span class="section-label"><i class="fas fa-user-tie"></i> Private Coaching</span>
+        <h2 class="section-title">Masters of <span class="gold">Excellence</span></h2>
+        <p class="section-subtitle">Our elite coaches bring years of expertise and a passion for transformative results.</p>
+        <div class="gold-line"></div>
+      </div>
+      <div class="coaches-grid">
+        <div class="coach-card reveal">
+          <div class="coach-img">
+            <img src="https://images.unsplash.com/photo-1567013127542-490d757e51fc?w=600&q=80" alt="Sophia Laurent" loading="lazy" />
+            <div class="gold-stripe"></div>
+          </div>
+          <div class="coach-info">
+            <h4>Sophia Laurent</h4>
+            <div class="role">Elite Performance Coach</div>
+            <div class="exp">12 Years Experience</div>
+            <div class="specialties">
+              <span>Performance</span>
+              <span>Strength</span>
+              <span>Functional</span>
+            </div>
+          </div>
+        </div>
+        <div class="coach-card reveal">
+          <div class="coach-img">
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80" alt="Marcus Weber" loading="lazy" />
+            <div class="gold-stripe"></div>
+          </div>
+          <div class="coach-info">
+            <h4>Marcus Weber</h4>
+            <div class="role">Executive Fitness Specialist</div>
+            <div class="exp">10 Years Experience</div>
+            <div class="specialties">
+              <span>Executive</span>
+              <span>Metabolism</span>
+              <span>Recovery</span>
+            </div>
+          </div>
+        </div>
+        <div class="coach-card reveal">
+          <div class="coach-img">
+            <img src="https://images.unsplash.com/photo-1594381898411-846e7d193883?w=600&q=80" alt="Elena Petrov" loading="lazy" />
+            <div class="gold-stripe"></div>
+          </div>
+          <div class="coach-info">
+            <h4>Elena Petrov</h4>
+            <div class="role">Wellness & Recovery Coach</div>
+            <div class="exp">8 Years Experience</div>
+            <div class="specialties">
+              <span>Yoga</span>
+              <span>Mobility</span>
+              <span>Mindfulness</span>
+            </div>
+          </div>
+        </div>
+        <div class="coach-card reveal">
+          <div class="coach-img">
+            <img src="https://images.unsplash.com/photo-1570158268183-d296b2892211?w=600&q=80" alt="James O'Connell" loading="lazy" />
+            <div class="gold-stripe"></div>
+          </div>
+          <div class="coach-info">
+            <h4>James O'Connell</h4>
+            <div class="role">Strength & Conditioning Lead</div>
+            <div class="exp">14 Years Experience</div>
+            <div class="specialties">
+              <span>Strength</span>
+              <span>Athletic</span>
+              <span>Nutrition</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== MEMBERSHIP ===== -->
+  <section class="membership section-padding" id="membership">
+    <div class="container">
+      <div class="text-center reveal">
+        <span class="section-label"><i class="fas fa-crown"></i> Membership</span>
+        <h2 class="section-title">An <span class="gold">Exclusive</span> Privilege</h2>
+        <p class="section-subtitle">Choose the membership that reflects your commitment to excellence.</p>
+        <div class="gold-line"></div>
+      </div>
+      <div class="pricing-grid">
+        <div class="pricing-card reveal">
+          <div class="plan-name">Essential</div>
+          <div class="plan-price"><span class="currency">€</span>120 <span class="period">/mo</span></div>
+          <div class="plan-desc">The foundation of elite fitness</div>
+          <ul class="plan-features">
+            <li><i class="fas fa-check"></i> Private Gym Access</li>
+            <li><i class="fas fa-check"></i> Fitness Assessment</li>
+            <li><i class="fas fa-check"></i> Member Lounge</li>
+          </ul>
+          <a href="#application" class="btn btn-outline">Inquire</a>
+        </div>
+        <div class="pricing-card popular reveal">
+          <div class="popular-badge">Most Popular</div>
+          <div class="plan-name">Signature</div>
+          <div class="plan-price"><span class="currency">€</span>280 <span class="period">/mo</span></div>
+          <div class="plan-desc">Personal coaching and premium access</div>
+          <ul class="plan-features">
+            <li><i class="fas fa-check"></i> Personal Coaching Sessions</li>
+            <li><i class="fas fa-check"></i> Nutrition Guidance</li>
+            <li><i class="fas fa-check"></i> Premium Classes</li>
+            <li><i class="fas fa-check"></i> Priority Booking</li>
+          </ul>
+          <a href="#application" class="btn btn-primary">Apply Now</a>
+        </div>
+        <div class="pricing-card reveal">
+          <div class="plan-name">Private Club</div>
+          <div class="plan-price"><span class="currency">€</span>480 <span class="period">/mo</span></div>
+          <div class="plan-desc">The ultimate private experience</div>
+          <ul class="plan-features">
+            <li><i class="fas fa-check"></i> Dedicated Coach</li>
+            <li><i class="fas fa-check"></i> Customized Programs</li>
+            <li><i class="fas fa-check"></i> VIP Facilities Access</li>
+            <li><i class="fas fa-check"></i> Wellness Concierge</li>
+            <li><i class="fas fa-check"></i> Guest Privileges</li>
+          </ul>
+          <a href="#application" class="btn btn-outline">Inquire</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FACILITIES ===== -->
+  <section class="facilities section-padding" id="gallery">
+    <div class="container">
+      <div class="text-center reveal">
+        <span class="section-label"><i class="fas fa-building"></i> Facilities</span>
+        <h2 class="section-title">A <span class="gold">Sanctuary</span> of Excellence</h2>
+        <p class="section-subtitle">Every detail is crafted to elevate your experience.</p>
+        <div class="gold-line"></div>
+      </div>
+      <div class="facilities-grid">
+        <div class="facility-item reveal">
+          <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=600&q=80" alt="Private Studios" loading="lazy" />
+          <div class="facility-overlay">
+            <h4>Private Training Studios</h4>
+            <span>Exclusive coaching spaces</span>
+          </div>
+        </div>
+        <div class="facility-item reveal">
+          <img src="https://images.unsplash.com/photo-1538805060514-97d9cc17730c?w=600&q=80" alt="Premium Equipment" loading="lazy" />
+          <div class="facility-overlay">
+            <h4>Premium Equipment Floor</h4>
+            <span>State-of-the-art machines</span>
+          </div>
+        </div>
+        <div class="facility-item reveal">
+          <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=600&q=80" alt="Recovery Lounge" loading="lazy" />
+          <div class="facility-overlay">
+            <h4>Recovery & Wellness Lounge</h4>
+            <span>Sauna, steam, and relaxation</span>
+          </div>
+        </div>
+        <div class="facility-item reveal">
+          <img src="https://images.unsplash.com/photo-1584735935682-2f2b69dff9d2?w=600&q=80" alt="Nutrition Bar" loading="lazy" />
+          <div class="facility-overlay">
+            <h4>Nutrition Bar</h4>
+            <span>Premium wellness cuisine</span>
+          </div>
+        </div>
+        <div class="facility-item reveal">
+          <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600&q=80" alt="Member Lounge" loading="lazy" />
+          <div class="facility-overlay">
+            <h4>Member Lounge</h4>
+            <span>Private social space</span>
+          </div>
+        </div>
+        <div class="facility-item reveal">
+          <img src="https://images.unsplash.com/photo-1518310383802-640c2de311b2?w=600&q=80" alt="Functional Area" loading="lazy" />
+          <div class="facility-overlay">
+            <h4>Functional Training Area</h4>
+            <span>Turf, rigs & open space</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== TRANSFORMATIONS ===== -->
+  <section class="transformations section-padding" id="lifestyle">
+    <div class="container">
+      <div class="text-center reveal">
+        <span class="section-label"><i class="fas fa-chart-line"></i> Transformations</span>
+        <h2 class="section-title">Stories of <span class="gold">Refinement</span></h2>
+        <p class="section-subtitle">Real members, real journeys — each one a testament to the power of our approach.</p>
+        <div class="gold-line"></div>
+      </div>
+      <div class="transformations-grid">
+        <div class="transformation-card reveal">
+          <div class="transform-img">
+            <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&q=80" alt="Before" loading="lazy" />
+            <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=400&q=80" alt="After" loading="lazy" />
+          </div>
+          <div class="transform-body">
+            <blockquote>"ÉLAN transformed not just my body, but my entire perspective on health and wellness."</blockquote>
+            <div class="author">
+              <div><span class="name">Alexander Brandt</span></div>
+              <div><span class="detail">Zurich · 12kg loss</span></div>
+            </div>
+            <div class="result">Before 94kg → After 82kg</div>
+          </div>
+        </div>
+        <div class="transformation-card reveal">
+          <div class="transform-img">
+            <img src="https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=400&q=80" alt="Before" loading="lazy" />
+            <img src="https://images.unsplash.com/photo-1518310383802-640c2de311b2?w=400&q=80" alt="After" loading="lazy" />
+          </div>
+          <div class="transform-body">
+            <blockquote>"The executive program gave me the energy and clarity to lead at my best. Unmatched expertise."</blockquote>
+            <div class="author">
+              <div><span class="name">Isabella Rossi</span></div>
+              <div><span class="detail">Milan · 8kg loss</span></div>
+            </div>
+            <div class="result">Before 68kg → After 60kg</div>
+          </div>
+        </div>
+        <div class="transformation-card reveal">
+          <div class="transform-img">
+            <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=400&q=80" alt="Before" loading="lazy" />
+            <img src="https://images.unsplash.com/photo-1534367507873-d2d7e24c797f?w=400&q=80" alt="After" loading="lazy" />
+          </div>
+          <div class="transform-body">
+            <blockquote>"The personalized attention and world-class facilities are simply unmatched."</blockquote>
+            <div class="author">
+              <div><span class="name">William van der Meer</span></div>
+              <div><span class="detail">Amsterdam · 10kg loss</span></div>
+            </div>
+            <div class="result">Before 86kg → After 76kg</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== WELLNESS & LIFESTYLE ===== -->
+  <section class="wellness section-padding" id="lifestyle">
+    <div class="container">
+      <div class="text-center reveal">
+        <span class="section-label"><i class="fas fa-spa"></i> Wellness & Lifestyle</span>
+        <h2 class="section-title">Holistic <span class="gold">Excellence</span></h2>
+        <p class="section-subtitle">True transformation extends beyond the gym. We nurture every aspect of your well-being.</p>
+        <div class="gold-line"></div>
+      </div>
+      <div class="wellness-grid">
+        <div class="wellness-item reveal">
+          <div class="icon"><i class="fas fa-utensils"></i></div>
+          <h4>Nutrition</h4>
+          <p>Personalized nutrition plans designed for performance and vitality.</p>
+        </div>
+        <div class="wellness-item reveal">
+          <div class="icon"><i class="fas fa-moon"></i></div>
+          <h4>Sleep Optimization</h4>
+          <p>Science-backed strategies for deep, restorative sleep.</p>
+        </div>
+        <div class="wellness-item reveal">
+          <div class="icon"><i class="fas fa-heartbeat"></i></div>
+          <h4>Recovery</h4>
+          <p>Advanced recovery techniques to enhance performance and longevity.</p>
+        </div>
+        <div class="wellness-item reveal">
+          <div class="icon"><i class="fas fa-brain"></i></div>
+          <h4>Mental Wellness</h4>
+          <p>Mindfulness and mental clarity practices for peak performance.</p>
+        </div>
+        <div class="wellness-item reveal">
+          <div class="icon"><i class="fas fa-balance-scale"></i></div>
+          <h4>Lifestyle Coaching</h4>
+          <p>Integrative coaching for sustainable, long-term wellness.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== APPLICATION ===== -->
+  <section class="application section-padding" id="application">
+    <div class="container">
+      <div class="application-grid">
+        <div class="application-text reveal">
+          <span class="section-label"><i class="fas fa-user-plus"></i> Membership</span>
+          <h2 class="section-title">Begin Your <span class="gold">Journey</span></h2>
+          <p>Apply for membership and experience the epitome of private fitness excellence. Our team will personally curate your introduction to the club.</p>
+          <ul class="benefits">
+            <li><i class="fas fa-check-circle"></i> Private consultation with a senior coach</li>
+            <li><i class="fas fa-check-circle"></i> Personalized fitness assessment</li>
+            <li><i class="fas fa-check-circle"></i> Curated wellness plan</li>
+            <li><i class="fas fa-check-circle"></i> Exclusive member welcome</li>
+          </ul>
+        </div>
+        <div class="application-form reveal">
+          <form id="applicationForm">
+            <div class="form-group">
+              <label for="fullName">Full Name</label>
+              <input type="text" id="fullName" placeholder="Your full name" required />
+            </div>
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <input type="email" id="email" placeholder="you@example.com" required />
+            </div>
+            <div class="form-group">
+              <label for="phone">Phone Number</label>
+              <input type="tel" id="phone" placeholder="+41 79 123 45 67" />
+            </div>
+            <div class="form-group">
+              <label for="goal">Fitness Goal</label>
+              <select id="goal">
+                <option value="performance">Performance & Athletic</option>
+                <option value="transformation">Body Transformation</option>
+                <option value="wellness">Wellness & Longevity</option>
+                <option value="executive">Executive Fitness</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="style">Preferred Training Style</label>
+              <select id="style">
+                <option value="personal">Personal Training</option>
+                <option value="group">Small Group Sessions</option>
+                <option value="hybrid">Hybrid Coaching</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="interest">Membership Interest</label>
+              <select id="interest">
+                <option value="essential">Essential</option>
+                <option value="signature">Signature</option>
+                <option value="private">Private Club</option>
+              </select>
+            </div>
+            <button type="submit" class="btn btn-primary"><i class="fas fa-arrow-right"></i> Request Private Consultation</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== TESTIMONIALS ===== -->
+  <section class="testimonials section-padding" id="testimonials">
+    <div class="container">
+      <div class="text-center reveal">
+        <span class="section-label"><i class="fas fa-quote-right"></i> Testimonials</span>
+        <h2 class="section-title">Voices of <span class="gold">Excellence</span></h2>
+        <p class="section-subtitle">What our members say about their ÉLAN experience.</p>
+        <div class="gold-line"></div>
+      </div>
+      <div class="testimonials-grid">
+        <div class="testimonial-card reveal">
+          <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+          <blockquote>"ÉLAN is not just a gym — it's a sanctuary of excellence. The coaching, the environment, the community — it's unparalleled."</blockquote>
+          <div class="author">
+            <div class="avatar"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&q=80" alt="Client" loading="lazy" /></div>
+            <div><div class="name">Dr. Markus Fischer</div><div class="detail">Zurich · CEO</div></div>
+          </div>
+        </div>
+        <div class="testimonial-card reveal">
+          <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+          <blockquote>"The private coaching program transformed my health and my business performance. I've never felt more focused and energized."</blockquote>
+          <div class="author">
+            <div class="avatar"><img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&q=80" alt="Client" loading="lazy" /></div>
+            <div><div class="name">Clara Dubois</div><div class="detail">Paris · Entrepreneur</div></div>
+          </div>
+        </div>
+        <div class="testimonial-card reveal">
+          <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+          <blockquote>"The attention to detail and the quality of the facilities are extraordinary. ÉLAN is the gold standard of luxury fitness."</blockquote>
+          <div class="author">
+            <div class="avatar"><img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&q=80" alt="Client" loading="lazy" /></div>
+            <div><div class="name">James Whitfield</div><div class="detail">London · Investor</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== JOURNAL ===== -->
+  <section class="journal section-padding" id="journal">
+    <div class="container">
+      <div class="text-center reveal">
+        <span class="section-label"><i class="fas fa-book-open"></i> Journal</span>
+        <h2 class="section-title">Insights for <span class="gold">Excellence</span></h2>
+        <p class="section-subtitle">Explore our journal for expert perspectives on fitness, wellness, and lifestyle.</p>
+        <div class="gold-line"></div>
+      </div>
+      <div class="journal-grid">
+        <div class="journal-card reveal">
+          <div class="journal-img"><img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600&q=80" alt="Fitness Science" loading="lazy" /></div>
+          <div class="journal-body">
+            <span class="category">Fitness Science</span>
+            <h4>The Art of Progressive Overload</h4>
+            <p>How to apply progressive overload techniques for sustainable strength gains.</p>
+            <a href="#" class="read-more">Read More →</a>
+          </div>
+        </div>
+        <div class="journal-card reveal">
+          <div class="journal-img"><img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=600&q=80" alt="Nutrition" loading="lazy" /></div>
+          <div class="journal-body">
+            <span class="category">Nutrition</span>
+            <h4>Optimal Nutrition for Executive Performance</h4>
+            <p>Fueling your body for peak cognitive and physical performance.</p>
+            <a href="#" class="read-more">Read More →</a>
+          </div>
+        </div>
+        <div class="journal-card reveal">
+          <div class="journal-img"><img src="https://images.unsplash.com/photo-1538805060514-97d9cc17730c?w=600&q=80" alt="Wellness" loading="lazy" /></div>
+          <div class="journal-body">
+            <span class="category">Luxury Wellness</span>
+            <h4>The Science of Recovery and Longevity</h4>
+            <p>Advanced recovery protocols for a longer, healthier life.</p>
+            <a href="#" class="read-more">Read More →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CONTACT ===== -->
+  <section class="contact section-padding" id="contact">
+    <div class="container">
+      <div class="text-center reveal">
+        <span class="section-label"><i class="fas fa-map-marker-alt"></i> Contact</span>
+        <h2 class="section-title">Connect with <span class="gold">ÉLAN</span></h2>
+        <p class="section-subtitle">Visit our private club or reach out to our concierge team.</p>
+        <div class="gold-line"></div>
+      </div>
+      <div class="contact-grid">
+        <div class="contact-map reveal">
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2703.892714973293!2d8.5376!3d47.3769!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x479aa66f8d4b2d3b%3A0x8b7c3e6b2f8d4e2d!2sZurich!5e0!3m2!1sen!2sch!4v1700000000000" allowfullscreen loading="lazy"></iframe>
+        </div>
+        <div class="contact-info reveal">
+          <div class="info-item">
+            <i class="fas fa-map-pin"></i>
+            <div><div class="text">Bahnhofstrasse 12, 8001 Zurich</div><div class="sub">Switzerland</div></div>
+          </div>
+          <div class="info-item">
+            <i class="fas fa-phone"></i>
+            <div><div class="text">+41 44 555 78 90</div><div class="sub">Mon–Sat 6:00 – 22:00</div></div>
+          </div>
+          <div class="info-item">
+            <i class="fas fa-envelope"></i>
+            <div><div class="text">concierge@elanclub.com</div><div class="sub">24/7 Member Support</div></div>
+          </div>
+          <div class="info-item">
+            <i class="fab fa-whatsapp"></i>
+            <div><div class="text">+41 79 123 45 67</div><div class="sub">WhatsApp Concierge</div></div>
+          </div>
+          <div class="contact-emergency">
+            <i class="fas fa-shield-alt"></i>
+            <div><div class="text">Private Member Support</div><div class="sub">24/7 priority assistance</div></div>
+            <a href="tel:+41445557890" class="btn btn-primary btn-sm">Contact Now</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="#" class="nav-brand">ÉLAN<span class="gold">.</span></a>
+          <p>Private luxury fitness club. Where excellence meets elegance.</p>
+          <div class="social">
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+            <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h5>Explore</h5>
+          <ul>
+            <li><a href="#club">The Club</a></li>
+            <li><a href="#experiences">Experiences</a></li>
+            <li><a href="#coaches">Coaches</a></li>
+            <li><a href="#membership">Membership</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>Support</h5>
+          <ul>
+            <li><a href="#contact">Contact</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms & Conditions</a></li>
+            <li><a href="#">FAQ</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>Newsletter</h5>
+          <ul>
+            <li><span style="color:rgba(255,255,255,0.3);font-size:0.85rem;font-weight:300;">Exclusive insights for members</span></li>
+            <li>
+              <form style="display:flex;gap:8px;margin-top:6px;">
+                <input type="email" placeholder="Email" style="flex:1;padding:10px 14px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.04);border-radius:8px;color:var(--ivory);font-family:var(--font-sans);font-size:0.85rem;outline:none;font-weight:300;" />
+                <button type="submit" style="padding:10px 16px;background:var(--gold);border:none;border-radius:8px;color:var(--dark);font-weight:500;cursor:pointer;">→</button>
+              </form>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 ÉLAN Club. All rights reserved.</span>
+        <div class="lang-select">
+          <button class="active">EN</button>
+          <button>DE</button>
+          <button>FR</button>
+          <button>IT</button>
+          <button>ES</button>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===== AI CONCIERGE ===== -->
+  <button class="concierge-toggle" id="conciergeToggle" aria-label="Open AI Concierge">
+    <i class="fas fa-robot"></i>
+  </button>
+  <div class="concierge-window" id="conciergeWindow">
+    <div class="concierge-header">
+      <h4><i class="fas fa-crown"></i> ÉLAN Concierge</h4>
+      <button class="close-btn" id="conciergeClose"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="concierge-messages" id="conciergeMessages">
+      <div class="msg bot">Welcome to ÉLAN. I'm your private concierge. How may I assist you today?</div>
+    </div>
+    <div class="concierge-input">
+      <input type="text" id="conciergeInput" placeholder="Ask our concierge..." />
+      <button id="conciergeSend"><i class="fas fa-paper-plane"></i></button>
+    </div>
+  </div>
+
+  <!-- ===== SCRIPTS ===== -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.4/gsap.min.js">
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.4/ScrollTrigger.min.js">
+  </script>
+  <script>
+    // ===== GSAP & SCROLLTRIGGER =====
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Navbar scroll effect
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 80);
+    });
+
+    // Mobile nav toggle
+    const navToggle = document.getElementById('navToggle');
+    const navLinks = document.getElementById('navLinks');
+    navToggle.addEventListener('click', () => {
+      navToggle.classList.toggle('active');
+      navLinks.classList.toggle('open');
+    });
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        navToggle.classList.remove('active');
+        navLinks.classList.remove('open');
+      });
+    });
+
+    // ===== REVEAL OBSERVER =====
+    const revealElements = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.15 });
+    revealElements.forEach(el => revealObserver.observe(el));
+
+    // ===== APPLICATION FORM =====
+    document.getElementById('applicationForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      alert('Thank you. Your private consultation request has been received. Our concierge will contact you within 24 hours.');
+      e.target.reset();
+    });
+
+    // ===== AI CONCIERGE =====
+    const conciergeToggle = document.getElementById('conciergeToggle');
+    const conciergeWindow = document.getElementById('conciergeWindow');
+    const conciergeClose = document.getElementById('conciergeClose');
+    const conciergeInput = document.getElementById('conciergeInput');
+    const conciergeSend = document.getElementById('conciergeSend');
+    const conciergeMessages = document.getElementById('conciergeMessages');
+
+    const conciergeResponses = [
+      { keywords: ['member', 'membership', 'join', 'apply'], response: 'Our private membership offers three tiers: Essential, Signature, and Private Club. Each includes exclusive access and personalized coaching. Would you like me to connect you with a membership advisor?' },
+      { keywords: ['training', 'coach', 'workout'], response: 'Our coaches are world-class experts in performance, executive fitness, wellness, and strength training. I can recommend a coach based on your goals. What are you looking to achieve?' },
+      { keywords: ['nutrition', 'diet', 'food'], response: 'Nutrition is a cornerstone of our approach. We offer personalized nutrition plans, a premium nutrition bar, and expert guidance. Would you like to schedule a nutrition consultation?' },
+      { keywords: ['recovery', 'wellness', 'sauna', 'relax'], response: 'Our recovery facilities include a sauna, steam room, and wellness lounge. We also offer recovery coaching and specialized programs. How can I assist you?' },
+      { keywords: ['hours', 'open', 'time', '24/7'], response: 'ÉLAN is open Monday–Saturday 6:00–22:00. Private Club members enjoy 24/7 access. Would you like more details?' },
+      { keywords: ['hello', 'hi', 'help', 'concierge'], response: 'Good day. I\'m your ÉLAN concierge. I can assist with memberships, training, nutrition, bookings, and more. How may I elevate your experience today?' },
+    ];
+
+    function getConciergeResponse(input) {
+      const lower = input.toLowerCase();
+      for (const item of conciergeResponses) {
+        if (item.keywords.some(k => lower.includes(k))) return item.response;
+      }
+      return 'I\'d be delighted to assist. For personalized service, I recommend booking a private consultation with our team. May I help you with that?';
+    }
+
+    function addConciergeMessage(text, sender) {
+      const msg = document.createElement('div');
+      msg.className = `msg ${sender}`;
+      msg.textContent = text;
+      conciergeMessages.appendChild(msg);
+      conciergeMessages.scrollTop = conciergeMessages.scrollHeight;
+    }
+
+    function handleConcierge() {
+      const input = conciergeInput.value.trim();
+      if (!input) return;
+      addConciergeMessage(input, 'user');
+      conciergeInput.value = '';
+      setTimeout(() => {
+        const response = getConciergeResponse(input);
+        addConciergeMessage(response, 'bot');
+      }, 400);
+    }
+
+    conciergeToggle.addEventListener('click', () => conciergeWindow.classList.toggle('open'));
+    conciergeClose.addEventListener('click', () => conciergeWindow.classList.remove('open'));
+    conciergeSend.addEventListener('click', handleConcierge);
+    conciergeInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') handleConcierge(); });
+
+    // ===== GSAP HERO ANIMATIONS =====
+    gsap.from('.hero-badge', { duration: 1.2, y: 30, opacity: 0, delay: 0.3, ease: 'power3.out' });
+    gsap.from('.hero h1', { duration: 1.4, y: 50, opacity: 0, delay: 0.5, ease: 'power3.out' });
+    gsap.from('.hero p', { duration: 1.2, y: 30, opacity: 0, delay: 0.8, ease: 'power3.out' });
+    gsap.from('.hero-buttons', { duration: 1.2, y: 30, opacity: 0, delay: 1.0, ease: 'power3.out' });
+    gsap.from('.hero-stats', { duration: 1.2, y: 30, opacity: 0, delay: 1.2, ease: 'power3.out' });
+
+    // ===== LANGUAGE SELECTOR =====
+    document.querySelectorAll('.lang-select button').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.lang-select button').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+      });
+    });
+
+    // ===== SMOOTH SCROLL =====
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          e.preventDefault();
+          const offset = 80;
+          const top = target.getBoundingClientRect().top + window.pageYOffset - offset;
+          window.scrollTo({ top, behavior: 'smooth' });
+        }
+      });
+    });
+
+    console.log('🏛️ ÉLAN — Private Luxury Fitness Club');
+    console.log('✨ Where excellence meets elegance.');
+  </script>
+</body>
+</html>

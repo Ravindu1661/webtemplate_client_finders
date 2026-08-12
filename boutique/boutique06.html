@@ -1,0 +1,1511 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aura Haven · Ultra Luxury Boutique Hotel & Resort | 2028 Experience</title>
+    <meta name="description" content="Welcome to Aura Haven. An extraordinary 5-star boutique hotel and sanctuary of serenity, modern European architecture, fine dining, and private ocean villas.">
+    <meta name="keywords" content="boutique hotel, luxury resort, 5 star hotel, ocean villa, spa wellness, fine dining, luxury travel 2028">
+    
+    <!-- Open Graph SEO -->
+    <meta property="og:title" content="Aura Haven · Where Luxury Meets Serenity">
+    <meta property="og:description" content="Experience modern European luxury, private ocean villas, holistic wellness spa, and Michelin-inspired dining.">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1600&q=85">
+    <meta property="og:type" content="website">
+
+    <!-- Schema.org Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Hotel",
+      "name": "Aura Haven Sanctuary & Resort",
+      "description": "Exclusive 5-star European boutique hotel offering ocean villas, fine dining, and holistic wellness.",
+      "starRating": {
+        "@type": "Rating",
+        "ratingValue": "5"
+      },
+      "priceRange": "$$$$",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Via Costiera 142",
+        "addressLocality": "Positano",
+        "addressCountry": "Italy"
+      }
+    }
+    </script>
+
+    <!-- Bootstrap 5 CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+    <!-- AOS Animation CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
+
+    <style>
+        /* ==========================================
+           COLOR SYSTEM & DYNAMIC TIME VARS
+           ========================================== */
+        :root {
+            --bg-primary: #FAF8F5;
+            --bg-card: rgba(255, 255, 255, 0.65);
+            --bg-card-hover: rgba(255, 255, 255, 0.85);
+            --text-main: #121212;
+            --text-muted: #666058;
+            --text-inverse: #FAF8F5;
+            --champagne-gold: #C9A86C;
+            --champagne-light: #E8D5A3;
+            --deep-emerald: #0D4F3C;
+            --sand-beige: #EBE4D8;
+            --luxury-black: #0B0B0B;
+            --glass-border: rgba(201, 168, 108, 0.25);
+            --glass-shadow: 0 30px 60px rgba(0, 0, 0, 0.05);
+            --sun-glow: radial-gradient(circle at 50% 20%, rgba(201, 168, 108, 0.15), transparent 70%);
+            --transition-theme: background-color 1.2s ease, color 1.2s ease, border-color 1.2s ease;
+            --font-heading: 'Playfair Display', serif;
+            --font-body: 'Outfit', sans-serif;
+        }
+
+        /* SUNSET THEME MODIFIER */
+        [data-environment="sunset"] {
+            --bg-primary: #1C1217;
+            --bg-card: rgba(45, 28, 36, 0.65);
+            --bg-card-hover: rgba(60, 36, 48, 0.85);
+            --text-main: #FDF7F2;
+            --text-muted: #CDB7A8;
+            --champagne-gold: #E5A968;
+            --glass-border: rgba(229, 169, 104, 0.3);
+            --glass-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+            --sun-glow: radial-gradient(circle at 50% 20%, rgba(229, 169, 104, 0.25), transparent 70%);
+        }
+
+        /* NIGHT THEME MODIFIER */
+        [data-environment="night"] {
+            --bg-primary: #0A0D14;
+            --bg-card: rgba(18, 24, 38, 0.65);
+            --bg-card-hover: rgba(26, 35, 56, 0.85);
+            --text-main: #F4F6FB;
+            --text-muted: #8E99B0;
+            --champagne-gold: #D4AF37;
+            --glass-border: rgba(212, 175, 55, 0.2);
+            --glass-shadow: 0 30px 60px rgba(0, 0, 0, 0.6);
+            --sun-glow: radial-gradient(circle at 50% 20%, rgba(60, 100, 180, 0.15), transparent 70%);
+        }
+
+        /* GENERAL RESET */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            cursor: none !important;
+        }
+
+        @media (max-width: 991px) {
+            * { cursor: auto !important; }
+            #custom-cursor, #cursor-dot { display: none !important; }
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg-primary);
+            color: var(--text-main);
+            transition: var(--transition-theme);
+            overflow-x: hidden;
+            line-height: 1.7;
+        }
+
+        h1, h2, h3, h4, h5, .font-serif {
+            font-family: var(--font-heading);
+            font-weight: 400;
+        }
+
+        /* CUSTOM CURSOR */
+        #custom-cursor {
+            position: fixed;
+            width: 38px;
+            height: 38px;
+            border: 1px solid var(--champagne-gold);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 99999;
+            transform: translate(-50%, -50%);
+            transition: transform 0.15s ease-out, width 0.3s ease, height 0.3s ease, background-color 0.3s ease;
+        }
+
+        #cursor-dot {
+            position: fixed;
+            width: 6px;
+            height: 6px;
+            background-color: var(--champagne-gold);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 100000;
+            transform: translate(-50%, -50%);
+            transition: transform 0.05s ease-out;
+        }
+
+        .cursor-hover #custom-cursor {
+            width: 65px;
+            height: 65px;
+            background-color: rgba(201, 168, 108, 0.15);
+            border-color: var(--champagne-gold);
+        }
+
+        /* PRELOADER */
+        #preloader {
+            position: fixed;
+            inset: 0;
+            background-color: var(--luxury-black);
+            z-index: 999999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #FAF8F5;
+            transition: opacity 1.2s cubic-bezier(0.77, 0, 0.175, 1), visibility 1.2s;
+        }
+
+        .preloader-brand {
+            font-family: var(--font-heading);
+            font-size: 2.8rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--champagne-gold);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 1s ease forwards 0.3s;
+        }
+
+        .preloader-sub {
+            font-size: 0.75rem;
+            letter-spacing: 0.4em;
+            text-transform: uppercase;
+            color: rgba(250, 248, 245, 0.6);
+            margin-top: 0.5rem;
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards 0.6s;
+        }
+
+        .preloader-bar {
+            width: 160px;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.15);
+            margin-top: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .preloader-progress {
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, var(--champagne-gold), transparent);
+            animation: loadLine 1.8s ease-in-out forwards 0.5s;
+        }
+
+        @keyframes loadLine {
+            100% { left: 100%; }
+        }
+
+        @keyframes fadeInUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* GLASS CARD UTILITY */
+        .glass-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            box-shadow: var(--glass-shadow);
+            transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        .glass-card:hover {
+            background: var(--bg-card-hover);
+            transform: translateY(-8px);
+            border-color: var(--champagne-gold);
+        }
+
+        /* NAVBAR */
+        .navbar-floating {
+            position: fixed;
+            top: 24px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 1280px;
+            z-index: 900;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            transition: all 0.5s ease;
+        }
+
+        .navbar-floating.scrolled {
+            top: 14px;
+            background: var(--bg-card);
+            border-color: var(--glass-border);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+
+        .brand-logo {
+            font-family: var(--font-heading);
+            font-size: 1.6rem;
+            letter-spacing: 0.15em;
+            color: var(--text-main);
+            text-decoration: none;
+        }
+
+        .brand-logo span {
+            color: var(--champagne-gold);
+        }
+
+        .nav-link-custom {
+            font-size: 0.82rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--text-main);
+            text-decoration: none;
+            margin: 0 1rem;
+            position: relative;
+            padding-bottom: 4px;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link-custom::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 1px;
+            background-color: var(--champagne-gold);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        .nav-link-custom:hover::after {
+            width: 100%;
+        }
+
+        .btn-gold {
+            background: linear-gradient(135deg, var(--champagne-gold), #B38E46);
+            color: #FAF8F5 !important;
+            border: none;
+            padding: 0.65rem 1.8rem;
+            border-radius: 40px;
+            font-size: 0.78rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: all 0.4s ease;
+            box-shadow: 0 10px 25px rgba(201, 168, 108, 0.3);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-gold:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 35px rgba(201, 168, 108, 0.5);
+            color: #FAF8F5;
+        }
+
+        .btn-outline-gold {
+            background: transparent;
+            color: var(--text-main);
+            border: 1px solid var(--champagne-gold);
+            padding: 0.6rem 1.6rem;
+            border-radius: 40px;
+            font-size: 0.78rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: all 0.4s ease;
+        }
+
+        .btn-outline-gold:hover {
+            background: var(--champagne-gold);
+            color: #FAF8F5;
+        }
+
+        /* HERO SECTION */
+        .hero-section {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8rem 1.5rem 4rem;
+            overflow: hidden;
+        }
+
+        .hero-bg-wrapper {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+        }
+
+        .hero-bg-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.65) contrast(1.05);
+            transition: filter 1.2s ease, transform 12s ease-out;
+            transform: scale(1.05);
+        }
+
+        .hero-section:hover .hero-bg-img {
+            transform: scale(1);
+        }
+
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(11, 11, 11, 0.4) 0%, transparent 50%, var(--bg-primary) 100%);
+            transition: background 1.2s ease;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            max-width: 920px;
+            color: #FAF8F5;
+        }
+
+        .hero-subtitle-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.4rem 1.4rem;
+            border-radius: 30px;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            font-size: 0.75rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-title {
+            font-size: clamp(2.8rem, 6.5vw, 5.5rem);
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.02em;
+            text-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero-title em {
+            font-style: italic;
+            color: var(--champagne-gold);
+            font-weight: 300;
+        }
+
+        .hero-lead {
+            font-size: clamp(1rem, 1.4vw, 1.25rem);
+            font-weight: 300;
+            opacity: 0.9;
+            max-width: 620px;
+            margin: 0 auto 2.5rem;
+        }
+
+        /* FLOATING BOOKING WIDGET */
+        .booking-widget-container {
+            position: relative;
+            z-index: 20;
+            margin-top: -3.5rem;
+            padding: 0 1.5rem;
+        }
+
+        .booking-widget {
+            background: var(--bg-card);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid var(--glass-border);
+            border-radius: 30px;
+            padding: 1.5rem 2rem;
+            box-shadow: var(--glass-shadow);
+        }
+
+        .booking-field {
+            display: flex;
+            flex-direction: column;
+            padding: 0.5rem 1rem;
+            border-right: 1px solid var(--glass-border);
+        }
+
+        @media (max-width: 991px) {
+            .booking-field { border-right: none; border-bottom: 1px solid var(--glass-border); padding: 0.8rem 0; }
+        }
+
+        .booking-label {
+            font-size: 0.68rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 0.3rem;
+        }
+
+        .booking-input {
+            background: transparent;
+            border: none;
+            color: var(--text-main);
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            font-weight: 500;
+            outline: none;
+        }
+
+        /* SECTION STYLING */
+        .section-padding {
+            padding: 7.5rem 0;
+        }
+
+        .section-eyebrow {
+            font-size: 0.72rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--champagne-gold);
+            margin-bottom: 0.8rem;
+            display: block;
+        }
+
+        .section-title {
+            font-size: clamp(2.2rem, 4vw, 3.4rem);
+            line-height: 1.2;
+            margin-bottom: 1.2rem;
+        }
+
+        .section-description {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            max-width: 580px;
+            font-weight: 300;
+        }
+
+        /* ROOM SHOWCASE (EDITORIAL) */
+        .room-editorial-card {
+            position: relative;
+            border-radius: 28px;
+            overflow: hidden;
+            margin-bottom: 4rem;
+            background: var(--bg-card);
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--glass-shadow);
+            transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        .room-img-container {
+            height: 480px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .room-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 1.2s ease;
+        }
+
+        .room-editorial-card:hover .room-img {
+            transform: scale(1.05);
+        }
+
+        .room-tag {
+            position: absolute;
+            top: 2rem;
+            left: 2rem;
+            background: rgba(11, 11, 11, 0.65);
+            backdrop-filter: blur(12px);
+            color: var(--champagne-gold);
+            padding: 0.4rem 1.2rem;
+            border-radius: 30px;
+            font-size: 0.7rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            border: 1px solid rgba(201, 168, 108, 0.3);
+        }
+
+        .room-details-body {
+            padding: 3rem;
+        }
+
+        .room-price-badge {
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            color: var(--champagne-gold);
+        }
+
+        .room-price-badge span {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-family: var(--font-body);
+        }
+
+        .amenities-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.2rem;
+            margin: 1.5rem 0;
+            list-style: none;
+            padding: 0;
+        }
+
+        .amenity-item {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .amenity-item i {
+            color: var(--champagne-gold);
+        }
+
+        /* HOTEL EXPERIENCE ASYMMETRIC GRID */
+        .exp-card-large {
+            height: 540px;
+            position: relative;
+            border-radius: 28px;
+            overflow: hidden;
+        }
+
+        .exp-card-large img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 1s ease;
+        }
+
+        .exp-card-large:hover img {
+            transform: scale(1.06);
+        }
+
+        .exp-card-content {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, transparent 40%, rgba(11, 11, 11, 0.85) 100%);
+            padding: 3rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            color: #FAF8F5;
+        }
+
+        /* DINING & CHEF SECTION */
+        .dining-chef-box {
+            border-radius: 28px;
+            overflow: hidden;
+            background: var(--bg-card);
+            border: 1px solid var(--glass-border);
+        }
+
+        /* SPA WELLNESS CARDS */
+        .spa-card {
+            border-radius: 20px;
+            padding: 2.2rem;
+            background: var(--bg-card);
+            border: 1px solid var(--glass-border);
+            transition: all 0.4s ease;
+        }
+
+        .spa-card:hover {
+            background: var(--bg-card-hover);
+            border-color: var(--champagne-gold);
+            transform: translateY(-5px);
+        }
+
+        /* TESTIMONIALS SWIPER */
+        .swiper-testimonials {
+            padding: 2rem 1rem 4rem;
+        }
+
+        .testimonial-glass-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 3rem;
+            box-shadow: var(--glass-shadow);
+        }
+
+        .testimonial-avatar {
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--champagne-gold);
+        }
+
+        /* WEATHER WIDGET & ENVIRONMENT CONTROL FLOATING */
+        .env-controller {
+            position: fixed;
+            bottom: 24px;
+            left: 24px;
+            z-index: 850;
+            background: var(--bg-card);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            padding: 0.5rem 1.2rem;
+            border-radius: 40px;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .env-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-main);
+            font-size: 1rem;
+            padding: 0.3rem 0.6rem;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .env-btn.active {
+            background: var(--champagne-gold);
+            color: #FAF8F5;
+        }
+
+        /* STICKY BOOKING BUTTON */
+        .sticky-book-bar {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            z-index: 850;
+            display: flex;
+            gap: 0.8rem;
+        }
+
+        .floating-wa-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: #25D366;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            text-decoration: none;
+            box-shadow: 0 10px 25px rgba(37, 211, 102, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .floating-wa-btn:hover {
+            transform: scale(1.1);
+            color: #fff;
+        }
+
+        /* COOKIE CONSENT */
+        #cookie-consent {
+            position: fixed;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 9999;
+            width: 90%;
+            max-width: 580px;
+            background: var(--bg-card);
+            backdrop-filter: blur(25px);
+            border: 1px solid var(--glass-border);
+            padding: 1.4rem 2rem;
+            border-radius: 24px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1.5rem;
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        #cookie-consent.hidden {
+            opacity: 0;
+            pointer-events: none;
+            transform: translate(-50%, 40px);
+        }
+
+        /* FOOTER */
+        .footer-luxury {
+            background: var(--luxury-black);
+            color: #FAF8F5;
+            padding: 6rem 0 3rem;
+            border-top: 1px solid rgba(201, 168, 108, 0.2);
+        }
+
+        .footer-link {
+            color: rgba(250, 248, 245, 0.7);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-size: 0.9rem;
+            display: block;
+            margin-bottom: 0.6rem;
+        }
+
+        .footer-link:hover {
+            color: var(--champagne-gold);
+        }
+    </style>
+</head>
+<body data-environment="morning">
+
+    <!-- CUSTOM CURSOR -->
+    <div id="custom-cursor"></div>
+    <div id="cursor-dot"></div>
+
+    <!-- PRELOADER -->
+    <div id="preloader">
+        <div class="preloader-brand">AURA HAVEN</div>
+        <div class="preloader-sub">European Boutique Sanctuary · 2028</div>
+        <div class="preloader-bar">
+            <div class="preloader-progress"></div>
+        </div>
+    </div>
+
+    <!-- ENVIRONMENT (DAY/SUNSET/NIGHT) TOGGLE -->
+    <div class="env-controller">
+        <span class="d-none d-sm-inline" style="font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted);">ATMOSPHERE</span>
+        <button class="env-btn active" onclick="setEnvironment('morning')" title="Morning Ivory"><i class="bi bi-brightness-high"></i></button>
+        <button class="env-btn" onclick="setEnvironment('sunset')" title="Golden Hour Sunset"><i class="bi bi-sunset"></i></button>
+        <button class="env-btn" onclick="setEnvironment('night')" title="Starlight Night"><i class="bi bi-moon-stars"></i></button>
+    </div>
+
+    <!-- STICKY BOOK & WHATSAPP FLOATING BUTTONS -->
+    <div class="sticky-book-bar">
+        <a href="https://wa.me/39089875122" target="_blank" class="floating-wa-btn" title="Contact Concierge WhatsApp">
+            <i class="bi bi-whatsapp"></i>
+        </a>
+        <a href="#reservation-section" class="btn-gold d-none d-md-inline-flex">
+            <i class="bi bi-calendar-check"></i> Direct Reserve
+        </a>
+    </div>
+
+    <!-- COOKIE CONSENT BANNER -->
+    <div id="cookie-consent">
+        <div style="font-size: 0.82rem; color: var(--text-main);">
+            We use refined cookies to elevate your browsing experience and tailor sanctuary stay recommendations.
+        </div>
+        <button class="btn-gold" style="padding: 0.4rem 1.2rem; font-size: 0.72rem; flex-shrink: 0;" onclick="acceptCookies()">Accept</button>
+    </div>
+
+    <!-- FLOATING GLASS NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-floating">
+        <div class="container-fluid p-0">
+            <a class="brand-logo" href="#">AURA<span>HAVEN</span></a>
+            
+            <button class="navbar-toggler border-0 shadow-none text-main" type="button" data-bs-toggle="collapse" data-bs-target="#navContent">
+                <i class="bi bi-list fs-2" style="color: var(--text-main);"></i>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navContent">
+                <div class="mx-auto my-3 my-lg-0 text-center">
+                    <a class="nav-link-custom" href="#hero">Home</a>
+                    <a class="nav-link-custom" href="#rooms">Suites</a>
+                    <a class="nav-link-custom" href="#experiences">Experience</a>
+                    <a class="nav-link-custom" href="#dining">Dining</a>
+                    <a class="nav-link-custom" href="#spa">Spa</a>
+                    <a class="nav-link-custom" href="#gallery">Gallery</a>
+                </div>
+
+                <div class="d-flex align-items-center justify-content-center gap-3">
+                    <!-- Currency & Language Selectors -->
+                    <select class="bg-transparent border-0 text-uppercase style-select" style="font-size: 0.75rem; color: var(--text-main); font-weight: 500;">
+                        <option value="EUR">EUR (€)</option>
+                        <option value="USD">USD ($)</option>
+                        <option value="GBP">GBP (£)</option>
+                    </select>
+
+                    <select class="bg-transparent border-0 text-uppercase style-select" style="font-size: 0.75rem; color: var(--text-main); font-weight: 500;">
+                        <option value="EN">EN</option>
+                        <option value="IT">IT</option>
+                        <option value="FR">FR</option>
+                    </select>
+
+                    <a href="#reservation-section" class="btn-gold">Book Now</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <header class="hero-section" id="hero">
+        <div class="hero-bg-wrapper">
+            <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=2000&q=85" alt="Aura Haven Luxury Resort Exterior" class="hero-bg-img" loading="eager">
+        </div>
+        <div class="hero-overlay"></div>
+
+        <div class="hero-content" data-aos="fade-up" data-aos-duration="1200">
+            <div class="hero-subtitle-badge">
+                <i class="bi bi-stars" style="color: var(--champagne-gold);"></i> 2028 AWARDS WINNER · AMALFI COAST
+            </div>
+            <h1 class="hero-title">Where Luxury Meets <em>Serenity</em></h1>
+            <p class="hero-lead">An extraordinary European sanctuary designed for soulful living, private cliffside villas, and unscripted tranquility.</p>
+            <div class="d-flex flex-wrap justify-content-center gap-3">
+                <a href="#reservation-section" class="btn-gold" style="padding: 0.9rem 2.4rem; font-size: 0.85rem;">Reserve Your Stay</a>
+                <a href="#rooms" class="btn-outline-gold" style="padding: 0.9rem 2.4rem; font-size: 0.85rem;">Explore Suites</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- FLOATING BOOKING ENGINE WIDGET -->
+    <div class="container booking-widget-container" data-aos="zoom-in-up" data-aos-delay="200">
+        <div class="booking-widget">
+            <form action="#reservation-section" class="row g-2 align-items-center">
+                <div class="col-lg-3 col-md-6">
+                    <div class="booking-field">
+                        <span class="booking-label"><i class="bi bi-calendar-range"></i> Check In</span>
+                        <input type="date" class="booking-input" value="2028-06-15">
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="booking-field">
+                        <span class="booking-label"><i class="bi bi-calendar2-check"></i> Check Out</span>
+                        <input type="date" class="booking-input" value="2028-06-20">
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6">
+                    <div class="booking-field">
+                        <span class="booking-label"><i class="bi bi-people"></i> Guests</span>
+                        <select class="booking-input">
+                            <option>2 Adults</option>
+                            <option>1 Adult</option>
+                            <option>3 Guests</option>
+                            <option>Family Suite</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6">
+                    <div class="booking-field" style="border: none;">
+                        <span class="booking-label"><i class="bi bi-door-open"></i> Suite Category</span>
+                        <select class="booking-input">
+                            <option>Ocean Villa</option>
+                            <option>Presidential Suite</option>
+                            <option>Garden Sanctuary</option>
+                            <option>Mountain Residence</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <button type="submit" class="btn-gold w-100 h-100 justify-content-center py-3">
+                        <i class="bi bi-search"></i> Check Availability
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- STATISTICAL HIGHLIGHTS COUNTER -->
+    <section class="section-padding" style="padding-top: 5rem; padding-bottom: 4rem;">
+        <div class="container">
+            <div class="row g-4 text-center">
+                <div class="col-6 col-md-3" data-aos="fade-up" data-aos-delay="100">
+                    <div class="glass-card p-4">
+                        <div class="font-serif display-4" style="color: var(--champagne-gold);">25+</div>
+                        <div style="font-size: 0.78rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-muted);">Boutique Suites</div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3" data-aos="fade-up" data-aos-delay="200">
+                    <div class="glass-card p-4">
+                        <div class="font-serif display-4" style="color: var(--champagne-gold);">50K+</div>
+                        <div style="font-size: 0.78rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-muted);">Sanctuary Guests</div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3" data-aos="fade-up" data-aos-delay="300">
+                    <div class="glass-card p-4">
+                        <div class="font-serif display-4" style="color: var(--champagne-gold);">15+</div>
+                        <div style="font-size: 0.78rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-muted);">Years Experience</div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3" data-aos="fade-up" data-aos-delay="400">
+                    <div class="glass-card p-4">
+                        <div class="font-serif display-4" style="color: var(--champagne-gold);">98%</div>
+                        <div style="font-size: 0.78rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-muted);">Satisfaction Rate</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ROOM SHOWCASE SECTION -->
+    <section class="section-padding" id="rooms">
+        <div class="container">
+            <div class="text-center mb-5" data-aos="fade-up">
+                <span class="section-eyebrow">EDITORIAL SUITE SHOWCASE</span>
+                <h2 class="section-title">Architectural Havens of Comfort</h2>
+                <p class="section-description mx-auto">Every suite is handcrafted with organic travertine, bespoke Italian linens, and uninterrupted panoramas of the azure coastline.</p>
+            </div>
+
+            <!-- ROOM 1: Presidential Cliffside Villa -->
+            <div class="room-editorial-card" data-aos="fade-up">
+                <div class="row g-0 align-items-center">
+                    <div class="col-lg-7">
+                        <div class="room-img-container">
+                            <img src="https://images.unsplash.com/photo-1618773928121-c32242e63f39?auto=format&fit=crop&w=1400&q=85" alt="Presidential Suite Bedroom" class="room-img" loading="lazy">
+                            <span class="room-tag">Flagship Sanctuary</span>
+                        </div>
+                    </div>
+                    <div class="col-lg-5">
+                        <div class="room-details-body">
+                            <span class="section-eyebrow">240 SQ.M · PRIVATE HEATED INFINITY POOL</span>
+                            <h3 class="font-serif fs-1 mb-3">Presidential Ocean Villa</h3>
+                            <p style="color: var(--text-muted); font-size: 0.95rem;">Unrivaled European elegance perched on the cliffs. Features a private glass infinity pool, personal butler service, and sunset champagne lounge.</p>
+                            
+                            <ul class="amenities-list">
+                                <li class="amenity-item"><i class="bi bi-water"></i> Heated Plunge Pool</li>
+                                <li class="amenity-item"><i class="bi bi-cup-hot"></i> Dedicated Butler</li>
+                                <li class="amenity-item"><i class="bi bi-wifi"></i> 10Gbps Fiber</li>
+                                <li class="amenity-item"><i class="bi bi-shield-check"></i> Private Helipad Access</li>
+                            </ul>
+
+                            <div class="d-flex align-items-center justify-content-between mt-4">
+                                <div class="room-price-badge">€2,450 <span>/ night</span></div>
+                                <a href="#reservation-section" class="btn-gold">Reserve Villa</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ROOM 2: Ocean View Cliffside Residence -->
+            <div class="room-editorial-card" data-aos="fade-up">
+                <div class="row g-0 align-items-center flex-lg-row-reverse">
+                    <div class="col-lg-7">
+                        <div class="room-img-container">
+                            <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=1400&q=85" alt="Ocean View Residence" class="room-img" loading="lazy">
+                            <span class="room-tag">Panoramic Sea View</span>
+                        </div>
+                    </div>
+                    <div class="col-lg-5">
+                        <div class="room-details-body">
+                            <span class="section-eyebrow">160 SQ.M · TERRAZA PANORAMICA</span>
+                            <h3 class="font-serif fs-1 mb-3">Cliffside Ocean Residence</h3>
+                            <p style="color: var(--text-muted); font-size: 0.95rem;">Wake up to floor-to-ceiling vistas of the Tyrrhenian Sea. Complete with hand-carved marble soaking tub and private sunbathing terrace.</p>
+                            
+                            <ul class="amenities-list">
+                                <li class="amenity-item"><i class="bi bi-sun"></i> Private Sunbed Balcony</li>
+                                <li class="amenity-item"><i class="bi bi-stars"></i> Dyson Care Suite</li>
+                                <li class="amenity-item"><i class="bi bi-fire"></i> Travertine Fireplace</li>
+                            </ul>
+
+                            <div class="d-flex align-items-center justify-content-between mt-4">
+                                <div class="room-price-badge">€1,680 <span>/ night</span></div>
+                                <a href="#reservation-section" class="btn-gold">Reserve Residence</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ROOM 3: Garden Sanctuary Suite -->
+            <div class="room-editorial-card" data-aos="fade-up">
+                <div class="row g-0 align-items-center">
+                    <div class="col-lg-7">
+                        <div class="room-img-container">
+                            <img src="https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=1400&q=85" alt="Garden Suite Bathroom and Bed" class="room-img" loading="lazy">
+                            <span class="room-tag">Botanical Retreat</span>
+                        </div>
+                    </div>
+                    <div class="col-lg-5">
+                        <div class="room-details-body">
+                            <span class="section-eyebrow">110 SQ.M · CITRUS GARDEN COURT</span>
+                            <h3 class="font-serif fs-1 mb-3">Botanical Garden Suite</h3>
+                            <p style="color: var(--text-muted); font-size: 0.95rem;">Surrounded by fragrant lemon groves and lavender trails. Designed for holistic stillness, sound healing, and open-air rain showers.</p>
+                            
+                            <ul class="amenities-list">
+                                <li class="amenity-item"><i class="bi bi-flower1"></i> Private Citrus Patio</li>
+                                <li class="amenity-item"><i class="bi bi-droplet"></i> Outdoor Rain Shower</li>
+                                <li class="amenity-item"><i class="bi bi-soundwave"></i> Bang & Olufsen Audio</li>
+                            </ul>
+
+                            <div class="d-flex align-items-center justify-content-between mt-4">
+                                <div class="room-price-badge">€1,150 <span>/ night</span></div>
+                                <a href="#reservation-section" class="btn-gold">Reserve Suite</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- HOTEL EXPERIENCES (ASYMMETRIC GRID) -->
+    <section class="section-padding" id="experiences" style="background: rgba(0,0,0,0.02);">
+        <div class="container">
+            <div class="row align-items-end mb-5" data-aos="fade-up">
+                <div class="col-lg-7">
+                    <span class="section-eyebrow">CURATED RESORT EXPERIENCES</span>
+                    <h2 class="section-title">Beyond Hospitality: Moments Written in Memory</h2>
+                </div>
+                <div class="col-lg-5 text-lg-end">
+                    <p class="section-description mb-0">Immersion into European lifestyle, private yacht expeditions, and Michelin dining under starlit canopies.</p>
+                </div>
+            </div>
+
+            <div class="row g-4">
+                <!-- Large Card 1 -->
+                <div class="col-lg-8" data-aos="fade-up" data-aos-delay="100">
+                    <div class="exp-card-large">
+                        <img src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=1200&q=85" alt="Infinity Pool Cliffside View" loading="lazy">
+                        <div class="exp-card-content">
+                            <span class="section-eyebrow" style="color: var(--champagne-gold);">THE CROWN JEWEL</span>
+                            <h3 class="font-serif display-6 mb-2">Cliffside Heated Infinity Pool</h3>
+                            <p class="mb-0" style="max-width: 500px; opacity: 0.9;">Suspended 300 meters above the sea. Enjoy handcrafted sunset elixirs and floating Mediterranean tapas.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Small Card 1 -->
+                <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="exp-card-large" style="height: 540px;">
+                        <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=800&q=85" alt="Luxury Spa Massage" loading="lazy">
+                        <div class="exp-card-content">
+                            <span class="section-eyebrow" style="color: var(--champagne-gold);">HOLISTIC WELLNESS</span>
+                            <h3 class="font-serif fs-2 mb-2">Thermal Spa & Rituals</h3>
+                            <p class="mb-0" style="opacity: 0.9;">Ancient Roman baths, volcanic mud wraps, and lavender sound baths.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Small Card 2 -->
+                <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="exp-card-large" style="height: 480px;">
+                        <img src="https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?auto=format&fit=crop&w=800&q=85" alt="Wine Cellar Room" loading="lazy">
+                        <div class="exp-card-content">
+                            <span class="section-eyebrow" style="color: var(--champagne-gold);">SOMMELIER VAULT</span>
+                            <h3 class="font-serif fs-2 mb-2">Private Vintage Tastings</h3>
+                            <p class="mb-0" style="opacity: 0.9;">Over 3,500 rare European vintages guided by Master Sommeliers.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Large Card 2 -->
+                <div class="col-lg-8" data-aos="fade-up" data-aos-delay="200">
+                    <div class="exp-card-large" style="height: 480px;">
+                        <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=85" alt="Private Beach Cove" loading="lazy">
+                        <div class="exp-card-content">
+                            <span class="section-eyebrow" style="color: var(--champagne-gold);">EXCLUSIVE ACCESS</span>
+                            <h3 class="font-serif display-6 mb-2">Secluded Beach Cove & Yachting</h3>
+                            <p class="mb-0" style="max-width: 500px; opacity: 0.9;">Private elevator access down to our white-sand cove and Riva boat charters.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MICHELIN DINING & CHEF SECTION -->
+    <section class="section-padding" id="dining">
+        <div class="container">
+            <div class="dining-chef-box p-4 p-lg-5" data-aos="fade-up">
+                <div class="row align-items-center g-5">
+                    <div class="col-lg-6">
+                        <div class="position-relative border-radius-20 overflow-hidden" style="border-radius: 24px;">
+                            <img src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?auto=format&fit=crop&w=1000&q=85" alt="Executive Chef Preparing Fine Dish" class="w-100" style="height: 520px; object-fit: cover;" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <span class="section-eyebrow">MICHELIN-INSPIRED CUISINE</span>
+                        <h2 class="section-title">Ristorante L'Aura</h2>
+                        <p class="section-description">Led by Executive Chef Matteo Bernardi, our three-star kitchen celebrates coast-to-table gastronomy with organic handpicked produce and rare seafood treasures.</p>
+
+                        <div class="my-4">
+                            <div class="d-flex align-items-center gap-3 mb-3">
+                                <i class="bi bi-star-fill text-warning fs-5"></i>
+                                <div>
+                                    <h5 class="font-serif mb-0">7-Course Tasting Journey</h5>
+                                    <small style="color: var(--text-muted);">Pairings with vintage Super Tuscans</small>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center gap-3">
+                                <i class="bi bi-fire fs-5" style="color: var(--champagne-gold);"></i>
+                                <div>
+                                    <h5 class="font-serif mb-0">Chef's Table Experience</h5>
+                                    <small style="color: var(--text-muted);">Limited to 6 guests per evening</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-flex gap-3">
+                            <a href="#reservation-section" class="btn-gold">Reserve Table</a>
+                            <a href="#gallery" class="btn-outline-gold">View Tasting Menu</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SPA & WELLNESS SECTION -->
+    <section class="section-padding" id="spa" style="background: rgba(13, 79, 60, 0.04);">
+        <div class="container">
+            <div class="text-center mb-5" data-aos="fade-up">
+                <span class="section-eyebrow">SANCTUARY OF BALANCE</span>
+                <h2 class="section-title">The Anima Thermal Spa</h2>
+                <p class="section-description mx-auto">Rebalance body and mind with bespoke bio-identical aromatherapy, Himalayan salt saunas, and sunrise yoga over the Mediterranean cliff.</p>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="spa-card">
+                        <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&w=600&q=85" alt="Aromatherapy Massage" class="w-100 rounded-4 mb-4" style="height: 220px; object-fit: cover;" loading="lazy">
+                        <h4 class="font-serif fs-3 mb-2">Deep Tissue & Lava Stone</h4>
+                        <p style="font-size: 0.88rem; color: var(--text-muted);">Volcanic basalt stones combined with cold-pressed olive oils for deep tension relief.</p>
+                    </div>
+                </div>
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="spa-card">
+                        <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=600&q=85" alt="Yoga on Cliff" class="w-100 rounded-4 mb-4" style="height: 220px; object-fit: cover;" loading="lazy">
+                        <h4 class="font-serif fs-3 mb-2">Sunrise Cliffside Yoga</h4>
+                        <p style="font-size: 0.88rem; color: var(--text-muted);">Guided pranayama breathing and gentle vinyasa overlooking the morning sea breeze.</p>
+                    </div>
+                </div>
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+                    <div class="spa-card">
+                        <img src="https://images.unsplash.com/photo-1515377905703-c4788e51af15?auto=format&fit=crop&w=600&q=85" alt="Thermal Spa Pool" class="w-100 rounded-4 mb-4" style="height: 220px; object-fit: cover;" loading="lazy">
+                        <h4 class="font-serif fs-3 mb-2">Thermal Mineral Baths</h4>
+                        <p style="font-size: 0.88rem; color: var(--text-muted);">Hydrotherapy pools rich in natural minerals to detoxify and invigorate skin cell longevity.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MASONRY PHOTO GALLERY SECTION -->
+    <section class="section-padding" id="gallery">
+        <div class="container">
+            <div class="text-center mb-5" data-aos="fade-up">
+                <span class="section-eyebrow">VISUAL MOMENTS</span>
+                <h2 class="section-title">The Sanctuary in Frames</h2>
+            </div>
+
+            <div class="row g-3">
+                <div class="col-md-4" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="overflow-hidden rounded-4">
+                        <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=85" class="w-100" style="height: 320px; object-fit: cover; transition: transform 0.8s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" loading="lazy" alt="Hotel Architecture">
+                    </div>
+                </div>
+                <div class="col-md-4" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="overflow-hidden rounded-4">
+                        <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=800&q=85" class="w-100" style="height: 320px; object-fit: cover; transition: transform 0.8s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" loading="lazy" alt="Spa Treatment Room">
+                    </div>
+                </div>
+                <div class="col-md-4" data-aos="zoom-in" data-aos-delay="300">
+                    <div class="overflow-hidden rounded-4">
+                        <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=800&q=85" class="w-100" style="height: 320px; object-fit: cover; transition: transform 0.8s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" loading="lazy" alt="Luxury Suite Bedroom">
+                    </div>
+                </div>
+                <div class="col-md-6" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="overflow-hidden rounded-4">
+                        <img src="https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?auto=format&fit=crop&w=1000&q=85" class="w-100" style="height: 360px; object-fit: cover; transition: transform 0.8s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" loading="lazy" alt="Wine Tasting Cellar">
+                    </div>
+                </div>
+                <div class="col-md-6" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="overflow-hidden rounded-4">
+                        <img src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=1000&q=85" class="w-100" style="height: 360px; object-fit: cover; transition: transform 0.8s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" loading="lazy" alt="Sunset Ocean View">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIAL REVIEWS SWIPER SECTION -->
+    <section class="section-padding">
+        <div class="container">
+            <div class="text-center mb-5" data-aos="fade-up">
+                <span class="section-eyebrow">GUEST CHRONICLES</span>
+                <h2 class="section-title">Words from Our Honored Guests</h2>
+            </div>
+
+            <!-- Swiper Slider -->
+            <div class="swiper swiper-testimonials" data-aos="fade-up" data-aos-delay="200">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <div class="testimonial-glass-card">
+                            <div class="d-flex align-items-center gap-3 mb-4">
+                                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=85" class="testimonial-avatar" alt="Guest Eleanor Vance">
+                                <div>
+                                    <h5 class="font-serif mb-0">Lady Eleanor Vance</h5>
+                                    <small style="color: var(--champagne-gold);">UNITED KINGDOM · 5 STAYS</small>
+                                </div>
+                            </div>
+                            <p class="font-serif fs-5 mb-0" style="font-style: italic;">"Aura Haven is quite simply the finest hotel experience in Europe. The private cliffside pool and personal butler service turned our anniversary into a dream."</p>
+                        </div>
+                    </div>
+                    
+                    <div class="swiper-slide">
+                        <div class="testimonial-glass-card">
+                            <div class="d-flex align-items-center gap-3 mb-4">
+                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=85" class="testimonial-avatar" alt="Guest Marcus Sterling">
+                                <div>
+                                    <h5 class="font-serif mb-0">Marcus Sterling</h5>
+                                    <small style="color: var(--champagne-gold);">SWITZERLAND · PRESIDENTIAL SUITE</small>
+                                </div>
+                            </div>
+                            <p class="font-serif fs-5 mb-0" style="font-style: italic;">"The level of discretion, serenity, and culinary mastery is unrivaled. Chef Bernardi’s tasting menu is worth a journey across the Atlantic alone."</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-pagination mt-4"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- RESERVATION INTERFACE SECTION & FORM -->
+    <section class="section-padding" id="reservation-section">
+        <div class="container">
+            <div class="glass-card p-4 p-md-5" style="max-width: 960px; margin: 0 auto;" data-aos="zoom-in">
+                <div class="text-center mb-5">
+                    <span class="section-eyebrow">RESERVE YOUR SANCTUARY</span>
+                    <h2 class="section-title">Begin Your Journey to Aura Haven</h2>
+                    <p class="section-description mx-auto">Fill out your stay preferences below and our Master Concierge will contact you within 2 hours to confirm your reservation details.</p>
+                </div>
+
+                <form id="reservation-form" onsubmit="submitReservation(event)">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="booking-label">Full Name</label>
+                            <input type="text" class="form-control bg-transparent style-input" placeholder="e.g. Alexander Wright" required style="border-color: var(--glass-border); color: var(--text-main); padding: 0.8rem 1rem; border-radius: 12px;">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="booking-label">Email Address</label>
+                            <input type="email" class="form-control bg-transparent style-input" placeholder="alexander@luxury.com" required style="border-color: var(--glass-border); color: var(--text-main); padding: 0.8rem 1rem; border-radius: 12px;">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="booking-label">Check-In Date</label>
+                            <input type="date" class="form-control bg-transparent style-input" required style="border-color: var(--glass-border); color: var(--text-main); padding: 0.8rem 1rem; border-radius: 12px;">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="booking-label">Check-Out Date</label>
+                            <input type="date" class="form-control bg-transparent style-input" required style="border-color: var(--glass-border); color: var(--text-main); padding: 0.8rem 1rem; border-radius: 12px;">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="booking-label">Preferred Suite</label>
+                            <select class="form-control bg-transparent style-input" style="border-color: var(--glass-border); color: var(--text-main); padding: 0.8rem 1rem; border-radius: 12px;">
+                                <option style="color: #000;">Presidential Ocean Villa (€2,450/night)</option>
+                                <option style="color: #000;">Cliffside Ocean Residence (€1,680/night)</option>
+                                <option style="color: #000;">Botanical Garden Suite (€1,150/night)</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="booking-label">Special Requests / Concierge Notes</label>
+                            <input type="text" class="form-control bg-transparent style-input" placeholder="Helipad transfer, dietary preferences..." style="border-color: var(--glass-border); color: var(--text-main); padding: 0.8rem 1rem; border-radius: 12px;">
+                        </div>
+                        <div class="col-12 text-center mt-4">
+                            <button type="submit" class="btn-gold" style="padding: 1rem 3rem; font-size: 0.88rem;">Confirm Sanctuary Reservation</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONFIRMATION MODAL -->
+    <div class="modal fade" id="bookingModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="glass-card modal-content p-4 text-center border-0">
+                <div class="my-3">
+                    <i class="bi bi-check-circle-fill display-1" style="color: var(--champagne-gold);"></i>
+                </div>
+                <h3 class="font-serif mb-2">Reservation Request Received</h3>
+                <p style="color: var(--text-muted); font-size: 0.9rem;">Thank you for choosing Aura Haven. Our Master Concierge team is reviewing your dates and will send your official confirmation code via email shortly.</p>
+                <div class="mt-4">
+                    <button class="btn-gold" data-bs-dismiss="modal">Close & Explore</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FAQ SECTION -->
+    <section class="section-padding" style="background: rgba(0,0,0,0.02);">
+        <div class="container" style="max-width: 800px;">
+            <div class="text-center mb-5" data-aos="fade-up">
+                <span class="section-eyebrow">FREQUENTLY ASKED QUESTIONS</span>
+                <h2 class="section-title">Sanctuary Enquiries</h2>
+            </div>
+
+            <div class="accordion accordion-flush" id="faqAccordion" data-aos="fade-up">
+                <div class="accordion-item glass-card mb-3 border-0 overflow-hidden">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button bg-transparent shadow-none font-serif fs-5 py-3" style="color: var(--text-main);" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+                            How do private helicopter and yacht transfers work?
+                        </button>
+                    </h2>
+                    <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body" style="color: var(--text-muted); font-size: 0.9rem;">
+                            Our private helipad accepts transfers directly from Naples International Airport (15 mins) and Rome Fiumicino (35 mins). Private Riva yacht charters can pick up guests at Positano Pier.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item glass-card mb-3 border-0 overflow-hidden">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed bg-transparent shadow-none font-serif fs-5 py-3" style="color: var(--text-main);" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+                            Are children and pets welcome at Aura Haven?
+                        </button>
+                    </h2>
+                    <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body" style="color: var(--text-muted); font-size: 0.9rem;">
+                            Aura Haven is designed as an adult-focused tranquil retreat (ages 16+). We welcome trained small lap pets in designated private villas with advance concierge notice.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer-luxury">
+        <div class="container">
+            <div class="row g-5">
+                <div class="col-lg-4">
+                    <a class="brand-logo fs-2 mb-3 d-inline-block text-white" href="#">AURA<span style="color: var(--champagne-gold);">HAVEN</span></a>
+                    <p style="color: rgba(250, 248, 245, 0.7); font-size: 0.9rem;">An exclusive European sanctuary perching above the cliffs of Amalfi Coast. Designed for high living, quiet reflection, and Michelin-inspired gastronomy.</p>
+                </div>
+                <div class="col-lg-2 col-md-4">
+                    <h6 class="text-uppercase mb-3" style="letter-spacing: 0.2em; color: var(--champagne-gold); font-size: 0.75rem;">Navigation</h6>
+                    <a href="#hero" class="footer-link">Home</a>
+                    <a href="#rooms" class="footer-link">Suites & Villas</a>
+                    <a href="#dining" class="footer-link">L'Aura Dining</a>
+                    <a href="#spa" class="footer-link">Thermal Spa</a>
+                </div>
+                <div class="col-lg-3 col-md-4">
+                    <h6 class="text-uppercase mb-3" style="letter-spacing: 0.2em; color: var(--champagne-gold); font-size: 0.75rem;">Contact & Location</h6>
+                    <p class="footer-link mb-1"><i class="bi bi-geo-alt"></i> Via Costiera 142, Positano, Italy</p>
+                    <p class="footer-link mb-1"><i class="bi bi-telephone"></i> +39 089 875 122</p>
+                    <p class="footer-link"><i class="bi bi-envelope"></i> concierge@aurahaven.com</p>
+                </div>
+                <div class="col-lg-3 col-md-4">
+                    <h6 class="text-uppercase mb-3" style="letter-spacing: 0.2em; color: var(--champagne-gold); font-size: 0.75rem;">Sanctuary Gazette</h6>
+                    <p style="color: rgba(250, 248, 245, 0.7); font-size: 0.82rem;">Subscribe for invitation-only seasonal retreats.</p>
+                    <div class="d-flex gap-2">
+                        <input type="email" class="form-control bg-transparent style-input border-secondary text-white" placeholder="Your Email" style="font-size: 0.8rem;">
+                        <button class="btn-gold" style="padding: 0.4rem 1rem;"><i class="bi bi-arrow-right"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="my-5" style="border-color: rgba(255,255,255,0.1);">
+
+            <div class="d-flex flex-wrap justify-content-between align-items-center gap-3">
+                <small style="color: rgba(250, 248, 245, 0.5);">© 2028 Aura Haven Boutique Resort. All Rights Reserved.</small>
+                <div class="d-flex gap-3 fs-5" style="color: rgba(250, 248, 245, 0.7);">
+                    <a href="#" class="text-reset"><i class="bi bi-instagram"></i></a>
+                    <a href="#" class="text-reset"><i class="bi bi-facebook"></i></a>
+                    <a href="#" class="text-reset"><i class="bi bi-linkedin"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- SCRIPTS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+
+    <script>
+        // INIT AOS ANIMATION
+        AOS.init({
+            duration: 1000,
+            once: true,
+            offset: 80
+        });
+
+        // PRELOADER
+        window.addEventListener('load', () => {
+            const preloader = document.getElementById('preloader');
+            setTimeout(() => {
+                preloader.style.opacity = '0';
+                preloader.style.visibility = 'hidden';
+            }, 1200);
+        });
+
+        // CUSTOM CURSOR
+        const cursor = document.getElementById('custom-cursor');
+        const cursorDot = document.getElementById('cursor-dot');
+
+        window.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+            cursorDot.style.left = e.clientX + 'px';
+            cursorDot.style.top = e.clientY + 'px';
+        });
+
+        document.querySelectorAll('a, button, input, select, .glass-card').forEach(item => {
+            item.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
+            item.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
+        });
+
+        // ENVIRONMENT THEME SWITCHER (Morning, Sunset, Night)
+        function setEnvironment(env) {
+            document.body.setAttribute('data-environment', env);
+            document.querySelectorAll('.env-btn').forEach(btn => btn.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+        }
+
+        // NAVBAR SCROLL EFFECT
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('.navbar-floating');
+            if (window.scrollY > 80) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        // SWIPER TESTIMONIALS
+        const swiper = new Swiper('.swiper-testimonials', {
+            slidesPerView: 1,
+            spaceBetween: 30,
+            loop: true,
+            autoplay: {
+                delay: 4500,
+                disableOnInteraction: false,
+            },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            breakpoints: {
+                768: {
+                    slidesPerView: 2,
+                }
+            }
+        });
+
+        // RESERVATION FORM HANDLER
+        function submitReservation(e) {
+            e.preventDefault();
+            const modal = new bootstrap.Modal(document.getElementById('bookingModal'));
+            modal.show();
+        }
+
+        // COOKIE BANNER
+        function acceptCookies() {
+            document.getElementById('cookie-consent').classList.add('hidden');
+        }
+    </script>
+</body>
+</html>

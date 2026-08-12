@@ -1,0 +1,4021 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mirage — Multi-Cuisine Fine Dining | Michelin Star Restaurant</title>
+    <meta name="description" content="Mirage Restaurant — An immersive multi-cuisine fine dining experience. Michelin-starred chefs, signature dishes, and luxury hospitality." />
+    <meta property="og:title" content="Mirage — Multi-Cuisine Fine Dining" />
+    <meta property="og:description" content="An immersive multi-cuisine fine dining experience. Michelin-starred chefs, signature dishes, and luxury hospitality." />
+    <meta property="og:type" content="website" />
+    <meta name="theme-color" content="#1A1A1A" />
+
+    <!-- Bootstrap 5 CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Bootstrap Icons CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" />
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600&display=swap" rel="stylesheet" />
+
+    <style>
+        /* ============================================================
+                   ROOT & RESET
+                   ============================================================ */
+        :root {
+            --ivory: #F5F0E8;
+            --champagne: #D4AF37;
+            --champagne-light: #E8D5A3;
+            --beige: #E8DCC8;
+            --charcoal: #1A1A1A;
+            --charcoal-light: #2A2A2A;
+            --emerald: #2D5A3D;
+            --emerald-light: #3D7A4D;
+            --bronze: #CD7F32;
+            --wine: #722F37;
+            --wine-light: #8A3F47;
+            --glass-bg: rgba(255, 255, 255, 0.08);
+            --glass-border: rgba(255, 255, 255, 0.15);
+            --shadow-soft: 0 20px 60px rgba(0, 0, 0, 0.15);
+            --shadow-glow: 0 0 60px rgba(212, 175, 55, 0.08);
+            --transition-smooth: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scrollbar-width: thin;
+            scrollbar-color: var(--champagne) var(--charcoal);
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--charcoal);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--champagne);
+            border-radius: 10px;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: var(--charcoal);
+            color: var(--ivory);
+            overflow-x: hidden;
+            cursor: none;
+        }
+
+        a,
+        button,
+        .cursor-target {
+            cursor: none;
+        }
+
+        /* ============================================================
+                   PRELOADER
+                   ============================================================ */
+        #preloader {
+            position: fixed;
+            inset: 0;
+            z-index: 99999;
+            background: var(--charcoal);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 1.2s ease, visibility 1.2s ease;
+        }
+
+        #preloader.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .preloader-ring {
+            width: 120px;
+            height: 120px;
+            position: relative;
+            margin-bottom: 40px;
+        }
+
+        .preloader-ring svg {
+            width: 100%;
+            height: 100%;
+            transform: rotate(-90deg);
+        }
+
+        .preloader-ring .bg-circle {
+            fill: none;
+            stroke: rgba(255, 255, 255, 0.05);
+            stroke-width: 2;
+        }
+
+        .preloader-ring .progress-circle {
+            fill: none;
+            stroke: url(#preloaderGrad);
+            stroke-width: 2.5;
+            stroke-linecap: round;
+            stroke-dasharray: 345;
+            stroke-dashoffset: 345;
+            transition: stroke-dashoffset 0.3s ease;
+        }
+
+        .preloader-logo {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--champagne);
+            letter-spacing: 4px;
+        }
+
+        .preloader-logo span {
+            display: inline-block;
+            animation: preloadPulse 1.8s ease-in-out infinite;
+        }
+
+        .preloader-text {
+            font-size: 0.7rem;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.3);
+            margin-top: 10px;
+        }
+
+        .preloader-progress-text {
+            font-size: 0.85rem;
+            font-weight: 300;
+            color: var(--champagne);
+            letter-spacing: 2px;
+            margin-top: 16px;
+        }
+
+        @keyframes preloadPulse {
+            0%,
+            100% {
+                opacity: 0.4;
+                transform: scale(0.96);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.04);
+            }
+        }
+
+        .preloader-glow {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.06), transparent 70%);
+            animation: preloadGlow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes preloadGlow {
+            0% {
+                transform: scale(0.8) translateY(0);
+                opacity: 0.3;
+            }
+            100% {
+                transform: scale(1.2) translateY(-20px);
+                opacity: 0.8;
+            }
+        }
+
+        /* ============================================================
+                   CUSTOM CURSOR
+                   ============================================================ */
+        #custom-cursor {
+            position: fixed;
+            pointer-events: none;
+            z-index: 99998;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: rgba(212, 175, 55, 0.3);
+            border: 1.5px solid rgba(212, 175, 55, 0.6);
+            transform: translate(-50%, -50%);
+            transition: width 0.3s ease, height 0.3s ease, background 0.3s ease, border-color 0.3s ease;
+            backdrop-filter: blur(4px);
+            box-shadow: 0 0 40px rgba(212, 175, 55, 0.15);
+            will-change: transform;
+        }
+
+        #custom-cursor .cursor-dot {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: var(--champagne);
+            transition: width 0.3s ease, height 0.3s ease;
+        }
+
+        #custom-cursor.expanded {
+            width: 60px;
+            height: 60px;
+            background: rgba(212, 175, 55, 0.08);
+            border-color: rgba(212, 175, 55, 0.3);
+        }
+
+        #custom-cursor.expanded .cursor-dot {
+            width: 6px;
+            height: 6px;
+        }
+
+        #custom-cursor.hover-image {
+            width: 80px;
+            height: 80px;
+            background: rgba(212, 175, 55, 0.05);
+            border-color: rgba(212, 175, 55, 0.15);
+            backdrop-filter: blur(8px);
+        }
+
+        @media (max-width: 768px) {
+            #custom-cursor {
+                display: none !important;
+            }
+            body,
+            a,
+            button,
+            .cursor-target {
+                cursor: auto !important;
+            }
+        }
+
+        /* ============================================================
+                   SCROLL PROGRESS
+                   ============================================================ */
+        #scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 2.5px;
+            z-index: 99997;
+            background: linear-gradient(90deg, var(--champagne), var(--wine-light), var(--champagne));
+            background-size: 200% 100%;
+            animation: progressShimmer 2s linear infinite;
+            transition: width 0.08s linear;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
+        }
+
+        @keyframes progressShimmer {
+            0% {
+                background-position: 200% 0;
+            }
+            100% {
+                background-position: -200% 0;
+            }
+        }
+
+        /* ============================================================
+                   NAVIGATION
+                   ============================================================ */
+        .navbar-main {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 9990;
+            width: 92%;
+            max-width: 1400px;
+            padding: 12px 28px;
+            border-radius: 80px;
+            background: rgba(26, 26, 26, 0.35);
+            backdrop-filter: blur(24px) saturate(1.3);
+            -webkit-backdrop-filter: blur(24px) saturate(1.3);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+            transition: all 0.5s var(--transition-smooth);
+        }
+
+        .navbar-main.scrolled {
+            top: 8px;
+            padding: 8px 24px;
+            background: rgba(26, 26, 26, 0.82);
+            backdrop-filter: blur(32px) saturate(1.5);
+            -webkit-backdrop-filter: blur(32px) saturate(1.5);
+            border-color: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 12px 48px rgba(0, 0, 0, 0.5);
+        }
+
+        .navbar-main .nav-brand {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--ivory);
+            letter-spacing: 2px;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .navbar-main .nav-brand:hover {
+            color: var(--champagne);
+        }
+
+        .navbar-main .nav-brand span {
+            color: var(--champagne);
+        }
+
+        .navbar-main .nav-link {
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.7);
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            padding: 6px 14px !important;
+            position: relative;
+            transition: color 0.3s ease;
+            text-decoration: none;
+        }
+
+        .navbar-main .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 2px;
+            left: 50%;
+            width: 0;
+            height: 1.5px;
+            background: var(--champagne);
+            transform: translateX(-50%);
+            transition: width 0.4s var(--transition-smooth);
+        }
+
+        .navbar-main .nav-link:hover {
+            color: var(--ivory);
+        }
+
+        .navbar-main .nav-link:hover::after {
+            width: 60%;
+        }
+
+        .navbar-main .nav-btn {
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.7rem;
+            font-weight: 500;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            padding: 8px 22px;
+            border-radius: 60px;
+            border: none;
+            transition: all 0.4s var(--transition-smooth);
+            text-decoration: none;
+        }
+
+        .navbar-main .nav-btn-outline {
+            background: transparent;
+            color: var(--ivory);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .navbar-main .nav-btn-outline:hover {
+            background: rgba(212, 175, 55, 0.12);
+            border-color: var(--champagne);
+            color: var(--champagne);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(212, 175, 55, 0.08);
+        }
+
+        .navbar-main .nav-btn-primary {
+            background: var(--champagne);
+            color: var(--charcoal);
+            border: 1px solid var(--champagne);
+        }
+
+        .navbar-main .nav-btn-primary:hover {
+            background: var(--champagne-light);
+            border-color: var(--champagne-light);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 40px rgba(212, 175, 55, 0.2);
+        }
+
+        .navbar-main .navbar-toggler {
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 6px 10px;
+            border-radius: 40px;
+            color: var(--ivory);
+        }
+
+        .navbar-main .navbar-toggler:focus {
+            box-shadow: none;
+        }
+
+        .navbar-main .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255,255,255,0.7)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+        }
+
+        .navbar-main .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .navbar-main .nav-actions .icon-btn {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(255, 255, 255, 0.03);
+            color: rgba(255, 255, 255, 0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .navbar-main .nav-actions .icon-btn:hover {
+            background: rgba(212, 175, 55, 0.08);
+            border-color: rgba(212, 175, 55, 0.2);
+            color: var(--champagne);
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 991px) {
+            .navbar-main {
+                top: 12px;
+                width: 95%;
+                padding: 10px 20px;
+                border-radius: 60px;
+            }
+            .navbar-main .nav-link {
+                font-size: 0.75rem;
+                padding: 10px 14px !important;
+            }
+            .navbar-main .navbar-collapse {
+                background: rgba(26, 26, 26, 0.92);
+                backdrop-filter: blur(32px);
+                border-radius: 24px;
+                padding: 20px 16px;
+                margin-top: 12px;
+                border: 1px solid rgba(255, 255, 255, 0.04);
+            }
+            .navbar-main .nav-actions {
+                margin-top: 12px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .navbar-main {
+                top: 8px;
+                padding: 6px 14px;
+                border-radius: 40px;
+            }
+            .navbar-main .nav-brand {
+                font-size: 1.1rem;
+            }
+            .navbar-main .nav-btn {
+                font-size: 0.6rem;
+                padding: 6px 14px;
+            }
+            .navbar-main .nav-actions .icon-btn {
+                width: 32px;
+                height: 32px;
+                font-size: 0.8rem;
+            }
+        }
+
+        /* ============================================================
+                   FLOATING RESERVATION BUTTON
+                   ============================================================ */
+        .floating-reserve {
+            position: fixed;
+            right: 28px;
+            bottom: 30px;
+            z-index: 9980;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .floating-reserve .float-btn {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: var(--champagne);
+            color: var(--charcoal);
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            box-shadow: 0 8px 40px rgba(212, 175, 55, 0.25);
+            transition: all 0.4s var(--transition-smooth);
+            text-decoration: none;
+            position: relative;
+        }
+
+        .floating-reserve .float-btn:hover {
+            transform: scale(1.08) translateY(-4px);
+            box-shadow: 0 12px 60px rgba(212, 175, 55, 0.35);
+        }
+
+        .floating-reserve .float-btn::after {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border-radius: 50%;
+            border: 1px solid rgba(212, 175, 55, 0.15);
+            animation: floatPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes floatPulse {
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 0.5;
+            }
+            50% {
+                transform: scale(1.15);
+                opacity: 0;
+            }
+        }
+
+        .floating-reserve .float-label {
+            font-size: 0.55rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.3);
+            writing-mode: vertical-rl;
+            font-weight: 300;
+        }
+
+        @media (max-width: 768px) {
+            .floating-reserve {
+                right: 16px;
+                bottom: 20px;
+            }
+            .floating-reserve .float-btn {
+                width: 46px;
+                height: 46px;
+                font-size: 1.1rem;
+            }
+            .floating-reserve .float-label {
+                display: none;
+            }
+        }
+
+        /* ============================================================
+                   HERO / CINEMATIC OPENING
+                   ============================================================ */
+        .hero-cinematic {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            min-height: 700px;
+            overflow: hidden;
+            background: var(--charcoal);
+        }
+
+        .hero-cinematic .hero-bg {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            background:
+                radial-gradient(ellipse at 20% 50%, rgba(212, 175, 55, 0.08), transparent 60%),
+                radial-gradient(ellipse at 80% 20%, rgba(114, 47, 55, 0.06), transparent 50%),
+                radial-gradient(ellipse at 50% 80%, rgba(45, 90, 61, 0.04), transparent 50%),
+                var(--charcoal);
+        }
+
+        .hero-cinematic .hero-bg::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(circle at 30% 40%, rgba(212, 175, 55, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 70% 60%, rgba(212, 175, 55, 0.02) 0%, transparent 40%);
+            animation: heroLightShift 12s ease-in-out infinite alternate;
+        }
+
+        @keyframes heroLightShift {
+            0% {
+                transform: translateX(-5%) scale(1);
+                opacity: 0.6;
+            }
+            100% {
+                transform: translateX(5%) scale(1.2);
+                opacity: 1;
+            }
+        }
+
+        .hero-cinematic .hero-video-placeholder {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            opacity: 0.25;
+            background:
+                linear-gradient(135deg, rgba(26, 26, 26, 0.6), rgba(26, 26, 26, 0.2)),
+                url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"%3E%3Crect width="100" height="100" fill="%231A1A1A"/%3E%3Ccircle cx="20" cy="20" r="2" fill="%23D4AF37" opacity="0.3"/%3E%3Ccircle cx="80" cy="70" r="3" fill="%23D4AF37" opacity="0.2"/%3E%3Ccircle cx="50" cy="90" r="1.5" fill="%23D4AF37" opacity="0.25"/%3E%3C/svg%3E');
+            background-size: 200px 200px;
+            animation: bgFloat 30s linear infinite;
+        }
+
+        @keyframes bgFloat {
+            0% {
+                background-position: 0 0;
+            }
+            100% {
+                background-position: 200px 200px;
+            }
+        }
+
+        .hero-cinematic .hero-content {
+            position: relative;
+            z-index: 3;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .hero-cinematic .hero-badge {
+            font-size: 0.6rem;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            color: rgba(212, 175, 55, 0.6);
+            font-weight: 300;
+            margin-bottom: 20px;
+            animation: fadeUp 1.2s ease 0.4s both;
+        }
+
+        .hero-cinematic .hero-badge::before,
+        .hero-cinematic .hero-badge::after {
+            content: '•';
+            margin: 0 12px;
+            color: rgba(212, 175, 55, 0.2);
+        }
+
+        .hero-cinematic .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3rem, 10vw, 7.5rem);
+            font-weight: 700;
+            line-height: 1.05;
+            color: var(--ivory);
+            letter-spacing: -0.02em;
+            margin-bottom: 16px;
+            animation: fadeUp 1.2s ease 0.6s both;
+        }
+
+        .hero-cinematic .hero-title .highlight {
+            background: linear-gradient(135deg, var(--champagne), var(--champagne-light), var(--champagne));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-cinematic .hero-subtitle {
+            font-size: clamp(1rem, 1.6vw, 1.5rem);
+            font-weight: 300;
+            color: rgba(255, 255, 255, 0.5);
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            margin-bottom: 40px;
+            animation: fadeUp 1.2s ease 0.8s both;
+        }
+
+        .hero-cinematic .hero-cta {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            justify-content: center;
+            animation: fadeUp 1.2s ease 1s both;
+        }
+
+        .hero-cinematic .hero-cta .btn-hero {
+            padding: 14px 42px;
+            border-radius: 60px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            border: none;
+            transition: all 0.5s var(--transition-smooth);
+            text-decoration: none;
+        }
+
+        .hero-cinematic .hero-cta .btn-hero-primary {
+            background: var(--champagne);
+            color: var(--charcoal);
+            box-shadow: 0 8px 40px rgba(212, 175, 55, 0.2);
+        }
+
+        .hero-cinematic .hero-cta .btn-hero-primary:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 16px 60px rgba(212, 175, 55, 0.3);
+        }
+
+        .hero-cinematic .hero-cta .btn-hero-outline {
+            background: transparent;
+            color: var(--ivory);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .hero-cinematic .hero-cta .btn-hero-outline:hover {
+            background: rgba(255, 255, 255, 0.04);
+            border-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-4px);
+        }
+
+        .hero-cinematic .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 3;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            animation: fadeUp 1.2s ease 1.4s both;
+        }
+
+        .hero-cinematic .scroll-indicator .scroll-line {
+            width: 1px;
+            height: 50px;
+            background: linear-gradient(to bottom, rgba(212, 175, 55, 0.3), transparent);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-cinematic .scroll-indicator .scroll-line::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 40%;
+            background: var(--champagne);
+            animation: scrollLineMove 2.4s ease-in-out infinite;
+        }
+
+        @keyframes scrollLineMove {
+            0% {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            50% {
+                transform: translateY(100%);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(200%);
+                opacity: 0;
+            }
+        }
+
+        .hero-cinematic .scroll-indicator .scroll-label {
+            font-size: 0.5rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.15);
+        }
+
+        @keyframes fadeUp {
+            0% {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-cinematic .floating-particles {
+            position: absolute;
+            inset: 0;
+            z-index: 2;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .hero-cinematic .floating-particles .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(212, 175, 55, 0.06);
+            animation: particleFloat 20s infinite alternate ease-in-out;
+        }
+
+        @keyframes particleFloat {
+            0% {
+                transform: translate(0, 0) scale(1);
+                opacity: 0.2;
+            }
+            100% {
+                transform: translate(60px, -80px) scale(1.4);
+                opacity: 0.6;
+            }
+        }
+
+        /* ============================================================
+                   SECTION COMMON
+                   ============================================================ */
+        .section-padding {
+            padding: 100px 0;
+        }
+
+        .section-padding-sm {
+            padding: 60px 0;
+        }
+
+        .section-label {
+            font-size: 0.6rem;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            color: rgba(212, 175, 55, 0.4);
+            font-weight: 300;
+            margin-bottom: 12px;
+        }
+
+        .section-headline {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.2rem, 5vw, 4rem);
+            font-weight: 700;
+            line-height: 1.1;
+            color: var(--ivory);
+            letter-spacing: -0.02em;
+        }
+
+        .section-headline .gold {
+            color: var(--champagne);
+        }
+
+        .section-sub {
+            font-size: 1rem;
+            font-weight: 300;
+            color: rgba(255, 255, 255, 0.4);
+            max-width: 520px;
+            line-height: 1.8;
+        }
+
+        .gold-divider {
+            width: 50px;
+            height: 1.5px;
+            background: linear-gradient(90deg, var(--champagne), transparent);
+            margin: 20px 0;
+        }
+
+        /* ============================================================
+                   OUR STORY — Magazine Editorial
+                   ============================================================ */
+        .story-section {
+            background: var(--charcoal);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .story-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -30%;
+            width: 800px;
+            height: 800px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.02), transparent 70%);
+            pointer-events: none;
+        }
+
+        .story-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .story-image-wrap {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .story-image-wrap .story-img-placeholder {
+            width: 100%;
+            height: 500px;
+            background:
+                linear-gradient(135deg, rgba(45, 90, 61, 0.3), rgba(26, 26, 26, 0.8)),
+                url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="400" height="400" viewBox="0 0 400 400"%3E%3Crect width="400" height="400" fill="%232A2A2A"/%3E%3Ccircle cx="120" cy="160" r="60" fill="%23D4AF37" opacity="0.04"/%3E%3Ccircle cx="280" cy="300" r="80" fill="%23D4AF37" opacity="0.03"/%3E%3Ccircle cx="200" cy="200" r="120" fill="%23D4AF37" opacity="0.02"/%3E%3C/svg%3E');
+            background-size: cover;
+            background-position: center;
+            transition: transform 0.8s ease;
+        }
+
+        .story-image-wrap:hover .story-img-placeholder {
+            transform: scale(1.02);
+        }
+
+        .story-image-wrap .story-img-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, transparent 50%, rgba(26, 26, 26, 0.6));
+            pointer-events: none;
+        }
+
+        .story-image-wrap .story-badge {
+            position: absolute;
+            bottom: 30px;
+            left: 30px;
+            background: rgba(26, 26, 26, 0.6);
+            backdrop-filter: blur(12px);
+            padding: 12px 24px;
+            border-radius: 60px;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            font-size: 0.65rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .story-text .story-quote {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            font-style: italic;
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.6;
+            margin: 24px 0;
+            padding-left: 28px;
+            border-left: 2px solid var(--champagne);
+        }
+
+        .story-text .story-meta {
+            display: flex;
+            gap: 40px;
+            margin-top: 30px;
+        }
+
+        .story-text .story-meta-item {
+            font-size: 0.7rem;
+            letter-spacing: 1px;
+            color: rgba(255, 255, 255, 0.25);
+        }
+
+        .story-text .story-meta-item strong {
+            display: block;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--ivory);
+            margin-bottom: 4px;
+        }
+
+        @media (max-width: 991px) {
+            .story-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            .story-image-wrap .story-img-placeholder {
+                height: 350px;
+            }
+            .story-text .story-quote {
+                font-size: 1.3rem;
+                padding-left: 20px;
+            }
+        }
+
+        /* ============================================================
+                   SIGNATURE EXPERIENCE
+                   ============================================================ */
+        .signature-section {
+            background: var(--charcoal);
+            position: relative;
+        }
+
+        .signature-section .sig-bg-glow {
+            position: absolute;
+            top: 10%;
+            right: 0;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.03), transparent 70%);
+            pointer-events: none;
+        }
+
+        .sig-card {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            height: 420px;
+            background: var(--charcoal-light);
+            box-shadow: var(--shadow-soft);
+            transition: all 0.6s var(--transition-smooth);
+            cursor: pointer;
+        }
+
+        .sig-card .sig-image {
+            width: 100%;
+            height: 100%;
+            background:
+                linear-gradient(135deg, rgba(26, 26, 26, 0.3), rgba(26, 26, 26, 0.6)),
+                radial-gradient(circle at 30% 40%, rgba(212, 175, 55, 0.05), transparent 60%);
+            background-size: cover;
+            background-position: center;
+            transition: transform 0.8s ease;
+        }
+
+        .sig-card:hover .sig-image {
+            transform: scale(1.05);
+        }
+
+        .sig-card .sig-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(26, 26, 26, 0.85) 0%, transparent 60%);
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            transition: all 0.5s ease;
+        }
+
+        .sig-card .sig-overlay .sig-category {
+            font-size: 0.55rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: rgba(212, 175, 55, 0.5);
+            margin-bottom: 6px;
+        }
+
+        .sig-card .sig-overlay .sig-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--ivory);
+            line-height: 1.1;
+        }
+
+        .sig-card .sig-overlay .sig-desc {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.4);
+            margin: 8px 0 12px;
+            max-width: 80%;
+        }
+
+        .sig-card .sig-overlay .sig-price {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--champagne);
+            letter-spacing: 1px;
+        }
+
+        .sig-card .sig-glass-panel {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            border-radius: 12px;
+            padding: 12px 18px;
+            font-size: 0.6rem;
+            letter-spacing: 1px;
+            color: rgba(255, 255, 255, 0.3);
+            text-transform: uppercase;
+            transition: all 0.4s ease;
+        }
+
+        .sig-card:hover .sig-glass-panel {
+            background: rgba(212, 175, 55, 0.08);
+            border-color: rgba(212, 175, 55, 0.1);
+            color: var(--champagne);
+        }
+
+        @media (max-width: 768px) {
+            .sig-card {
+                height: 300px;
+            }
+            .sig-card .sig-overlay .sig-name {
+                font-size: 1.4rem;
+            }
+            .sig-card .sig-overlay .sig-desc {
+                max-width: 100%;
+            }
+        }
+
+        /* ============================================================
+                   INTERACTIVE MENU
+                   ============================================================ */
+        .menu-section {
+            background: var(--charcoal);
+            position: relative;
+        }
+
+        .menu-section .menu-bg {
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse at 80% 20%, rgba(114, 47, 55, 0.03), transparent 50%),
+                radial-gradient(ellipse at 20% 80%, rgba(45, 90, 61, 0.03), transparent 50%);
+            pointer-events: none;
+        }
+
+        .menu-categories {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+            margin-bottom: 50px;
+        }
+
+        .menu-categories .cat-btn {
+            padding: 10px 28px;
+            border-radius: 60px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            background: rgba(255, 255, 255, 0.02);
+            color: rgba(255, 255, 255, 0.4);
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.7rem;
+            font-weight: 400;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            transition: all 0.4s var(--transition-smooth);
+            cursor: pointer;
+        }
+
+        .menu-categories .cat-btn:hover {
+            background: rgba(212, 175, 55, 0.04);
+            border-color: rgba(212, 175, 55, 0.1);
+            color: var(--ivory);
+        }
+
+        .menu-categories .cat-btn.active {
+            background: rgba(212, 175, 55, 0.06);
+            border-color: rgba(212, 175, 55, 0.15);
+            color: var(--champagne);
+            box-shadow: 0 4px 30px rgba(212, 175, 55, 0.04);
+        }
+
+        .menu-items-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            animation: menuFade 0.6s ease;
+        }
+
+        @keyframes menuFade {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .menu-item-card {
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 16px;
+            padding: 24px 28px;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            transition: all 0.4s var(--transition-smooth);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .menu-item-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 2px;
+            height: 0;
+            background: var(--champagne);
+            transition: height 0.5s ease;
+        }
+
+        .menu-item-card:hover::before {
+            height: 100%;
+        }
+
+        .menu-item-card:hover {
+            background: rgba(255, 255, 255, 0.04);
+            border-color: rgba(212, 175, 55, 0.06);
+            transform: translateY(-4px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+        }
+
+        .menu-item-card .item-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 6px;
+        }
+
+        .menu-item-card .item-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--ivory);
+        }
+
+        .menu-item-card .item-price {
+            font-weight: 500;
+            color: var(--champagne);
+            font-size: 0.95rem;
+        }
+
+        .menu-item-card .item-desc {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.3);
+            line-height: 1.6;
+            margin-top: 4px;
+        }
+
+        .menu-item-card .item-tag {
+            display: inline-block;
+            font-size: 0.5rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: rgba(212, 175, 55, 0.3);
+            background: rgba(212, 175, 55, 0.04);
+            padding: 2px 12px;
+            border-radius: 40px;
+            margin-top: 10px;
+            border: 1px solid rgba(212, 175, 55, 0.04);
+        }
+
+        @media (max-width: 576px) {
+            .menu-items-grid {
+                grid-template-columns: 1fr;
+            }
+            .menu-categories .cat-btn {
+                padding: 8px 18px;
+                font-size: 0.6rem;
+            }
+        }
+
+        /* ============================================================
+                   CHEF EXPERIENCE
+                   ============================================================ */
+        .chef-section {
+            background: var(--charcoal);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .chef-section .chef-glow {
+            position: absolute;
+            bottom: -20%;
+            left: -10%;
+            width: 700px;
+            height: 700px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.02), transparent 70%);
+            pointer-events: none;
+        }
+
+        .chef-layout {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .chef-portrait {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .chef-portrait .chef-img {
+            width: 100%;
+            height: 500px;
+            background:
+                linear-gradient(135deg, rgba(45, 90, 61, 0.2), rgba(26, 26, 26, 0.5)),
+                radial-gradient(circle at 40% 30%, rgba(212, 175, 55, 0.04), transparent 60%);
+            background-size: cover;
+            background-position: center;
+        }
+
+        .chef-portrait .chef-img-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, transparent 60%, rgba(26, 26, 26, 0.5));
+        }
+
+        .chef-portrait .chef-badge {
+            position: absolute;
+            bottom: 30px;
+            left: 30px;
+            background: rgba(26, 26, 26, 0.6);
+            backdrop-filter: blur(12px);
+            padding: 12px 28px;
+            border-radius: 60px;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+        }
+
+        .chef-portrait .chef-badge .chef-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            color: var(--ivory);
+        }
+
+        .chef-portrait .chef-badge .chef-title {
+            font-size: 0.6rem;
+            letter-spacing: 2px;
+            color: rgba(255, 255, 255, 0.3);
+            text-transform: uppercase;
+        }
+
+        .chef-info .chef-timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin: 24px 0;
+        }
+
+        .chef-info .chef-timeline-item {
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+        }
+
+        .chef-info .chef-timeline-item .year {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--champagne);
+            min-width: 70px;
+        }
+
+        .chef-info .chef-timeline-item .desc {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.4);
+            line-height: 1.6;
+        }
+
+        .chef-info .chef-awards {
+            display: flex;
+            gap: 30px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .chef-info .chef-awards .award {
+            font-size: 0.7rem;
+            color: rgba(255, 255, 255, 0.2);
+            letter-spacing: 1px;
+        }
+
+        .chef-info .chef-awards .award strong {
+            display: block;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--ivory);
+            margin-bottom: 2px;
+        }
+
+        @media (max-width: 991px) {
+            .chef-layout {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            .chef-portrait .chef-img {
+                height: 350px;
+            }
+        }
+
+        /* ============================================================
+                   PRIVATE DINING
+                   ============================================================ */
+        .private-section {
+            background: var(--charcoal);
+            position: relative;
+        }
+
+        .private-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .private-card {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            height: 340px;
+            background: var(--charcoal-light);
+            transition: all 0.5s var(--transition-smooth);
+            cursor: pointer;
+        }
+
+        .private-card .private-img {
+            width: 100%;
+            height: 100%;
+            background:
+                linear-gradient(135deg, rgba(26, 26, 26, 0.3), rgba(26, 26, 26, 0.5)),
+                radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.03), transparent 60%);
+            background-size: cover;
+            background-position: center;
+            transition: transform 0.8s ease;
+        }
+
+        .private-card:hover .private-img {
+            transform: scale(1.04);
+        }
+
+        .private-card .private-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(26, 26, 26, 0.8) 0%, transparent 50%);
+            padding: 28px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+        }
+
+        .private-card .private-overlay .private-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--ivory);
+        }
+
+        .private-card .private-overlay .private-desc {
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.3);
+            margin-top: 4px;
+        }
+
+        .private-card .private-overlay .private-icon {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 1.4rem;
+            color: rgba(255, 255, 255, 0.05);
+            transition: all 0.4s ease;
+        }
+
+        .private-card:hover .private-overlay .private-icon {
+            color: var(--champagne);
+            opacity: 0.4;
+        }
+
+        @media (max-width: 991px) {
+            .private-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 576px) {
+            .private-grid {
+                grid-template-columns: 1fr;
+            }
+            .private-card {
+                height: 260px;
+            }
+        }
+
+        /* ============================================================
+                   LIVE KITCHEN
+                   ============================================================ */
+        .kitchen-section {
+            background: var(--charcoal);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .kitchen-section .kitchen-bg {
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse at 70% 30%, rgba(114, 47, 55, 0.04), transparent 50%),
+                radial-gradient(ellipse at 30% 70%, rgba(45, 90, 61, 0.04), transparent 50%);
+            pointer-events: none;
+        }
+
+        .kitchen-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .kitchen-visual {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            height: 400px;
+            background: var(--charcoal-light);
+            box-shadow: var(--shadow-soft);
+        }
+
+        .kitchen-visual .kitchen-img {
+            width: 100%;
+            height: 100%;
+            background:
+                linear-gradient(135deg, rgba(45, 90, 61, 0.15), rgba(26, 26, 26, 0.5)),
+                radial-gradient(circle at 30% 40%, rgba(212, 175, 55, 0.04), transparent 60%);
+            background-size: cover;
+            background-position: center;
+        }
+
+        .kitchen-visual .fire-effect {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 60%;
+            background:
+                radial-gradient(ellipse at 30% 100%, rgba(212, 175, 55, 0.06), transparent 60%),
+                radial-gradient(ellipse at 70% 100%, rgba(114, 47, 55, 0.04), transparent 50%);
+            animation: fireDance 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes fireDance {
+            0% {
+                opacity: 0.3;
+                transform: scaleY(0.8) translateY(10px);
+            }
+            100% {
+                opacity: 0.7;
+                transform: scaleY(1.2) translateY(-10px);
+            }
+        }
+
+        .kitchen-ingredients {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .kitchen-ingredients .ingredient {
+            padding: 8px 20px;
+            border-radius: 40px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            font-size: 0.7rem;
+            color: rgba(255, 255, 255, 0.3);
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+
+        .kitchen-ingredients .ingredient:hover {
+            background: rgba(212, 175, 55, 0.04);
+            border-color: rgba(212, 175, 55, 0.06);
+            color: var(--champagne);
+        }
+
+        @media (max-width: 991px) {
+            .kitchen-layout {
+                grid-template-columns: 1fr;
+            }
+            .kitchen-visual {
+                height: 280px;
+            }
+        }
+
+        /* ============================================================
+                   SPECIAL EVENTS
+                   ============================================================ */
+        .events-section {
+            background: var(--charcoal);
+            position: relative;
+        }
+
+        .events-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .event-card {
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 16px;
+            padding: 32px 24px;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            text-align: center;
+            transition: all 0.5s var(--transition-smooth);
+        }
+
+        .event-card:hover {
+            background: rgba(255, 255, 255, 0.04);
+            border-color: rgba(212, 175, 55, 0.06);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+        }
+
+        .event-card .event-icon {
+            font-size: 2.2rem;
+            color: rgba(212, 175, 55, 0.15);
+            margin-bottom: 16px;
+            display: block;
+            transition: all 0.4s ease;
+        }
+
+        .event-card:hover .event-icon {
+            color: var(--champagne);
+            transform: scale(1.1);
+        }
+
+        .event-card .event-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--ivory);
+        }
+
+        .event-card .event-desc {
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.25);
+            margin-top: 6px;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 991px) {
+            .events-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 576px) {
+            .events-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ============================================================
+                   WINE COLLECTION
+                   ============================================================ */
+        .wine-section {
+            background: var(--charcoal);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .wine-scroll {
+            display: flex;
+            gap: 24px;
+            overflow-x: auto;
+            padding: 20px 4px 40px;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .wine-scroll::-webkit-scrollbar {
+            height: 3px;
+        }
+
+        .wine-scroll::-webkit-scrollbar-thumb {
+            background: var(--champagne);
+            border-radius: 10px;
+        }
+
+        .wine-scroll::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .wine-card {
+            flex: 0 0 260px;
+            scroll-snap-align: start;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 16px;
+            padding: 28px 24px;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            transition: all 0.5s var(--transition-smooth);
+            position: relative;
+            min-height: 280px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .wine-card:hover {
+            background: rgba(255, 255, 255, 0.04);
+            border-color: rgba(212, 175, 55, 0.06);
+            transform: translateY(-6px) scale(1.01);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .wine-card .wine-year {
+            font-size: 2.4rem;
+            font-weight: 300;
+            color: rgba(212, 175, 55, 0.06);
+            font-family: 'Playfair Display', serif;
+            position: absolute;
+            top: 12px;
+            right: 18px;
+        }
+
+        .wine-card .wine-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--ivory);
+        }
+
+        .wine-card .wine-region {
+            font-size: 0.65rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.2);
+        }
+
+        .wine-card .wine-notes {
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.25);
+            line-height: 1.6;
+            margin: 10px 0;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.4s ease;
+        }
+
+        .wine-card:hover .wine-notes {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .wine-card .wine-price {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--champagne);
+        }
+
+        /* ============================================================
+                   RESERVATION
+                   ============================================================ */
+        .reservation-section {
+            background: var(--charcoal);
+            position: relative;
+        }
+
+        .reservation-section .res-bg {
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse at 50% 50%, rgba(212, 175, 55, 0.02), transparent 60%);
+            pointer-events: none;
+        }
+
+        .reservation-glass {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            border-radius: 24px;
+            padding: 48px 56px;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.3);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .reservation-glass .form-control {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            border-radius: 12px;
+            padding: 14px 18px;
+            color: var(--ivory);
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+        }
+
+        .reservation-glass .form-control:focus {
+            background: rgba(255, 255, 255, 0.04);
+            border-color: rgba(212, 175, 55, 0.15);
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.02);
+            color: var(--ivory);
+        }
+
+        .reservation-glass .form-control::placeholder {
+            color: rgba(255, 255, 255, 0.15);
+        }
+
+        .reservation-glass .form-label {
+            font-size: 0.65rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.2);
+            font-weight: 300;
+            margin-bottom: 6px;
+        }
+
+        .reservation-glass .btn-reserve {
+            padding: 14px 48px;
+            border-radius: 60px;
+            background: var(--champagne);
+            color: var(--charcoal);
+            border: none;
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: all 0.4s var(--transition-smooth);
+            width: 100%;
+        }
+
+        .reservation-glass .btn-reserve:hover {
+            background: var(--champagne-light);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 40px rgba(212, 175, 55, 0.15);
+        }
+
+        @media (max-width: 768px) {
+            .reservation-glass {
+                padding: 28px 20px;
+                border-radius: 16px;
+            }
+        }
+
+        /* ============================================================
+                   TESTIMONIALS
+                   ============================================================ */
+        .testimonials-section {
+            background: var(--charcoal);
+            position: relative;
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .testimonial-card {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            border-radius: 20px;
+            padding: 32px 28px;
+            transition: all 0.5s var(--transition-smooth);
+            position: relative;
+        }
+
+        .testimonial-card:hover {
+            background: rgba(255, 255, 255, 0.04);
+            transform: translateY(-6px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+            border-color: rgba(212, 175, 55, 0.04);
+        }
+
+        .testimonial-card .quote-mark {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            color: rgba(212, 175, 55, 0.04);
+            line-height: 1;
+            margin-bottom: -10px;
+        }
+
+        .testimonial-card .test-text {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.5);
+            line-height: 1.8;
+            font-style: italic;
+        }
+
+        .testimonial-card .test-author {
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .testimonial-card .test-author .avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, rgba(212, 175, 55, 0.08), rgba(26, 26, 26, 0.5));
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.1);
+        }
+
+        .testimonial-card .test-author .name {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--ivory);
+        }
+
+        .testimonial-card .test-author .role {
+            font-size: 0.6rem;
+            color: rgba(255, 255, 255, 0.15);
+            letter-spacing: 1px;
+        }
+
+        @media (max-width: 991px) {
+            .testimonial-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .testimonial-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ============================================================
+                   GALLERY — Magazine Collage
+                   ============================================================ */
+        .gallery-section {
+            background: var(--charcoal);
+            position: relative;
+        }
+
+        .gallery-collage {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            grid-template-rows: 200px 200px;
+            gap: 12px;
+        }
+
+        .gallery-collage .g-item {
+            border-radius: 12px;
+            overflow: hidden;
+            background: var(--charcoal-light);
+            position: relative;
+            transition: all 0.6s var(--transition-smooth);
+            cursor: pointer;
+        }
+
+        .gallery-collage .g-item .g-img {
+            width: 100%;
+            height: 100%;
+            background:
+                linear-gradient(135deg, rgba(26, 26, 26, 0.2), rgba(26, 26, 26, 0.4)),
+                radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.02), transparent 60%);
+            background-size: cover;
+            background-position: center;
+            transition: transform 0.8s ease;
+        }
+
+        .gallery-collage .g-item:hover .g-img {
+            transform: scale(1.06);
+        }
+
+        .gallery-collage .g-item .g-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, transparent 60%, rgba(26, 26, 26, 0.4));
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            display: flex;
+            align-items: flex-end;
+            padding: 16px;
+        }
+
+        .gallery-collage .g-item:hover .g-overlay {
+            opacity: 1;
+        }
+
+        .gallery-collage .g-item .g-overlay .g-label {
+            font-size: 0.55rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.3);
+        }
+
+        .gallery-collage .g-item:nth-child(1) {
+            grid-column: 1 / 3;
+            grid-row: 1 / 3;
+        }
+
+        .gallery-collage .g-item:nth-child(2) {
+            grid-column: 3 / 4;
+            grid-row: 1 / 2;
+        }
+
+        .gallery-collage .g-item:nth-child(3) {
+            grid-column: 4 / 5;
+            grid-row: 1 / 2;
+        }
+
+        .gallery-collage .g-item:nth-child(4) {
+            grid-column: 3 / 5;
+            grid-row: 2 / 3;
+        }
+
+        @media (max-width: 768px) {
+            .gallery-collage {
+                grid-template-columns: 1fr 1fr;
+                grid-template-rows: 180px 180px 180px;
+            }
+            .gallery-collage .g-item:nth-child(1) {
+                grid-column: 1 / 3;
+                grid-row: 1 / 2;
+            }
+            .gallery-collage .g-item:nth-child(2) {
+                grid-column: 1 / 2;
+                grid-row: 2 / 3;
+            }
+            .gallery-collage .g-item:nth-child(3) {
+                grid-column: 2 / 3;
+                grid-row: 2 / 3;
+            }
+            .gallery-collage .g-item:nth-child(4) {
+                grid-column: 1 / 3;
+                grid-row: 3 / 4;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .gallery-collage {
+                grid-template-rows: 140px 140px 140px;
+            }
+        }
+
+        /* ============================================================
+                   STATISTICS
+                   ============================================================ */
+        .stats-section {
+            background: var(--charcoal);
+            position: relative;
+            border-top: 1px solid rgba(255, 255, 255, 0.02);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-item .stat-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.4rem;
+            font-weight: 700;
+            color: var(--ivory);
+            letter-spacing: -0.02em;
+        }
+
+        .stat-item .stat-number .gold {
+            color: var(--champagne);
+        }
+
+        .stat-item .stat-label {
+            font-size: 0.7rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.2);
+            margin-top: 4px;
+            font-weight: 300;
+        }
+
+        @media (max-width: 991px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 30px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 20px;
+            }
+            .stat-item .stat-number {
+                font-size: 2.4rem;
+            }
+        }
+
+        /* ============================================================
+                   FAQ
+                   ============================================================ */
+        .faq-section {
+            background: var(--charcoal);
+            position: relative;
+        }
+
+        .faq-accordion .accordion-item {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            border-radius: 16px !important;
+            margin-bottom: 12px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .faq-accordion .accordion-item:hover {
+            border-color: rgba(212, 175, 55, 0.04);
+        }
+
+        .faq-accordion .accordion-header .accordion-button {
+            background: transparent;
+            color: var(--ivory);
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 400;
+            padding: 20px 28px;
+            box-shadow: none;
+            border: none;
+            transition: all 0.3s ease;
+        }
+
+        .faq-accordion .accordion-header .accordion-button:not(.collapsed) {
+            background: rgba(212, 175, 55, 0.02);
+            color: var(--champagne);
+        }
+
+        .faq-accordion .accordion-header .accordion-button::after {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23D4AF37' viewBox='0 0 16 16'%3E%3Cpath d='M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z'/%3E%3C/svg%3E");
+            transition: all 0.3s ease;
+        }
+
+        .faq-accordion .accordion-header .accordion-button:not(.collapsed)::after {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23D4AF37' viewBox='0 0 16 16'%3E%3Cpath d='M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z'/%3E%3C/svg%3E");
+        }
+
+        .faq-accordion .accordion-body {
+            padding: 0 28px 24px;
+            color: rgba(255, 255, 255, 0.35);
+            font-size: 0.85rem;
+            line-height: 1.8;
+        }
+
+        /* ============================================================
+                   CONTACT
+                   ============================================================ */
+        .contact-section {
+            background: var(--charcoal);
+            position: relative;
+        }
+
+        .contact-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+        }
+
+        .contact-map {
+            border-radius: 20px;
+            overflow: hidden;
+            height: 400px;
+            background: var(--charcoal-light);
+            position: relative;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .contact-map .map-placeholder {
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.02), transparent 60%),
+                var(--charcoal-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            color: rgba(255, 255, 255, 0.05);
+            font-size: 3rem;
+        }
+
+        .contact-map .map-placeholder span {
+            font-size: 0.7rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.05);
+            margin-top: 12px;
+        }
+
+        .contact-info .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            padding: 16px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+        }
+
+        .contact-info .contact-item .ci-icon {
+            font-size: 1.2rem;
+            color: rgba(212, 175, 55, 0.15);
+            min-width: 36px;
+            transition: all 0.3s ease;
+        }
+
+        .contact-info .contact-item:hover .ci-icon {
+            color: var(--champagne);
+        }
+
+        .contact-info .contact-item .ci-text {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.4);
+            line-height: 1.6;
+        }
+
+        .contact-info .contact-item .ci-text strong {
+            color: var(--ivory);
+            font-weight: 400;
+        }
+
+        .contact-socials {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+        }
+
+        .contact-socials .social-link {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255, 255, 255, 0.15);
+            font-size: 1.1rem;
+            transition: all 0.4s var(--transition-smooth);
+            text-decoration: none;
+        }
+
+        .contact-socials .social-link:hover {
+            border-color: rgba(212, 175, 55, 0.1);
+            color: var(--champagne);
+            transform: translateY(-4px);
+            background: rgba(212, 175, 55, 0.02);
+        }
+
+        @media (max-width: 991px) {
+            .contact-layout {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            .contact-map {
+                height: 280px;
+            }
+        }
+
+        /* ============================================================
+                   FOOTER
+                   ============================================================ */
+        .footer-main {
+            background: var(--charcoal);
+            border-top: 1px solid rgba(255, 255, 255, 0.02);
+            padding: 80px 0 40px;
+            position: relative;
+        }
+
+        .footer-main .footer-brand {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--ivory);
+            letter-spacing: 2px;
+        }
+
+        .footer-main .footer-brand span {
+            color: var(--champagne);
+        }
+
+        .footer-main .footer-desc {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.2);
+            line-height: 1.8;
+            max-width: 300px;
+            margin-top: 12px;
+        }
+
+        .footer-main .footer-heading {
+            font-size: 0.6rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.15);
+            margin-bottom: 16px;
+            font-weight: 300;
+        }
+
+        .footer-main .footer-link {
+            display: block;
+            color: rgba(255, 255, 255, 0.2);
+            text-decoration: none;
+            font-size: 0.8rem;
+            padding: 4px 0;
+            transition: all 0.3s ease;
+        }
+
+        .footer-main .footer-link:hover {
+            color: var(--champagne);
+            padding-left: 6px;
+        }
+
+        .footer-main .footer-newsletter .form-control {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            border-radius: 60px;
+            padding: 12px 20px;
+            color: var(--ivory);
+            font-size: 0.8rem;
+        }
+
+        .footer-main .footer-newsletter .form-control:focus {
+            background: rgba(255, 255, 255, 0.03);
+            border-color: rgba(212, 175, 55, 0.08);
+            box-shadow: none;
+            color: var(--ivory);
+        }
+
+        .footer-main .footer-newsletter .form-control::placeholder {
+            color: rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-main .footer-newsletter .btn-subscribe {
+            padding: 10px 28px;
+            border-radius: 60px;
+            background: var(--champagne);
+            color: var(--charcoal);
+            border: none;
+            font-size: 0.65rem;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: all 0.4s ease;
+        }
+
+        .footer-main .footer-newsletter .btn-subscribe:hover {
+            background: var(--champagne-light);
+            transform: translateY(-2px);
+        }
+
+        .footer-main .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.02);
+            padding-top: 30px;
+            margin-top: 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .footer-main .footer-bottom .copy {
+            font-size: 0.65rem;
+            color: rgba(255, 255, 255, 0.08);
+            letter-spacing: 1px;
+        }
+
+        .footer-main .footer-bottom .footer-social {
+            display: flex;
+            gap: 16px;
+        }
+
+        .footer-main .footer-bottom .footer-social a {
+            color: rgba(255, 255, 255, 0.08);
+            text-decoration: none;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .footer-main .footer-bottom .footer-social a:hover {
+            color: var(--champagne);
+        }
+
+        .footer-main .back-top {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: rgba(255, 255, 255, 0.08);
+            text-decoration: none;
+            font-size: 0.65rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+        }
+
+        .footer-main .back-top:hover {
+            color: var(--champagne);
+        }
+
+        @media (max-width: 768px) {
+            .footer-main {
+                padding: 50px 0 30px;
+            }
+            .footer-main .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        /* ============================================================
+                   BACK TO TOP BUTTON
+                   ============================================================ */
+        .back-to-top {
+            position: fixed;
+            bottom: 100px;
+            right: 28px;
+            z-index: 9970;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: rgba(26, 26, 26, 0.5);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            color: rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            text-decoration: none;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s var(--transition-smooth);
+            pointer-events: none;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+
+        .back-to-top:hover {
+            border-color: rgba(212, 175, 55, 0.1);
+            color: var(--champagne);
+            transform: translateY(-4px);
+            background: rgba(212, 175, 55, 0.02);
+        }
+
+        @media (max-width: 768px) {
+            .back-to-top {
+                bottom: 80px;
+                right: 16px;
+                width: 38px;
+                height: 38px;
+                font-size: 1rem;
+            }
+        }
+
+        /* ============================================================
+                   MODAL / CONFIRMATION
+                   ============================================================ */
+        .modal-premium .modal-content {
+            background: rgba(26, 26, 26, 0.92);
+            backdrop-filter: blur(32px);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            border-radius: 24px;
+            color: var(--ivory);
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.6);
+        }
+
+        .modal-premium .modal-header {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+            padding: 24px 30px;
+        }
+
+        .modal-premium .modal-header .modal-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            font-weight: 600;
+        }
+
+        .modal-premium .modal-header .btn-close {
+            filter: invert(1) brightness(0.2);
+            opacity: 0.3;
+        }
+
+        .modal-premium .modal-body {
+            padding: 30px;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .modal-premium .modal-footer {
+            border-top: 1px solid rgba(255, 255, 255, 0.02);
+            padding: 20px 30px;
+        }
+
+        .modal-premium .modal-footer .btn-confirm {
+            padding: 10px 36px;
+            border-radius: 60px;
+            background: var(--champagne);
+            color: var(--charcoal);
+            border: none;
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+        }
+
+        .modal-premium .modal-footer .btn-confirm:hover {
+            background: var(--champagne-light);
+            transform: translateY(-2px);
+        }
+
+        .modal-premium .modal-footer .btn-secondary {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            color: rgba(255, 255, 255, 0.2);
+            padding: 10px 28px;
+            border-radius: 60px;
+            font-size: 0.7rem;
+            letter-spacing: 1px;
+        }
+
+        /* ============================================================
+                   RESPONSIVE HELPERS
+                   ============================================================ */
+        @media (max-width: 768px) {
+            .section-padding {
+                padding: 60px 0;
+            }
+            .section-padding-sm {
+                padding: 40px 0;
+            }
+            .section-headline {
+                font-size: 1.8rem;
+            }
+            .hero-cinematic .hero-title {
+                font-size: 2.8rem;
+            }
+            .hero-cinematic .hero-subtitle {
+                font-size: 0.8rem;
+                letter-spacing: 4px;
+            }
+            .hero-cinematic .hero-cta .btn-hero {
+                padding: 10px 28px;
+                font-size: 0.65rem;
+            }
+            .reservation-glass {
+                padding: 24px 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-cinematic .hero-title {
+                font-size: 2.2rem;
+            }
+            .hero-cinematic .hero-badge {
+                font-size: 0.5rem;
+                letter-spacing: 4px;
+            }
+            .section-headline {
+                font-size: 1.6rem;
+            }
+        }
+
+        /* ============================================================
+                   UTILITY GLASS
+                   ============================================================ */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            border-radius: 20px;
+            transition: all 0.4s var(--transition-smooth);
+        }
+
+        .glass-card:hover {
+            background: rgba(255, 255, 255, 0.04);
+            border-color: rgba(212, 175, 55, 0.04);
+        }
+
+        /* Floating decorative elements */
+        .float-deco {
+            position: absolute;
+            pointer-events: none;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.02), transparent 70%);
+            animation: decoFloat 12s ease-in-out infinite alternate;
+        }
+
+        @keyframes decoFloat {
+            0% {
+                transform: translate(0, 0) scale(1);
+            }
+            100% {
+                transform: translate(40px, -30px) scale(1.1);
+            }
+        }
+
+        /* Dark mode toggle (simple) */
+        .dark-toggle {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .dark-toggle:hover {
+            color: var(--champagne);
+        }
+
+        /* Language selector (simple) */
+        .lang-selector {
+            font-size: 0.6rem;
+            letter-spacing: 2px;
+            color: rgba(255, 255, 255, 0.15);
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            border-radius: 40px;
+            padding: 4px 14px;
+            font-family: 'Outfit', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        .lang-selector:hover {
+            border-color: rgba(212, 175, 55, 0.08);
+            color: var(--ivory);
+        }
+
+        .lang-selector option {
+            background: var(--charcoal);
+            color: var(--ivory);
+        }
+
+        /* Search popup */
+        .search-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 99995;
+            background: rgba(26, 26, 26, 0.92);
+            backdrop-filter: blur(40px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.6s ease;
+        }
+
+        .search-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .search-overlay .search-input {
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            padding: 20px 10px;
+            font-size: 2.5rem;
+            font-family: 'Playfair Display', serif;
+            color: var(--ivory);
+            width: 60%;
+            max-width: 600px;
+            outline: none;
+            text-align: center;
+        }
+
+        .search-overlay .search-input::placeholder {
+            color: rgba(255, 255, 255, 0.05);
+        }
+
+        .search-overlay .search-close {
+            position: absolute;
+            top: 40px;
+            right: 40px;
+            font-size: 2rem;
+            color: rgba(255, 255, 255, 0.05);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: none;
+            border: none;
+        }
+
+        .search-overlay .search-close:hover {
+            color: var(--champagne);
+        }
+
+        @media (max-width: 768px) {
+            .search-overlay .search-input {
+                font-size: 1.6rem;
+                width: 80%;
+            }
+            .search-overlay .search-close {
+                top: 24px;
+                right: 24px;
+                font-size: 1.4rem;
+            }
+        }
+
+        /* WhatsApp & Call floating buttons */
+        .float-whatsapp {
+            position: fixed;
+            left: 28px;
+            bottom: 100px;
+            z-index: 9980;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: rgba(37, 211, 102, 0.06);
+            border: 1px solid rgba(37, 211, 102, 0.06);
+            color: rgba(37, 211, 102, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            text-decoration: none;
+            transition: all 0.4s var(--transition-smooth);
+        }
+
+        .float-whatsapp:hover {
+            background: rgba(37, 211, 102, 0.04);
+            border-color: rgba(37, 211, 102, 0.08);
+            color: #25d366;
+            transform: scale(1.06);
+        }
+
+        .float-call {
+            position: fixed;
+            left: 28px;
+            bottom: 156px;
+            z-index: 9980;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.02);
+            color: rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            text-decoration: none;
+            transition: all 0.4s var(--transition-smooth);
+        }
+
+        .float-call:hover {
+            background: rgba(255, 255, 255, 0.02);
+            border-color: rgba(255, 255, 255, 0.04);
+            color: rgba(255, 255, 255, 0.15);
+            transform: scale(1.06);
+        }
+
+        @media (max-width: 768px) {
+            .float-whatsapp,
+            .float-call {
+                left: 16px;
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
+            }
+            .float-whatsapp {
+                bottom: 80px;
+            }
+            .float-call {
+                bottom: 130px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ============================================================
+    PRELOADER
+    ============================================================ -->
+    <div id="preloader">
+        <div class="preloader-glow"></div>
+        <div class="preloader-ring">
+            <svg viewBox="0 0 120 120">
+                <defs>
+                    <linearGradient id="preloaderGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#D4AF37" />
+                        <stop offset="50%" stop-color="#8A3F47" />
+                        <stop offset="100%" stop-color="#D4AF37" />
+                    </linearGradient>
+                </defs>
+                <circle class="bg-circle" cx="60" cy="60" r="55" />
+                <circle class="progress-circle" cx="60" cy="60" r="55" id="preloaderCircle" />
+            </svg>
+            <div class="preloader-logo">M<span>.</span></div>
+        </div>
+        <div class="preloader-text">Fine Dining</div>
+        <div class="preloader-progress-text" id="preloaderProgress">0%</div>
+    </div>
+
+    <!-- ============================================================
+    CUSTOM CURSOR
+    ============================================================ -->
+    <div id="custom-cursor">
+        <div class="cursor-dot"></div>
+    </div>
+
+    <!-- ============================================================
+    SCROLL PROGRESS
+    ============================================================ -->
+    <div id="scroll-progress"></div>
+
+    <!-- ============================================================
+    SEARCH OVERLAY
+    ============================================================ -->
+    <div class="search-overlay" id="searchOverlay">
+        <button class="search-close" id="searchClose"><i class="bi bi-x-lg"></i></button>
+        <input type="text" class="search-input" placeholder="Search our menu..." autofocus />
+    </div>
+
+    <!-- ============================================================
+    NAVIGATION
+    ============================================================ -->
+    <nav class="navbar-main navbar navbar-expand-lg" id="mainNav">
+        <div class="container-fluid px-0">
+            <a class="nav-brand" href="#">Mirage<span>.</span></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" aria-controls="navMenu" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navMenu">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item"><a class="nav-link" href="#story">Story</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#signature">Signature</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#menu">Menu</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#chef">Chef</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#private">Private</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#gallery">Gallery</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                </ul>
+                <div class="nav-actions">
+                    <button class="icon-btn" id="searchToggle" aria-label="Search"><i class="bi bi-search"></i></button>
+                    <select class="lang-selector" aria-label="Language">
+                        <option value="en">EN</option>
+                        <option value="fr">FR</option>
+                        <option value="it">IT</option>
+                        <option value="es">ES</option>
+                    </select>
+                    <button class="icon-btn dark-toggle" id="darkToggle" aria-label="Toggle theme"><i class="bi bi-moon"></i></button>
+                    <a href="#reservation" class="nav-btn nav-btn-primary d-none d-lg-inline-block">Reserve</a>
+                    <a href="#menu" class="nav-btn nav-btn-outline d-none d-lg-inline-block">Order</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ============================================================
+    HERO / CINEMATIC OPENING
+    ============================================================ -->
+    <section class="hero-cinematic" id="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-video-placeholder"></div>
+
+        <div class="floating-particles" id="particles"></div>
+
+        <div class="hero-content container">
+            <div class="hero-badge">Michelin Starred · Est. 2024</div>
+            <h1 class="hero-title">
+                Dining Beyond<br />
+                <span class="highlight">Expectations</span>
+            </h1>
+            <p class="hero-subtitle">An immersive multi-cuisine journey</p>
+            <div class="hero-cta">
+                <a href="#reservation" class="btn-hero btn-hero-primary">Reserve a Table</a>
+                <a href="#menu" class="btn-hero btn-hero-outline">Explore Menu</a>
+            </div>
+        </div>
+
+        <div class="scroll-indicator">
+            <div class="scroll-line"></div>
+            <span class="scroll-label">Scroll</span>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    OUR STORY — Magazine Editorial
+    ============================================================ -->
+    <section class="story-section section-padding" id="story">
+        <div class="container">
+            <div class="story-grid">
+                <div class="story-image-wrap">
+                    <div class="story-img-placeholder"></div>
+                    <div class="story-img-overlay"></div>
+                    <div class="story-badge">Est. 2024 · Paris</div>
+                </div>
+                <div class="story-text">
+                    <span class="section-label">Our Story</span>
+                    <h2 class="section-headline">Where Culinary Art <span class="gold">Meets</span> Emotion</h2>
+                    <div class="gold-divider"></div>
+                    <p style="color:rgba(255,255,255,0.4);font-size:0.95rem;line-height:1.8;">
+                        Mirage was born from a vision to transcend the ordinary. Nestled in the heart of Paris, our
+                        restaurant is a sanctuary where gastronomy becomes poetry. Every dish tells a story, every
+                        ingredient is a verse.
+                    </p>
+                    <div class="story-quote">
+                        "Cooking is not about perfection. It's about emotion, memory, and the joy of sharing."
+                    </div>
+                    <div class="story-meta">
+                        <div class="story-meta-item"><strong>12+</strong> Years of Excellence</div>
+                        <div class="story-meta-item"><strong>45</strong> Global Awards</div>
+                        <div class="story-meta-item"><strong>3</strong> Michelin Stars</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    SIGNATURE EXPERIENCE
+    ============================================================ -->
+    <section class="signature-section section-padding" id="signature">
+        <div class="sig-bg-glow"></div>
+        <div class="container">
+            <div class="text-center mb-5">
+                <span class="section-label">Signature Experience</span>
+                <h2 class="section-headline">Our <span class="gold">Culinary</span> Masterpieces</h2>
+                <p class="section-sub mx-auto">Each signature dish is a symphony of flavors, crafted with precision and passion.</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-3">
+                    <div class="sig-card">
+                        <div class="sig-image" style="background: linear-gradient(135deg, rgba(45,90,61,0.2), rgba(26,26,26,0.5)), radial-gradient(circle at 30% 40%, rgba(212,175,55,0.04), transparent 60%);"></div>
+                        <div class="sig-overlay">
+                            <span class="sig-category">Premium</span>
+                            <div class="sig-name">Wagyu A5<br />Truffle</div>
+                            <p class="sig-desc">Japanese wagyu with black truffle &amp; gold leaf</p>
+                            <span class="sig-price">$195</span>
+                        </div>
+                        <div class="sig-glass-panel">Chef's Signature</div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="sig-card">
+                        <div class="sig-image" style="background: linear-gradient(135deg, rgba(114,47,55,0.15), rgba(26,26,26,0.5)), radial-gradient(circle at 60% 30%, rgba(212,175,55,0.04), transparent 60%);"></div>
+                        <div class="sig-overlay">
+                            <span class="sig-category">Seafood</span>
+                            <div class="sig-name">Ocean's<br />Triumph</div>
+                            <p class="sig-desc">Lobster, scallops, caviar &amp; champagne foam</p>
+                            <span class="sig-price">$165</span>
+                        </div>
+                        <div class="sig-glass-panel">Seasonal</div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="sig-card">
+                        <div class="sig-image" style="background: linear-gradient(135deg, rgba(212,175,55,0.08), rgba(26,26,26,0.5)), radial-gradient(circle at 50% 50%, rgba(212,175,55,0.04), transparent 60%);"></div>
+                        <div class="sig-overlay">
+                            <span class="sig-category">Italian</span>
+                            <div class="sig-name">Truffle<br />Risotto</div>
+                            <p class="sig-desc">Carnaroli rice, porcini, parmigiano &amp; white truffle</p>
+                            <span class="sig-price">$125</span>
+                        </div>
+                        <div class="sig-glass-panel">Classic</div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="sig-card">
+                        <div class="sig-image" style="background: linear-gradient(135deg, rgba(45,90,61,0.15), rgba(26,26,26,0.5)), radial-gradient(circle at 70% 60%, rgba(212,175,55,0.04), transparent 60%);"></div>
+                        <div class="sig-overlay">
+                            <span class="sig-category">Vegetarian</span>
+                            <div class="sig-name">Garden<br />Medley</div>
+                            <p class="sig-desc">Seasonal vegetables, herb oil &amp; aged balsamic</p>
+                            <span class="sig-price">$95</span>
+                        </div>
+                        <div class="sig-glass-panel">Plant-Based</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    INTERACTIVE MENU
+    ============================================================ -->
+    <section class="menu-section section-padding" id="menu">
+        <div class="menu-bg"></div>
+        <div class="container">
+            <div class="text-center mb-5">
+                <span class="section-label">Curated Selection</span>
+                <h2 class="section-headline">Our <span class="gold">Menu</span> Collection</h2>
+                <p class="section-sub mx-auto">A journey through global flavors, crafted with seasonal ingredients.</p>
+            </div>
+
+            <div class="menu-categories" id="menuCategories">
+                <button class="cat-btn active" data-category="starters">Starters</button>
+                <button class="cat-btn" data-category="main">Main Course</button>
+                <button class="cat-btn" data-category="seafood">Seafood</button>
+                <button class="cat-btn" data-category="steaks">Steaks</button>
+                <button class="cat-btn" data-category="italian">Italian</button>
+                <button class="cat-btn" data-category="asian">Asian</button>
+                <button class="cat-btn" data-category="desserts">Desserts</button>
+                <button class="cat-btn" data-category="drinks">Drinks</button>
+            </div>
+
+            <div class="menu-items-grid" id="menuItems">
+                <!-- populated by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    CHEF EXPERIENCE
+    ============================================================ -->
+    <section class="chef-section section-padding" id="chef">
+        <div class="chef-glow"></div>
+        <div class="container">
+            <div class="chef-layout">
+                <div class="chef-portrait">
+                    <div class="chef-img"></div>
+                    <div class="chef-img-overlay"></div>
+                    <div class="chef-badge">
+                        <div class="chef-name">Julien Moreau</div>
+                        <div class="chef-title">Executive Chef · Michelin 3★</div>
+                    </div>
+                </div>
+                <div class="chef-info">
+                    <span class="section-label">The Chef</span>
+                    <h2 class="section-headline">Crafting <span class="gold">Emotion</span> on a Plate</h2>
+                    <div class="gold-divider"></div>
+                    <p style="color:rgba(255,255,255,0.35);font-size:0.9rem;line-height:1.8;">
+                        Chef Julien Moreau brings over two decades of culinary mastery to Mirage. Trained in
+                        the world's most prestigious kitchens, his philosophy is rooted in respect for ingredients
+                        and the pursuit of pure, unadulterated flavor.
+                    </p>
+                    <div class="chef-timeline">
+                        <div class="chef-timeline-item">
+                            <span class="year">2024</span>
+                            <span class="desc">Executive Chef at Mirage · Paris</span>
+                        </div>
+                        <div class="chef-timeline-item">
+                            <span class="year">2018</span>
+                            <span class="desc">Chef de Cuisine · L'Ambroisie, Paris (3 Michelin Stars)</span>
+                        </div>
+                        <div class="chef-timeline-item">
+                            <span class="year">2012</span>
+                            <span class="desc">Sous Chef · The Fat Duck, UK (3 Michelin Stars)</span>
+                        </div>
+                    </div>
+                    <div class="chef-awards">
+                        <div class="award"><strong>3</strong> Michelin Stars</div>
+                        <div class="award"><strong>5</strong> Gault&amp;Millau Toques</div>
+                        <div class="award"><strong>8</strong> International Awards</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    PRIVATE DINING
+    ============================================================ -->
+    <section class="private-section section-padding" id="private">
+        <div class="container">
+            <div class="text-center mb-5">
+                <span class="section-label">Exclusive Spaces</span>
+                <h2 class="section-headline">Private <span class="gold">Dining</span> Experiences</h2>
+                <p class="section-sub mx-auto">Intimate settings for unforgettable moments, from romantic dinners to grand celebrations.</p>
+            </div>
+            <div class="private-grid">
+                <div class="private-card">
+                    <div class="private-img" style="background: linear-gradient(135deg, rgba(45,90,61,0.1), rgba(26,26,26,0.5)), radial-gradient(circle at 30% 40%, rgba(212,175,55,0.03), transparent 60%);"></div>
+                    <div class="private-overlay">
+                        <div class="private-name">The Wine Cellar</div>
+                        <div class="private-desc">Intimate dining surrounded by 1,200+ fine wines</div>
+                        <span class="private-icon"><i class="bi bi-wine"></i></span>
+                    </div>
+                </div>
+                <div class="private-card">
+                    <div class="private-img" style="background: linear-gradient(135deg, rgba(114,47,55,0.08), rgba(26,26,26,0.5)), radial-gradient(circle at 60% 30%, rgba(212,175,55,0.03), transparent 60%);"></div>
+                    <div class="private-overlay">
+                        <div class="private-name">The Chef's Table</div>
+                        <div class="private-desc">Front-row seat to culinary artistry</div>
+                        <span class="private-icon"><i class="bi bi-star"></i></span>
+                    </div>
+                </div>
+                <div class="private-card">
+                    <div class="private-img" style="background: linear-gradient(135deg, rgba(212,175,55,0.06), rgba(26,26,26,0.5)), radial-gradient(circle at 50% 50%, rgba(212,175,55,0.03), transparent 60%);"></div>
+                    <div class="private-overlay">
+                        <div class="private-name">The Garden Terrace</div>
+                        <div class="private-desc">Al fresco dining under the stars</div>
+                        <span class="private-icon"><i class="bi bi-flower1"></i></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    LIVE KITCHEN
+    ============================================================ -->
+    <section class="kitchen-section section-padding" id="kitchen">
+        <div class="kitchen-bg"></div>
+        <div class="container">
+            <div class="kitchen-layout">
+                <div>
+                    <span class="section-label">Live Kitchen</span>
+                    <h2 class="section-headline">Where Fire <span class="gold">Meets</span> Art</h2>
+                    <div class="gold-divider"></div>
+                    <p style="color:rgba(255,255,255,0.35);font-size:0.9rem;line-height:1.8;">
+                        Experience the theatre of cooking. Our open kitchen brings you closer to the
+                        action — the sizzle of the pan, the dance of the flames, the precision of every cut.
+                    </p>
+                    <div class="kitchen-ingredients">
+                        <span class="ingredient">A5 Wagyu</span>
+                        <span class="ingredient">Black Truffle</span>
+                        <span class="ingredient">Wild Mushrooms</span>
+                        <span class="ingredient">Saffron</span>
+                        <span class="ingredient">Gold Leaf</span>
+                        <span class="ingredient">Caviar</span>
+                    </div>
+                </div>
+                <div class="kitchen-visual">
+                    <div class="kitchen-img"></div>
+                    <div class="fire-effect"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    SPECIAL EVENTS
+    ============================================================ -->
+    <section class="events-section section-padding-sm" id="events">
+        <div class="container">
+            <div class="text-center mb-5">
+                <span class="section-label">Celebrations</span>
+                <h2 class="section-headline">Curate Your <span class="gold">Event</span></h2>
+            </div>
+            <div class="events-grid">
+                <div class="event-card">
+                    <span class="event-icon"><i class="bi bi-heart"></i></span>
+                    <div class="event-name">Romantic Dinners</div>
+                    <div class="event-desc">Candlelit tables, champagne, and a menu designed for two.</div>
+                </div>
+                <div class="event-card">
+                    <span class="event-icon"><i class="bi bi-ring"></i></span>
+                    <div class="event-name">Wedding Receptions</div>
+                    <div class="event-desc">Elegant celebrations with bespoke menus and exclusive spaces.</div>
+                </div>
+                <div class="event-card">
+                    <span class="event-icon"><i class="bi bi-briefcase"></i></span>
+                    <div class="event-name">Corporate Dinners</div>
+                    <div class="event-desc">Impress your clients with world-class cuisine and service.</div>
+                </div>
+                <div class="event-card">
+                    <span class="event-icon"><i class="bi bi-balloon"></i></span>
+                    <div class="event-name">Birthday Galas</div>
+                    <div class="event-desc">Celebrate in style with custom menus and private dining.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    WINE COLLECTION
+    ============================================================ -->
+    <section class="wine-section section-padding" id="wine">
+        <div class="container">
+            <div class="text-center mb-4">
+                <span class="section-label">Curated Cellar</span>
+                <h2 class="section-headline">The <span class="gold">Wine</span> Collection</h2>
+            </div>
+            <div class="wine-scroll">
+                <div class="wine-card">
+                    <span class="wine-year">2015</span>
+                    <div>
+                        <div class="wine-name">Château Margaux</div>
+                        <div class="wine-region">Bordeaux, France</div>
+                        <div class="wine-notes">Elegant, with notes of blackberry, cedar &amp; violet.</div>
+                    </div>
+                    <div class="wine-price">$620</div>
+                </div>
+                <div class="wine-card">
+                    <span class="wine-year">2018</span>
+                    <div>
+                        <div class="wine-name">Sassicaia</div>
+                        <div class="wine-region">Tuscany, Italy</div>
+                        <div class="wine-notes">Bold, with dark cherry, spice &amp; a lingering finish.</div>
+                    </div>
+                    <div class="wine-price">$410</div>
+                </div>
+                <div class="wine-card">
+                    <span class="wine-year">2016</span>
+                    <div>
+                        <div class="wine-name">Opus One</div>
+                        <div class="wine-region">Napa Valley, USA</div>
+                        <div class="wine-notes">Rich, with blackcurrant, cocoa &amp; vanilla oak.</div>
+                    </div>
+                    <div class="wine-price">$540</div>
+                </div>
+                <div class="wine-card">
+                    <span class="wine-year">2014</span>
+                    <div>
+                        <div class="wine-name">Dom Pérignon</div>
+                        <div class="wine-region">Champagne, France</div>
+                        <div class="wine-notes">Elegant bubbles with brioche, citrus &amp; floral notes.</div>
+                    </div>
+                    <div class="wine-price">$290</div>
+                </div>
+                <div class="wine-card">
+                    <span class="wine-year">2019</span>
+                    <div>
+                        <div class="wine-name">Penfolds Grange</div>
+                        <div class="wine-region">South Australia</div>
+                        <div class="wine-notes">Powerful, with dark fruit, liquorice &amp; spice.</div>
+                    </div>
+                    <div class="wine-price">$680</div>
+                </div>
+                <div class="wine-card">
+                    <span class="wine-year">2017</span>
+                    <div>
+                        <div class="wine-name">Vega Sicilia Único</div>
+                        <div class="wine-region">Ribera del Duero, Spain</div>
+                        <div class="wine-notes">Complex, with tobacco, leather &amp; dark berries.</div>
+                    </div>
+                    <div class="wine-price">$490</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    RESERVATION
+    ============================================================ -->
+    <section class="reservation-section section-padding" id="reservation">
+        <div class="res-bg"></div>
+        <div class="container">
+            <div class="text-center mb-5">
+                <span class="section-label">Reserve Your Experience</span>
+                <h2 class="section-headline">Secure Your <span class="gold">Table</span></h2>
+                <p class="section-sub mx-auto">Book your table and embark on a culinary journey like no other.</p>
+            </div>
+            <div class="reservation-glass">
+                <form id="reservationForm">
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <label class="form-label">Full Name</label>
+                            <input type="text" class="form-control" placeholder="Your name" required />
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Number of Guests</label>
+                            <input type="number" class="form-control" placeholder="2" min="1" max="20" required />
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Date</label>
+                            <input type="date" class="form-control" required />
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Time</label>
+                            <input type="time" class="form-control" required />
+                        </div>
+                        <div class="col-md-12">
+                            <label class="form-label">Dining Area</label>
+                            <select class="form-control" required>
+                                <option value="">Select an area</option>
+                                <option value="main">Main Dining Hall</option>
+                                <option value="cellar">Wine Cellar</option>
+                                <option value="terrace">Garden Terrace</option>
+                                <option value="private">Private Room</option>
+                            </select>
+                        </div>
+                        <div class="col-md-12">
+                            <label class="form-label">Special Requests</label>
+                            <input type="text" class="form-control" placeholder="Dietary preferences, occasion, etc." />
+                        </div>
+                        <div class="col-md-12">
+                            <button type="submit" class="btn-reserve">Reserve Now</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    TESTIMONIALS
+    ============================================================ -->
+    <section class="testimonials-section section-padding" id="testimonials">
+        <div class="container">
+            <div class="text-center mb-5">
+                <span class="section-label">Guest Stories</span>
+                <h2 class="section-headline">What Our <span class="gold">Guests</span> Say</h2>
+            </div>
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <div class="quote-mark">"</div>
+                    <p class="test-text">An unforgettable experience. Every dish was a revelation, and the service was impeccable. Mirage redefines fine dining.</p>
+                    <div class="test-author">
+                        <div class="avatar"><i class="bi bi-person"></i></div>
+                        <div>
+                            <div class="name">Alexander V.</div>
+                            <div class="role">Loyal Guest · 12 visits</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="quote-mark">"</div>
+                    <p class="test-text">The wine pairing was extraordinary. The sommelier guided us through a journey that elevated every course to new heights.</p>
+                    <div class="test-author">
+                        <div class="avatar"><i class="bi bi-person"></i></div>
+                        <div>
+                            <div class="name">Isabella R.</div>
+                            <div class="role">Wine Enthusiast</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="quote-mark">"</div>
+                    <p class="test-text">Mirage is not just a restaurant — it's a sanctuary. The attention to detail, the warmth, the flavors — pure perfection.</p>
+                    <div class="test-author">
+                        <div class="avatar"><i class="bi bi-person"></i></div>
+                        <div>
+                            <div class="name">James &amp; Sophia</div>
+                            <div class="role">Anniversary Dinner</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    GALLERY — Magazine Collage
+    ============================================================ -->
+    <section class="gallery-section section-padding" id="gallery">
+        <div class="container">
+            <div class="text-center mb-5">
+                <span class="section-label">Visual Storytelling</span>
+                <h2 class="section-headline">The <span class="gold">Mirage</span> Gallery</h2>
+            </div>
+            <div class="gallery-collage">
+                <div class="g-item">
+                    <div class="g-img" style="background: linear-gradient(135deg, rgba(45,90,61,0.15), rgba(26,26,26,0.5)), radial-gradient(circle at 30% 40%, rgba(212,175,55,0.02), transparent 60%);"></div>
+                    <div class="g-overlay"><span class="g-label">Amuse-bouche</span></div>
+                </div>
+                <div class="g-item">
+                    <div class="g-img" style="background: linear-gradient(135deg, rgba(114,47,55,0.1), rgba(26,26,26,0.5)), radial-gradient(circle at 60% 30%, rgba(212,175,55,0.02), transparent 60%);"></div>
+                    <div class="g-overlay"><span class="g-label">Wine Cellar</span></div>
+                </div>
+                <div class="g-item">
+                    <div class="g-img" style="background: linear-gradient(135deg, rgba(212,175,55,0.06), rgba(26,26,26,0.5)), radial-gradient(circle at 50% 50%, rgba(212,175,55,0.02), transparent 60%);"></div>
+                    <div class="g-overlay"><span class="g-label">Dessert Art</span></div>
+                </div>
+                <div class="g-item">
+                    <div class="g-img" style="background: linear-gradient(135deg, rgba(45,90,61,0.1), rgba(26,26,26,0.5)), radial-gradient(circle at 70% 60%, rgba(212,175,55,0.02), transparent 60%);"></div>
+                    <div class="g-overlay"><span class="g-label">Open Kitchen</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    STATISTICS
+    ============================================================ -->
+    <section class="stats-section section-padding-sm" id="stats">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number" data-count="250">0<span class="gold">K+</span></div>
+                    <div class="stat-label">Guests Served</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" data-count="45">0</div>
+                    <div class="stat-label">Professional Chefs</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" data-count="120">0</div>
+                    <div class="stat-label">Signature Dishes</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" data-count="25">0</div>
+                    <div class="stat-label">Years of Excellence</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    FAQ
+    ============================================================ -->
+    <section class="faq-section section-padding" id="faq">
+        <div class="container">
+            <div class="text-center mb-5">
+                <span class="section-label">Curious Minds</span>
+                <h2 class="section-headline">Frequently <span class="gold">Asked</span> Questions</h2>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <div class="faq-accordion accordion" id="faqAccordion">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header"><button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">Do you accommodate dietary restrictions?</button></h2>
+                            <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">Yes, we cater to all dietary needs including vegetarian, vegan, gluten-free, and allergies. Please inform us when booking.</div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">What is the dress code?</button></h2>
+                            <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">We recommend smart elegant attire. Jackets are appreciated but not required.</div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">Can I host a private event?</button></h2>
+                            <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">Absolutely. We offer private dining rooms and bespoke event planning for weddings, corporate dinners, and celebrations.</div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq4">Do you have a corkage fee?</button></h2>
+                            <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">Yes, we charge a corkage fee of $45 per bottle. Our sommelier is happy to assist with pairings.</div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq5">How far in advance should I book?</button></h2>
+                            <div id="faq5" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">We recommend booking at least 2 weeks in advance for weekend reservations and 4 weeks for private events.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    CONTACT
+    ============================================================ -->
+    <section class="contact-section section-padding" id="contact">
+        <div class="container">
+            <div class="text-center mb-5">
+                <span class="section-label">Connect With Us</span>
+                <h2 class="section-headline">Visit <span class="gold">Mirage</span></h2>
+            </div>
+            <div class="contact-layout">
+                <div class="contact-map">
+                    <div class="map-placeholder">
+                        <i class="bi bi-geo-alt"></i>
+                        <span>12 Rue de la Gastronomie · Paris</span>
+                    </div>
+                </div>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <span class="ci-icon"><i class="bi bi-geo-alt"></i></span>
+                        <div class="ci-text"><strong>Address</strong><br />12 Rue de la Gastronomie, 75001 Paris, France</div>
+                    </div>
+                    <div class="contact-item">
+                        <span class="ci-icon"><i class="bi bi-telephone"></i></span>
+                        <div class="ci-text"><strong>Phone</strong><br />+33 1 23 45 67 89</div>
+                    </div>
+                    <div class="contact-item">
+                        <span class="ci-icon"><i class="bi bi-envelope"></i></span>
+                        <div class="ci-text"><strong>Email</strong><br />reservations@mirage.paris</div>
+                    </div>
+                    <div class="contact-item">
+                        <span class="ci-icon"><i class="bi bi-clock"></i></span>
+                        <div class="ci-text"><strong>Opening Hours</strong><br />Tue–Sat: 18:00 – 00:00 · Sun–Mon: Closed</div>
+                    </div>
+                    <div class="contact-socials">
+                        <a href="#" class="social-link"><i class="bi bi-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="social-link"><i class="bi bi-youtube"></i></a>
+                        <a href="#" class="social-link"><i class="bi bi-tiktok"></i></a>
+                        <a href="#" class="social-link"><i class="bi bi-pinterest"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    FOOTER
+    ============================================================ -->
+    <footer class="footer-main">
+        <div class="container">
+            <div class="row g-5">
+                <div class="col-lg-4 col-md-6">
+                    <div class="footer-brand">Mirage<span>.</span></div>
+                    <p class="footer-desc">A sanctuary of culinary artistry. Where every meal is a masterpiece, and every moment is unforgettable.</p>
+                    <div style="margin-top:16px;display:flex;gap:12px;">
+                        <a href="#" class="footer-link" style="display:inline-block;padding:0;">Instagram</a>
+                        <a href="#" class="footer-link" style="display:inline-block;padding:0;">Facebook</a>
+                        <a href="#" class="footer-link" style="display:inline-block;padding:0;">YouTube</a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6">
+                    <div class="footer-heading">Quick Links</div>
+                    <a href="#story" class="footer-link">Our Story</a>
+                    <a href="#menu" class="footer-link">Menu</a>
+                    <a href="#reservation" class="footer-link">Reservations</a>
+                    <a href="#private" class="footer-link">Private Dining</a>
+                    <a href="#events" class="footer-link">Events</a>
+                </div>
+                <div class="col-lg-2 col-md-6">
+                    <div class="footer-heading">Legal</div>
+                    <a href="#" class="footer-link">Privacy Policy</a>
+                    <a href="#" class="footer-link">Terms of Service</a>
+                    <a href="#" class="footer-link">Cookie Policy</a>
+                    <a href="#" class="footer-link">Accessibility</a>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="footer-heading">Newsletter</div>
+                    <p style="font-size:0.75rem;color:rgba(255,255,255,0.15);margin-bottom:12px;">Subscribe for exclusive offers and culinary inspiration.</p>
+                    <div class="footer-newsletter d-flex gap-2">
+                        <input type="email" class="form-control" placeholder="Your email" />
+                        <button class="btn-subscribe">Join</button>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <span class="copy">&copy; 2028 Mirage · Multi-Cuisine Fine Dining · Paris</span>
+                <div class="footer-social">
+                    <a href="#" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+                    <a href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+                    <a href="#" aria-label="YouTube"><i class="bi bi-youtube"></i></a>
+                    <a href="#" aria-label="TikTok"><i class="bi bi-tiktok"></i></a>
+                </div>
+                <a href="#hero" class="back-top"><i class="bi bi-arrow-up"></i> Back to Top</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ============================================================
+    FLOATING BUTTONS
+    ============================================================ -->
+    <div class="floating-reserve">
+        <a href="#reservation" class="float-btn"><i class="bi bi-calendar2-week"></i></a>
+        <span class="float-label">Reserve</span>
+    </div>
+
+    <a href="#" class="float-whatsapp" aria-label="WhatsApp"><i class="bi bi-whatsapp"></i></a>
+    <a href="tel:+33123456789" class="float-call" aria-label="Call"><i class="bi bi-telephone"></i></a>
+
+    <a href="#hero" class="back-to-top" id="backToTop" aria-label="Back to top"><i class="bi bi-chevron-up"></i></a>
+
+    <!-- ============================================================
+    RESERVATION CONFIRMATION MODAL
+    ============================================================ -->
+    <div class="modal fade modal-premium" id="reservationModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Reservation Confirmed</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div style="text-align:center;padding:20px 0;">
+                        <i class="bi bi-check-circle" style="font-size:3.5rem;color:var(--champagne);opacity:0.3;"></i>
+                        <p style="font-size:1.1rem;color:var(--ivory);margin-top:16px;">Thank you for your reservation.</p>
+                        <p style="font-size:0.85rem;color:rgba(255,255,255,0.2);">We look forward to welcoming you to Mirage.</p>
+                        <p style="font-size:0.7rem;color:rgba(255,255,255,0.08);margin-top:8px;">A confirmation email has been sent.</p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn-confirm" data-bs-dismiss="modal">Wonderful</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    BOOTSTRAP JS
+    ============================================================ -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js">
+    </script>
+
+    <!-- ============================================================
+    CUSTOM JAVASCRIPT
+    ============================================================ -->
+    <script>
+        (function() {
+            'use strict';
+
+            // ============================================================
+            // PRELOADER
+            // ============================================================
+            const preloader = document.getElementById('preloader');
+            const progressCircle = document.getElementById('preloaderCircle');
+            const progressText = document.getElementById('preloaderProgress');
+            const circumference = 345;
+            let loadProgress = 0;
+
+            function updatePreloader() {
+                loadProgress += Math.random() * 8 + 2;
+                if (loadProgress > 100) loadProgress = 100;
+                const offset = circumference - (loadProgress / 100) * circumference;
+                progressCircle.style.strokeDashoffset = offset;
+                progressText.textContent = Math.round(loadProgress) + '%';
+                if (loadProgress < 100) {
+                    setTimeout(updatePreloader, 120 + Math.random() * 200);
+                } else {
+                    setTimeout(() => {
+                        preloader.classList.add('hidden');
+                        document.body.style.overflow = 'auto';
+                        initCounters();
+                    }, 500);
+                }
+            }
+            document.body.style.overflow = 'hidden';
+            setTimeout(updatePreloader, 400);
+
+            // ============================================================
+            // CUSTOM CURSOR
+            // ============================================================
+            const cursor = document.getElementById('custom-cursor');
+            let cursorX = -100,
+                cursorY = -100;
+            let targetX = -100,
+                targetY = -100;
+
+            document.addEventListener('mousemove', (e) => {
+                targetX = e.clientX;
+                targetY = e.clientY;
+                if (cursor) {
+                    cursor.style.display = 'block';
+                }
+            });
+
+            function animateCursor() {
+                cursorX += (targetX - cursorX) * 0.12;
+                cursorY += (targetY - cursorY) * 0.12;
+                if (cursor) {
+                    cursor.style.transform = 'translate(' + cursorX + 'px, ' + cursorY + 'px)';
+                }
+                requestAnimationFrame(animateCursor);
+            }
+            animateCursor();
+
+            // Hover effects
+            document.querySelectorAll('a, button, .cursor-target').forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    if (cursor) cursor.classList.add('expanded');
+                });
+                el.addEventListener('mouseleave', () => {
+                    if (cursor) cursor.classList.remove('expanded');
+                });
+            });
+
+            document.querySelectorAll('img, .sig-card, .g-item, .private-card').forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    if (cursor) cursor.classList.add('hover-image');
+                });
+                el.addEventListener('mouseleave', () => {
+                    if (cursor) cursor.classList.remove('hover-image');
+                });
+            });
+
+            // Hide cursor on mobile
+            if (window.innerWidth <= 768) {
+                if (cursor) cursor.style.display = 'none';
+            }
+
+            // ============================================================
+            // SCROLL PROGRESS
+            // ============================================================
+            const scrollProgress = document.getElementById('scroll-progress');
+
+            window.addEventListener('scroll', () => {
+                const scrollTop = window.scrollY;
+                const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+                scrollProgress.style.width = progress + '%';
+            });
+
+            // ============================================================
+            // NAVIGATION
+            // ============================================================
+            const nav = document.getElementById('mainNav');
+
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 60) {
+                    nav.classList.add('scrolled');
+                } else {
+                    nav.classList.remove('scrolled');
+                }
+            });
+
+            // ============================================================
+            // SEARCH OVERLAY
+            // ============================================================
+            const searchToggle = document.getElementById('searchToggle');
+            const searchOverlay = document.getElementById('searchOverlay');
+            const searchClose = document.getElementById('searchClose');
+
+            searchToggle.addEventListener('click', () => {
+                searchOverlay.classList.toggle('active');
+                if (searchOverlay.classList.contains('active')) {
+                    setTimeout(() => {
+                        searchOverlay.querySelector('.search-input').focus();
+                    }, 300);
+                }
+            });
+
+            searchClose.addEventListener('click', () => {
+                searchOverlay.classList.remove('active');
+            });
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && searchOverlay.classList.contains('active')) {
+                    searchOverlay.classList.remove('active');
+                }
+                if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+                    e.preventDefault();
+                    searchOverlay.classList.toggle('active');
+                    if (searchOverlay.classList.contains('active')) {
+                        setTimeout(() => {
+                            searchOverlay.querySelector('.search-input').focus();
+                        }, 300);
+                    }
+                }
+            });
+
+            // ============================================================
+            // DARK MODE TOGGLE
+            // ============================================================
+            const darkToggle = document.getElementById('darkToggle');
+            let darkMode = false;
+
+            darkToggle.addEventListener('click', () => {
+                darkMode = !darkMode;
+                const root = document.documentElement;
+                if (darkMode) {
+                    root.style.setProperty('--ivory', '#0F0F0F');
+                    root.style.setProperty('--charcoal', '#F5F0E8');
+                    root.style.setProperty('--charcoal-light', '#E8DCC8');
+                    root.style.setProperty('--glass-bg', 'rgba(0,0,0,0.04)');
+                    root.style.setProperty('--glass-border', 'rgba(0,0,0,0.04)');
+                    darkToggle.innerHTML = '<i class="bi bi-sun"></i>';
+                    document.body.style.color = '#1A1A1A';
+                    document.querySelectorAll('.section-headline, .hero-title, .nav-brand, .stat-number, .sig-name, .item-name, .event-name, .wine-name, .chef-name, .test-text, .private-name')
+                        .forEach(el => el.style.color = '#1A1A1A');
+                    document.querySelectorAll('.gold').forEach(el => el.style.color = '#D4AF37');
+                    document.querySelectorAll('.section-sub, .story-desc, .sig-desc, .item-desc, .chef-desc, .event-desc, .wine-notes, .test-text, .footer-desc')
+                        .forEach(el => el.style.color = 'rgba(26,26,26,0.4)');
+                } else {
+                    root.style.setProperty('--ivory', '#F5F0E8');
+                    root.style.setProperty('--charcoal', '#1A1A1A');
+                    root.style.setProperty('--charcoal-light', '#2A2A2A');
+                    root.style.setProperty('--glass-bg', 'rgba(255,255,255,0.02)');
+                    root.style.setProperty('--glass-border', 'rgba(255,255,255,0.03)');
+                    darkToggle.innerHTML = '<i class="bi bi-moon"></i>';
+                    document.body.style.color = '';
+                    document.querySelectorAll(
+                            '.section-headline, .hero-title, .nav-brand, .stat-number, .sig-name, .item-name, .event-name, .wine-name, .chef-name, .test-text, .private-name'
+                            )
+                        .forEach(el => el.style.color = '');
+                    document.querySelectorAll('.gold').forEach(el => el.style.color = '');
+                    document.querySelectorAll('.section-sub, .story-desc, .sig-desc, .item-desc, .chef-desc, .event-desc, .wine-notes, .test-text, .footer-desc')
+                        .forEach(el => el.style.color = '');
+                }
+            });
+
+            // ============================================================
+            // MENU — Interactive Category Switcher
+            // ============================================================
+            const menuData = {
+                starters: [
+                    { name: 'Burrata & Heirloom Tomatoes', desc: 'Creamy burrata, basil oil, aged balsamic', price: '$28' },
+                    { name: 'Truffle Arancini', desc: 'Saffron risotto, mozzarella, black truffle aioli', price: '$32' },
+                    { name: 'Scallop Ceviche', desc: 'Yuzu, finger lime, coriander, chili', price: '$36' },
+                    { name: 'Foie Gras Torchon', desc: 'Sauternes gelée, brioche, fig chutney', price: '$42' },
+                ],
+                main: [
+                    { name: 'Wagyu Striploin', desc: 'A5 Japanese wagyu, truffle jus, root vegetables', price: '$195' },
+                    { name: 'Lamb Rack', desc: 'Herb crust, rosemary jus, gratin dauphinoise', price: '$155' },
+                    { name: 'Duck Breast', desc: 'Honey glaze, wild rice, orange reduction', price: '$135' },
+                    { name: 'Chicken Supreme', desc: 'Truffle butter, morels, potato purée', price: '$115' },
+                ],
+                seafood: [
+                    { name: 'Lobster Thermidor', desc: 'Grilled lobster, cheese sauce, garlic butter', price: '$185' },
+                    { name: 'Grilled Salmon', desc: 'Cedar plank, citrus beurre blanc, asparagus', price: '$125' },
+                    { name: 'Seafood Platter', desc: 'Oysters, prawns, crab, scallops, champagne mignonette', price: '$210' },
+                    { name: 'Octopus Carpaccio', desc: 'Sicilian lemon, olive oil, capers', price: '$95' },
+                ],
+                steaks: [
+                    { name: 'Tomahawk Ribeye', desc: '40-day aged, bone-in, herb butter', price: '$225' },
+                    { name: 'Filet Mignon', desc: 'Center-cut, bacon wrap, red wine jus', price: '$165' },
+                    { name: 'T-Bone Steak', desc: 'Grilled to perfection, chimichurri', price: '$185' },
+                    { name: 'Pepper Crusted Sirloin', desc: 'Cognac cream sauce, onion rings', price: '$145' },
+                ],
+                italian: [
+                    { name: 'Truffle Risotto', desc: 'Carnaroli rice, parmigiano, white truffle', price: '$125' },
+                    { name: 'Ravioli di Ricotta', desc: 'Homemade pasta, brown butter, sage', price: '$95' },
+                    { name: 'Tagliolini al Tartufo', desc: 'Fresh egg pasta, black truffle, butter', price: '$115' },
+                    { name: 'Branzino al Forno', desc: 'Mediterranean sea bass, lemon, herbs', price: '$135' },
+                ],
+                asian: [
+                    { name: 'Szechuan Duck', desc: 'Crispy duck, hoisin, pancakes, cucumber', price: '$145' },
+                    { name: 'Miso Black Cod', desc: 'Sake-marinated, bok choy, ginger', price: '$155' },
+                    { name: 'Wagyu Gyoza', desc: 'Pan-seared, truffle ponzu, chili oil', price: '$85' },
+                    { name: 'Thai Green Curry', desc: 'King prawns, coconut milk, jasmine rice', price: '$115' },
+                ],
+                desserts: [
+                    { name: 'Chocolate Soufflé', desc: 'Valrhona chocolate, vanilla ice cream', price: '$45' },
+                    { name: 'Crème Brûlée', desc: 'Vanilla bean, caramelized sugar, berries', price: '$38' },
+                    { name: 'Tiramisu', desc: 'Coffee-soaked, mascarpone, cocoa', price: '$42' },
+                    { name: 'Tarte Tatin', desc: 'Caramelized apple, pastry, crème fraîche', price: '$40' },
+                ],
+                drinks: [
+                    { name: 'Signature Cocktail', desc: 'Mirage Martini — Gin, elderflower, cucumber', price: '$28' },
+                    { name: 'Champagne', desc: 'Dom Pérignon Vintage 2014', price: '$290' },
+                    { name: 'Sake', desc: 'Junmai Daiginjo, fruity & aromatic', price: '$65' },
+                    { name: 'Mocktail', desc: 'Passion Fruit & Mint Fizz', price: '$18' },
+                ],
+            };
+
+            const menuItemsContainer = document.getElementById('menuItems');
+            const categoryButtons = document.querySelectorAll('.cat-btn');
+            let currentCategory = 'starters';
+
+            function renderMenu(category) {
+                const items = menuData[category] || [];
+                menuItemsContainer.innerHTML = '';
+                items.forEach(item => {
+                    const card = document.createElement('div');
+                    card.className = 'menu-item-card';
+                    card.innerHTML = `
+                        <div class="item-head">
+                            <span class="item-name">${item.name}</span>
+                            <span class="item-price">${item.price}</span>
+                        </div>
+                        <p class="item-desc">${item.desc}</p>
+                        <span class="item-tag">${category}</span>
+                    `;
+                    menuItemsContainer.appendChild(card);
+                });
+                // Re-trigger animation
+                menuItemsContainer.style.animation = 'none';
+                requestAnimationFrame(() => {
+                    menuItemsContainer.style.animation = 'menuFade 0.6s ease';
+                });
+            }
+
+            categoryButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    categoryButtons.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    const cat = btn.dataset.category;
+                    currentCategory = cat;
+                    renderMenu(cat);
+                });
+            });
+
+            // Initial render
+            renderMenu('starters');
+
+            // ============================================================
+            // ANIMATED COUNTERS
+            // ============================================================
+            let countersAnimated = false;
+
+            function initCounters() {
+                if (countersAnimated) return;
+                countersAnimated = true;
+                const counters = document.querySelectorAll('.stat-number');
+                counters.forEach(counter => {
+                    const target = parseInt(counter.dataset.count);
+                    if (!target) return;
+                    const isK = counter.textContent.includes('K');
+                    let current = 0;
+                    const increment = Math.ceil(target / 80);
+                    const timer = setInterval(() => {
+                        current += increment;
+                        if (current >= target) {
+                            current = target;
+                            clearInterval(timer);
+                        }
+                        if (isK) {
+                            counter.innerHTML = current + '<span class="gold">K+</span>';
+                        } else {
+                            counter.textContent = current;
+                        }
+                    }, 20);
+                });
+            }
+
+            // Trigger counters when stats section is visible
+            const statsSection = document.getElementById('stats');
+            const statsObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && !countersAnimated) {
+                        initCounters();
+                    }
+                });
+            }, { threshold: 0.4 });
+            if (statsSection) statsObserver.observe(statsSection);
+
+            // ============================================================
+            // RESERVATION FORM
+            // ============================================================
+            const reservationForm = document.getElementById('reservationForm');
+            const reservationModal = new bootstrap.Modal(document.getElementById('reservationModal'));
+
+            reservationForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                reservationModal.show();
+                reservationForm.reset();
+            });
+
+            // ============================================================
+            // BACK TO TOP
+            // ============================================================
+            const backToTop = document.getElementById('backToTop');
+
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 600) {
+                    backToTop.classList.add('visible');
+                } else {
+                    backToTop.classList.remove('visible');
+                }
+            });
+
+            // ============================================================
+            // FLOATING PARTICLES
+            // ============================================================
+            const particlesContainer = document.getElementById('particles');
+            if (particlesContainer) {
+                for (let i = 0; i < 18; i++) {
+                    const p = document.createElement('div');
+                    p.className = 'particle';
+                    const size = Math.random() * 40 + 10;
+                    p.style.width = size + 'px';
+                    p.style.height = size + 'px';
+                    p.style.left = Math.random() * 100 + '%';
+                    p.style.top = Math.random() * 100 + '%';
+                    p.style.animationDuration = (Math.random() * 20 + 15) + 's';
+                    p.style.animationDelay = (Math.random() * 10) + 's';
+                    p.style.opacity = Math.random() * 0.3 + 0.05;
+                    particlesContainer.appendChild(p);
+                }
+            }
+
+            // ============================================================
+            // SMOOTH SCROLL FOR NAV LINKS
+            // ============================================================
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    const href = this.getAttribute('href');
+                    if (href === '#') return;
+                    const target = document.querySelector(href);
+                    if (target) {
+                        e.preventDefault();
+                        const navHeight = document.getElementById('mainNav').offsetHeight + 20;
+                        const top = target.getBoundingClientRect().top + window.scrollY - navHeight;
+                        window.scrollTo({ top, behavior: 'smooth' });
+                        // Close mobile nav if open
+                        const navCollapse = document.getElementById('navMenu');
+                        if (navCollapse.classList.contains('show')) {
+                            const bsCollapse = bootstrap.Collapse.getInstance(navCollapse);
+                            if (bsCollapse) bsCollapse.hide();
+                        }
+                    }
+                });
+            });
+
+            // ============================================================
+            // INTERSECTION OBSERVER FOR REVEALS
+            // ============================================================
+            const revealElements = document.querySelectorAll(
+                '.sig-card, .private-card, .event-card, .wine-card, .testimonial-card, .g-item, .menu-item-card'
+            );
+
+            const revealObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.08 });
+
+            revealElements.forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(30px)';
+                el.style.transition = 'opacity 0.7s ease, transform 0.7s ease';
+                revealObserver.observe(el);
+            });
+
+            // ============================================================
+            // KEYBOARD SHORTCUTS
+            // ============================================================
+            document.addEventListener('keydown', (e) => {
+                // 'r' for reservation
+                if ((e.ctrlKey || e.metaKey) && e.key === 'r') {
+                    e.preventDefault();
+                    document.querySelector('#reservation').scrollIntoView({ behavior: 'smooth' });
+                }
+                // 'm' for menu
+                if ((e.ctrlKey || e.metaKey) && e.key === 'm') {
+                    e.preventDefault();
+                    document.querySelector('#menu').scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+
+            console.log('🍽️ Mirage — Multi-Cuisine Fine Dining');
+            console.log('✨ Designed for Awwwards 2028');
+
+        })();
+    </script>
+
+</body>
+</html>

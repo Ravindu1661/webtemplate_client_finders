@@ -1,0 +1,1069 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maison de L'Arôme · Luxury Coffee Atelier & Roastery | 2028</title>
+    <meta name="description" content="Welcome to Maison de L'Arôme. An extraordinary luxury coffee roastery and digital cafe experience inspired by Japanese minimalism and European coffee culture.">
+    <meta name="keywords" content="luxury coffee, artisanal espresso, cold brew roastery, specialty coffee, boutique cafe 2028">
+
+    <!-- Open Graph SEO -->
+    <meta property="og:title" content="Maison de L'Arôme · Experience Coffee Beyond Ordinary">
+    <meta property="og:description" content="Artisanal roasting, specialty pour-overs, organic desserts, and a sanctuary for coffee lovers.">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1447933601403-0c6688de566e?auto=format&fit=crop&w=1600&q=85">
+    <meta property="og:type" content="website">
+
+    <!-- Schema.org Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "CafeOrCoffeeShop",
+      "name": "Maison de L'Arôme Coffee Atelier",
+      "image": "https://images.unsplash.com/photo-1447933601403-0c6688de566e?auto=format&fit=crop&w=1200&q=85",
+      "priceRange": "$$$",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "74 Rue de Saint-Germain",
+        "addressLocality": "Paris",
+        "addressCountry": "France"
+      },
+      "openingHours": "Mo-Su 07:00-22:00"
+    }
+    </script>
+
+    <!-- Bootstrap 5 CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons CDN ONLY -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+    <!-- AOS Animation CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
+
+    <style>
+        /* ==========================================
+           COLOR SYSTEM & LIGHT/DARK VARIABLES
+           ========================================== */
+        :root {
+            /* DARK MODE DEFAULTS */
+            --bg-body: #0B0B0B;
+            --bg-card: #161616;
+            --bg-glass: rgba(22, 22, 22, 0.75);
+            --text-main: #FFFFFF;
+            --text-muted: #A0988E;
+            --coffee-gold: #D4A373;
+            --coffee-accent: #C89B3C;
+            --coffee-brown: #6F4E37;
+            --cream-soft: #F5E6D3;
+            --glass-border: rgba(212, 163, 115, 0.25);
+            --card-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+            --font-heading: 'Playfair Display', serif;
+            --font-body: 'Outfit', sans-serif;
+            --theme-transition: background-color 0.8s ease, color 0.8s ease, border-color 0.8s ease, box-shadow 0.8s ease;
+        }
+
+        [data-theme="light"] {
+            --bg-body: #FFF8F0;
+            --bg-card: #F5E6D3;
+            --bg-glass: rgba(245, 230, 211, 0.85);
+            --text-main: #2C1A0E;
+            --text-muted: #6F5E53;
+            --coffee-gold: #C89B3C;
+            --coffee-accent: #6F4E37;
+            --coffee-brown: #4A3323;
+            --cream-soft: #FFFBF7;
+            --glass-border: rgba(111, 78, 55, 0.2);
+            --card-shadow: 0 25px 50px rgba(111, 78, 55, 0.1);
+        }
+
+        /* GENERAL RESET */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            cursor: none !important;
+        }
+
+        @media (max-width: 991px) {
+            * { cursor: auto !important; }
+            #custom-cursor, #cursor-dot { display: none !important; }
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            transition: var(--theme-transition);
+            overflow-x: hidden;
+            line-height: 1.7;
+        }
+
+        h1, h2, h3, h4, h5, h6, .font-heading {
+            font-family: var(--font-heading);
+            font-weight: 400;
+        }
+
+        /* CUSTOM CURSOR */
+        #custom-cursor {
+            position: fixed;
+            width: 36px;
+            height: 36px;
+            border: 1px solid var(--coffee-gold);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 99999;
+            transform: translate(-50%, -50%);
+            transition: transform 0.15s ease-out, width 0.3s ease, height 0.3s ease, background-color 0.3s ease;
+        }
+
+        #cursor-dot {
+            position: fixed;
+            width: 6px;
+            height: 6px;
+            background-color: var(--coffee-gold);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 100000;
+            transform: translate(-50%, -50%);
+            transition: transform 0.05s ease-out;
+        }
+
+        .cursor-hover #custom-cursor {
+            width: 60px;
+            height: 60px;
+            background-color: rgba(212, 163, 115, 0.18);
+            border-color: var(--coffee-gold);
+        }
+
+        /* PRELOADER */
+        #preloader {
+            position: fixed;
+            inset: 0;
+            background-color: #0B0B0B;
+            z-index: 999999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #FFFFFF;
+            transition: opacity 1s ease, visibility 1s;
+        }
+
+        .coffee-cup-loader {
+            width: 70px;
+            height: 75px;
+            border: 3px solid var(--coffee-gold);
+            border-radius: 0 0 35px 35px;
+            position: relative;
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+        }
+
+        .coffee-cup-loader::after {
+            content: '';
+            position: absolute;
+            top: 15px;
+            right: -18px;
+            width: 16px;
+            height: 28px;
+            border: 3px solid var(--coffee-gold);
+            border-radius: 0 10px 10px 0;
+        }
+
+        .coffee-fill {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 0%;
+            background-color: var(--coffee-gold);
+            animation: fillCup 2s ease-in-out forwards 0.2s;
+        }
+
+        @keyframes fillCup {
+            100% { height: 85%; }
+        }
+
+        .steam-line {
+            width: 4px;
+            height: 20px;
+            background-color: rgba(212, 163, 115, 0.7);
+            border-radius: 4px;
+            display: inline-block;
+            margin: 0 3px;
+            animation: steamUp 1.5s ease-in-out infinite alternate;
+        }
+
+        .steam-line:nth-child(2) { animation-delay: 0.3s; }
+        .steam-line:nth-child(3) { animation-delay: 0.6s; }
+
+        @keyframes steamUp {
+            0% { transform: translateY(0) scaleY(1); opacity: 0.2; }
+            100% { transform: translateY(-15px) scaleY(1.3); opacity: 0.8; }
+        }
+
+        /* GLASS CARD UTILITY */
+        .glass-card {
+            background: var(--bg-glass);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            box-shadow: var(--card-shadow);
+            transition: var(--theme-transition);
+        }
+
+        .glass-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--coffee-gold);
+        }
+
+        /* NAVBAR */
+        .navbar-glass {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 1280px;
+            z-index: 900;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            background: var(--bg-glass);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid var(--glass-border);
+            transition: var(--theme-transition);
+        }
+
+        .navbar-glass.scrolled {
+            top: 12px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+
+        .brand-logo {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            letter-spacing: 0.12em;
+            color: var(--text-main);
+            text-decoration: none;
+        }
+
+        .brand-logo span {
+            color: var(--coffee-gold);
+        }
+
+        .nav-link-custom {
+            font-size: 0.8rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--text-main);
+            text-decoration: none;
+            margin: 0 1rem;
+            position: relative;
+            padding-bottom: 4px;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link-custom::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 1px;
+            background-color: var(--coffee-gold);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        .nav-link-custom:hover::after {
+            width: 100%;
+        }
+
+        .btn-gold {
+            background: linear-gradient(135deg, var(--coffee-gold), #B58A5A);
+            color: #0B0B0B !important;
+            border: none;
+            padding: 0.65rem 1.8rem;
+            border-radius: 40px;
+            font-size: 0.78rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.4s ease;
+            box-shadow: 0 10px 25px rgba(212, 163, 115, 0.3);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-gold:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 35px rgba(212, 163, 115, 0.5);
+        }
+
+        .theme-toggle-btn {
+            background: transparent;
+            border: 1px solid var(--glass-border);
+            color: var(--text-main);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle-btn:hover {
+            border-color: var(--coffee-gold);
+            color: var(--coffee-gold);
+        }
+
+        /* HERO SECTION */
+        .hero-section {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8rem 1.5rem 4rem;
+            overflow: hidden;
+        }
+
+        .hero-bg-img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.5) contrast(1.1);
+            z-index: 0;
+            transform: scale(1.04);
+            transition: transform 10s ease-out;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at center, transparent 20%, var(--bg-body) 90%);
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            max-width: 900px;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.4rem 1.4rem;
+            border-radius: 30px;
+            background: rgba(212, 163, 115, 0.15);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            font-size: 0.75rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--coffee-gold);
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-title {
+            font-size: clamp(3rem, 7vw, 6rem);
+            line-height: 1.05;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.02em;
+        }
+
+        .hero-title em {
+            font-style: italic;
+            color: var(--coffee-gold);
+            font-weight: 300;
+        }
+
+        .hero-lead {
+            font-size: clamp(1rem, 1.4vw, 1.25rem);
+            color: var(--text-muted);
+            max-width: 620px;
+            margin: 0 auto 2.5rem;
+            font-weight: 300;
+        }
+
+        /* 3D FLOATING COFFEE CUP CARD */
+        .hero-floating-card {
+            position: absolute;
+            right: 8%;
+            bottom: 12%;
+            z-index: 20;
+            width: 260px;
+            padding: 1.2rem;
+            border-radius: 20px;
+            animation: floatSlow 5s ease-in-out infinite;
+        }
+
+        @keyframes floatSlow {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(2deg); }
+        }
+
+        /* SECTION STYLING */
+        .section-padding {
+            padding: 7.5rem 0;
+        }
+
+        .section-eyebrow {
+            font-size: 0.72rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--coffee-gold);
+            margin-bottom: 0.8rem;
+            display: block;
+        }
+
+        .section-title {
+            font-size: clamp(2.2rem, 4vw, 3.4rem);
+            line-height: 1.2;
+            margin-bottom: 1.2rem;
+        }
+
+        .section-description {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            max-width: 580px;
+            font-weight: 300;
+        }
+
+        /* COFFEE BEAN TIMELINE */
+        .timeline-step {
+            text-align: center;
+            padding: 2rem 1.5rem;
+            position: relative;
+        }
+
+        .step-number {
+            font-family: var(--font-heading);
+            font-size: 3.5rem;
+            color: var(--coffee-gold);
+            opacity: 0.3;
+            line-height: 1;
+        }
+
+        /* SIGNATURE FLOATING MENU */
+        .menu-card {
+            border-radius: 24px;
+            padding: 1.8rem;
+            background: var(--bg-card);
+            border: 1px solid var(--glass-border);
+            transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .menu-card:hover {
+            transform: translateY(-10px) rotateX(2deg);
+            border-color: var(--coffee-gold);
+            box-shadow: 0 20px 45px rgba(212, 163, 115, 0.2);
+        }
+
+        .menu-img-wrap {
+            height: 220px;
+            border-radius: 18px;
+            overflow: hidden;
+            margin-bottom: 1.2rem;
+            position: relative;
+        }
+
+        .menu-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s ease;
+        }
+
+        .menu-card:hover .menu-img {
+            transform: scale(1.08);
+        }
+
+        .menu-price {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            color: var(--coffee-gold);
+        }
+
+        /* BARISTA EDITORIAL */
+        .barista-img-frame {
+            height: 520px;
+            border-radius: 28px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* DESSERT PAIRING CARD */
+        .dessert-card {
+            border-radius: 20px;
+            overflow: hidden;
+            background: var(--bg-card);
+            border: 1px solid var(--glass-border);
+            transition: all 0.4s ease;
+        }
+
+        .dessert-card:hover {
+            transform: translateY(-6px);
+            border-color: var(--coffee-gold);
+        }
+
+        /* TESTIMONIAL SWIPER */
+        .testimonial-card {
+            background: var(--bg-glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 2.5rem;
+        }
+
+        /* CART FLOATING BAR & MODAL */
+        .cart-floating-btn {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            z-index: 850;
+            background: var(--coffee-gold);
+            color: #0B0B0B;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            box-shadow: 0 10px 30px rgba(212, 163, 115, 0.4);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .cart-floating-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .cart-badge {
+            position: absolute;
+            top: -4px;
+            right: -4px;
+            background: #FF4D4D;
+            color: #fff;
+            font-size: 0.72rem;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+
+        /* FOOTER */
+        .footer-luxury {
+            background-color: #0B0B0B;
+            color: #FFFFFF;
+            padding: 6rem 0 3rem;
+            border-top: 1px solid rgba(212, 163, 115, 0.2);
+        }
+
+        .footer-link {
+            color: #A0988E;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-size: 0.9rem;
+            display: block;
+            margin-bottom: 0.6rem;
+        }
+
+        .footer-link:hover {
+            color: var(--coffee-gold);
+        }
+    </style>
+</head>
+<body data-theme="dark">
+
+    <!-- CUSTOM CURSOR -->
+    <div id="custom-cursor"></div>
+    <div id="cursor-dot"></div>
+
+    <!-- PRELOADER -->
+    <div id="preloader">
+        <div class="d-flex align-items-center mb-2">
+            <span class="steam-line"></span>
+            <span class="steam-line"></span>
+            <span class="steam-line"></span>
+        </div>
+        <div class="coffee-cup-loader">
+            <div class="coffee-fill"></div>
+        </div>
+        <div class="font-heading fs-2" style="letter-spacing: 0.2em; color: var(--coffee-gold);">MAISON DE L'ARÔME</div>
+        <small style="letter-spacing: 0.3em; text-transform: uppercase; color: #A0988E;" class="mt-1">Crafted Coffee Atelier · 2028</small>
+    </div>
+
+    <!-- FLOATING CART BUTTON -->
+    <div class="cart-floating-btn" onclick="openCartModal()" title="View Your Coffee Order">
+        <i class="bi bi-bag"></i>
+        <span class="cart-badge" id="cart-count">0</span>
+    </div>
+
+    <!-- FLOATING GLASS NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-glass">
+        <div class="container-fluid p-0">
+            <a class="brand-logo" href="#">L'ARÔME<span>.</span></a>
+            
+            <div class="d-flex align-items-center gap-2 d-lg-none">
+                <button class="theme-toggle-btn" onclick="toggleTheme()" title="Toggle Dark/Light Mode">
+                    <i class="bi bi-brightness-high" id="theme-icon-mobile"></i>
+                </button>
+                <button class="navbar-toggler border-0 shadow-none text-main" type="button" data-bs-toggle="collapse" data-bs-target="#navContent">
+                    <i class="bi bi-list fs-2"></i>
+                </button>
+            </div>
+
+            <div class="collapse navbar-collapse" id="navContent">
+                <div class="mx-auto my-3 my-lg-0 text-center">
+                    <a class="nav-link-custom" href="#hero">Home</a>
+                    <a class="nav-link-custom" href="#story">Roastery</a>
+                    <a class="nav-link-custom" href="#menu">Menu</a>
+                    <a class="nav-link-custom" href="#barista">Mastery</a>
+                    <a class="nav-link-custom" href="#pairing">Pairings</a>
+                    <a class="nav-link-custom" href="#gallery">Atelier</a>
+                    <a class="nav-link-custom" href="#reservation">Reserve</a>
+                </div>
+
+                <div class="d-flex align-items-center justify-content-center gap-3">
+                    <button class="theme-toggle-btn d-none d-lg-flex" onclick="toggleTheme()" title="Toggle Dark/Light Mode">
+                        <i class="bi bi-brightness-high" id="theme-icon"></i>
+                    </button>
+                    <a href="#menu" class="btn-gold"><i class="bi bi-cup-hot"></i> Order Online</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <header class="hero-section" id="hero">
+        <img src="https://images.unsplash.com/photo-1447933601403-0c6688de566e?auto=format&fit=crop&w=2000&q=85" alt="Luxury Coffee Roastery Interior" class="hero-bg-img" loading="eager">
+        <div class="hero-overlay"></div>
+
+        <div class="hero-content" data-aos="fade-up" data-aos-duration="1200">
+            <div class="hero-badge">
+                <i class="bi bi-stars"></i> PARIS · TOKYO · MILAN
+            </div>
+            <h1 class="hero-title">Experience Coffee <em>Beyond Ordinary</em></h1>
+            <p class="hero-lead">An extraordinary sensory journey of rare single-origin beans, precision pour-overs, and European roastery elegance.</p>
+            <div class="d-flex flex-wrap justify-content-center gap-3">
+                <a href="#menu" class="btn-gold" style="padding: 0.9rem 2.4rem; font-size: 0.85rem;">Explore Menu</a>
+                <a href="#reservation" class="btn-gold" style="background: transparent; border: 1px solid var(--coffee-gold); color: var(--text-main) !important; padding: 0.9rem 2.4rem; font-size: 0.85rem;">Reserve Atelier Table</a>
+            </div>
+        </div>
+
+        <!-- 3D FLOATING COFFEE CARD -->
+        <div class="hero-floating-card glass-card d-none d-md-block" data-aos="fade-left" data-aos-delay="400">
+            <div class="d-flex align-items-center gap-3">
+                <img src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=150&q=85" class="rounded-circle" style="width: 50px; height: 50px; object-fit: cover;" alt="Espresso Speciale">
+                <div>
+                    <h6 class="font-heading mb-0 fs-5">Kyoto Cold Drip</h6>
+                    <small style="color: var(--coffee-gold); font-size: 0.75rem;">12-Hour Extraction · €14</small>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- STATISTICAL COUNTER HIGHLIGHTS -->
+    <section class="section-padding" style="padding-top: 4rem; padding-bottom: 4rem;">
+        <div class="container">
+            <div class="row g-4 text-center">
+                <div class="col-6 col-md-3" data-aos="fade-up" data-aos-delay="100">
+                    <div class="glass-card p-4">
+                        <div class="font-heading display-4" style="color: var(--coffee-gold);">100K+</div>
+                        <div style="font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-muted);">Cups Crafted</div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3" data-aos="fade-up" data-aos-delay="200">
+                    <div class="glass-card p-4">
+                        <div class="font-heading display-4" style="color: var(--coffee-gold);">25+</div>
+                        <div style="font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-muted);">Origins Roasted</div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3" data-aos="fade-up" data-aos-delay="300">
+                    <div class="glass-card p-4">
+                        <div class="font-heading display-4" style="color: var(--coffee-gold);">15+</div>
+                        <div style="font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-muted);">Master Baristas</div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3" data-aos="fade-up" data-aos-delay="400">
+                    <div class="glass-card p-4">
+                        <div class="font-heading display-4" style="color: var(--coffee-gold);">10</div>
+                        <div style="font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-muted);">Years Excellence</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- COFFEE BEAN JOURNEY TIMELINE -->
+    <section class="section-padding" id="story">
+        <div class="container">
+            <div class="text-center mb-5" data-aos="fade-up">
+                <span class="section-eyebrow">THE FOUR PILLARS OF CRAFT</span>
+                <h2 class="section-title">From High Altitude Slopes to Your Cup</h2>
+                <p class="section-description mx-auto">Every bean undergoes a meticulous process of selection, slow drum roasting, precision grinding, and temperature-controlled extraction.</p>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-md-3" data-aos="fade-up" data-aos-delay="100">
+                    <div class="glass-card timeline-step">
+                        <div class="step-number">01</div>
+                        <h4 class="font-heading fs-4 mb-2">Ethical Origin</h4>
+                        <p style="font-size: 0.88rem; color: var(--text-muted);">Direct trade from volcanic estates in Ethiopia, Panama Geisha, and Bourbon Heights.</p>
+                    </div>
+                </div>
+                <div class="col-md-3" data-aos="fade-up" data-aos-delay="200">
+                    <div class="glass-card timeline-step">
+                        <div class="step-number">02</div>
+                        <h4 class="font-heading fs-4 mb-2">Artisanal Roast</h4>
+                        <p style="font-size: 0.88rem; color: var(--text-muted);">Custom small-batch air roasting to preserve floral jasmine and dark cacao notes.</p>
+                    </div>
+                </div>
+                <div class="col-md-3" data-aos="fade-up" data-aos-delay="300">
+                    <div class="glass-card timeline-step">
+                        <div class="step-number">03</div>
+                        <h4 class="font-heading fs-4 mb-2">Micron Grind</h4>
+                        <p style="font-size: 0.88rem; color: var(--text-muted);">Precision burr calibration down to the exact micron for balanced solubles.</p>
+                    </div>
+                </div>
+                <div class="col-md-3" data-aos="fade-up" data-aos-delay="400">
+                    <div class="glass-card timeline-step">
+                        <div class="step-number">04</div>
+                        <h4 class="font-heading fs-4 mb-2">Alchemy Brew</h4>
+                        <p style="font-size: 0.88rem; color: var(--text-muted);">Extracted at precisely 92.5°C using mineralized volcanic spring water.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SIGNATURE FLOATING COFFEE MENU -->
+    <section class="section-padding" id="menu" style="background: rgba(0,0,0,0.02);">
+        <div class="container">
+            <div class="text-center mb-5" data-aos="fade-up">
+                <span class="section-eyebrow">SIGNATURE SELECTION</span>
+                <h2 class="section-title">The Master Barista Menu</h2>
+                <p class="section-description mx-auto">Explore our curated creations. Click 'Add to Order' to build your custom tasting tray.</p>
+            </div>
+
+            <div class="row g-4">
+                <!-- Item 1 -->
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                    <div class="menu-card">
+                        <div>
+                            <div class="menu-img-wrap">
+                                <img src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=600&q=85" class="menu-img" alt="Panama Geisha Espresso" loading="lazy">
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <h4 class="font-heading fs-4 mb-0">Panama Geisha Espresso</h4>
+                                <span class="menu-price">€12</span>
+                            </div>
+                            <p style="font-size: 0.88rem; color: var(--text-muted);">Notes of bergamot, jasmine blossom, and white peach nectar. Double ristretto shot.</p>
+                        </div>
+                        <button class="btn-gold w-100 justify-content-center mt-3" onclick="addToCart('Panama Geisha Espresso', 12)">Add to Order</button>
+                    </div>
+                </div>
+
+                <!-- Item 2 -->
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+                    <div class="menu-card">
+                        <div>
+                            <div class="menu-img-wrap">
+                                <img src="https://images.unsplash.com/photo-1534778101976-62847782c213?auto=format&fit=crop&w=600&q=85" class="menu-img" alt="Smoked Caramel Latte" loading="lazy">
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <h4 class="font-heading fs-4 mb-0">Smoked Vanilla Latte</h4>
+                                <span class="menu-price">€10</span>
+                            </div>
+                            <p style="font-size: 0.88rem; color: var(--text-muted);">Bourbon Madagascar vanilla bean infused espresso with velvety steamed oat milk.</p>
+                        </div>
+                        <button class="btn-gold w-100 justify-content-center mt-3" onclick="addToCart('Smoked Vanilla Latte', 10)">Add to Order</button>
+                    </div>
+                </div>
+
+                <!-- Item 3 -->
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
+                    <div class="menu-card">
+                        <div>
+                            <div class="menu-img-wrap">
+                                <img src="https://images.unsplash.com/photo-1517701604599-bb29b565090c?auto=format&fit=crop&w=600&q=85" class="menu-img" alt="Kyoto Cold Drip" loading="lazy">
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <h4 class="font-heading fs-4 mb-0">Kyoto Slow Cold Drip</h4>
+                                <span class="menu-price">€14</span>
+                            </div>
+                            <p style="font-size: 0.88rem; color: var(--text-muted);">Steeped for 12 hours droplet by droplet. Served over a single crystal sphere ice block.</p>
+                        </div>
+                        <button class="btn-gold w-100 justify-content-center mt-3" onclick="addToCart('Kyoto Slow Cold Drip', 14)">Add to Order</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BARISTA EDITORIAL SECTION -->
+    <section class="section-padding" id="barista">
+        <div class="container">
+            <div class="glass-card p-4 p-lg-5" data-aos="fade-up">
+                <div class="row align-items-center g-5">
+                    <div class="col-lg-6">
+                        <div class="barista-img-frame">
+                            <img src="https://images.unsplash.com/photo-1507133750040-4a8f57021571?auto=format&fit=crop&w=1000&q=85" class="w-100 h-100" style="object-fit: cover;" alt="Master Barista Crafting Espresso" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <span class="section-eyebrow">WORLD CHAMPIONSHIP MASTERY</span>
+                        <h2 class="section-title">Barista Jean-Luc Moreau</h2>
+                        <p class="section-description">"Coffee is not merely a beverage; it is a ritual of awareness. We approach extraction as a fine art form, balancing sweetness, acidity, and silk texture."</p>
+
+                        <div class="my-4">
+                            <div class="d-flex align-items-center gap-3 mb-3">
+                                <i class="bi bi-award fs-4" style="color: var(--coffee-gold);"></i>
+                                <div>
+                                    <h5 class="font-heading mb-0">World Barista Champion 2026</h5>
+                                    <small style="color: var(--text-muted);">Specialty Coffee Association Gold Medalist</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <a href="#reservation" class="btn-gold">Book Barista Tasting Flight</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- DESSERT PAIRING SHOWCASE -->
+    <section class="section-padding" id="pairing" style="background: rgba(0,0,0,0.02);">
+        <div class="container">
+            <div class="text-center mb-5" data-aos="fade-up">
+                <span class="section-eyebrow">ARTISANAL PAIRINGS</span>
+                <h2 class="section-title">French Pâtisserie & Specialty Coffee</h2>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="dessert-card p-3">
+                        <img src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?auto=format&fit=crop&w=600&q=85" class="w-100 rounded-4 mb-3" style="height: 220px; object-fit: cover;" alt="Butter Croissant" loading="lazy">
+                        <h4 class="font-heading fs-4 mb-1">AOP Butter Croissant</h4>
+                        <p style="font-size: 0.85rem; color: var(--text-muted);">Laminated for 72 hours with Isigny Sainte-Mère butter.</p>
+                    </div>
+                </div>
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="dessert-card p-3">
+                        <img src="https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?auto=format&fit=crop&w=600&q=85" class="menu-img w-100 rounded-4 mb-3" style="height: 220px; object-fit: cover;" alt="Valrhona Chocolate Torte" loading="lazy">
+                        <h4 class="font-heading fs-4 mb-1">Valrhona Dark Ganache</h4>
+                        <p style="font-size: 0.85rem; color: var(--text-muted);">70% Guanaja single-origin chocolate torte with sea salt flakes.</p>
+                    </div>
+                </div>
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+                    <div class="dessert-card p-3">
+                        <img src="https://images.unsplash.com/photo-1569864358642-9d1684040f43?auto=format&fit=crop&w=600&q=85" class="w-100 rounded-4 mb-3" style="height: 220px; object-fit: cover;" alt="Pistachio Macarons" loading="lazy">
+                        <h4 class="font-heading fs-4 mb-1">Bronte Pistachio Macaron</h4>
+                        <p style="font-size: 0.85rem; color: var(--text-muted);">Infused with Sicilian Bronte pistachio praline filling.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MASONRY PHOTO GALLERY -->
+    <section class="section-padding" id="gallery">
+        <div class="container">
+            <div class="text-center mb-5" data-aos="fade-up">
+                <span class="section-eyebrow">VISUAL SANCTUARY</span>
+                <h2 class="section-title">Moments at L'Arôme</h2>
+            </div>
+
+            <div class="row g-3">
+                <div class="col-md-4" data-aos="zoom-in" data-aos-delay="100">
+                    <img src="https://images.unsplash.com/photo-1447933601403-0c6688de566e?auto=format&fit=crop&w=800&q=85" class="w-100 rounded-4" style="height: 320px; object-fit: cover;" loading="lazy" alt="Cafe Exterior">
+                </div>
+                <div class="col-md-4" data-aos="zoom-in" data-aos-delay="200">
+                    <img src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=800&q=85" class="w-100 rounded-4" style="height: 320px; object-fit: cover;" loading="lazy" alt="Latte Art Close Up">
+                </div>
+                <div class="col-md-4" data-aos="zoom-in" data-aos-delay="300">
+                    <img src="https://images.unsplash.com/photo-1507133750040-4a8f57021571?auto=format&fit=crop&w=800&q=85" class="w-100 rounded-4" style="height: 320px; object-fit: cover;" loading="lazy" alt="Barista Pouring">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- RESERVATION INTERFACE SECTION -->
+    <section class="section-padding" id="reservation">
+        <div class="container">
+            <div class="glass-card p-4 p-md-5" style="max-width: 900px; margin: 0 auto;" data-aos="zoom-in">
+                <div class="text-center mb-5">
+                    <span class="section-eyebrow">ATELIER RESERVATION</span>
+                    <h2 class="section-title">Reserve Your Coffee Tasting Flight</h2>
+                    <p class="section-description mx-auto">Book a private seat at our pour-over bar for a guided single-origin sensory flight.</p>
+                </div>
+
+                <form id="res-form" onsubmit="submitRes(event)">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="small text-uppercase mb-1" style="color: var(--text-muted); font-size: 0.72rem; letter-spacing: 0.15em;">Your Name</label>
+                            <input type="text" class="form-control bg-transparent border-secondary text-main py-2" required placeholder="e.g. Sophia Loren">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="small text-uppercase mb-1" style="color: var(--text-muted); font-size: 0.72rem; letter-spacing: 0.15em;">Email Address</label>
+                            <input type="email" class="form-control bg-transparent border-secondary text-main py-2" required placeholder="sophia@paris.com">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="small text-uppercase mb-1" style="color: var(--text-muted); font-size: 0.72rem; letter-spacing: 0.15em;">Date</label>
+                            <input type="date" class="form-control bg-transparent border-secondary text-main py-2" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="small text-uppercase mb-1" style="color: var(--text-muted); font-size: 0.72rem; letter-spacing: 0.15em;">Time & Tasting Flight</label>
+                            <select class="form-control bg-transparent border-secondary text-main py-2">
+                                <option style="color:#000;">10:00 AM · Geisha Pour-Over Flight (€35)</option>
+                                <option style="color:#000;">02:00 PM · Cold Drip & Dessert Pairing (€45)</option>
+                                <option style="color:#000;">05:00 PM · Espresso & Cocktail Infusion (€50)</option>
+                            </select>
+                        </div>
+                        <div class="col-12 text-center mt-4">
+                            <button type="submit" class="btn-gold" style="padding: 1rem 3rem;">Confirm Reservation</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer-luxury">
+        <div class="container">
+            <div class="row g-5">
+                <div class="col-lg-4">
+                    <a class="brand-logo fs-2 mb-3 d-inline-block text-white" href="#">L'ARÔME<span>.</span></a>
+                    <p style="color: #A0988E; font-size: 0.9rem;">An extraordinary luxury roastery and coffee atelier located in the heart of Paris. Dedicated to high-elevation micro-lots and precision extraction.</p>
+                </div>
+                <div class="col-lg-3 col-md-4">
+                    <h6 class="text-uppercase mb-3" style="letter-spacing: 0.2em; color: var(--coffee-gold); font-size: 0.75rem;">Atelier Hours</h6>
+                    <p class="footer-link mb-1">Mon - Fri: 07:00 AM - 10:00 PM</p>
+                    <p class="footer-link mb-1">Sat - Sun: 08:00 AM - 11:00 PM</p>
+                </div>
+                <div class="col-lg-3 col-md-4">
+                    <h6 class="text-uppercase mb-3" style="letter-spacing: 0.2em; color: var(--coffee-gold); font-size: 0.75rem;">Location</h6>
+                    <p class="footer-link mb-1"><i class="bi bi-geo-alt"></i> 74 Rue de Saint-Germain, Paris</p>
+                    <p class="footer-link"><i class="bi bi-telephone"></i> +33 1 42 68 55 00</p>
+                </div>
+            </div>
+            <hr class="my-5" style="border-color: rgba(255,255,255,0.1);">
+            <div class="text-center text-muted small">
+                © 2028 Maison de L'Arôme Coffee Roasters. All Rights Reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- SCRIPTS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+
+    <script>
+        AOS.init({ duration: 1000, once: true });
+
+        // PRELOADER
+        window.addEventListener('load', () => {
+            const preloader = document.getElementById('preloader');
+            setTimeout(() => {
+                preloader.style.opacity = '0';
+                preloader.style.visibility = 'hidden';
+            }, 1400);
+        });
+
+        // CUSTOM CURSOR
+        const cursor = document.getElementById('custom-cursor');
+        const cursorDot = document.getElementById('cursor-dot');
+        window.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+            cursorDot.style.left = e.clientX + 'px';
+            cursorDot.style.top = e.clientY + 'px';
+        });
+
+        document.querySelectorAll('a, button, input, select, .glass-card').forEach(item => {
+            item.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
+            item.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
+        });
+
+        // THEME SWITCHER (DARK/LIGHT MODE)
+        function toggleTheme() {
+            const body = document.body;
+            const currentTheme = body.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            body.setAttribute('data-theme', newTheme);
+            localStorage.setItem('coffee-theme', newTheme);
+
+            const icon = document.getElementById('theme-icon');
+            const iconMobile = document.getElementById('theme-icon-mobile');
+            if (newTheme === 'light') {
+                if(icon) icon.className = 'bi bi-moon-stars';
+                if(iconMobile) iconMobile.className = 'bi bi-moon-stars';
+            } else {
+                if(icon) icon.className = 'bi bi-brightness-high';
+                if(iconMobile) iconMobile.className = 'bi bi-brightness-high';
+            }
+        }
+
+        // LOAD THEME FROM STORAGE
+        const savedTheme = localStorage.getItem('coffee-theme');
+        if (savedTheme) {
+            document.body.setAttribute('data-theme', savedTheme);
+        }
+
+        // NAVBAR SCROLL EFFECT
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('.navbar-glass');
+            if (window.scrollY > 80) nav.classList.add('scrolled');
+            else nav.classList.remove('scrolled');
+        });
+
+        // CART LOGIC
+        let cartItemsCount = 0;
+        function addToCart(name, price) {
+            cartItemsCount++;
+            document.getElementById('cart-count').textContent = cartItemsCount;
+            alert(name + ' added to your tasting order!');
+        }
+
+        function openCartModal() {
+            alert('Your cart contains ' + cartItemsCount + ' item(s). Proceeding to checkout...');
+        }
+
+        function submitRes(e) {
+            e.preventDefault();
+            alert('Reservation Request Confirmed! Our Atelier Sommelier will email your flight pass.');
+        }
+    </script>
+</body>
+</html>

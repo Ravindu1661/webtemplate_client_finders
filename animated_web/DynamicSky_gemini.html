@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DynamicSky | The Living Web</title>
+    
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+
+    <!-- Styles -->
+    <style>
+        /* CSS VARIABLES: Updated dynamically by the JS Time Engine */
+        :root {
+            --time-progress: 0.5; /* 0 to 1 */
+            --bg-top: #1a82f7;
+            --bg-bottom: #2f80ed;
+            --ui-text: #ffffff;
+            --ui-text-muted: rgba(255, 255, 255, 0.7);
+            --ui-glass-bg: rgba(255, 255, 255, 0.1);
+            --ui-glass-border: rgba(255, 255, 255, 0.2);
+            --ui-accent: #ffd700;
+            --shadow-color: rgba(0, 0, 0, 0.2);
+            --shadow-x: 0px;
+            --shadow-y: 10px;
+            --sun-glow: rgba(255, 200, 100, 0.5);
+        }
+
+        /* Base Setup */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            cursor: none; /* Custom cursor */
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--ui-text);
+            background-color: #000;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            transition: color 0.5s ease;
+        }
+
+        h1, h2, h3, h4, .serif {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* Background Engines */
+        #webgl-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -3;
+            pointer-events: none;
+        }
+
+        #fx-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -2;
+            pointer-events: none;
+            mix-blend-mode: screen;
+        }
+
+        /* Ambient Glow overlay */
+        .ambient-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            background: linear-gradient(to bottom, transparent, var(--bg-bottom));
+            opacity: 0.3;
+            pointer-events: none;
+            transition: background 1s ease;
+        }
+
+        /* Custom Cursor */
+        .cursor {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--ui-text);
+            mix-blend-mode: difference;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition: width 0.3s, height 0.3s, background 0.3s;
+        }
+        .cursor.hovering {
+            width: 50px;
+            height: 50px;
+            background: var(--ui-accent);
+            mix-blend-mode: normal;
+            opacity: 0.5;
+        }
+
+        /* Smooth Scrolling (Lenis) Wrapper */
+        #smooth-wrapper {
+            position: relative;
+            width: 100%;
+            z-index: 1;
+        }
+
+        /* UI Elements & Glassmorphism */
+        .glass-panel {
+            background: var(--ui-glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--ui-glass-border);
+            border-radius: 24px;
+            box-shadow: var(--shadow-x) var(--shadow-y) 30px var(--shadow-color);
+            transition: background 0.5s ease, border 0.5s ease, box-shadow 0.5s ease;
+            padding: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .glass-panel::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.05), transparent);
+            pointer-events: none;
+        }
+
+        /* HUD */
+        #hud {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 100;
+            width: 320px;
+            padding: 1.5rem;
+        }
+
+        .hud-time {
+            font-size: 2.5rem;
+            font-weight: 300;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        .hud-label {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--ui-accent);
+            margin-bottom: 1.5rem;
+        }
+
+        .form-range {
+            accent-color: var(--ui-accent);
+        }
+
+        .hud-controls {
+            display: flex;
+            gap: 10px;
+            margin-top: 1rem;
+        }
+
+        .btn-glass {
+            background: var(--ui-glass-bg);
+            border: 1px solid var(--ui-glass-border);
+            color: var(--ui-text);
+            backdrop-filter: blur(8px);
+            border-radius: 50px;
+            padding: 0.5rem 1.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-glass:hover {
+            background: var(--ui-accent);
+            color: #000;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px var(--sun-glow);
+        }
+
+        /* Sections */
+        section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 100px 0;
+            position: relative;
+        }
+
+        .hero-title {
+            font-size: clamp(4rem, 8vw, 10rem);
+            line-height: 1;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 10px 30px var(--shadow-color);
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.2rem, 2vw, 2rem);
+            color: var(--ui-text-muted);
+            max-width: 600px;
+        }
+
+        /* Typography */
+        p { line-height: 1.8; color: var(--ui-text-muted); }
+        h1, h2, h3 { color: var(--ui-text); transition: color 0.5s ease; }
+
+        /* Feature Icons */
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--ui-accent);
+            margin-bottom: 1rem;
+            display: inline-block;
+            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .glass-panel:hover .feature-icon {
+            transform: scale(1.2) rotate(10deg);
+        }
+
+        /* Micro-animations */
+        .float-anim {
+            animation: float 6s ease-in-out infinite;
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .reveal-text {
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- WebGL & Canvas Engines -->
+    <div id="webgl-container"></div>
+    <canvas id="fx-canvas"></canvas>
+    <div class="ambient-overlay"></div>
+
+    <!-- Custom Cursor -->
+    <div class="cursor" id="custom-cursor"></div>
+
+    <!-- HUD Control Panel -->
+    <div id="hud" class="glass-panel interactive" data-cursor-hover>
+        <div class="hud-time" id="time-display">12:00</div>
+        <div class="hud-label" id="phase-display">High Noon</div>
+        
+        <label class="form-label" style="font-size: 0.8rem; opacity: 0.8;">Time Speed</label>
+        <input type="range" class="form-range interactive" id="time-speed" min="0" max="100" value="10">
+        
+        <div class="hud-controls">
+            <button class="btn btn-glass interactive" id="btn-weather" data-cursor-hover><i class="bi bi-cloud-rain"></i></button>
+            <button class="btn btn-glass interactive" id="btn-audio" data-cursor-hover><i class="bi bi-volume-mute"></i></button>
+        </div>
+    </div>
+
+    <!-- Main Scroll Content -->
+    <div id="smooth-wrapper">
+        <div id="smooth-content">
+
+            <!-- Hero Section -->
+            <section class="container">
+                <div class="row">
+                    <div class="col-12 col-lg-10">
+                        <h1 class="hero-title float-anim gs-reveal">The<br>Living Web.</h1>
+                        <p class="hero-subtitle gs-reveal">A synchronized digital ecosystem where time, light, and atmosphere evolve continuously. Scroll to explore the passage of time.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- About Section -->
+            <section class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-6 mb-5 mb-lg-0 gs-reveal">
+                        <div class="glass-panel" data-cursor-hover>
+                            <h2 class="mb-4">Real-Time Simulation</h2>
+                            <p>Every element on this page reacts to a master clock. The 3D sky dome recalculates atmospheric scattering, volumetric clouds shift, and dynamic shadows lengthen as the sun sets.</p>
+                            <p class="mb-0">CSS variables drive the glassmorphism UI, seamlessly interpolating from the bright whites of morning to the deep bioluminescent navy of midnight.</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-5 offset-lg-1 gs-reveal">
+                        <h3 class="mb-3 serif" style="color: var(--ui-accent)">A Living Canvas</h3>
+                        <p>Watch as birds flock during the day, transitioning to fireflies and shooting stars at night. The ocean reflects the changing celestial bodies.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Features Grid -->
+            <section class="container">
+                <div class="row mb-5 gs-reveal">
+                    <div class="col-12 text-center">
+                        <h2 class="serif">Environmental Systems</h2>
+                    </div>
+                </div>
+                <div class="row g-4">
+                    <div class="col-md-4 gs-reveal">
+                        <div class="glass-panel h-100 text-center interactive" data-cursor-hover>
+                            <i class="bi bi-brightness-high feature-icon"></i>
+                            <h4>Dynamic Lighting</h4>
+                            <p class="small">Shadows rotate based on sun position. UI colors adapt to the color temperature of the sky.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 gs-reveal">
+                        <div class="glass-panel h-100 text-center interactive float-anim" data-cursor-hover style="animation-delay: 1s;">
+                            <i class="bi bi-water feature-icon"></i>
+                            <h4>Procedural Ocean</h4>
+                            <p class="small">A WebGL shader simulates wave displacement and dynamic Fresnel reflections of the sky dome.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 gs-reveal">
+                        <div class="glass-panel h-100 text-center interactive" data-cursor-hover>
+                            <i class="bi bi-wind feature-icon"></i>
+                            <h4>Generative Audio</h4>
+                            <p class="small">The Web Audio API synthesizes continuous, non-repeating wind and ambient tones matching the weather.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Footer -->
+            <section class="container text-center" style="min-height: 50vh;">
+                <div class="row gs-reveal">
+                    <div class="col-12">
+                        <h2 class="serif mb-4" style="color: var(--ui-accent);">Experience the Cycle.</h2>
+                        <p class="small">Built with Three.js, GSAP, and Canvas API.<br>Procedurally generated. Zero external images.</p>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <!-- Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.19/bundled/lenis.min.js"></script>
+
+    <!-- Main Logic -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            gsap.registerPlugin(ScrollTrigger);
+
+            /* ==========================================
+               1. CORE CONFIGURATION & TIME ENGINE
+               ========================================== */
+            const AppState = {
+                time: 8, // 0 to 24
+                speed: 0.05, // Hours per frame
+                weather: 'clear', // clear, rain, snow
+                audioEnabled: false,
+                width: window.innerWidth,
+                height: window.innerHeight,
+                isNight: false,
+                sunPosition: new THREE.Vector3(),
+                moonPosition: new THREE.Vector3()
+            };
+
+            // Color Palettes for different times of day
+            const colorStops = [
+                { t: 0,  name: 'Midnight',    bgTop: [2,1,17],     bgBot: [20,20,40],   uiText: [255,255,255], uiGlass: [10,10,25,0.4],  accent: [100,200,255] },
+                { t: 4,  name: 'Blue Hour',   bgTop: [10,15,30],   bgBot: [30,40,70],   uiText: [255,255,255], uiGlass: [15,20,40,0.4],  accent: [150,200,255] },
+                { t: 6,  name: 'Sunrise',     bgTop: [70,50,100],  bgBot: [255,123,84], uiText: [255,255,255], uiGlass: [50,30,30,0.3],  accent: [255,200,100] },
+                { t: 8,  name: 'Morning',     bgTop: [135,206,235],bgBot: [255,230,200],uiText: [20,20,20],    uiGlass: [255,255,255,0.3],accent: [255,140,0] },
+                { t: 12, name: 'High Noon',   bgTop: [0,119,255],  bgBot: [135,206,250],uiText: [20,20,20],    uiGlass: [255,255,255,0.4],accent: [0,100,255] },
+                { t: 17, name: 'Golden Hour', bgTop: [100,150,220],bgBot: [255,165,0],  uiText: [255,255,255], uiGlass: [255,200,150,0.3],accent: [255,215,0] },
+                { t: 19, name: 'Sunset',      bgTop: [40,20,80],   bgBot: [255,69,0],   uiText: [255,255,255], uiGlass: [60,20,20,0.4],  accent: [255,100,100] },
+                { t: 20, name: 'Dusk',        bgTop: [15,15,35],   bgBot: [45,35,65],   uiText: [255,255,255], uiGlass: [20,20,35,0.4],  accent: [180,150,255] },
+                { t: 24, name: 'Midnight',    bgTop: [2,1,17],     bgBot: [20,20,40],   uiText: [255,255,255], uiGlass: [10,10,25,0.4],  accent: [100,200,255] }
+            ];
+
+            function lerp(start, end, amt) {
+                return (1 - amt) * start + amt * end;
+            }
+
+            function lerpColor(c1, c2, amt) {
+                const r = Math.round(lerp(c1[0], c2[0], amt));
+                const g = Math.round(lerp(c1[1], c2[1], amt));
+                const b = Math.round(lerp(c1[2], c2[2], amt));
+                const a = c1.length > 3 ? lerp(c1[3], c2[3], amt) : 1;
+                return a === 1 ? `rgb(${r},${g},${b})` : `rgba(${r},${g},${b},${a})`;
+            }
+
+            function updateTimeEngine() {
+                // Advance Time
+                AppState.time += AppState.speed;
+                if (AppState.time >= 24) AppState.time -= 24;
+
+                AppState.isNight = AppState.time < 5 || AppState.time > 19.5;
+
+                // Find Interpolation Nodes
+                let prevNode = colorStops[0];
+                let nextNode = colorStops[colorStops.length - 1];
+                for (let i = 0; i < colorStops.length - 1; i++) {
+                    if (AppState.time >= colorStops[i].t && AppState.time < colorStops[i + 1].t) {
+                        prevNode = colorStops[i];
+                        nextNode = colorStops[i + 1];
+                        break;
+                    }
+                }
+
+                const range = nextNode.t - prevNode.t;
+                const progress = range === 0 ? 0 : (AppState.time - prevNode.t) / range;
+
+                // Update CSS Variables
+                const root = document.documentElement;
+                root.style.setProperty('--bg-top', lerpColor(prevNode.bgTop, nextNode.bgTop, progress));
+                root.style.setProperty('--bg-bottom', lerpColor(prevNode.bgBot, nextNode.bgBot, progress));
+                root.style.setProperty('--ui-text', lerpColor(prevNode.uiText, nextNode.uiText, progress));
+                root.style.setProperty('--ui-glass-bg', lerpColor(prevNode.uiGlass, nextNode.uiGlass, progress));
+                root.style.setProperty('--ui-accent', lerpColor(prevNode.accent, nextNode.accent, progress));
+                
+                // Dynamic Shadows based on Sun Angle
+                const sunAngle = (AppState.time / 24) * Math.PI * 2 - Math.PI/2;
+                const shadowX = Math.cos(sunAngle) * 20;
+                const shadowY = Math.sin(sunAngle) * 20;
+                root.style.setProperty('--shadow-x', `${shadowX}px`);
+                root.style.setProperty('--shadow-y', `${Math.max(5, shadowY)}px`);
+
+                // Update UI Texts
+                const hrs = Math.floor(AppState.time);
+                const mins = Math.floor((AppState.time - hrs) * 60).toString().padStart(2, '0');
+                document.getElementById('time-display').innerText = `${hrs.toString().padStart(2,'0')}:${mins}`;
+                
+                // Only update label if changed to avoid DOM thrashing
+                const currentPhase = (progress > 0.5) ? nextNode.name : prevNode.name;
+                const phaseEl = document.getElementById('phase-display');
+                if (phaseEl.innerText !== currentPhase) phaseEl.innerText = currentPhase;
+
+                // Send data to WebGL
+                updateWebGL(prevNode, nextNode, progress, sunAngle);
+            }
+
+            /* ==========================================
+               2. WEBGL ENGINE (THREE.JS)
+               ========================================== */
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1, 10000);
+            camera.position.set(0, 50, 200);
+
+            const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            document.getElementById('webgl-container').appendChild(renderer.domElement);
+
+            // Procedural SkyDome Shader
+            const skyVertexShader = `
+                varying vec3 vWorldPosition;
+                void main() {
+                    vec4 worldPosition = modelMatrix * vec4(position, 1.0);
+                    vWorldPosition = worldPosition.xyz;
+                    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+                }
+            `;
+            const skyFragmentShader = `
+                uniform vec3 topColor;
+                uniform vec3 bottomColor;
+                uniform vec3 sunPosition;
+                varying vec3 vWorldPosition;
+                void main() {
+                    vec3 cameraToVertex = normalize(vWorldPosition);
+                    float h = normalize(vWorldPosition).y;
+                    vec3 skyColor = mix(bottomColor, topColor, max(pow(max(h, 0.0), 0.6), 0.0));
+                    
+                    // Sun Glow
+                    vec3 sunDir = normalize(sunPosition);
+                    float sunDispersion = pow(max(dot(cameraToVertex, sunDir), 0.0), 50.0);
+                    skyColor += vec3(1.0, 0.8, 0.4) * sunDispersion * 0.5;
+
+                    gl_FragColor = vec4(skyColor, 1.0);
+                }
+            `;
+            
+            const skyUniforms = {
+                topColor: { value: new THREE.Color(0x0077ff) },
+                bottomColor: { value: new THREE.Color(0xffffff) },
+                sunPosition: { value: new THREE.Vector3() }
+            };
+            const skyGeo = new THREE.SphereGeometry(4000, 32, 15);
+            const skyMat = new THREE.ShaderMaterial({
+                vertexShader: skyVertexShader,
+                fragmentShader: skyFragmentShader,
+                uniforms: skyUniforms,
+                side: THREE.BackSide
+            });
+            const skyDome = new THREE.Mesh(skyGeo, skyMat);
+            scene.add(skyDome);
+
+            // Sun & Moon Objects
+            const celestialGeo = new THREE.SphereGeometry(150, 32, 32);
+            const sunMat = new THREE.MeshBasicMaterial({ color: 0xffffff });
+            const sunMesh = new THREE.Mesh(celestialGeo, sunMat);
+            scene.add(sunMesh);
+
+            const moonMat = new THREE.MeshBasicMaterial({ color: 0xe0e0ff });
+            const moonMesh = new THREE.Mesh(celestialGeo, moonMat);
+            scene.add(moonMesh);
+
+            // Procedural Ocean
+            const waterGeo = new THREE.PlaneGeometry(8000, 8000, 64, 64);
+            waterGeo.rotateX(-Math.PI / 2);
+            
+            const waterVertexShader = `
+                uniform float time;
+                varying vec2 vUv;
+                varying vec3 vWorldPos;
+                varying vec3 vNormal;
+                void main() {
+                    vUv = uv;
+                    vec3 pos = position;
+                    // Simple procedural wave displacement
+                    pos.y += sin(pos.x * 0.02 + time) * 3.0;
+                    pos.y += cos(pos.z * 0.02 + time * 1.5) * 3.0;
+                    
+                    vec4 worldPos = modelMatrix * vec4(pos, 1.0);
+                    vWorldPos = worldPos.xyz;
+                    vNormal = normalMatrix * normal; 
+                    gl_Position = projectionMatrix * viewMatrix * worldPos;
+                }
+            `;
+            const waterFragmentShader = `
+                uniform vec3 skyColor;
+                uniform vec3 sunPosition;
+                uniform vec3 moonPosition;
+                uniform float time;
+                varying vec2 vUv;
+                varying vec3 vWorldPos;
+                
+                void main() {
+                    vec3 viewDir = normalize(cameraPosition - vWorldPos);
+                    // Fake normal perturbation for water ripples
+                    vec3 normal = normalize(vec3(
+                        sin(vWorldPos.x * 0.05 + time) * 0.1,
+                        1.0,
+                        cos(vWorldPos.z * 0.05 + time) * 0.1
+                    ));
+                    
+                    // Fresnel
+                    float fresnel = pow(1.0 - max(dot(normal, viewDir), 0.0), 3.0);
+                    vec3 baseColor = vec3(0.0, 0.05, 0.1);
+                    vec3 finalColor = mix(baseColor, skyColor, fresnel * 0.8);
+
+                    // Specular reflection for Sun
+                    vec3 sunDir = normalize(sunPosition);
+                    vec3 halfVector = normalize(sunDir + viewDir);
+                    float NdotH = max(0.0, dot(normal, halfVector));
+                    float specular = pow(NdotH, 100.0);
+                    finalColor += vec3(1.0, 0.9, 0.6) * specular * 1.5;
+
+                    // Specular reflection for Moon
+                    vec3 moonDir = normalize(moonPosition);
+                    vec3 halfMoon = normalize(moonDir + viewDir);
+                    float NdotH_moon = max(0.0, dot(normal, halfMoon));
+                    float moonSpec = pow(NdotH_moon, 100.0);
+                    finalColor += vec3(0.6, 0.8, 1.0) * moonSpec * 0.8;
+
+                    gl_FragColor = vec4(finalColor, 0.9);
+                }
+            `;
+            const waterUniforms = {
+                time: { value: 0 },
+                skyColor: { value: new THREE.Color(0x0077ff) },
+                sunPosition: { value: new THREE.Vector3() },
+                moonPosition: { value: new THREE.Vector3() }
+            };
+            const waterMat = new THREE.ShaderMaterial({
+                vertexShader: waterVertexShader,
+                fragmentShader: waterFragmentShader,
+                uniforms: waterUniforms,
+                transparent: true
+            });
+            const water = new THREE.Mesh(waterGeo, waterMat);
+            water.position.y = -20;
+            scene.add(water);
+
+            function updateWebGL(prev, next, progress, sunAngle) {
+                // Update Sky Colors
+                const tr = lerp(prev.bgTop[0], next.bgTop[0], progress) / 255;
+                const tg = lerp(prev.bgTop[1], next.bgTop[1], progress) / 255;
+                const tb = lerp(prev.bgTop[2], next.bgTop[2], progress) / 255;
+                skyUniforms.topColor.value.setRGB(tr, tg, tb);
+
+                const br = lerp(prev.bgBot[0], next.bgBot[0], progress) / 255;
+                const bg = lerp(prev.bgBot[1], next.bgBot[1], progress) / 255;
+                const bb = lerp(prev.bgBot[2], next.bgBot[2], progress) / 255;
+                skyUniforms.bottomColor.value.setRGB(br, bg, bb);
+                waterUniforms.skyColor.value.setRGB(br, bg, bb);
+
+                // Update Celestial Bodies
+                const orbitRadius = 2500;
+                
+                AppState.sunPosition.set(
+                    Math.cos(sunAngle) * orbitRadius,
+                    Math.sin(sunAngle) * orbitRadius,
+                    -1500
+                );
+                sunMesh.position.copy(AppState.sunPosition);
+                skyUniforms.sunPosition.value.copy(AppState.sunPosition);
+                waterUniforms.sunPosition.value.copy(AppState.sunPosition);
+
+                AppState.moonPosition.set(
+                    Math.cos(sunAngle + Math.PI) * orbitRadius,
+                    Math.sin(sunAngle + Math.PI) * orbitRadius,
+                    -1500
+                );
+                moonMesh.position.copy(AppState.moonPosition);
+                waterUniforms.moonPosition.value.copy(AppState.moonPosition);
+
+                // Hide bodies below horizon to save rendering artifacts
+                sunMesh.visible = AppState.sunPosition.y > -200;
+                moonMesh.visible = AppState.moonPosition.y > -200;
+            }
+
+            /* ==========================================
+               3. CANVAS FX ENGINE (Stars, Weather, Fauna)
+               ========================================== */
+            const canvas = document.getElementById('fx-canvas');
+            const ctx = canvas.getContext('2d', { alpha: true });
+            let width, height;
+
+            function resizeCanvas() {
+                width = window.innerWidth;
+                height = window.innerHeight;
+                canvas.width = width;
+                canvas.height = height;
+                renderer.setSize(width, height);
+                camera.aspect = width / height;
+                camera.updateProjectionMatrix();
+                AppState.width = width;
+                AppState.height = height;
+            }
+            window.addEventListener('resize', resizeCanvas);
+            resizeCanvas();
+
+            // FX Particles
+            const stars = Array.from({length: 400}, () => ({
+                x: Math.random() * width, y: Math.random() * (height * 0.7),
+                size: Math.random() * 1.5,
+                alpha: Math.random(), speed: Math.random() * 0.05
+            }));
+
+            const weatherParticles = Array.from({length: 200}, () => ({
+                x: Math.random() * width, y: Math.random() * height,
+                speedY: Math.random() * 10 + 10, speedX: Math.random() * 2 - 1,
+                size: Math.random() * 2 + 1
+            }));
+
+            const fireflies = Array.from({length: 30}, () => ({
+                x: Math.random() * width, y: height - Math.random() * 300,
+                vx: (Math.random() - 0.5) * 1, vy: (Math.random() - 0.5) * 1,
+                alpha: 0, life: Math.random() * Math.PI * 2
+            }));
+
+            const birds = Array.from({length: 15}, () => ({
+                x: Math.random() * width, y: Math.random() * 300 + 100,
+                vx: Math.random() * 2 + 1, vy: Math.sin(Math.random() * 10) * 0.5,
+                wingOffset: Math.random() * Math.PI * 2
+            }));
+
+            function drawCanvasFX() {
+                ctx.clearRect(0, 0, width, height);
+
+                // Stars (Night only)
+                if (AppState.isNight) {
+                    ctx.fillStyle = '#ffffff';
+                    stars.forEach(star => {
+                        star.alpha += star.speed;
+                        const opacity = (Math.sin(star.alpha) * 0.5 + 0.5) * (AppState.time < 5 ? 1 : (20 - AppState.time > 0 ? 0 : 1));
+                        ctx.globalAlpha = opacity;
+                        ctx.beginPath();
+                        ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
+                        ctx.fill();
+                    });
+                    
+                    // Fireflies
+                    ctx.fillStyle = '#aaffaa';
+                    fireflies.forEach(f => {
+                        f.x += f.vx + Math.sin(f.life) * 0.5;
+                        f.y += f.vy + Math.cos(f.life * 0.8) * 0.5;
+                        f.life += 0.05;
+                        if (f.x < 0) f.x = width; if (f.x > width) f.x = 0;
+                        if (f.y < height - 400) f.y = height; if (f.y > height) f.y = height - 400;
+                        
+                        ctx.globalAlpha = (Math.sin(f.life) * 0.5 + 0.5) * 0.8;
+                        ctx.shadowBlur = 10;
+                        ctx.shadowColor = '#aaffaa';
+                        ctx.beginPath();
+                        ctx.arc(f.x, f.y, 2, 0, Math.PI*2);
+                        ctx.fill();
+                    });
+                    ctx.shadowBlur = 0; // Reset
+                } else {
+                    // Birds (Day only)
+                    ctx.strokeStyle = 'rgba(0,0,0,0.6)';
+                    ctx.lineWidth = 2;
+                    birds.forEach(b => {
+                        b.x += b.vx;
+                        b.y += b.vy;
+                        if (b.x > width + 50) { b.x = -50; b.y = Math.random() * 300 + 100; }
+                        
+                        b.wingOffset += 0.15;
+                        const wingY = Math.sin(b.wingOffset) * 5;
+                        
+                        ctx.globalAlpha = 1;
+                        ctx.beginPath();
+                        ctx.moveTo(b.x, b.y);
+                        ctx.quadraticCurveTo(b.x - 5, b.y - wingY, b.x - 10, b.y - 5);
+                        ctx.moveTo(b.x, b.y);
+                        ctx.quadraticCurveTo(b.x - 5, b.y - wingY, b.x - 10, b.y + 5);
+                        ctx.stroke();
+                    });
+                }
+
+                // Weather (Rain/Snow)
+                if (AppState.weather === 'rain') {
+                    ctx.strokeStyle = 'rgba(255,255,255,0.4)';
+                    ctx.lineWidth = 1;
+                    weatherParticles.forEach(p => {
+                        p.x += p.speedX; p.y += p.speedY;
+                        if (p.y > height) { p.y = -10; p.x = Math.random() * width; }
+                        ctx.beginPath();
+                        ctx.moveTo(p.x, p.y);
+                        ctx.lineTo(p.x - p.speedX * 2, p.y - p.speedY * 2);
+                        ctx.stroke();
+                    });
+                } else if (AppState.weather === 'snow') {
+                    ctx.fillStyle = 'rgba(255,255,255,0.8)';
+                    weatherParticles.forEach(p => {
+                        p.x += Math.sin(p.y * 0.01) + p.speedX * 0.5; 
+                        p.y += p.speedY * 0.2;
+                        if (p.y > height) { p.y = -10; p.x = Math.random() * width; }
+                        ctx.beginPath();
+                        ctx.arc(p.x, p.y, p.size, 0, Math.PI*2);
+                        ctx.fill();
+                    });
+                }
+                ctx.globalAlpha = 1;
+            }
+
+            /* ==========================================
+               4. PROCEDURAL AUDIO ENGINE
+               ========================================== */
+            let audioCtx, windNoise, windFilter, windGain;
+            
+            function initAudio() {
+                if(audioCtx) return;
+                const AudioContext = window.AudioContext || window.webkitAudioContext;
+                audioCtx = new AudioContext();
+                
+                // Generative Wind/Ocean Noise
+                const bufferSize = 2 * audioCtx.sampleRate;
+                const noiseBuffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+                const output = noiseBuffer.getChannelData(0);
+                for (let i = 0; i < bufferSize; i++) {
+                    output[i] = Math.random() * 2 - 1; // White noise
+                }
+                
+                windNoise = audioCtx.createBufferSource();
+                windNoise.buffer = noiseBuffer;
+                windNoise.loop = true;
+                
+                windFilter = audioCtx.createBiquadFilter();
+                windFilter.type = 'lowpass';
+                windFilter.frequency.value = 400; // Modulated in loop
+                
+                windGain = audioCtx.createGain();
+                windGain.gain.value = 0;
+                
+                windNoise.connect(windFilter);
+                windFilter.connect(windGain);
+                windGain.connect(audioCtx.destination);
+                windNoise.start();
+            }
+
+            function updateAudio() {
+                if(!audioCtx || !AppState.audioEnabled) return;
+                // Modulate filter to sound like wind/waves
+                const t = Date.now() * 0.001;
+                const mod = (Math.sin(t) * 0.5 + 0.5) * 300 + 100;
+                windFilter.frequency.setValueAtTime(mod, audioCtx.currentTime);
+                // Adjust volume based on weather
+                const targetGain = AppState.weather !== 'clear' ? 0.3 : 0.1;
+                windGain.gain.setTargetAtTime(targetGain, audioCtx.currentTime, 0.5);
+            }
+
+            /* ==========================================
+               5. UI, INTERACTION & ANIMATION
+               ========================================== */
+            
+            // Custom Cursor Logic
+            const cursor = document.getElementById('custom-cursor');
+            document.addEventListener('mousemove', e => {
+                cursor.style.left = e.clientX + 'px';
+                cursor.style.top = e.clientY + 'px';
+            });
+            document.querySelectorAll('.interactive, [data-cursor-hover]').forEach(el => {
+                el.addEventListener('mouseenter', () => cursor.classList.add('hovering'));
+                el.addEventListener('mouseleave', () => cursor.classList.remove('hovering'));
+            });
+
+            // HUD Controls
+            document.getElementById('time-speed').addEventListener('input', e => {
+                const val = parseInt(e.target.value);
+                AppState.speed = (val / 100) * 0.5; // Scale to sensible speed
+            });
+
+            const btnWeather = document.getElementById('btn-weather');
+            btnWeather.addEventListener('click', () => {
+                const weathers = ['clear', 'rain', 'snow'];
+                let idx = weathers.indexOf(AppState.weather);
+                AppState.weather = weathers[(idx + 1) % weathers.length];
+                
+                // Update icon
+                if(AppState.weather === 'clear') btnWeather.innerHTML = '<i class="bi bi-brightness-high"></i>';
+                if(AppState.weather === 'rain') btnWeather.innerHTML = '<i class="bi bi-cloud-rain"></i>';
+                if(AppState.weather === 'snow') btnWeather.innerHTML = '<i class="bi bi-snow"></i>';
+            });
+
+            const btnAudio = document.getElementById('btn-audio');
+            btnAudio.addEventListener('click', () => {
+                if(!audioCtx) initAudio();
+                AppState.audioEnabled = !AppState.audioEnabled;
+                if(AppState.audioEnabled) {
+                    if(audioCtx.state === 'suspended') audioCtx.resume();
+                    btnAudio.innerHTML = '<i class="bi bi-volume-up"></i>';
+                    btnAudio.classList.add('active');
+                } else {
+                    windGain.gain.setTargetAtTime(0, audioCtx.currentTime, 0.1);
+                    btnAudio.innerHTML = '<i class="bi bi-volume-mute"></i>';
+                    btnAudio.classList.remove('active');
+                }
+            });
+
+            // Lenis Smooth Scroll Setup
+            const lenis = new Lenis({
+                duration: 1.2,
+                easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+                direction: 'vertical',
+                gestureDirection: 'vertical',
+                smooth: true,
+                mouseMultiplier: 1,
+                smoothTouch: false,
+                touchMultiplier: 2,
+                infinite: false,
+            });
+
+            lenis.on('scroll', ScrollTrigger.update);
+            gsap.ticker.add((time) => { lenis.raf(time * 1000); });
+            gsap.ticker.lagSmoothing(0);
+
+            // GSAP Scroll Animations
+            const revealElements = document.querySelectorAll('.gs-reveal');
+            revealElements.forEach(el => {
+                gsap.fromTo(el, {
+                    y: 50,
+                    opacity: 0
+                }, {
+                    y: 0,
+                    opacity: 1,
+                    duration: 1.2,
+                    ease: "power3.out",
+                    scrollTrigger: {
+                        trigger: el,
+                        start: "top 85%",
+                        toggleActions: "play none none reverse"
+                    }
+                });
+            });
+
+            /* ==========================================
+               6. MAIN RENDER LOOP
+               ========================================== */
+            const clock = new THREE.Clock();
+            
+            function animate() {
+                requestAnimationFrame(animate);
+                
+                const delta = clock.getDelta();
+                waterUniforms.time.value += delta;
+
+                updateTimeEngine();
+                updateAudio();
+                drawCanvasFX();
+                
+                renderer.render(scene, camera);
+            }
+
+            // Start Loop
+            animate();
+        });
+    </script>
+</body>
+</html>

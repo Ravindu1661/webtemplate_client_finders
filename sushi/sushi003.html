@@ -1,0 +1,3298 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hana Sushi | The Art of Perfect Sushi — Tokyo 2028</title>
+    <meta name="description"
+        content="Experience the pinnacle of Japanese culinary artistry at Hana Sushi. Omakase journeys, master chefs, and a zen atmosphere in the heart of Tokyo.">
+    <meta name="keywords" content="sushi, omakase, Tokyo, Japanese restaurant, luxury dining, Hana Sushi">
+    <meta property="og:title" content="Hana Sushi | The Art of Perfect Sushi">
+    <meta property="og:description"
+        content="An immersive luxury Japanese dining experience. Master chefs. Perfect sushi. Timeless elegance.">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="en_US">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;600;700&family=Outfit:wght@200;300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #FAF8F5;
+            --dark: #111111;
+            --accent: #B22222;
+            --gold: #D4AF37;
+            --stone: #7B7B7B;
+            --sage: #7A8F6A;
+            --glass: rgba(255, 255, 255, 0.55);
+            --glass-border: rgba(255, 255, 255, 0.25);
+            --shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.12);
+            --transition: cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: var(--bg);
+            color: var(--dark);
+            overflow-x: hidden;
+            cursor: none;
+            line-height: 1.6;
+        }
+
+        .serif {
+            font-family: 'Noto Serif JP', serif;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ::selection {
+            background: var(--accent);
+            color: #fff;
+        }
+
+        /* Custom Cursor — Chopsticks */
+        .cursor {
+            position: fixed;
+            width: 24px;
+            height: 24px;
+            border: 1.5px solid var(--dark);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 99999;
+            transform: translate(-50%, -50%);
+            transition: width 0.25s, height 0.25s, border-color 0.25s, background 0.25s;
+            mix-blend-mode: difference;
+        }
+
+        .cursor.hover {
+            width: 48px;
+            height: 48px;
+            background: rgba(178, 34, 34, 0.15);
+            border-color: var(--accent);
+        }
+
+        .cursor-dot {
+            position: fixed;
+            width: 6px;
+            height: 6px;
+            background: var(--accent);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 99999;
+            transform: translate(-50%, -50%);
+        }
+
+        .chopstick-line {
+            position: fixed;
+            width: 40px;
+            height: 1.5px;
+            background: var(--dark);
+            pointer-events: none;
+            z-index: 99998;
+            transform-origin: left center;
+            opacity: 0.7;
+            transition: opacity 0.3s;
+        }
+
+        /* Scroll Progress */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent), var(--gold));
+            z-index: 10000;
+            width: 0%;
+            transition: width 0.1s linear;
+        }
+
+        /* Loading Screen */
+        #loader {
+            position: fixed;
+            inset: 0;
+            background: var(--dark);
+            z-index: 100000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.8s var(--transition), visibility 0.8s;
+        }
+
+        #loader.hide {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .brush-stroke {
+            width: 180px;
+            height: 60px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .brush-stroke svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .brush-path {
+            stroke-dasharray: 400;
+            stroke-dashoffset: 400;
+            animation: brushDraw 1.8s var(--transition) forwards;
+        }
+
+        @keyframes brushDraw {
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
+
+        .loader-text {
+            color: #fff;
+            font-family: 'Noto Serif JP', serif;
+            font-size: 1.1rem;
+            letter-spacing: 0.4em;
+            margin-top: 2rem;
+            opacity: 0;
+            animation: fadeUp 0.8s 1.2s forwards;
+        }
+
+        .loader-sub {
+            color: var(--gold);
+            font-size: 0.7rem;
+            letter-spacing: 0.5em;
+            text-transform: uppercase;
+            margin-top: 0.5rem;
+            opacity: 0;
+            animation: fadeUp 0.8s 1.5s forwards;
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Background Effects */
+        .bg-effects {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .rice-paper {
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse at 20% 30%, rgba(250, 248, 245, 0.9) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 70%, rgba(245, 240, 230, 0.8) 0%, transparent 50%),
+                url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+            opacity: 0.6;
+        }
+
+        .petal {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: radial-gradient(ellipse at 30% 30%, #ffb7c5, #ff8da1);
+            border-radius: 50% 0 50% 50%;
+            opacity: 0.5;
+            animation: floatPetal linear infinite;
+            filter: blur(0.5px);
+        }
+
+        @keyframes floatPetal {
+            0% {
+                transform: translateY(0) rotate(0deg) translateX(0);
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 0.5;
+            }
+
+            90% {
+                opacity: 0.3;
+            }
+
+            100% {
+                transform: translateY(-110vh) rotate(720deg) translateX(40px);
+                opacity: 0;
+            }
+        }
+
+        .sunlight {
+            position: absolute;
+            top: -20%;
+            left: 30%;
+            width: 60%;
+            height: 80%;
+            background: radial-gradient(ellipse, rgba(255, 250, 230, 0.25) 0%, transparent 70%);
+            animation: sunlightMove 18s ease-in-out infinite alternate;
+            pointer-events: none;
+        }
+
+        @keyframes sunlightMove {
+            from {
+                transform: translateX(-10%) rotate(-5deg);
+            }
+
+            to {
+                transform: translateX(15%) rotate(5deg);
+            }
+        }
+
+        .mist {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 40%;
+            background: linear-gradient(to top, rgba(250, 248, 245, 0.7), transparent);
+            pointer-events: none;
+        }
+
+        .water-ripple {
+            position: absolute;
+            bottom: 10%;
+            left: 50%;
+            width: 300px;
+            height: 80px;
+            border-radius: 50%;
+            border: 1px solid rgba(122, 143, 106, 0.15);
+            transform: translateX(-50%);
+            animation: ripple 6s ease-out infinite;
+        }
+
+        .water-ripple:nth-child(2) {
+            animation-delay: 2s;
+            width: 200px;
+        }
+
+        .water-ripple:nth-child(3) {
+            animation-delay: 4s;
+            width: 400px;
+        }
+
+        @keyframes ripple {
+            0% {
+                transform: translateX(-50%) scale(0.5);
+                opacity: 0.4;
+            }
+
+            100% {
+                transform: translateX(-50%) scale(2);
+                opacity: 0;
+            }
+        }
+
+        /* Navigation */
+        .nav-glass {
+            position: fixed;
+            top: 1.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            background: var(--glass);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid var(--glass-border);
+            border-radius: 100px;
+            padding: 0.6rem 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            box-shadow: var(--shadow);
+            transition: all 0.4s var(--transition);
+        }
+
+        .nav-glass.scrolled {
+            top: 0.8rem;
+            padding: 0.5rem 1.2rem;
+            background: rgba(250, 248, 245, 0.85);
+        }
+
+        .nav-logo {
+            font-family: 'Noto Serif JP', serif;
+            font-weight: 500;
+            font-size: 1.15rem;
+            letter-spacing: 0.15em;
+            color: var(--dark);
+        }
+
+        .nav-logo span {
+            color: var(--accent);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-size: 0.8rem;
+            font-weight: 400;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--stone);
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--accent);
+            transition: width 0.3s var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--dark);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-cta {
+            background: var(--dark);
+            color: #fff !important;
+            padding: 0.45rem 1.2rem;
+            border-radius: 100px;
+            font-size: 0.75rem !important;
+            letter-spacing: 0.1em;
+            transition: all 0.3s var(--transition) !important;
+        }
+
+        .nav-cta:hover {
+            background: var(--accent) !important;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(178, 34, 34, 0.3);
+        }
+
+        .nav-cta::after {
+            display: none !important;
+        }
+
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.4rem;
+            color: var(--dark);
+            cursor: none;
+        }
+
+        /* Sticky Reserve Button */
+        .sticky-reserve {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 900;
+            background: var(--accent);
+            color: #fff;
+            padding: 0.9rem 1.6rem;
+            border-radius: 100px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            box-shadow: 0 10px 30px rgba(178, 34, 34, 0.35);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.4s var(--transition);
+            opacity: 0;
+            transform: translateY(20px);
+            pointer-events: none;
+        }
+
+        .sticky-reserve.show {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+
+        .sticky-reserve:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 40px rgba(178, 34, 34, 0.45);
+            background: #9a1c1c;
+        }
+
+        /* Floating Chef's Choice */
+        .chefs-choice {
+            position: fixed;
+            bottom: 2rem;
+            left: 2rem;
+            z-index: 900;
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 1rem 1.2rem;
+            max-width: 280px;
+            box-shadow: var(--shadow);
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.5s var(--transition);
+            pointer-events: none;
+        }
+
+        .chefs-choice.show {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+
+        .chefs-choice .label {
+            font-size: 0.65rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 0.3rem;
+        }
+
+        .chefs-choice .dish {
+            font-family: 'Noto Serif JP', serif;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        .chefs-choice .price {
+            font-size: 0.85rem;
+            color: var(--accent);
+            margin-top: 0.2rem;
+        }
+
+        .chefs-choice .close-btn {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.7rem;
+            background: none;
+            border: none;
+            font-size: 1rem;
+            color: var(--stone);
+            cursor: none;
+        }
+
+        /* Hero / Opening */
+        .hero {
+            position: relative;
+            height: 100vh;
+            min-height: 700px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .hero-plate {
+            position: absolute;
+            width: min(70vw, 580px);
+            aspect-ratio: 1;
+            border-radius: 50%;
+            background:
+                radial-gradient(circle at 40% 35%, #fff 0%, #f5f0e8 40%, #e8e0d4 100%);
+            box-shadow:
+                0 40px 80px rgba(0, 0, 0, 0.1),
+                inset 0 -20px 40px rgba(0, 0, 0, 0.05),
+                0 0 0 1px rgba(0, 0, 0, 0.03);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.1s linear;
+            will-change: transform;
+        }
+
+        .hero-plate::before {
+            content: '';
+            position: absolute;
+            inset: 8%;
+            border-radius: 50%;
+            border: 1px solid rgba(0, 0, 0, 0.04);
+        }
+
+        .sushi-visual {
+            width: 55%;
+            height: 55%;
+            position: relative;
+        }
+
+        .sushi-piece {
+            position: absolute;
+            border-radius: 8px;
+            transition: transform 0.6s var(--transition);
+        }
+
+        .sp1 {
+            width: 70%;
+            height: 28%;
+            top: 20%;
+            left: 15%;
+            background: linear-gradient(135deg, #e85a4f 0%, #c73e3a 50%, #a32d2a 100%);
+            box-shadow: 0 8px 20px rgba(178, 34, 34, 0.3);
+            border-radius: 6px 6px 4px 4px;
+        }
+
+        .sp1::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 5%;
+            right: 5%;
+            height: 10px;
+            background: linear-gradient(to bottom, #f5f0e0, #e8e0d0);
+            border-radius: 0 0 4px 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .sp2 {
+            width: 55%;
+            height: 22%;
+            top: 52%;
+            left: 22%;
+            background: linear-gradient(135deg, #ff8c69 0%, #e06b4f 100%);
+            box-shadow: 0 6px 16px rgba(200, 80, 50, 0.25);
+            transform: rotate(-8deg);
+        }
+
+        .sp2::after {
+            content: '';
+            position: absolute;
+            bottom: -7px;
+            left: 5%;
+            right: 5%;
+            height: 8px;
+            background: #f0ebe0;
+            border-radius: 0 0 3px 3px;
+        }
+
+        .sp3 {
+            width: 40%;
+            height: 18%;
+            top: 72%;
+            left: 30%;
+            background: linear-gradient(135deg, #f0c987 0%, #d4a84b 100%);
+            box-shadow: 0 4px 12px rgba(180, 140, 50, 0.2);
+            transform: rotate(5deg);
+            border-radius: 50% 50% 40% 40%;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            padding: 0 1.5rem;
+            opacity: 0;
+            animation: heroFade 1.5s 0.5s forwards;
+        }
+
+        @keyframes heroFade {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-jp {
+            font-family: 'Noto Serif JP', serif;
+            font-size: clamp(0.7rem, 1.5vw, 0.9rem);
+            letter-spacing: 0.5em;
+            color: var(--gold);
+            margin-bottom: 1.2rem;
+            font-weight: 400;
+        }
+
+        .hero-title {
+            font-family: 'Noto Serif JP', serif;
+            font-size: clamp(2.5rem, 7vw, 5.5rem);
+            font-weight: 400;
+            line-height: 1.15;
+            letter-spacing: -0.02em;
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+        }
+
+        .hero-title em {
+            font-style: normal;
+            color: var(--accent);
+        }
+
+        .hero-sub {
+            font-size: clamp(0.9rem, 2vw, 1.15rem);
+            font-weight: 300;
+            color: var(--stone);
+            max-width: 420px;
+            margin: 0 auto 2.5rem;
+            letter-spacing: 0.04em;
+        }
+
+        .hero-scroll {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--stone);
+            font-size: 0.7rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            animation: bounce 2.5s infinite;
+        }
+
+        .hero-scroll i {
+            font-size: 1.2rem;
+        }
+
+        @keyframes bounce {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(8px);
+            }
+        }
+
+        /* Section Common */
+        section {
+            position: relative;
+            z-index: 1;
+            padding: 8rem 0;
+        }
+
+        .section-label {
+            font-size: 0.7rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .section-title {
+            font-family: 'Noto Serif JP', serif;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 400;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-desc {
+            font-size: 1.05rem;
+            font-weight: 300;
+            color: var(--stone);
+            max-width: 520px;
+            line-height: 1.8;
+        }
+
+        /* Reveal Animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.9s var(--transition), transform 0.9s var(--transition);
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal-left {
+            opacity: 0;
+            transform: translateX(-60px);
+            transition: opacity 0.9s var(--transition), transform 0.9s var(--transition);
+        }
+
+        .reveal-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .reveal-right {
+            opacity: 0;
+            transform: translateX(60px);
+            transition: opacity 0.9s var(--transition), transform 0.9s var(--transition);
+        }
+
+        .reveal-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .reveal-scale {
+            opacity: 0;
+            transform: scale(0.92);
+            transition: opacity 1s var(--transition), transform 1s var(--transition);
+        }
+
+        .reveal-scale.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .reveal-blur {
+            opacity: 0;
+            filter: blur(12px);
+            transition: opacity 1s var(--transition), filter 1s var(--transition);
+        }
+
+        .reveal-blur.visible {
+            opacity: 1;
+            filter: blur(0);
+        }
+
+        /* Editorial Story */
+        .editorial {
+            padding: 10rem 0 6rem;
+        }
+
+        .editorial-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 4rem;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .editorial-img {
+            position: relative;
+            border-radius: 24px;
+            overflow: hidden;
+            aspect-ratio: 4/5;
+            box-shadow: var(--shadow);
+        }
+
+        .editorial-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 1.2s var(--transition);
+        }
+
+        .editorial-img:hover img {
+            transform: scale(1.05);
+        }
+
+        .editorial-img::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(17, 17, 17, 0.2), transparent 50%);
+        }
+
+        .editorial-quote {
+            font-family: 'Noto Serif JP', serif;
+            font-size: clamp(1.4rem, 3vw, 2rem);
+            font-weight: 300;
+            line-height: 1.6;
+            color: var(--dark);
+            margin: 2rem 0;
+            position: relative;
+            padding-left: 1.5rem;
+            border-left: 2px solid var(--gold);
+        }
+
+        .editorial-quote cite {
+            display: block;
+            font-size: 0.85rem;
+            font-style: normal;
+            color: var(--stone);
+            margin-top: 1rem;
+            letter-spacing: 0.1em;
+        }
+
+        .floating-block {
+            position: absolute;
+            background: var(--glass);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 1.2rem 1.5rem;
+            box-shadow: var(--shadow);
+            z-index: 2;
+        }
+
+        .floating-block.fb1 {
+            bottom: 10%;
+            right: -10%;
+            max-width: 200px;
+        }
+
+        .floating-block .num {
+            font-family: 'Noto Serif JP', serif;
+            font-size: 1.8rem;
+            color: var(--accent);
+        }
+
+        .floating-block .lbl {
+            font-size: 0.7rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--stone);
+        }
+
+        /* Omakase Experience */
+        .omakase {
+            background: linear-gradient(180deg, var(--bg) 0%, #f0ebe3 50%, var(--bg) 100%);
+            padding: 8rem 0;
+            overflow: hidden;
+        }
+
+        .omakase-header {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 5rem;
+            padding: 0 1.5rem;
+        }
+
+        .omakase-track {
+            display: flex;
+            flex-direction: column;
+            gap: 8rem;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .omakase-course {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .omakase-course:nth-child(even) {
+            direction: rtl;
+        }
+
+        .omakase-course:nth-child(even)>* {
+            direction: ltr;
+        }
+
+        .course-img {
+            border-radius: 20px;
+            overflow: hidden;
+            aspect-ratio: 5/4;
+            position: relative;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.1);
+        }
+
+        .course-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 1.5s var(--transition);
+        }
+
+        .course-img:hover img {
+            transform: scale(1.08);
+        }
+
+        .course-num {
+            font-family: 'Noto Serif JP', serif;
+            font-size: 5rem;
+            font-weight: 300;
+            color: rgba(178, 34, 34, 0.12);
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        .course-name {
+            font-family: 'Noto Serif JP', serif;
+            font-size: clamp(1.6rem, 3vw, 2.2rem);
+            font-weight: 500;
+            margin-bottom: 0.8rem;
+        }
+
+        .course-desc {
+            font-weight: 300;
+            color: var(--stone);
+            line-height: 1.8;
+            margin-bottom: 1.2rem;
+        }
+
+        .course-tag {
+            display: inline-block;
+            font-size: 0.7rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--sage);
+            border: 1px solid rgba(122, 143, 106, 0.4);
+            padding: 0.3rem 0.9rem;
+            border-radius: 100px;
+        }
+
+        /* Signature Menu */
+        .menu-section {
+            padding: 8rem 0;
+        }
+
+        .menu-header {
+            text-align: center;
+            margin-bottom: 4rem;
+            padding: 0 1.5rem;
+        }
+
+        .menu-categories {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            margin-bottom: 3.5rem;
+            padding: 0 1rem;
+        }
+
+        .cat-btn {
+            background: transparent;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            padding: 0.5rem 1.3rem;
+            border-radius: 100px;
+            font-size: 0.8rem;
+            font-weight: 400;
+            letter-spacing: 0.08em;
+            color: var(--stone);
+            transition: all 0.3s var(--transition);
+            cursor: none;
+        }
+
+        .cat-btn:hover,
+        .cat-btn.active {
+            background: var(--dark);
+            color: #fff;
+            border-color: var(--dark);
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            perspective: 1200px;
+        }
+
+        .menu-panel {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.5s var(--transition), box-shadow 0.5s;
+            transform-style: preserve-3d;
+            position: relative;
+        }
+
+        .menu-panel:hover {
+            box-shadow: 0 35px 70px rgba(0, 0, 0, 0.15);
+        }
+
+        .menu-panel-img {
+            height: 220px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .menu-panel-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s var(--transition);
+        }
+
+        .menu-panel:hover .menu-panel-img img {
+            transform: scale(1.1);
+        }
+
+        .menu-panel-body {
+            padding: 1.5rem;
+        }
+
+        .menu-panel-name {
+            font-family: 'Noto Serif JP', serif;
+            font-size: 1.25rem;
+            font-weight: 500;
+            margin-bottom: 0.4rem;
+        }
+
+        .menu-panel-desc {
+            font-size: 0.9rem;
+            font-weight: 300;
+            color: var(--stone);
+            margin-bottom: 0.8rem;
+            line-height: 1.6;
+        }
+
+        .menu-panel-ingredients {
+            font-size: 0.75rem;
+            color: var(--sage);
+            letter-spacing: 0.05em;
+            margin-bottom: 1.2rem;
+        }
+
+        .menu-panel-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .menu-price {
+            font-family: 'Noto Serif JP', serif;
+            font-size: 1.3rem;
+            color: var(--accent);
+            font-weight: 500;
+        }
+
+        .menu-order {
+            background: var(--dark);
+            color: #fff;
+            border: none;
+            padding: 0.5rem 1.2rem;
+            border-radius: 100px;
+            font-size: 0.75rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            transition: all 0.3s var(--transition);
+            cursor: none;
+        }
+
+        .menu-order:hover {
+            background: var(--accent);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(178, 34, 34, 0.3);
+        }
+
+        /* Chef Experience */
+        .chef-section {
+            padding: 8rem 0;
+            background: linear-gradient(180deg, var(--bg), #f5f0e8);
+        }
+
+        .chef-layout {
+            display: grid;
+            grid-template-columns: 1.1fr 1fr;
+            gap: 5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            align-items: center;
+        }
+
+        .chef-portrait {
+            position: relative;
+            border-radius: 24px;
+            overflow: hidden;
+            aspect-ratio: 3/4;
+            box-shadow: var(--shadow);
+        }
+
+        .chef-portrait img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .chef-badge {
+            position: absolute;
+            bottom: 1.5rem;
+            left: 1.5rem;
+            background: var(--glass);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            padding: 0.8rem 1.2rem;
+        }
+
+        .chef-badge .title {
+            font-size: 0.65rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--gold);
+        }
+
+        .chef-badge .name {
+            font-family: 'Noto Serif JP', serif;
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        .chef-timeline {
+            margin-top: 2.5rem;
+        }
+
+        .timeline-item {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 1.8rem;
+            position: relative;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 7px;
+            top: 24px;
+            bottom: -18px;
+            width: 1px;
+            background: rgba(0, 0, 0, 0.08);
+        }
+
+        .timeline-item:last-child::before {
+            display: none;
+        }
+
+        .timeline-dot {
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background: var(--accent);
+            flex-shrink: 0;
+            margin-top: 4px;
+            box-shadow: 0 0 0 4px rgba(178, 34, 34, 0.15);
+        }
+
+        .timeline-year {
+            font-size: 0.75rem;
+            letter-spacing: 0.1em;
+            color: var(--gold);
+            margin-bottom: 0.2rem;
+        }
+
+        .timeline-text {
+            font-size: 0.95rem;
+            font-weight: 300;
+            color: var(--stone);
+        }
+
+        .chef-awards {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .award {
+            text-align: center;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 12px;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            min-width: 100px;
+        }
+
+        .award i {
+            font-size: 1.5rem;
+            color: var(--gold);
+            margin-bottom: 0.4rem;
+        }
+
+        .award span {
+            display: block;
+            font-size: 0.7rem;
+            letter-spacing: 0.08em;
+            color: var(--stone);
+        }
+
+        .chef-signature {
+            margin-top: 2.5rem;
+            font-family: 'Noto Serif JP', serif;
+            font-size: 1.8rem;
+            font-style: italic;
+            color: var(--dark);
+            opacity: 0.7;
+        }
+
+        /* Ingredients */
+        .ingredients-section {
+            padding: 8rem 0;
+            overflow: hidden;
+        }
+
+        .ingredients-header {
+            text-align: center;
+            margin-bottom: 5rem;
+            padding: 0 1.5rem;
+        }
+
+        .ingredients-orbit {
+            position: relative;
+            width: min(90vw, 700px);
+            height: min(90vw, 700px);
+            margin: 0 auto;
+        }
+
+        .ingredient-circle {
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: var(--glass);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.5s var(--transition);
+            cursor: none;
+            text-align: center;
+            padding: 0.5rem;
+        }
+
+        .ingredient-circle:hover {
+            transform: scale(1.15) !important;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.12);
+            background: rgba(255, 255, 255, 0.8);
+            z-index: 10;
+        }
+
+        .ingredient-circle .icon {
+            font-size: 1.8rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .ingredient-circle .name {
+            font-size: 0.7rem;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+        }
+
+        .ing-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--dark), #2a2a2a);
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+            z-index: 5;
+        }
+
+        .ing-center .serif {
+            font-size: 1.1rem;
+            letter-spacing: 0.1em;
+        }
+
+        .ing-center span {
+            font-size: 0.65rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-top: 0.3rem;
+        }
+
+        /* Ambience */
+        .ambience {
+            padding: 0;
+        }
+
+        .ambience-slide {
+            position: relative;
+            height: 90vh;
+            min-height: 500px;
+            overflow: hidden;
+        }
+
+        .ambience-slide img {
+            width: 100%;
+            height: 120%;
+            object-fit: cover;
+            position: absolute;
+            top: -10%;
+            left: 0;
+            will-change: transform;
+        }
+
+        .ambience-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to right, rgba(17, 17, 17, 0.55) 0%, rgba(17, 17, 17, 0.15) 60%, transparent 100%);
+            display: flex;
+            align-items: center;
+            padding: 0 8%;
+        }
+
+        .ambience-text {
+            color: #fff;
+            max-width: 450px;
+        }
+
+        .ambience-text .label {
+            font-size: 0.7rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 1rem;
+        }
+
+        .ambience-text h3 {
+            font-family: 'Noto Serif JP', serif;
+            font-size: clamp(1.8rem, 4vw, 3rem);
+            font-weight: 400;
+            margin-bottom: 1rem;
+            line-height: 1.3;
+        }
+
+        .ambience-text p {
+            font-weight: 300;
+            opacity: 0.85;
+            line-height: 1.7;
+        }
+
+        /* Sake Collection */
+        .sake-section {
+            padding: 8rem 0;
+            background: linear-gradient(180deg, var(--bg), #f0ebe3);
+            overflow: hidden;
+        }
+
+        .sake-header {
+            text-align: center;
+            margin-bottom: 4rem;
+            padding: 0 1.5rem;
+        }
+
+        .sake-track {
+            display: flex;
+            gap: 2rem;
+            padding: 1rem 2rem 3rem;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
+
+        .sake-track::-webkit-scrollbar {
+            display: none;
+        }
+
+        .sake-card {
+            flex: 0 0 280px;
+            scroll-snap-align: start;
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 2rem 1.5rem;
+            text-align: center;
+            transition: all 0.5s var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .sake-card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.12);
+        }
+
+        .sake-bottle {
+            width: 80px;
+            height: 180px;
+            margin: 0 auto 1.5rem;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.3), rgba(200, 180, 140, 0.2));
+            border-radius: 8px 8px 4px 4px;
+            position: relative;
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            padding-bottom: 1rem;
+        }
+
+        .sake-bottle::before {
+            content: '';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 30px;
+            height: 16px;
+            background: linear-gradient(180deg, #d4af37, #b8942e);
+            border-radius: 4px 4px 0 0;
+        }
+
+        .sake-bottle .label-strip {
+            width: 60%;
+            height: 50px;
+            background: linear-gradient(135deg, var(--dark), #333);
+            border-radius: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gold);
+            font-size: 0.55rem;
+            letter-spacing: 0.1em;
+            font-family: 'Noto Serif JP', serif;
+        }
+
+        .sake-name {
+            font-family: 'Noto Serif JP', serif;
+            font-size: 1.15rem;
+            font-weight: 500;
+            margin-bottom: 0.3rem;
+        }
+
+        .sake-region {
+            font-size: 0.75rem;
+            color: var(--stone);
+            letter-spacing: 0.08em;
+            margin-bottom: 1rem;
+        }
+
+        .sake-notes {
+            font-size: 0.85rem;
+            font-weight: 300;
+            color: var(--stone);
+            line-height: 1.6;
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+            transition: all 0.5s var(--transition);
+        }
+
+        .sake-card:hover .sake-notes {
+            max-height: 100px;
+            opacity: 1;
+            margin-top: 0.8rem;
+        }
+
+        .sake-price {
+            font-family: 'Noto Serif JP', serif;
+            font-size: 1.1rem;
+            color: var(--accent);
+            margin-top: 1rem;
+        }
+
+        /* Reservation */
+        .reservation-section {
+            padding: 8rem 0;
+            position: relative;
+        }
+
+        .reservation-container {
+            max-width: 560px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        .reservation-panel {
+            background: var(--glass);
+            backdrop-filter: blur(30px) saturate(180%);
+            border: 1px solid var(--glass-border);
+            border-radius: 32px;
+            padding: 3rem 2.5rem;
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .reservation-panel::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -30%;
+            width: 60%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.08), transparent 70%);
+            pointer-events: none;
+        }
+
+        .res-title {
+            font-family: 'Noto Serif JP', serif;
+            font-size: 2rem;
+            text-align: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .res-sub {
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--stone);
+            margin-bottom: 2.5rem;
+            font-weight: 300;
+        }
+
+        .form-group {
+            margin-bottom: 1.4rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.7rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--stone);
+            margin-bottom: 0.5rem;
+        }
+
+        .form-control-custom {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.6);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            border-radius: 12px;
+            padding: 0.85rem 1.1rem;
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.95rem;
+            color: var(--dark);
+            transition: all 0.3s;
+            outline: none;
+            cursor: none;
+        }
+
+        .form-control-custom:focus {
+            border-color: var(--accent);
+            background: #fff;
+            box-shadow: 0 0 0 3px rgba(178, 34, 34, 0.1);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .btn-reserve {
+            width: 100%;
+            background: var(--dark);
+            color: #fff;
+            border: none;
+            padding: 1rem;
+            border-radius: 14px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-top: 1rem;
+            transition: all 0.4s var(--transition);
+            cursor: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-reserve:hover {
+            background: var(--accent);
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(178, 34, 34, 0.35);
+        }
+
+        .btn-reserve:active {
+            transform: translateY(0);
+        }
+
+        /* Testimonials */
+        .testimonials {
+            padding: 8rem 0;
+            background: #f5f0e8;
+        }
+
+        .testimonials-header {
+            text-align: center;
+            margin-bottom: 4rem;
+            padding: 0 1.5rem;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .testimonial-card {
+            background: var(--glass);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 2rem;
+            position: relative;
+            transition: all 0.4s var(--transition);
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.1);
+        }
+
+        .testimonial-card::before {
+            content: '"';
+            font-family: 'Noto Serif JP', serif;
+            font-size: 5rem;
+            color: rgba(178, 34, 34, 0.1);
+            position: absolute;
+            top: 0.5rem;
+            left: 1.2rem;
+            line-height: 1;
+        }
+
+        .testimonial-text {
+            font-size: 1rem;
+            font-weight: 300;
+            line-height: 1.8;
+            color: var(--dark);
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .author-avatar {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--sage), var(--gold));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .author-name {
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .author-loc {
+            font-size: 0.75rem;
+            color: var(--stone);
+        }
+
+        /* Statistics */
+        .stats-section {
+            padding: 7rem 0;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            text-align: center;
+        }
+
+        .stat-item .stat-num {
+            font-family: 'Noto Serif JP', serif;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 400;
+            color: var(--accent);
+            line-height: 1.1;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-item .stat-label {
+            font-size: 0.8rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--stone);
+        }
+
+        /* Location */
+        .location-section {
+            padding: 8rem 0;
+            background: linear-gradient(180deg, var(--bg), #f0ebe3);
+        }
+
+        .location-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 3rem;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            align-items: center;
+        }
+
+        .map-frame {
+            border-radius: 24px;
+            overflow: hidden;
+            aspect-ratio: 4/3;
+            background: linear-gradient(135deg, #e8e0d4, #d4cdc0);
+            position: relative;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .map-art {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .map-art svg {
+            width: 70%;
+            opacity: 0.4;
+        }
+
+        .map-pin {
+            position: absolute;
+            top: 42%;
+            left: 55%;
+            width: 20px;
+            height: 20px;
+            background: var(--accent);
+            border-radius: 50% 50% 50% 0;
+            transform: rotate(-45deg);
+            box-shadow: 0 4px 12px rgba(178, 34, 34, 0.4);
+            animation: pinPulse 2s infinite;
+        }
+
+        @keyframes pinPulse {
+
+            0%,
+            100% {
+                box-shadow: 0 4px 12px rgba(178, 34, 34, 0.4);
+            }
+
+            50% {
+                box-shadow: 0 4px 20px rgba(178, 34, 34, 0.7), 0 0 0 12px rgba(178, 34, 34, 0.1);
+            }
+        }
+
+        .location-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+
+        .loc-card {
+            background: var(--glass);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 1.3rem 1.5rem;
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+            transition: all 0.3s;
+        }
+
+        .loc-card:hover {
+            transform: translateX(6px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+        }
+
+        .loc-card i {
+            font-size: 1.3rem;
+            color: var(--accent);
+            margin-top: 2px;
+        }
+
+        .loc-card h5 {
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 0.2rem;
+        }
+
+        .loc-card p {
+            font-size: 0.85rem;
+            font-weight: 300;
+            color: var(--stone);
+            line-height: 1.5;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--dark);
+            color: #fff;
+            padding: 5rem 0 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr 1.2fr;
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem 3rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .footer-brand .logo {
+            font-family: 'Noto Serif JP', serif;
+            font-size: 1.4rem;
+            letter-spacing: 0.15em;
+            margin-bottom: 1rem;
+        }
+
+        .footer-brand .logo span {
+            color: var(--gold);
+        }
+
+        .footer-brand p {
+            font-size: 0.9rem;
+            font-weight: 300;
+            color: rgba(255, 255, 255, 0.5);
+            line-height: 1.7;
+            max-width: 280px;
+        }
+
+        .footer h5 {
+            font-size: 0.75rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 1.2rem;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.6rem;
+        }
+
+        .footer-links a {
+            font-size: 0.9rem;
+            font-weight: 300;
+            color: rgba(255, 255, 255, 0.55);
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: #fff;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 0.8rem;
+            margin-top: 1.5rem;
+        }
+
+        .footer-social a {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255, 255, 255, 0.6);
+            transition: all 0.3s;
+            font-size: 1rem;
+        }
+
+        .footer-social a:hover {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: #fff;
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 10px;
+            padding: 0.7rem 1rem;
+            color: #fff;
+            font-size: 0.85rem;
+            outline: none;
+            cursor: none;
+        }
+
+        .newsletter-form input::placeholder {
+            color: rgba(255, 255, 255, 0.35);
+        }
+
+        .newsletter-form button {
+            background: var(--accent);
+            border: none;
+            border-radius: 10px;
+            padding: 0.7rem 1.1rem;
+            color: #fff;
+            transition: all 0.3s;
+            cursor: none;
+        }
+
+        .newsletter-form button:hover {
+            background: #9a1c1c;
+        }
+
+        .ig-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.4rem;
+        }
+
+        .ig-item {
+            aspect-ratio: 1;
+            border-radius: 8px;
+            background: linear-gradient(135deg, #333, #222);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .ig-item::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(178, 34, 34, 0.3), rgba(212, 175, 55, 0.2));
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .ig-item:hover::after {
+            opacity: 1;
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1.5rem 2rem 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.35);
+        }
+
+        .back-top {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: rgba(255, 255, 255, 0.6);
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            cursor: none;
+            border: none;
+        }
+
+        .back-top:hover {
+            background: var(--accent);
+            color: #fff;
+        }
+
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(17, 17, 17, 0.6);
+            backdrop-filter: blur(8px);
+            z-index: 20000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s var(--transition);
+        }
+
+        .modal-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-box {
+            background: var(--bg);
+            border-radius: 28px;
+            padding: 3rem 2.5rem;
+            max-width: 420px;
+            width: 90%;
+            text-align: center;
+            transform: scale(0.9) translateY(20px);
+            transition: all 0.5s var(--transition);
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.2);
+        }
+
+        .modal-overlay.show .modal-box {
+            transform: scale(1) translateY(0);
+        }
+
+        .modal-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--sage), var(--gold));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2rem;
+            color: #fff;
+        }
+
+        .modal-box h3 {
+            font-family: 'Noto Serif JP', serif;
+            font-size: 1.6rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .modal-box p {
+            font-weight: 300;
+            color: var(--stone);
+            margin-bottom: 2rem;
+            line-height: 1.7;
+        }
+
+        .modal-close {
+            background: var(--dark);
+            color: #fff;
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            transition: all 0.3s;
+            cursor: none;
+        }
+
+        .modal-close:hover {
+            background: var(--accent);
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .nav-links {
+                display: none;
+            }
+
+            .nav-toggle {
+                display: block;
+            }
+
+            .nav-glass {
+                padding: 0.6rem 1.2rem;
+                gap: 1rem;
+            }
+
+            .editorial-grid {
+                grid-template-columns: 1fr;
+                gap: 2.5rem;
+            }
+
+            .omakase-course {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .omakase-course:nth-child(even) {
+                direction: ltr;
+            }
+
+            .chef-layout {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 2.5rem;
+            }
+
+            .location-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 2.5rem;
+            }
+
+            .floating-block.fb1 {
+                right: 5%;
+                bottom: 5%;
+            }
+
+            .ingredient-circle {
+                width: 90px;
+                height: 90px;
+            }
+
+            .ingredient-circle .icon {
+                font-size: 1.4rem;
+            }
+
+            .ingredient-circle .name {
+                font-size: 0.6rem;
+            }
+
+            .ing-center {
+                width: 120px;
+                height: 120px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            section {
+                padding: 5rem 0;
+            }
+
+            .hero-plate {
+                width: min(85vw, 400px);
+            }
+
+            .chefs-choice {
+                left: 1rem;
+                bottom: 5.5rem;
+                max-width: 240px;
+            }
+
+            .sticky-reserve {
+                right: 1rem;
+                bottom: 1.5rem;
+                padding: 0.75rem 1.2rem;
+                font-size: 0.7rem;
+            }
+
+            .menu-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+
+            .ambience-overlay {
+                padding: 0 6%;
+            }
+
+            body {
+                cursor: auto;
+            }
+
+            .cursor,
+            .cursor-dot,
+            .chopstick-line {
+                display: none !important;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .reservation-panel {
+                padding: 2rem 1.5rem;
+            }
+
+            .nav-logo {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Custom Cursor -->
+    <div class="cursor" id="cursor"></div>
+    <div class="cursor-dot" id="cursorDot"></div>
+    <div class="chopstick-line" id="chopLine"></div>
+
+    <!-- Scroll Progress -->
+    <div class="scroll-progress" id="scrollProgress"></div>
+
+    <!-- Loading Screen -->
+    <div id="loader">
+        <div class="brush-stroke">
+            <svg viewBox="0 0 200 60" fill="none">
+                <path class="brush-path" d="M10,30 Q40,5 70,30 T130,30 T190,30" stroke="#D4AF37" stroke-width="3"
+                    stroke-linecap="round" fill="none" />
+                <path class="brush-path" d="M20,40 Q50,20 80,40 T140,40" stroke="#B22222" stroke-width="2"
+                    stroke-linecap="round" fill="none" style="animation-delay:0.3s" />
+            </svg>
+        </div>
+        <div class="loader-text serif">華寿司</div>
+        <div class="loader-sub">Hana Sushi</div>
+    </div>
+
+    <!-- Background Effects -->
+    <div class="bg-effects">
+        <div class="rice-paper"></div>
+        <div class="sunlight"></div>
+        <div class="mist"></div>
+        <div class="water-ripple"></div>
+        <div class="water-ripple"></div>
+        <div class="water-ripple"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="nav-glass" id="navbar">
+        <a href="#hero" class="nav-logo">HANA <span>SUSHI</span></a>
+        <ul class="nav-links">
+            <li><a href="#story">Story</a></li>
+            <li><a href="#omakase">Omakase</a></li>
+            <li><a href="#menu">Menu</a></li>
+            <li><a href="#chef">Chef</a></li>
+            <li><a href="#reservation" class="nav-cta">Reserve</a></li>
+        </ul>
+        <button class="nav-toggle" id="navToggle" aria-label="Menu"><i class="bi bi-list"></i></button>
+    </nav>
+
+    <!-- Sticky Reserve -->
+    <a href="#reservation" class="sticky-reserve" id="stickyReserve">
+        <i class="bi bi-calendar-check"></i> Reserve Table
+    </a>
+
+    <!-- Chef's Choice Floating -->
+    <div class="chefs-choice" id="chefsChoice">
+        <button class="close-btn" id="closeChoice" aria-label="Close">&times;</button>
+        <div class="label">Chef's Choice Tonight</div>
+        <div class="dish serif">Otoro Nigiri</div>
+        <div class="price">¥4,800</div>
+    </div>
+
+    <!-- Hero -->
+    <section class="hero" id="hero">
+        <div class="hero-plate" id="heroPlate">
+            <div class="sushi-visual">
+                <div class="sushi-piece sp1"></div>
+                <div class="sushi-piece sp2"></div>
+                <div class="sushi-piece sp3"></div>
+            </div>
+        </div>
+        <div class="hero-content">
+            <div class="hero-jp">東京 · 二〇二八</div>
+            <h1 class="hero-title">The Art of<br><em>Perfect Sushi</em></h1>
+            <p class="hero-sub">Where centuries of tradition meet the quiet precision of modern mastery.</p>
+            <div class="hero-scroll">
+                <span>Scroll</span>
+                <i class="bi bi-chevron-down"></i>
+            </div>
+        </div>
+    </section>
+
+    <!-- Editorial Story -->
+    <section class="editorial" id="story">
+        <div class="editorial-grid">
+            <div class="editorial-img reveal-left">
+                <img src="https://images.unsplash.com/photo-1579871494447-9811cf80d66c?w=800&q=80"
+                    alt="Artisanal sushi preparation" loading="lazy">
+                <div class="floating-block fb1">
+                    <div class="num">20</div>
+                    <div class="lbl">Years Perfecting</div>
+                </div>
+            </div>
+            <div class="reveal-right">
+                <span class="section-label">Our Philosophy</span>
+                <h2 class="section-title">Born from silence,<br>shaped by the sea.</h2>
+                <p class="section-desc">In a quiet corner of Ginza, Hana Sushi was founded on a single belief: that
+                    sushi is not merely food, but a meditation between the chef, the fish, and the moment.</p>
+                <blockquote class="editorial-quote">
+                    "The perfect piece of sushi exists only once — in the exact second it is placed before you."
+                    <cite>— Chef Hiroshi Tanaka</cite>
+                </blockquote>
+            </div>
+        </div>
+    </section>
+
+    <!-- Omakase -->
+    <section class="omakase" id="omakase">
+        <div class="omakase-header reveal">
+            <span class="section-label">The Journey</span>
+            <h2 class="section-title">Omakase Experience</h2>
+            <p class="section-desc" style="margin:0 auto">Twelve courses. One evening. A conversation between season and
+                skill, guided entirely by the chef.</p>
+        </div>
+        <div class="omakase-track">
+            <div class="omakase-course reveal">
+                <div class="course-img">
+                    <img src="https://images.unsplash.com/photo-1617196034796-73dfa7b1fd56?w=700&q=80"
+                        alt="Sakizuke appetizer" loading="lazy">
+                </div>
+                <div>
+                    <div class="course-num">01</div>
+                    <h3 class="course-name">Sakizuke</h3>
+                    <p class="course-desc">A delicate amuse of seasonal vegetables and yuzu-cured kinmedai, awakening
+                        the palate with quiet brightness.</p>
+                    <span class="course-tag">Appetizer</span>
+                </div>
+            </div>
+            <div class="omakase-course reveal">
+                <div class="course-img">
+                    <img src="https://images.unsplash.com/photo-1553621042-f6e147245754?w=700&q=80"
+                        alt="Nigiri selection" loading="lazy">
+                </div>
+                <div>
+                    <div class="course-num">02</div>
+                    <h3 class="course-name">Nigiri Sequence</h3>
+                    <p class="course-desc">Hand-pressed sushi over warm, seasoned rice. From akami to chutoro, each cut
+                        chosen at the peak of its season.</p>
+                    <span class="course-tag">Nigiri</span>
+                </div>
+            </div>
+            <div class="omakase-course reveal">
+                <div class="course-img">
+                    <img src="https://images.unsplash.com/photo-1583623025817-d180a2225852?w=700&q=80"
+                        alt="Sashimi platter" loading="lazy">
+                </div>
+                <div>
+                    <div class="course-num">03</div>
+                    <h3 class="course-name">Sashimi Mori</h3>
+                    <p class="course-desc">The purest expression of the ocean. Thinly sliced hirame, uni, and botan ebi
+                        arranged with wasabi root grated tableside.</p>
+                    <span class="course-tag">Sashimi</span>
+                </div>
+            </div>
+            <div class="omakase-course reveal">
+                <div class="course-img">
+                    <img src="https://images.unsplash.com/photo-1611143669185-af224c5e3252?w=700&q=80"
+                        alt="Special roll" loading="lazy">
+                </div>
+                <div>
+                    <div class="course-num">04</div>
+                    <h3 class="course-name">Hana Special Roll</h3>
+                    <p class="course-desc">A rare composition of seared otoro, caviar, and shiso, wrapped in house-cured
+                        nori and finished with gold leaf.</p>
+                    <span class="course-tag">Special Roll</span>
+                </div>
+            </div>
+            <div class="omakase-course reveal">
+                <div class="course-img">
+                    <img src="https://images.unsplash.com/photo-1563612116625-3012372fccce?w=700&q=80"
+                        alt="Chef signature dish" loading="lazy">
+                </div>
+                <div>
+                    <div class="course-num">05</div>
+                    <h3 class="course-name">Chef's Signature</h3>
+                    <p class="course-desc">An ever-changing creation born from the morning market. Tonight may bring
+                        smoked sawara with miso foam and wild sansho.</p>
+                    <span class="course-tag">Signature</span>
+                </div>
+            </div>
+            <div class="omakase-course reveal">
+                <div class="course-img">
+                    <img src="https://images.unsplash.com/photo-1488477181946-6428a0291777?w=700&q=80"
+                        alt="Japanese dessert" loading="lazy">
+                </div>
+                <div>
+                    <div class="course-num">06</div>
+                    <h3 class="course-name">Mizugashi</h3>
+                    <p class="course-desc">A gentle close: matcha warabi mochi, seasonal fruit, and a whisper of yuzu
+                        gelée. Silence returns.</p>
+                    <span class="course-tag">Dessert</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Signature Menu -->
+    <section class="menu-section" id="menu">
+        <div class="menu-header reveal">
+            <span class="section-label">À La Carte</span>
+            <h2 class="section-title">Signature Collection</h2>
+            <p class="section-desc" style="margin:0 auto">Each dish is a study in balance — temperature, texture, and
+                the fleeting perfection of the ingredient.</p>
+        </div>
+        <div class="menu-categories">
+            <button class="cat-btn active" data-cat="all">All</button>
+            <button class="cat-btn" data-cat="nigiri">Nigiri</button>
+            <button class="cat-btn" data-cat="sashimi">Sashimi</button>
+            <button class="cat-btn" data-cat="rolls">Rolls</button>
+            <button class="cat-btn" data-cat="special">Special</button>
+        </div>
+        <div class="menu-grid" id="menuGrid">
+            <div class="menu-panel reveal" data-cat="nigiri">
+                <div class="menu-panel-img">
+                    <img src="https://images.unsplash.com/photo-1579584425555-c3ce17fd4351?w=500&q=80"
+                        alt="Otoro Nigiri" loading="lazy">
+                </div>
+                <div class="menu-panel-body">
+                    <h3 class="menu-panel-name">Otoro Nigiri</h3>
+                    <p class="menu-panel-desc">The richest cut of bluefin belly, lightly seared and brushed with nikiri
+                        soy.</p>
+                    <div class="menu-panel-ingredients">Bluefin Tuna · Shari · Nikiri</div>
+                    <div class="menu-panel-footer">
+                        <span class="menu-price">¥4,800</span>
+                        <button class="menu-order">Order</button>
+                    </div>
+                </div>
+            </div>
+            <div class="menu-panel reveal" data-cat="nigiri">
+                <div class="menu-panel-img">
+                    <img src="https://images.unsplash.com/photo-1617196034183-421b4917c92d?w=500&q=80" alt="Uni Gunkan"
+                        loading="lazy">
+                </div>
+                <div class="menu-panel-body">
+                    <h3 class="menu-panel-name">Hokkaido Uni Gunkan</h3>
+                    <p class="menu-panel-desc">Creamy sea urchin from the cold waters of Hokkaido, cradled in crisp
+                        nori.</p>
+                    <div class="menu-panel-ingredients">Uni · Nori · Shari · Shiso</div>
+                    <div class="menu-panel-footer">
+                        <span class="menu-price">¥3,600</span>
+                        <button class="menu-order">Order</button>
+                    </div>
+                </div>
+            </div>
+            <div class="menu-panel reveal" data-cat="sashimi">
+                <div class="menu-panel-img">
+                    <img src="https://images.unsplash.com/photo-1534482421-64566f976cfa?w=500&q=80"
+                        alt="Hirame Usuzukuri" loading="lazy">
+                </div>
+                <div class="menu-panel-body">
+                    <h3 class="menu-panel-name">Hirame Usuzukuri</h3>
+                    <p class="menu-panel-desc">Paper-thin flounder arranged like chrysanthemum petals, with ponzu and
+                        momiji oroshi.</p>
+                    <div class="menu-panel-ingredients">Hirame · Ponzu · Daikon · Chili</div>
+                    <div class="menu-panel-footer">
+                        <span class="menu-price">¥3,200</span>
+                        <button class="menu-order">Order</button>
+                    </div>
+                </div>
+            </div>
+            <div class="menu-panel reveal" data-cat="rolls">
+                <div class="menu-panel-img">
+                    <img src="https://images.unsplash.com/photo-1611143669185-af224c5e3252?w=500&q=80" alt="Dragon Roll"
+                        loading="lazy">
+                </div>
+                <div class="menu-panel-body">
+                    <h3 class="menu-panel-name">Kinmedai Dragon</h3>
+                    <p class="menu-panel-desc">Seared golden eye snapper, avocado, and crispy tempura, finished with
+                        yuzu kosho aioli.</p>
+                    <div class="menu-panel-ingredients">Kinmedai · Avocado · Tempura · Yuzu</div>
+                    <div class="menu-panel-footer">
+                        <span class="menu-price">¥2,800</span>
+                        <button class="menu-order">Order</button>
+                    </div>
+                </div>
+            </div>
+            <div class="menu-panel reveal" data-cat="special">
+                <div class="menu-panel-img">
+                    <img src="https://images.unsplash.com/photo-1563612116625-3012372fccce?w=500&q=80" alt="Wagyu Sushi"
+                        loading="lazy">
+                </div>
+                <div class="menu-panel-body">
+                    <h3 class="menu-panel-name">A5 Wagyu Nigiri</h3>
+                    <p class="menu-panel-desc">Miyazaki A5 beef, torch-seared and crowned with black truffle and sea
+                        salt.</p>
+                    <div class="menu-panel-ingredients">A5 Wagyu · Truffle · Sea Salt · Shari</div>
+                    <div class="menu-panel-footer">
+                        <span class="menu-price">¥5,500</span>
+                        <button class="menu-order">Order</button>
+                    </div>
+                </div>
+            </div>
+            <div class="menu-panel reveal" data-cat="sashimi">
+                <div class="menu-panel-img">
+                    <img src="https://images.unsplash.com/photo-1553621042-f6e147245754?w=500&q=80" alt="Botan Ebi"
+                        loading="lazy">
+                </div>
+                <div class="menu-panel-body">
+                    <h3 class="menu-panel-name">Botan Ebi</h3>
+                    <p class="menu-panel-desc">Sweet botan shrimp served live-style with its rich tomalley and a touch
+                        of sudachi.</p>
+                    <div class="menu-panel-ingredients">Botan Ebi · Sudachi · Sea Salt</div>
+                    <div class="menu-panel-footer">
+                        <span class="menu-price">¥3,900</span>
+                        <button class="menu-order">Order</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Chef -->
+    <section class="chef-section" id="chef">
+        <div class="chef-layout">
+            <div class="chef-portrait reveal-left">
+                <img src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=700&q=80"
+                    alt="Chef Hiroshi Tanaka" loading="lazy">
+                <div class="chef-badge">
+                    <div class="title">Executive Chef</div>
+                    <div class="name">Hiroshi Tanaka</div>
+                </div>
+            </div>
+            <div class="reveal-right">
+                <span class="section-label">The Master</span>
+                <h2 class="section-title">Twenty years.<br>One philosophy.</h2>
+                <p class="section-desc">Trained under the legendary Jiro lineage and refined in the quiet kitchens of
+                    Kyoto, Chef Tanaka brings an uncompromising eye for seasonality and a reverence for the ingredient
+                    in its purest form.</p>
+                <div class="chef-timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div>
+                            <div class="timeline-year">2006</div>
+                            <div class="timeline-text">Apprenticed at Sukiyabashi Jiro, Tokyo</div>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div>
+                            <div class="timeline-year">2014</div>
+                            <div class="timeline-text">Opened first counter in Kyoto's Gion district</div>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div>
+                            <div class="timeline-year">2020</div>
+                            <div class="timeline-text">Awarded two Michelin stars</div>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div>
+                            <div class="timeline-year">2028</div>
+                            <div class="timeline-text">Hana Sushi opens in Ginza</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="chef-awards">
+                    <div class="award">
+                        <i class="bi bi-star-fill"></i>
+                        <span>2 Michelin</span>
+                    </div>
+                    <div class="award">
+                        <i class="bi bi-trophy"></i>
+                        <span>World's 50</span>
+                    </div>
+                    <div class="award">
+                        <i class="bi bi-award"></i>
+                        <span>Gault Millau</span>
+                    </div>
+                </div>
+                <div class="chef-signature">— 田中 博</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ingredients -->
+    <section class="ingredients-section" id="ingredients">
+        <div class="ingredients-header reveal">
+            <span class="section-label">From the Source</span>
+            <h2 class="section-title">Ingredients of Integrity</h2>
+            <p class="section-desc" style="margin:0 auto">Every morning at Toyosu, our team selects only what the ocean
+                offers at its absolute peak.</p>
+        </div>
+        <div class="ingredients-orbit" id="ingOrbit">
+            <div class="ing-center">
+                <div class="serif">旬</div>
+                <span>Season</span>
+            </div>
+            <div class="ingredient-circle" style="top:5%;left:40%" data-name="Tuna">
+                <div class="icon">🐟</div>
+                <div class="name">Fresh Tuna</div>
+            </div>
+            <div class="ingredient-circle" style="top:20%;left:75%" data-name="Salmon">
+                <div class="icon">🍣</div>
+                <div class="name">Salmon</div>
+            </div>
+            <div class="ingredient-circle" style="top:55%;left:80%" data-name="Uni">
+                <div class="icon">🌊</div>
+                <div class="name">Uni</div>
+            </div>
+            <div class="ingredient-circle" style="top:80%;left:55%" data-name="Shrimp">
+                <div class="icon">🦐</div>
+                <div class="name">Shrimp</div>
+            </div>
+            <div class="ingredient-circle" style="top:75%;left:15%" data-name="Seaweed">
+                <div class="icon">🌿</div>
+                <div class="name">Seaweed</div>
+            </div>
+            <div class="ingredient-circle" style="top:40%;left:2%" data-name="Rice">
+                <div class="icon">🍚</div>
+                <div class="name">Japanese Rice</div>
+            </div>
+            <div class="ingredient-circle" style="top:15%;left:10%" data-name="Wasabi">
+                <div class="icon">🌱</div>
+                <div class="name">Wasabi</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ambience -->
+    <section class="ambience" id="ambience">
+        <div class="ambience-slide">
+            <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1400&q=80"
+                alt="Private dining room" class="parallax-img" loading="lazy">
+            <div class="ambience-overlay">
+                <div class="ambience-text reveal">
+                    <div class="label">Private Dining</div>
+                    <h3>Rooms of quiet conversation</h3>
+                    <p>Six private chambers, each appointed with hinoki wood, washi paper, and the soft glow of andon
+                        lanterns.</p>
+                </div>
+            </div>
+        </div>
+        <div class="ambience-slide">
+            <img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?w=1400&q=80" alt="Sushi counter"
+                class="parallax-img" loading="lazy">
+            <div class="ambience-overlay">
+                <div class="ambience-text reveal">
+                    <div class="label">The Counter</div>
+                    <h3>Eight seats. Infinite presence.</h3>
+                    <p>The omakase counter is the heart of Hana — a living stage where every gesture is deliberate and
+                        every silence intentional.</p>
+                </div>
+            </div>
+        </div>
+        <div class="ambience-slide">
+            <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1400&q=80" alt="Zen garden view"
+                class="parallax-img" loading="lazy">
+            <div class="ambience-overlay">
+                <div class="ambience-text reveal">
+                    <div class="label">Zen Garden</div>
+                    <h3>Stillness beyond the glass</h3>
+                    <p>A carefully composed karesansui garden anchors the restaurant — moss, stone, and the quiet
+                        movement of water.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sake -->
+    <section class="sake-section" id="sake">
+        <div class="sake-header reveal">
+            <span class="section-label">From the Cellar</span>
+            <h2 class="section-title">Sake Collection</h2>
+            <p class="section-desc" style="margin:0 auto">Curated from the finest breweries across Japan — each bottle
+                chosen to elevate the sushi experience.</p>
+        </div>
+        <div class="sake-track">
+            <div class="sake-card reveal">
+                <div class="sake-bottle">
+                    <div class="label-strip">Dassai</div>
+                </div>
+                <h4 class="sake-name">Dassai 23</h4>
+                <div class="sake-region">Yamaguchi · Junmai Daiginjo</div>
+                <p class="sake-notes">Silky, refined, with notes of pear and white flower. The pinnacle of polished
+                    rice.</p>
+                <div class="sake-price">¥18,000</div>
+            </div>
+            <div class="sake-card reveal">
+                <div class="sake-bottle">
+                    <div class="label-strip">Kubota</div>
+                </div>
+                <h4 class="sake-name">Kubota Manju</h4>
+                <div class="sake-region">Niigata · Junmai Daiginjo</div>
+                <p class="sake-notes">Crisp and dry with a lingering mineral finish. Perfect with otoro and uni.</p>
+                <div class="sake-price">¥12,500</div>
+            </div>
+            <div class="sake-card reveal">
+                <div class="sake-bottle">
+                    <div class="label-strip">Juyondai</div>
+                </div>
+                <h4 class="sake-name">Juyondai Ryusen</h4>
+                <div class="sake-region">Yamagata · Junmai Daiginjo</div>
+                <p class="sake-notes">Elegant fruit and a whisper of umami. A collector's treasure.</p>
+                <div class="sake-price">¥28,000</div>
+            </div>
+            <div class="sake-card reveal">
+                <div class="sake-bottle">
+                    <div class="label-strip">Kokuryu</div>
+                </div>
+                <h4 class="sake-name">Kokuryu Ryu</h4>
+                <div class="sake-region">Fukui · Daiginjo</div>
+                <p class="sake-notes">Bold yet balanced, with layered complexity that unfolds slowly.</p>
+                <div class="sake-price">¥15,800</div>
+            </div>
+            <div class="sake-card reveal">
+                <div class="sake-bottle">
+                    <div class="label-strip">Born</div>
+                </div>
+                <h4 class="sake-name">Born Tokusen</h4>
+                <div class="sake-region">Fukui · Junmai Daiginjo</div>
+                <p class="sake-notes">Soft texture, subtle sweetness, and a clean finish that respects the fish.</p>
+                <div class="sake-price">¥9,800</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reservation -->
+    <section class="reservation-section" id="reservation">
+        <div class="reservation-container">
+            <div class="reservation-panel reveal-scale">
+                <h2 class="res-title serif">Reserve Your Seat</h2>
+                <p class="res-sub">Omakase seats are limited. We recommend booking two weeks in advance.</p>
+                <form id="reserveForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="guests">Guests</label>
+                            <select class="form-control-custom" id="guests" required>
+                                <option value="">Select</option>
+                                <option value="1">1 Guest</option>
+                                <option value="2">2 Guests</option>
+                                <option value="3">3 Guests</option>
+                                <option value="4">4 Guests</option>
+                                <option value="5">5 Guests</option>
+                                <option value="6">6 Guests</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="date">Date</label>
+                            <input type="date" class="form-control-custom" id="date" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="time">Time</label>
+                            <select class="form-control-custom" id="time" required>
+                                <option value="">Select</option>
+                                <option value="17:30">17:30</option>
+                                <option value="18:00">18:00</option>
+                                <option value="18:30">18:30</option>
+                                <option value="19:00">19:00</option>
+                                <option value="19:30">19:30</option>
+                                <option value="20:00">20:00</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="omakase">Experience</label>
+                            <select class="form-control-custom" id="omakaseOpt" required>
+                                <option value="">Select</option>
+                                <option value="omakase">Full Omakase (¥45,000)</option>
+                                <option value="counter">Counter Experience (¥32,000)</option>
+                                <option value="ala">À La Carte</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" class="form-control-custom" id="name" placeholder="Your full name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control-custom" id="email" placeholder="you@example.com"
+                            required>
+                    </div>
+                    <button type="submit" class="btn-reserve">Book Table</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials" id="stories">
+        <div class="testimonials-header reveal">
+            <span class="section-label">Voices</span>
+            <h2 class="section-title">Guest Stories</h2>
+        </div>
+        <div class="testimonials-grid">
+            <div class="testimonial-card reveal">
+                <p class="testimonial-text">The otoro melted before I could even register the temperature. It was less a
+                    meal and more a series of perfect silences.</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">AK</div>
+                    <div>
+                        <div class="author-name">Akira K.</div>
+                        <div class="author-loc">Tokyo</div>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card reveal">
+                <p class="testimonial-text">I have dined at Jiro, Saito, and Sukiyabashi. Hana belongs in that
+                    conversation — perhaps at its quietest, most refined end.</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">EL</div>
+                    <div>
+                        <div class="author-name">Elena L.</div>
+                        <div class="author-loc">Paris</div>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card reveal">
+                <p class="testimonial-text">The garden view during dessert was unforgettable. Everything here moves at
+                    the pace of the season itself.</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">JM</div>
+                    <div>
+                        <div class="author-name">James M.</div>
+                        <div class="author-loc">New York</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Statistics -->
+    <section class="stats-section">
+        <div class="stats-grid">
+            <div class="stat-item reveal">
+                <div class="stat-num" data-target="15">0</div>
+                <div class="stat-label">Master Chefs</div>
+            </div>
+            <div class="stat-item reveal">
+                <div class="stat-num" data-target="100">0</div>
+                <div class="stat-label">Satisfied Guests (K+)</div>
+            </div>
+            <div class="stat-item reveal">
+                <div class="stat-num" data-target="50">0</div>
+                <div class="stat-label">Premium Dishes</div>
+            </div>
+            <div class="stat-item reveal">
+                <div class="stat-num" data-target="20">0</div>
+                <div class="stat-label">Years of Excellence</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Location -->
+    <section class="location-section" id="location">
+        <div class="location-grid">
+            <div class="map-frame reveal-left">
+                <div class="map-art">
+                    <svg viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M50,150 Q100,80 150,150 T250,150 T350,150" stroke="#7B7B7B" stroke-width="1.5"
+                            fill="none" opacity="0.4" />
+                        <path d="M80,200 Q150,120 220,200 T360,180" stroke="#7A8F6A" stroke-width="1" fill="none"
+                            opacity="0.3" />
+                        <circle cx="220" cy="140" r="40" stroke="#D4AF37" stroke-width="1" fill="none" opacity="0.3" />
+                        <rect x="100" y="100" width="60" height="40" rx="4" stroke="#7B7B7B" stroke-width="1"
+                            fill="none" opacity="0.25" />
+                        <rect x="250" y="160" width="50" height="35" rx="4" stroke="#7B7B7B" stroke-width="1"
+                            fill="none" opacity="0.25" />
+                    </svg>
+                    <div class="map-pin"></div>
+                </div>
+            </div>
+            <div class="location-cards reveal-right">
+                <div class="loc-card">
+                    <i class="bi bi-geo-alt"></i>
+                    <div>
+                        <h5>Address</h5>
+                        <p>7-8-10 Ginza, Chuo-ku<br>Tokyo 104-0061, Japan</p>
+                    </div>
+                </div>
+                <div class="loc-card">
+                    <i class="bi bi-clock"></i>
+                    <div>
+                        <h5>Hours</h5>
+                        <p>Tue – Sun: 17:30 – 22:30<br>Closed Mondays</p>
+                    </div>
+                </div>
+                <div class="loc-card">
+                    <i class="bi bi-telephone"></i>
+                    <div>
+                        <h5>Contact</h5>
+                        <p>+81 3-3571-2028<br>reservations@hanasushi.jp</p>
+                    </div>
+                </div>
+                <div class="loc-card">
+                    <i class="bi bi-train-front"></i>
+                    <div>
+                        <h5>Access</h5>
+                        <p>3 min walk from Ginza Station<br>Exit A3 · Tokyo Metro</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <div class="logo">HANA <span>SUSHI</span></div>
+                <p>The art of perfect sushi. A quiet sanctuary in the heart of Ginza, where tradition and the present
+                    moment meet.</p>
+                <div class="footer-social">
+                    <a href="#" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="bi bi-twitter-x"></i></a>
+                    <a href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+                </div>
+            </div>
+            <div>
+                <h5>Explore</h5>
+                <ul class="footer-links">
+                    <li><a href="#story">Our Story</a></li>
+                    <li><a href="#omakase">Omakase</a></li>
+                    <li><a href="#menu">Menu</a></li>
+                    <li><a href="#chef">The Chef</a></li>
+                    <li><a href="#reservation">Reservations</a></li>
+                </ul>
+            </div>
+            <div>
+                <h5>Visit</h5>
+                <ul class="footer-links">
+                    <li><a href="#location">Location</a></li>
+                    <li><a href="#sake">Sake List</a></li>
+                    <li><a href="#stories">Guest Stories</a></li>
+                    <li><a href="#ingredients">Ingredients</a></li>
+                </ul>
+            </div>
+            <div>
+                <h5>Newsletter</h5>
+                <p style="font-size:0.85rem;color:rgba(255,255,255,0.45);margin-bottom:0.8rem;font-weight:300">Seasonal
+                    notes and private events.</p>
+                <form class="newsletter-form" id="newsForm">
+                    <input type="email" placeholder="Your email" required>
+                    <button type="submit" aria-label="Subscribe"><i class="bi bi-arrow-right"></i></button>
+                </form>
+                <div class="ig-grid" style="margin-top:1.5rem">
+                    <div class="ig-item"
+                        style="background:url('https://images.unsplash.com/photo-1579871494447-9811cf80d66c?w=150&q=60') center/cover">
+                    </div>
+                    <div class="ig-item"
+                        style="background:url('https://images.unsplash.com/photo-1553621042-f6e147245754?w=150&q=60') center/cover">
+                    </div>
+                    <div class="ig-item"
+                        style="background:url('https://images.unsplash.com/photo-1579584425555-c3ce17fd4351?w=150&q=60') center/cover">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>© 2028 Hana Sushi. All rights reserved.</span>
+            <button class="back-top" id="backTop" aria-label="Back to top"><i class="bi bi-chevron-up"></i></button>
+        </div>
+    </footer>
+
+    <!-- Success Modal -->
+    <div class="modal-overlay" id="successModal">
+        <div class="modal-box">
+            <div class="modal-icon"><i class="bi bi-check-lg"></i></div>
+            <h3 class="serif">Reservation Received</h3>
+            <p>We have received your request. A confirmation email will arrive shortly. We look forward to welcoming
+                you.</p>
+            <button class="modal-close" id="modalClose">Continue</button>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        (function () {
+            'use strict';
+
+            // Loader
+            window.addEventListener('load', () => {
+                setTimeout(() => {
+                    document.getElementById('loader').classList.add('hide');
+                    setTimeout(() => {
+                        document.getElementById('chefsChoice').classList.add('show');
+                    }, 1200);
+                }, 2200);
+            });
+
+            // Custom Cursor
+            const cursor = document.getElementById('cursor');
+            const cursorDot = document.getElementById('cursorDot');
+            const chopLine = document.getElementById('chopLine');
+            let mouseX = 0, mouseY = 0, curX = 0, curY = 0;
+
+            document.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+                cursorDot.style.left = mouseX + 'px';
+                cursorDot.style.top = mouseY + 'px';
+                chopLine.style.left = mouseX + 'px';
+                chopLine.style.top = mouseY + 'px';
+                const angle = Math.atan2(e.movementY || 0, e.movementX || 1) * (180 / Math.PI);
+                chopLine.style.transform = `rotate(${angle}deg)`;
+            });
+
+            function animateCursor() {
+                curX += (mouseX - curX) * 0.15;
+                curY += (mouseY - curY) * 0.15;
+                cursor.style.left = curX + 'px';
+                cursor.style.top = curY + 'px';
+                requestAnimationFrame(animateCursor);
+            }
+            animateCursor();
+
+            document.querySelectorAll('a, button, .menu-panel, .cat-btn, .ingredient-circle, .sake-card, .catimonial-card, input, select').forEach(el => {
+                el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+                el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+            });
+
+            // Cherry Blossom Petals
+            const bgEffects = document.querySelector('.bg-effects');
+            for (let i = 0; i < 18; i++) {
+                const petal = document.createElement('div');
+                petal.className = 'petal';
+                petal.style.left = Math.random() * 100 + '%';
+                petal.style.top = Math.random() * 100 + 100 + '%';
+                petal.style.animationDuration = (12 + Math.random() * 18) + 's';
+                petal.style.animationDelay = Math.random() * 15 + 's';
+                petal.style.width = (8 + Math.random() * 10) + 'px';
+                petal.style.height = petal.style.width;
+                bgEffects.appendChild(petal);
+            }
+
+            // Scroll Progress
+            const progressBar = document.getElementById('scrollProgress');
+            window.addEventListener('scroll', () => {
+                const scrollTop = window.scrollY;
+                const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                progressBar.style.width = (scrollTop / docHeight * 100) + '%';
+            });
+
+            // Navbar scroll
+            const navbar = document.getElementById('navbar');
+            const stickyReserve = document.getElementById('stickyReserve');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 80) {
+                    navbar.classList.add('scrolled');
+                    stickyReserve.classList.add('show');
+                } else {
+                    navbar.classList.remove('scrolled');
+                    stickyReserve.classList.remove('show');
+                }
+            });
+
+            // Hero plate parallax scale
+            const heroPlate = document.getElementById('heroPlate');
+            window.addEventListener('scroll', () => {
+                const scrollY = window.scrollY;
+                if (scrollY < window.innerHeight) {
+                    const scale = 1 - (scrollY / window.innerHeight) * 0.35;
+                    const opacity = 1 - (scrollY / window.innerHeight) * 0.8;
+                    heroPlate.style.transform = `scale(${Math.max(scale, 0.65)})`;
+                    heroPlate.style.opacity = Math.max(opacity, 0);
+                }
+            });
+
+            // Reveal on scroll
+            const reveals = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale, .reveal-blur');
+            const revealObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+            reveals.forEach(el => revealObserver.observe(el));
+
+            // Menu category filter
+            const catBtns = document.querySelectorAll('.cat-btn');
+            const menuPanels = document.querySelectorAll('.menu-panel');
+            catBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    catBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    const cat = btn.dataset.cat;
+                    menuPanels.forEach(panel => {
+                        if (cat === 'all' || panel.dataset.cat === cat) {
+                            panel.style.display = '';
+                            panel.style.opacity = '0';
+                            panel.style.transform = 'translateY(20px)';
+                            setTimeout(() => {
+                                panel.style.transition = 'opacity 0.5s, transform 0.5s';
+                                panel.style.opacity = '1';
+                                panel.style.transform = 'translateY(0)';
+                            }, 50);
+                        } else {
+                            panel.style.display = 'none';
+                        }
+                    });
+                });
+            });
+
+            // 3D tilt on menu panels
+            menuPanels.forEach(panel => {
+                panel.addEventListener('mousemove', (e) => {
+                    const rect = panel.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    const rotateX = (y - centerY) / 20;
+                    const rotateY = (centerX - x) / 20;
+                    panel.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02,1.02,1.02)`;
+                });
+                panel.addEventListener('mouseleave', () => {
+                    panel.style.transform = 'perspective(800px) rotateX(0) rotateY(0) scale3d(1,1,1)';
+                });
+            });
+
+            // Parallax ambience images
+            const parallaxImgs = document.querySelectorAll('.parallax-img');
+            window.addEventListener('scroll', () => {
+                parallaxImgs.forEach(img => {
+                    const parent = img.closest('.ambience-slide');
+                    const rect = parent.getBoundingClientRect();
+                    if (rect.top < window.innerHeight && rect.bottom > 0) {
+                        const progress = (window.innerHeight - rect.top) / (window.innerHeight + rect.height);
+                        img.style.transform = `translateY(${(progress - 0.5) * 80}px)`;
+                    }
+                });
+            });
+
+            // Stats counter
+            const statNums = document.querySelectorAll('.stat-num');
+            let statsAnimated = false;
+            const statsObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && !statsAnimated) {
+                        statsAnimated = true;
+                        statNums.forEach(num => {
+                            const target = parseInt(num.dataset.target);
+                            const suffix = num.parentElement.querySelector('.stat-label').textContent.includes('K+') ? 'K+' : '+';
+                            let current = 0;
+                            const increment = target / 60;
+                            const timer = setInterval(() => {
+                                current += increment;
+                                if (current >= target) {
+                                    num.textContent = target + (suffix === 'K+' ? 'K+' : '+');
+                                    clearInterval(timer);
+                                } else {
+                                    num.textContent = Math.floor(current) + (suffix === 'K+' ? '' : '');
+                                }
+                            }, 25);
+                        });
+                    }
+                });
+            }, { threshold: 0.4 });
+            if (statNums.length) statsObserver.observe(statNums[0].closest('.stats-section'));
+
+            // Reservation form
+            document.getElementById('reserveForm').addEventListener('submit', (e) => {
+                e.preventDefault();
+                document.getElementById('successModal').classList.add('show');
+            });
+            document.getElementById('modalClose').addEventListener('click', () => {
+                document.getElementById('successModal').classList.remove('show');
+            });
+
+            // Newsletter
+            document.getElementById('newsForm').addEventListener('submit', (e) => {
+                e.preventDefault();
+                e.target.querySelector('input').value = '';
+                e.target.querySelector('input').placeholder = 'Subscribed — thank you';
+            });
+
+            // Chef's Choice close
+            document.getElementById('closeChoice').addEventListener('click', () => {
+                document.getElementById('chefsChoice').classList.remove('show');
+            });
+
+            // Back to top
+            document.getElementById('backTop').addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+
+            // Set min date for reservation
+            const dateInput = document.getElementById('date');
+            if (dateInput) {
+                const tomorrow = new Date();
+                tomorrow.setDate(tomorrow.getDate() + 1);
+                dateInput.min = tomorrow.toISOString().split('T')[0];
+            }
+
+            // Mobile nav toggle
+            const navToggle = document.getElementById('navToggle');
+            const navLinks = document.querySelector('.nav-links');
+            if (navToggle) {
+                navToggle.addEventListener('click', () => {
+                    if (navLinks.style.display === 'flex') {
+                        navLinks.style.display = 'none';
+                    } else {
+                        navLinks.style.display = 'flex';
+                        navLinks.style.flexDirection = 'column';
+                        navLinks.style.position = 'absolute';
+                        navLinks.style.top = '100%';
+                        navLinks.style.left = '0';
+                        navLinks.style.right = '0';
+                        navLinks.style.background = 'rgba(250,248,245,0.95)';
+                        navLinks.style.backdropFilter = 'blur(20px)';
+                        navLinks.style.padding = '1.5rem';
+                        navLinks.style.borderRadius = '16px';
+                        navLinks.style.marginTop = '0.5rem';
+                        navLinks.style.boxShadow = '0 20px 40px rgba(0,0,0,0.1)';
+                        navLinks.style.gap = '1rem';
+                    }
+                });
+            }
+
+            // Smooth hover lift for buttons
+            document.querySelectorAll('.menu-order, .btn-reserve, .nav-cta').forEach(btn => {
+                btn.addEventListener('mouseenter', function () {
+                    this.style.transform = 'translateY(-3px)';
+                });
+                btn.addEventListener('mouseleave', function () {
+                    this.style.transform = '';
+                });
+            });
+
+        })();
+    </script>
+</body>
+
+</html>

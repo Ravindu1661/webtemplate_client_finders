@@ -1,0 +1,2576 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maison Farine — Artisan Bakery, Freshly Baked Every Morning</title>
+    <meta name="description"
+        content="Maison Farine is a handcrafted artisan bakery serving fresh sourdough, croissants, and custom cakes daily. Order online or visit our warm, welcoming store.">
+    <meta name="keywords" content="artisan bakery, fresh bread, custom cakes, croissants, sourdough, patisserie">
+    <meta property="og:title" content="Maison Farine — Freshly Baked Every Morning">
+    <meta property="og:description"
+        content="A modern artisan bakery experience — handcrafted bread, pastry, and cake, baked fresh every morning.">
+    <meta property="og:type" content="website">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500&family=Outfit:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
+    <style>
+        :root {
+            --bg: #FFF8F2;
+            --cream: #F9F3EB;
+            --primary: #D4A373;
+            --primary-dim: rgba(212, 163, 115, .35);
+            --accent: #E76F51;
+            --chocolate: #5B3A29;
+            --dark: #2C2C2C;
+            --glass: rgba(255, 255, 255, .55);
+            --glass-border: rgba(255, 255, 255, .65);
+            --shadow-lg: 0 30px 60px -20px rgba(91, 58, 41, .28);
+            --shadow-sm: 0 10px 25px -12px rgba(91, 58, 41, .25);
+            --ease: cubic-bezier(.22, 1, .36, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+
+            * {
+                animation-duration: .001ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: .001ms !important;
+            }
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--dark);
+            font-family: 'Outfit', sans-serif;
+            font-weight: 400;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        .display-serif {
+            font-family: 'Cormorant Garamond', serif;
+            color: var(--chocolate);
+            font-weight: 600;
+            letter-spacing: .2px;
+        }
+
+        .eyebrow {
+            font-family: 'Outfit', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: .28em;
+            font-size: .72rem;
+            font-weight: 600;
+            color: var(--accent);
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        :focus-visible {
+            outline: 3px solid var(--accent);
+            outline-offset: 3px;
+            border-radius: 4px;
+        }
+
+        .container-nice {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 clamp(1.25rem, 4vw, 3.5rem);
+        }
+
+        section {
+            position: relative;
+            padding: clamp(4.5rem, 9vw, 8rem) 0;
+        }
+
+        /* ---------- Ambient background: mesh + canvas flour ---------- */
+        #bg-canvas {
+            position: fixed;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .mesh {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            background:
+                radial-gradient(45% 38% at 12% 8%, rgba(212, 163, 115, .35), transparent 60%),
+                radial-gradient(38% 32% at 92% 18%, rgba(231, 111, 81, .22), transparent 60%),
+                radial-gradient(50% 40% at 50% 100%, rgba(212, 163, 115, .28), transparent 60%),
+                var(--bg);
+            animation: meshDrift 22s ease-in-out infinite alternate;
+        }
+
+        @keyframes meshDrift {
+            0% {
+                filter: hue-rotate(0deg) saturate(1);
+            }
+
+            100% {
+                filter: hue-rotate(6deg) saturate(1.08);
+            }
+        }
+
+        .grain-light {
+            position: fixed;
+            inset: 0;
+            z-index: 1;
+            pointer-events: none;
+            mix-blend-mode: overlay;
+            opacity: .5;
+            background: radial-gradient(600px 600px at var(--mx, 50%) var(--my, 20%), rgba(255, 235, 205, .5), transparent 60%);
+            transition: background .3s var(--ease);
+        }
+
+        main {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* ---------- Scrollbar ---------- */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--cream);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 10px;
+        }
+
+        /* ---------- Navigation ---------- */
+        .nav-float {
+            position: fixed;
+            top: 18px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: min(1200px, 92%);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: .7rem 1rem .7rem 1.4rem;
+            border-radius: 100px;
+            background: rgba(255, 248, 242, .35);
+            backdrop-filter: blur(18px) saturate(160%);
+            -webkit-backdrop-filter: blur(18px) saturate(160%);
+            border: 1px solid rgba(255, 255, 255, .5);
+            box-shadow: 0 10px 30px -18px rgba(91, 58, 41, .25);
+            transition: all .5s var(--ease);
+        }
+
+        .nav-float.solid {
+            background: rgba(255, 248, 242, .92);
+            box-shadow: var(--shadow-sm);
+            top: 12px;
+        }
+
+        .nav-logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--chocolate);
+            display: flex;
+            align-items: center;
+            gap: .5rem;
+            white-space: nowrap;
+        }
+
+        .nav-logo i {
+            color: var(--accent);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-links a {
+            position: relative;
+            font-size: .92rem;
+            font-weight: 500;
+            color: var(--dark);
+            padding: .3rem 0;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -2px;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width .35s var(--ease);
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: .6rem;
+        }
+
+        .btn-ghost {
+            border: 1.5px solid var(--chocolate);
+            color: var(--chocolate);
+            border-radius: 100px;
+            padding: .5rem 1.2rem;
+            font-size: .85rem;
+            font-weight: 600;
+            transition: all .35s var(--ease);
+            background: transparent;
+        }
+
+        .btn-ghost:hover {
+            background: var(--chocolate);
+            color: #fff;
+            transform: translateY(-2px);
+        }
+
+        .btn-luxe {
+            border: none;
+            border-radius: 100px;
+            padding: .55rem 1.35rem;
+            font-size: .85rem;
+            font-weight: 600;
+            color: #fff;
+            background: linear-gradient(135deg, var(--accent), #d65f3e);
+            box-shadow: 0 12px 25px -10px rgba(231, 111, 81, .6);
+            transition: all .35s var(--ease);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-luxe:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 18px 30px -10px rgba(231, 111, 81, .75);
+            color: #fff;
+        }
+
+        .navbar-toggler-custom {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.4rem;
+            color: var(--chocolate);
+        }
+
+        /* ---------- Buttons general ---------- */
+        .btn-outline-luxe {
+            border: 1.5px solid var(--chocolate);
+            color: var(--chocolate);
+            border-radius: 100px;
+            padding: .85rem 2rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: .6rem;
+            transition: all .4s var(--ease);
+            background: transparent;
+        }
+
+        .btn-outline-luxe:hover {
+            background: var(--chocolate);
+            color: #fff;
+            transform: translateY(-3px);
+        }
+
+        .btn-fill-luxe {
+            border: none;
+            border-radius: 100px;
+            padding: .9rem 2.1rem;
+            font-weight: 600;
+            color: #fff;
+            background: linear-gradient(135deg, var(--accent), #cf5a3d);
+            box-shadow: 0 16px 34px -14px rgba(231, 111, 81, .65);
+            display: inline-flex;
+            align-items: center;
+            gap: .6rem;
+            transition: all .4s var(--ease);
+        }
+
+        .btn-fill-luxe:hover {
+            transform: translateY(-4px) scale(1.02);
+            color: #fff;
+            box-shadow: 0 20px 40px -12px rgba(231, 111, 81, .8);
+        }
+
+        /* ---------- Hero ---------- */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: 9rem;
+            padding-bottom: 4rem;
+        }
+
+        .hero-eyebrow {
+            display: flex;
+            align-items: center;
+            gap: .6rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .hero-eyebrow .line {
+            width: 34px;
+            height: 1.5px;
+            background: var(--accent);
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 7vw, 5.6rem);
+            line-height: 1.02;
+            margin-bottom: 1.3rem;
+        }
+
+        .hero h1 em {
+            font-style: italic;
+            color: var(--accent);
+        }
+
+        .hero p.lead-txt {
+            font-size: 1.15rem;
+            color: #6b5a4e;
+            max-width: 480px;
+            margin-bottom: 2.2rem;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 2.5rem;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 2.3rem;
+        }
+
+        .hero-stats .stat b {
+            display: block;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            color: var(--chocolate);
+        }
+
+        .hero-stats .stat span {
+            font-size: .78rem;
+            color: #8a7768;
+            text-transform: uppercase;
+            letter-spacing: .08em;
+        }
+
+        .hero-visual {
+            position: relative;
+            height: 640px;
+        }
+
+        .hero-img-main {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 82%;
+            height: 80%;
+            border-radius: 36px 120px 36px 120px;
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+            transform: rotate(2deg);
+            animation: floatSlow 7s ease-in-out infinite;
+        }
+
+        .hero-img-main img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: saturate(1.08) contrast(1.02) sepia(.06);
+        }
+
+        .hero-img-small {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 52%;
+            height: 46%;
+            border-radius: 100px 30px 100px 30px;
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+            border: 6px solid var(--bg);
+            animation: floatSlow 8s ease-in-out infinite 1s;
+        }
+
+        .hero-img-small img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        @keyframes floatSlow {
+
+            0%,
+            100% {
+                transform: translateY(0) rotate(2deg);
+            }
+
+            50% {
+                transform: translateY(-16px) rotate(0deg);
+            }
+        }
+
+        .glow-blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(50px);
+            opacity: .55;
+            z-index: -1;
+        }
+
+        .glow-blob.b1 {
+            width: 220px;
+            height: 220px;
+            background: var(--primary);
+            top: -30px;
+            left: 20%;
+        }
+
+        .glow-blob.b2 {
+            width: 180px;
+            height: 180px;
+            background: var(--accent);
+            bottom: 10%;
+            right: -20px;
+            opacity: .35;
+        }
+
+        .order-card-float {
+            position: absolute;
+            left: -40px;
+            bottom: -30px;
+            width: 340px;
+            z-index: 5;
+            background: var(--glass);
+            backdrop-filter: blur(20px) saturate(160%);
+            -webkit-backdrop-filter: blur(20px) saturate(160%);
+            border: 1px solid var(--glass-border);
+            border-radius: 26px;
+            padding: 1.6rem;
+            box-shadow: var(--shadow-lg);
+            animation: floatSlow 9s ease-in-out infinite .5s;
+        }
+
+        .order-card-float .oc-title {
+            font-size: .78rem;
+            text-transform: uppercase;
+            letter-spacing: .14em;
+            color: #8a7768;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .oc-tabs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: .6rem;
+            margin-bottom: 1rem;
+        }
+
+        .oc-tab {
+            border: 1.5px solid rgba(91, 58, 41, .15);
+            border-radius: 14px;
+            padding: .65rem .5rem;
+            text-align: center;
+            font-size: .82rem;
+            font-weight: 600;
+            color: var(--chocolate);
+            cursor: pointer;
+            transition: all .3s var(--ease);
+            background: rgba(255, 255, 255, .4);
+        }
+
+        .oc-tab i {
+            display: block;
+            font-size: 1.15rem;
+            margin-bottom: .3rem;
+            color: var(--primary);
+        }
+
+        .oc-tab.active,
+        .oc-tab:hover {
+            background: var(--chocolate);
+            color: #fff;
+            border-color: var(--chocolate);
+        }
+
+        .oc-tab.active i,
+        .oc-tab:hover i {
+            color: #fff;
+        }
+
+        .oc-search {
+            display: flex;
+            gap: .5rem;
+        }
+
+        .oc-search input {
+            flex: 1;
+            border: 1.5px solid rgba(91, 58, 41, .15);
+            border-radius: 14px;
+            padding: .65rem 1rem;
+            background: rgba(255, 255, 255, .6);
+            font-size: .85rem;
+        }
+
+        .oc-search input:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        .oc-search button {
+            border: none;
+            background: var(--accent);
+            color: #fff;
+            width: 46px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform .3s var(--ease);
+        }
+
+        .oc-search button:hover {
+            transform: scale(1.08);
+        }
+
+        @media(max-width:991px) {
+            .hero-visual {
+                height: 460px;
+                margin-top: 3rem;
+            }
+
+            .order-card-float {
+                width: 280px;
+                left: 0;
+                bottom: -50px;
+            }
+        }
+
+        /* ---------- Section heads ---------- */
+        .section-head {
+            max-width: 640px;
+            margin-bottom: 3.2rem;
+        }
+
+        .section-head h2 {
+            font-size: clamp(2.1rem, 4vw, 3.1rem);
+            line-height: 1.08;
+        }
+
+        .section-head p {
+            color: #6b5a4e;
+            font-size: 1.02rem;
+            margin-top: .8rem;
+        }
+
+        .section-head.center {
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+        }
+
+        /* ---------- 3D tilt product cards ---------- */
+        .tilt-wrap {
+            perspective: 1400px;
+        }
+
+        .product-card {
+            background: var(--cream);
+            border-radius: 28px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: var(--shadow-sm);
+            transition: transform .12s linear, box-shadow .4s var(--ease);
+            height: 100%;
+            transform-style: preserve-3d;
+            will-change: transform;
+        }
+
+        .product-card:hover {
+            box-shadow: var(--shadow-lg);
+        }
+
+        .product-card .pc-badge {
+            position: absolute;
+            top: 14px;
+            left: 14px;
+            z-index: 3;
+            background: var(--accent);
+            color: #fff;
+            font-size: .72rem;
+            font-weight: 700;
+            padding: .3rem .75rem;
+            border-radius: 100px;
+            letter-spacing: .03em;
+        }
+
+        .pc-img-wrap {
+            height: 230px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .pc-img-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform .6s var(--ease);
+        }
+
+        .product-card:hover .pc-img-wrap img {
+            transform: scale(1.12) rotate(1deg);
+        }
+
+        .pc-glass-sweep {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(115deg, transparent 30%, rgba(255, 255, 255, .55) 45%, transparent 60%);
+            transform: translateX(-120%);
+            transition: transform .8s var(--ease);
+        }
+
+        .product-card:hover .pc-glass-sweep {
+            transform: translateX(120%);
+        }
+
+        .pc-body {
+            padding: 1.4rem 1.5rem 1.6rem;
+            transform: translateZ(30px);
+        }
+
+        .pc-body h4 {
+            font-size: 1.35rem;
+            margin-bottom: .35rem;
+        }
+
+        .pc-body p {
+            font-size: .86rem;
+            color: #7a695c;
+            margin-bottom: .9rem;
+            min-height: 40px;
+        }
+
+        .pc-rating {
+            color: var(--accent);
+            font-size: .78rem;
+            margin-bottom: .7rem;
+        }
+
+        .pc-rating span {
+            color: #8a7768;
+            margin-left: .3rem;
+        }
+
+        .pc-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .pc-price {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            color: var(--chocolate);
+            font-weight: 700;
+        }
+
+        .pc-order-btn {
+            border: none;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: var(--chocolate);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all .35s var(--ease);
+        }
+
+        .pc-order-btn:hover {
+            background: var(--accent);
+            transform: rotate(20deg) scale(1.1);
+        }
+
+        /* ---------- Features ---------- */
+        .feature-card {
+            background: var(--glass);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border: 1px solid rgba(255, 255, 255, .7);
+            border-radius: 22px;
+            padding: 1.8rem 1.6rem;
+            height: 100%;
+            transition: all .4s var(--ease);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-sm);
+            background: #fff;
+        }
+
+        .feature-icon {
+            width: 54px;
+            height: 54px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            margin-bottom: 1.1rem;
+        }
+
+        .feature-card h5 {
+            font-family: 'Outfit';
+            font-weight: 600;
+            color: var(--chocolate);
+            font-size: 1.05rem;
+            margin-bottom: .5rem;
+        }
+
+        .feature-card p {
+            font-size: .85rem;
+            color: #7a695c;
+            margin: 0;
+        }
+
+        /* ---------- Baker story ---------- */
+        .baker-section {
+            background: var(--chocolate);
+            color: #f3e9df;
+            border-radius: 48px;
+            margin: 0 clamp(0px, 2vw, 1rem);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .baker-section .glow-blob {
+            opacity: .25;
+        }
+
+        .baker-img-wrap {
+            position: relative;
+            height: 520px;
+            border-radius: 32px;
+            overflow: hidden;
+        }
+
+        .baker-img-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .baker-award {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            background: var(--bg);
+            color: var(--chocolate);
+            border-radius: 18px;
+            padding: 1rem 1.2rem;
+            display: flex;
+            gap: .8rem;
+            align-items: center;
+            box-shadow: var(--shadow-lg);
+            max-width: 230px;
+        }
+
+        .baker-award i {
+            font-size: 1.6rem;
+            color: var(--accent);
+        }
+
+        .baker-award b {
+            display: block;
+            font-family: 'Cormorant Garamond';
+            font-size: 1.05rem;
+        }
+
+        .baker-award span {
+            font-size: .72rem;
+            color: #8a7768;
+        }
+
+        .baker-section h2 {
+            color: #fff;
+        }
+
+        .baker-section .eyebrow {
+            color: #e8b993;
+        }
+
+        .baker-quote {
+            font-family: 'Cormorant Garamond';
+            font-style: italic;
+            font-size: 1.4rem;
+            line-height: 1.5;
+            color: #f3e9df;
+            margin: 1.4rem 0;
+        }
+
+        .baker-timeline {
+            list-style: none;
+            padding: 0;
+            margin: 1.6rem 0;
+        }
+
+        .baker-timeline li {
+            display: flex;
+            gap: 1rem;
+            padding: .7rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, .12);
+            font-size: .92rem;
+        }
+
+        .baker-timeline li b {
+            color: var(--primary);
+            min-width: 60px;
+            font-family: 'Cormorant Garamond';
+            font-size: 1.1rem;
+        }
+
+        .signature-svg {
+            height: 80px;
+            margin-top: 1.2rem;
+        }
+
+        .signature-svg path {
+            fill: none;
+            stroke: var(--primary);
+            stroke-width: 3;
+            stroke-linecap: round;
+            stroke-dasharray: 600;
+            stroke-dashoffset: 600;
+            transition: stroke-dashoffset 2.2s var(--ease);
+        }
+
+        .signature-svg.in-view path {
+            stroke-dashoffset: 0;
+        }
+
+        /* ---------- Menu switcher ---------- */
+        .menu-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: .7rem;
+            margin-bottom: 2.6rem;
+        }
+
+        .menu-tab {
+            border: 1.5px solid rgba(91, 58, 41, .18);
+            background: transparent;
+            color: var(--chocolate);
+            border-radius: 100px;
+            padding: .6rem 1.4rem;
+            font-size: .88rem;
+            font-weight: 600;
+            transition: all .35s var(--ease);
+            cursor: pointer;
+        }
+
+        .menu-tab.active {
+            background: var(--chocolate);
+            color: #fff;
+            border-color: var(--chocolate);
+        }
+
+        .menu-tab:hover {
+            border-color: var(--chocolate);
+        }
+
+        .menu-grid {
+            display: none;
+        }
+
+        .menu-grid.active {
+            display: grid;
+        }
+
+        /* ---------- Custom cake ---------- */
+        .cake-gallery {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-auto-rows: 120px;
+            gap: 14px;
+        }
+
+        .cake-item {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .cake-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform .6s var(--ease);
+        }
+
+        .cake-item:hover img {
+            transform: scale(1.15);
+        }
+
+        .cake-item::after {
+            content: attr(data-label);
+            position: absolute;
+            inset: auto 0 0 0;
+            padding: .7rem .9rem;
+            font-size: .8rem;
+            font-weight: 600;
+            color: #fff;
+            background: linear-gradient(to top, rgba(44, 28, 20, .85), transparent);
+            opacity: 0;
+            transition: opacity .35s var(--ease);
+        }
+
+        .cake-item:hover::after {
+            opacity: 1;
+        }
+
+        .cake-item.tall {
+            grid-row: span 2;
+        }
+
+        .cake-item.wide {
+            grid-column: span 2;
+        }
+
+        @media(max-width:767px) {
+            .cake-gallery {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .cake-item.wide {
+                grid-column: span 2;
+            }
+        }
+
+        /* ---------- Specials ---------- */
+        .special-banner {
+            border-radius: 28px;
+            padding: 2rem;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+            color: #fff;
+            min-height: 230px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .special-banner::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(155deg, rgba(44, 28, 20, .15), rgba(44, 28, 20, .85));
+        }
+
+        .special-banner img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+            transition: transform .8s var(--ease);
+        }
+
+        .special-banner:hover img {
+            transform: scale(1.08);
+        }
+
+        .special-label {
+            position: relative;
+            z-index: 1;
+            font-size: .72rem;
+            text-transform: uppercase;
+            letter-spacing: .14em;
+            color: var(--primary);
+            font-weight: 700;
+            margin-bottom: .4rem;
+        }
+
+        .special-banner h4 {
+            position: relative;
+            z-index: 1;
+            color: #fff;
+            font-size: 1.6rem;
+            margin-bottom: .4rem;
+        }
+
+        .special-banner p {
+            position: relative;
+            z-index: 1;
+            font-size: .85rem;
+            opacity: .9;
+            margin-bottom: 0;
+        }
+
+        .special-glow {
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: var(--accent);
+            filter: blur(40px);
+            opacity: .5;
+            top: -30px;
+            right: -30px;
+            animation: pulseGlow 3.5s ease-in-out infinite;
+        }
+
+        @keyframes pulseGlow {
+
+            0%,
+            100% {
+                opacity: .35;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: .6;
+                transform: scale(1.15);
+            }
+        }
+
+        /* ---------- Process ---------- */
+        .process-line {
+            position: relative;
+            padding-left: 0;
+        }
+
+        .process-track {
+            position: absolute;
+            top: 36px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: repeating-linear-gradient(to right, rgba(91, 58, 41, .2) 0 8px, transparent 8px 16px);
+            z-index: 0;
+        }
+
+        .process-step {
+            position: relative;
+            text-align: center;
+            z-index: 1;
+        }
+
+        .process-num {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            background: #fff;
+            border: 2px solid var(--primary);
+            color: var(--chocolate);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Cormorant Garamond';
+            font-size: 1.7rem;
+            font-weight: 700;
+            margin: 0 auto 1.1rem;
+            transition: all .4s var(--ease);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .process-step:hover .process-num {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: #fff;
+            transform: scale(1.1) rotate(8deg);
+        }
+
+        .process-step h6 {
+            font-family: 'Outfit';
+            font-weight: 600;
+            color: var(--chocolate);
+            font-size: .98rem;
+            margin-bottom: .4rem;
+        }
+
+        .process-step p {
+            font-size: .8rem;
+            color: #7a695c;
+        }
+
+        /* ---------- Gallery masonry ---------- */
+        .masonry {
+            column-count: 3;
+            column-gap: 16px;
+        }
+
+        .masonry .m-item {
+            break-inside: avoid;
+            margin-bottom: 16px;
+            border-radius: 22px;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .masonry .m-item img {
+            width: 100%;
+            display: block;
+            transition: transform .6s var(--ease), filter .5s;
+        }
+
+        .masonry .m-item:hover img {
+            transform: scale(1.08);
+        }
+
+        .m-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(44, 28, 20, .75), transparent 55%);
+            display: flex;
+            align-items: flex-end;
+            padding: 1rem;
+            opacity: 0;
+            transition: opacity .4s var(--ease);
+        }
+
+        .m-item:hover .m-overlay {
+            opacity: 1;
+        }
+
+        .m-overlay span {
+            color: #fff;
+            font-weight: 600;
+            font-size: .9rem;
+        }
+
+        @media(max-width:767px) {
+            .masonry {
+                column-count: 2;
+            }
+        }
+
+        /* ---------- Stats ---------- */
+        .stats-band {
+            background: var(--cream);
+            border-radius: 40px;
+        }
+
+        .stat-block {
+            text-align: center;
+        }
+
+        .stat-block .num {
+            font-family: 'Cormorant Garamond';
+            font-size: clamp(2.6rem, 5vw, 3.6rem);
+            font-weight: 700;
+            color: var(--chocolate);
+        }
+
+        .stat-block .lbl {
+            font-size: .82rem;
+            color: #8a7768;
+            text-transform: uppercase;
+            letter-spacing: .1em;
+        }
+
+        /* ---------- Testimonials ---------- */
+        .t-card {
+            background: var(--glass);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, .7);
+            border-radius: 26px;
+            padding: 2.2rem;
+            height: 100%;
+            box-shadow: var(--shadow-sm);
+            position: relative;
+        }
+
+        .t-quote-mark {
+            font-family: 'Cormorant Garamond';
+            font-size: 4rem;
+            color: var(--primary);
+            line-height: .4;
+            opacity: .6;
+        }
+
+        .t-card p.body-txt {
+            font-size: .98rem;
+            color: #5c4c40;
+            margin: 1rem 0 1.4rem;
+            line-height: 1.6;
+        }
+
+        .t-person {
+            display: flex;
+            align-items: center;
+            gap: .8rem;
+        }
+
+        .t-person img {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .t-person b {
+            display: block;
+            font-size: .92rem;
+            color: var(--chocolate);
+        }
+
+        .t-person .stars {
+            color: var(--accent);
+            font-size: .72rem;
+        }
+
+        /* ---------- Order form ---------- */
+        .order-form-wrap {
+            background: var(--cream);
+            border-radius: 36px;
+            padding: clamp(2rem, 4vw, 3.5rem);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .form-floating>label {
+            color: #8a7768;
+        }
+
+        .form-control,
+        .form-select {
+            border: 1.5px solid rgba(91, 58, 41, .18);
+            border-radius: 16px;
+            padding: 1rem 1rem;
+            background: #fff;
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 .2rem rgba(231, 111, 81, .15);
+        }
+
+        /* ---------- Contact ---------- */
+        .contact-info-item {
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+            margin-bottom: 1.6rem;
+        }
+
+        .contact-info-item i {
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            background: var(--chocolate);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.15rem;
+            flex-shrink: 0;
+        }
+
+        .contact-info-item b {
+            display: block;
+            font-size: .95rem;
+            color: var(--chocolate);
+            margin-bottom: .15rem;
+        }
+
+        .contact-info-item span {
+            font-size: .85rem;
+            color: #7a695c;
+        }
+
+        .map-placeholder {
+            height: 100%;
+            min-height: 340px;
+            border-radius: 28px;
+            overflow: hidden;
+            position: relative;
+            background: linear-gradient(135deg, var(--cream), var(--primary-dim));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .map-placeholder i {
+            font-size: 2.6rem;
+            color: var(--accent);
+        }
+
+        .map-pin {
+            position: absolute;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        /* ---------- Footer ---------- */
+        footer {
+            background: var(--chocolate);
+            color: #e8dccf;
+            border-radius: 48px 48px 0 0;
+            padding: 5rem 0 2rem;
+            margin-top: 2rem;
+        }
+
+        footer h5 {
+            color: #fff;
+            font-family: 'Outfit';
+            font-weight: 600;
+            font-size: 1rem;
+            margin-bottom: 1.2rem;
+        }
+
+        footer .flogo {
+            font-family: 'Cormorant Garamond';
+            font-size: 1.7rem;
+            color: #fff;
+            font-weight: 700;
+        }
+
+        footer p,
+        footer a {
+            color: #c9b8a6;
+            font-size: .88rem;
+        }
+
+        footer ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        footer ul li {
+            margin-bottom: .6rem;
+        }
+
+        footer a:hover {
+            color: var(--primary);
+        }
+
+        .newsletter-input {
+            display: flex;
+            border-radius: 100px;
+            overflow: hidden;
+            background: rgba(255, 255, 255, .08);
+            border: 1px solid rgba(255, 255, 255, .15);
+        }
+
+        .newsletter-input input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            padding: .8rem 1.2rem;
+            color: #fff;
+            font-size: .85rem;
+        }
+
+        .newsletter-input input::placeholder {
+            color: #a8927e;
+        }
+
+        .newsletter-input input:focus {
+            outline: none;
+        }
+
+        .newsletter-input button {
+            border: none;
+            background: var(--accent);
+            color: #fff;
+            padding: 0 1.4rem;
+            font-weight: 600;
+        }
+
+        .social-row {
+            display: flex;
+            gap: .7rem;
+            margin-top: 1.2rem;
+        }
+
+        .social-row a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, .2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all .35s var(--ease);
+        }
+
+        .social-row a:hover {
+            background: var(--accent);
+            border-color: var(--accent);
+            transform: translateY(-4px);
+        }
+
+        .ig-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+        }
+
+        .ig-grid img {
+            width: 100%;
+            height: 70px;
+            object-fit: cover;
+            border-radius: 8px;
+            transition: transform .3s var(--ease);
+        }
+
+        .ig-grid img:hover {
+            transform: scale(1.08);
+        }
+
+        .f-bottom {
+            border-top: 1px solid rgba(255, 255, 255, .12);
+            margin-top: 3rem;
+            padding-top: 1.6rem;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+            font-size: .8rem;
+            color: #a8927e;
+        }
+
+        #backToTop {
+            position: fixed;
+            bottom: 28px;
+            right: 28px;
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            background: var(--accent);
+            color: #fff;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            z-index: 900;
+            box-shadow: var(--shadow-sm);
+            opacity: 0;
+            pointer-events: none;
+            transition: all .4s var(--ease);
+        }
+
+        #backToTop.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        #backToTop:hover {
+            transform: translateY(-5px);
+        }
+
+        /* ---------- Reveal on scroll ---------- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(36px);
+            transition: opacity .9s var(--ease), transform .9s var(--ease);
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ---------- Loader ---------- */
+        #preloader {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            background: var(--bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity .6s var(--ease), visibility .6s;
+        }
+
+        #preloader.hide {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loader-wheat {
+            font-family: 'Cormorant Garamond';
+            font-size: 1.6rem;
+            color: var(--chocolate);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .loader-dot {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: 3px solid var(--primary-dim);
+            border-top-color: var(--accent);
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @media(max-width:991px) {
+            .nav-links {
+                display: none;
+            }
+
+            .navbar-toggler-custom {
+                display: block;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="preloader">
+        <div class="loader-wheat">
+            <div class="loader-dot"></div>Maison Farine
+        </div>
+    </div>
+
+    <canvas id="bg-canvas"></canvas>
+    <div class="mesh"></div>
+    <div class="grain-light" id="glowFollow"></div>
+
+    <!-- ============ NAVIGATION ============ -->
+    <nav class="nav-float" id="mainNav">
+        <a href="#home" class="nav-logo"><i class="bi bi-flower2"></i> Maison Farine</a>
+        <ul class="nav-links">
+            <li><a href="#home" class="active">Home</a></li>
+            <li><a href="#collection">Menu</a></li>
+            <li><a href="#story">Our Story</a></li>
+            <li><a href="#gallery">Gallery</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <div class="nav-actions">
+            <a href="#order" class="btn-ghost d-none d-md-inline-block">Visit Store</a>
+            <a href="#order" class="btn-luxe">Order Online</a>
+            <button class="navbar-toggler-custom" id="mobileToggle"><i class="bi bi-list"></i></button>
+        </div>
+    </nav>
+
+    <!-- Mobile menu -->
+    <div id="mobileMenu"
+        style="display:none; position:fixed; inset:0; z-index:999; background:rgba(255,248,242,.98); backdrop-filter:blur(10px); flex-direction:column; align-items:center; justify-content:center; gap:1.8rem;">
+        <a href="#home" class="mm-link"
+            style="font-family:'Cormorant Garamond'; font-size:1.8rem; color:var(--chocolate);">Home</a>
+        <a href="#collection" class="mm-link"
+            style="font-family:'Cormorant Garamond'; font-size:1.8rem; color:var(--chocolate);">Menu</a>
+        <a href="#story" class="mm-link"
+            style="font-family:'Cormorant Garamond'; font-size:1.8rem; color:var(--chocolate);">Our Story</a>
+        <a href="#gallery" class="mm-link"
+            style="font-family:'Cormorant Garamond'; font-size:1.8rem; color:var(--chocolate);">Gallery</a>
+        <a href="#contact" class="mm-link"
+            style="font-family:'Cormorant Garamond'; font-size:1.8rem; color:var(--chocolate);">Contact</a>
+        <button id="closeMobile"
+            style="border:none;background:var(--chocolate);color:#fff;width:50px;height:50px;border-radius:50%;font-size:1.3rem;">✕</button>
+    </div>
+
+    <main>
+        <!-- ============ HERO ============ -->
+        <section class="hero" id="home">
+            <div class="container-nice">
+                <div class="row align-items-center g-5">
+                    <div class="col-lg-6">
+                        <div class="hero-eyebrow"><span class="line"></span><span class="eyebrow">Handcrafted Since
+                                2004</span></div>
+                        <h1>Freshly Baked<br><em>Every</em> Morning</h1>
+                        <p class="lead-txt">Stone-milled flour, slow fermentation, and twenty years of patience — every
+                            loaf and pastry at Maison Farine is shaped by hand before sunrise.</p>
+                        <div class="hero-cta">
+                            <a href="#order" class="btn-fill-luxe">Order Now <i class="bi bi-arrow-up-right"></i></a>
+                            <a href="#collection" class="btn-outline-luxe">Explore Menu <i
+                                    class="bi bi-egg-fried"></i></a>
+                        </div>
+                        <div class="hero-stats">
+                            <div class="stat"><b>20+</b><span>Years Baking</span></div>
+                            <div class="stat"><b>50+</b><span>Daily Creations</span></div>
+                            <div class="stat"><b>4.9</b><span>Store Rating</span></div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="hero-visual">
+                            <div class="glow-blob b1"></div>
+                            <div class="glow-blob b2"></div>
+                            <div class="hero-img-main"><img src="https://picsum.photos/seed/farine-hero-main/900/1000"
+                                    alt="Warm golden sourdough loaves fresh from the oven"></div>
+                            <div class="hero-img-small"><img src="https://picsum.photos/seed/farine-hero-small/600/600"
+                                    alt="Buttery croissants on a wooden board"></div>
+                            <div class="order-card-float">
+                                <div class="oc-title">Quick Order</div>
+                                <div class="oc-tabs">
+                                    <div class="oc-tab active" data-tab="pickup"><i class="bi bi-bag-check"></i>Pickup
+                                    </div>
+                                    <div class="oc-tab" data-tab="delivery"><i class="bi bi-bicycle"></i>Delivery</div>
+                                    <div class="oc-tab" data-tab="cake"><i class="bi bi-cake2"></i>Cake Orders</div>
+                                    <div class="oc-tab" data-tab="bread"><i class="bi bi-basket"></i>Fresh Bread</div>
+                                </div>
+                                <div class="oc-search">
+                                    <input type="text" placeholder="Search pastries, cakes...">
+                                    <button type="button"><i class="bi bi-search"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ SIGNATURE COLLECTION ============ -->
+        <section id="collection">
+            <div class="container-nice">
+                <div class="row align-items-end reveal">
+                    <div class="col-lg-7 section-head mb-0">
+                        <span class="eyebrow">The Signature Collection</span>
+                        <h2>Baked with intention, served with love</h2>
+                        <p>Eight creations our guests return for, every single week — each one shaped, proofed, and
+                            finished entirely by hand.</p>
+                    </div>
+                </div>
+                <div class="row g-4 tilt-wrap" id="productGrid"></div>
+            </div>
+        </section>
+
+        <!-- ============ FEATURES ============ -->
+        <section style="padding-top:0;">
+            <div class="container-nice">
+                <div class="row g-4">
+                    <div class="col-6 col-md-4 col-lg-2 reveal">
+                        <div class="feature-card">
+                            <div class="feature-icon"><i class="bi bi-sunrise"></i></div>
+                            <h5>Fresh Every Day</h5>
+                            <p>Baked before dawn, sold by breakfast.</p>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-4 col-lg-2 reveal">
+                        <div class="feature-card">
+                            <div class="feature-icon"><i class="bi bi-flower1"></i></div>
+                            <h5>Organic Ingredients</h5>
+                            <p>Stone-milled flour, local butter.</p>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-4 col-lg-2 reveal">
+                        <div class="feature-card">
+                            <div class="feature-icon"><i class="bi bi-journal-bookmark"></i></div>
+                            <h5>Traditional Recipes</h5>
+                            <p>Passed down three generations.</p>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-4 col-lg-2 reveal">
+                        <div class="feature-card">
+                            <div class="feature-icon"><i class="bi bi-cake2"></i></div>
+                            <h5>Custom Cakes</h5>
+                            <p>Designed around your celebration.</p>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-4 col-lg-2 reveal">
+                        <div class="feature-card">
+                            <div class="feature-icon"><i class="bi bi-cup-hot"></i></div>
+                            <h5>Fresh Coffee</h5>
+                            <p>Slow-roasted, brewed to order.</p>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-4 col-lg-2 reveal">
+                        <div class="feature-card">
+                            <div class="feature-icon"><i class="bi bi-bicycle"></i></div>
+                            <h5>Fast Delivery</h5>
+                            <p>Warm to your door within the hour.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ BAKER STORY ============ -->
+        <section id="story">
+            <div class="container-nice">
+                <div class="baker-section p-4 p-md-5 reveal">
+                    <div class="glow-blob b1" style="background:var(--primary); top:10%; left:-5%;"></div>
+                    <div class="row align-items-center g-5">
+                        <div class="col-lg-5">
+                            <div class="baker-img-wrap">
+                                <img src="https://picsum.photos/seed/farine-baker/700/900"
+                                    alt="Head baker Élise Fournier kneading dough by hand">
+                                <div class="baker-award"><i class="bi bi-award"></i>
+                                    <div><b>Meilleur Ouvrier</b><span>National Bread Award, 2019</span></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-7">
+                            <span class="eyebrow">The Hands Behind The Bread</span>
+                            <h2>Meet Élise, Our Head Baker</h2>
+                            <p class="baker-quote">"Bread doesn't rush. You listen to the dough, and it tells you when
+                                it's ready."</p>
+                            <ul class="baker-timeline">
+                                <li><b>2004</b> Opened a single oven on Rue Chevalier with 12 daily loaves.</li>
+                                <li><b>2012</b> Trained under Master Baker Jean-Luc Rousseau in Lyon.</li>
+                                <li><b>2019</b> Awarded Meilleur Ouvrier de France for artisan bread.</li>
+                                <li><b>2026</b> Now baking 50+ creations daily for our community.</li>
+                            </ul>
+                            <svg class="signature-svg" id="signatureSvg" viewBox="0 0 320 80"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M10,60 C30,10 45,70 60,40 C70,20 80,55 95,45 C110,35 115,60 130,50 C150,40 155,15 175,45 C190,65 200,25 220,40 C235,50 245,30 265,45 C280,55 295,35 310,45" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ MENU ============ -->
+        <section id="menu">
+            <div class="container-nice">
+                <div class="section-head center mx-auto reveal">
+                    <span class="eyebrow">Full Menu</span>
+                    <h2>Something warm for every hour</h2>
+                    <p>From sunrise loaves to evening treats — browse the full Maison Farine menu by category.</p>
+                </div>
+                <div class="menu-tabs justify-content-center reveal" id="menuTabs">
+                    <button class="menu-tab active" data-menu="bread">Bread</button>
+                    <button class="menu-tab" data-menu="pastries">Pastries</button>
+                    <button class="menu-tab" data-menu="cakes">Cakes</button>
+                    <button class="menu-tab" data-menu="cookies">Cookies</button>
+                    <button class="menu-tab" data-menu="desserts">Desserts</button>
+                    <button class="menu-tab" data-menu="coffee">Coffee</button>
+                </div>
+                <div id="menuContent"></div>
+            </div>
+        </section>
+
+        <!-- ============ CUSTOM CAKE ============ -->
+        <section>
+            <div class="container-nice">
+                <div class="row align-items-center g-5">
+                    <div class="col-lg-5 reveal">
+                        <span class="eyebrow">Made To Order</span>
+                        <h2>A cake for every kind of celebration</h2>
+                        <p style="color:#6b5a4e;">Birthdays, weddings, and everything worth celebrating — our cake
+                            atelier designs each order around your story, your flavors, your day.</p>
+                        <ul class="list-unstyled mt-3 mb-4" style="color:#6b5a4e; font-size:.92rem;">
+                            <li class="mb-2"><i class="bi bi-check2-circle text-success me-2"
+                                    style="color:var(--accent) !important;"></i>Birthday Cakes</li>
+                            <li class="mb-2"><i class="bi bi-check2-circle me-2"
+                                    style="color:var(--accent);"></i>Wedding Cakes</li>
+                            <li class="mb-2"><i class="bi bi-check2-circle me-2"
+                                    style="color:var(--accent);"></i>Anniversary Cakes</li>
+                            <li class="mb-2"><i class="bi bi-check2-circle me-2" style="color:var(--accent);"></i>Kids
+                                &amp; Corporate Cakes</li>
+                        </ul>
+                        <a href="#order" class="btn-fill-luxe">Design Your Cake <i class="bi bi-magic"></i></a>
+                    </div>
+                    <div class="col-lg-7 reveal">
+                        <div class="cake-gallery">
+                            <div class="cake-item tall" data-label="Wedding · Three-Tier Blush"><img
+                                    src="https://picsum.photos/seed/cake-wedding/500/700"
+                                    alt="Elegant three-tier wedding cake"></div>
+                            <div class="cake-item wide" data-label="Birthday · Confetti Dream"><img
+                                    src="https://picsum.photos/seed/cake-birthday/700/400" alt="Birthday confetti cake">
+                            </div>
+                            <div class="cake-item" data-label="Kids · Storybook"><img
+                                    src="https://picsum.photos/seed/cake-kids/400/400" alt="Kids themed cake"></div>
+                            <div class="cake-item" data-label="Corporate · Minimal Gold"><img
+                                    src="https://picsum.photos/seed/cake-corp/400/400" alt="Corporate event cake"></div>
+                            <div class="cake-item wide" data-label="Anniversary · Rose Gold"><img
+                                    src="https://picsum.photos/seed/cake-anniv/700/400" alt="Anniversary cake"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ DAILY SPECIALS ============ -->
+        <section>
+            <div class="container-nice">
+                <div class="section-head reveal">
+                    <span class="eyebrow">Today Only</span>
+                    <h2>Daily &amp; Weekend Specials</h2>
+                </div>
+                <div class="row g-4">
+                    <div class="col-md-6 reveal">
+                        <div class="special-banner">
+                            <div class="special-glow"></div>
+                            <img src="https://picsum.photos/seed/special-morning/700/500"
+                                alt="Fresh morning bread special">
+                            <div class="special-label">Morning Only · 6–9AM</div>
+                            <h4>Fresh Morning Bread Basket</h4>
+                            <p>Three warm loaves, straight from the oven, 20% off before 9AM.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 reveal">
+                        <div class="special-banner">
+                            <div class="special-glow"></div>
+                            <img src="https://picsum.photos/seed/special-weekend/700/500" alt="Weekend cake offer">
+                            <div class="special-label">Sat – Sun Only</div>
+                            <h4>Weekend Celebration Cake Offer</h4>
+                            <p>Order any 2kg celebration cake and receive a dozen macarons free.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 reveal">
+                        <div class="special-banner">
+                            <div class="special-glow"></div>
+                            <img src="https://picsum.photos/seed/special-coffee/700/500"
+                                alt="Coffee and croissant combo">
+                            <div class="special-label">All Day</div>
+                            <h4>Coffee &amp; Croissant Combo</h4>
+                            <p>A slow-roasted coffee paired with a butter croissant.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 reveal">
+                        <div class="special-banner">
+                            <div class="special-glow"></div>
+                            <img src="https://picsum.photos/seed/special-season/700/500" alt="Seasonal dessert special">
+                            <div class="special-label">Limited Season</div>
+                            <h4>Autumn Fig &amp; Honey Tart</h4>
+                            <p>A seasonal favorite, available only through October.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ PROCESS ============ -->
+        <section>
+            <div class="container-nice">
+                <div class="section-head center mx-auto reveal">
+                    <span class="eyebrow">Our Craft</span>
+                    <h2>From flour to your table</h2>
+                </div>
+                <div class="process-line reveal">
+                    <div class="process-track d-none d-md-block"></div>
+                    <div class="row g-4">
+                        <div class="col-6 col-md-2-4 col-md">
+                            <div class="process-step">
+                                <div class="process-num">1</div>
+                                <h6>Organic Ingredients</h6>
+                                <p>Locally sourced, stone-milled flour.</p>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md">
+                            <div class="process-step">
+                                <div class="process-num">2</div>
+                                <h6>Handcrafted Dough</h6>
+                                <p>Kneaded and shaped entirely by hand.</p>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md">
+                            <div class="process-step">
+                                <div class="process-num">3</div>
+                                <h6>Fresh Baking</h6>
+                                <p>Stone ovens, slow bake, golden crust.</p>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md">
+                            <div class="process-step">
+                                <div class="process-num">4</div>
+                                <h6>Quality Inspection</h6>
+                                <p>Every batch checked before display.</p>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md">
+                            <div class="process-step">
+                                <div class="process-num">5</div>
+                                <h6>Served Fresh</h6>
+                                <p>From oven to counter in minutes.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ GALLERY ============ -->
+        <section id="gallery">
+            <div class="container-nice">
+                <div class="section-head center mx-auto reveal">
+                    <span class="eyebrow">Inside Maison Farine</span>
+                    <h2>A glimpse into our bakery</h2>
+                </div>
+                <div class="masonry reveal">
+                    <div class="m-item"><img src="https://picsum.photos/seed/gal-1/500/650" alt="Fresh bread display">
+                        <div class="m-overlay"><span>Fresh Bread</span></div>
+                    </div>
+                    <div class="m-item"><img src="https://picsum.photos/seed/gal-2/500/400" alt="Pastry counter">
+                        <div class="m-overlay"><span>Pastries</span></div>
+                    </div>
+                    <div class="m-item"><img src="https://picsum.photos/seed/gal-3/500/600" alt="Bakery interior">
+                        <div class="m-overlay"><span>Bakery Interior</span></div>
+                    </div>
+                    <div class="m-item"><img src="https://picsum.photos/seed/gal-4/500/420" alt="Coffee corner">
+                        <div class="m-overlay"><span>Coffee Corner</span></div>
+                    </div>
+                    <div class="m-item"><img src="https://picsum.photos/seed/gal-5/500/560" alt="Cake display case">
+                        <div class="m-overlay"><span>Cake Display</span></div>
+                    </div>
+                    <div class="m-item"><img src="https://picsum.photos/seed/gal-6/500/460" alt="Kitchen at work">
+                        <div class="m-overlay"><span>Kitchen</span></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ STATS ============ -->
+        <section>
+            <div class="container-nice">
+                <div class="stats-band p-5 reveal">
+                    <div class="row g-4 text-center">
+                        <div class="col-6 col-md-3">
+                            <div class="stat-block">
+                                <div class="num" data-count="50">0</div>
+                                <div class="lbl">Bakery Products</div>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-3">
+                            <div class="stat-block">
+                                <div class="num" data-count="15">0</div>
+                                <div class="lbl">Master Bakers</div>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-3">
+                            <div class="stat-block">
+                                <div class="num" data-count="100" data-suffix="K">0</div>
+                                <div class="lbl">Happy Customers</div>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-3">
+                            <div class="stat-block">
+                                <div class="num" data-count="20">0</div>
+                                <div class="lbl">Years Experience</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ TESTIMONIALS ============ -->
+        <section>
+            <div class="container-nice">
+                <div class="section-head center mx-auto reveal">
+                    <span class="eyebrow">Loved Locally</span>
+                    <h2>What our guests say</h2>
+                </div>
+                <div id="testimonialCarousel" class="carousel slide reveal" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <div class="row g-4 justify-content-center">
+                                <div class="col-md-4">
+                                    <div class="t-card">
+                                        <div class="t-quote-mark">"</div>
+                                        <p class="body-txt">The sourdough here changed how I think about bread. Crisp
+                                            crust, soft crumb, and it's gone before noon.</p>
+                                        <div class="t-person"><img src="https://picsum.photos/seed/t1/100/100"
+                                                alt="Portrait of customer Camille R.">
+                                            <div><b>Camille R.</b>
+                                                <div class="stars"><i class="bi bi-star-fill"></i><i
+                                                        class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
+                                                        class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="t-card">
+                                        <div class="t-quote-mark">"</div>
+                                        <p class="body-txt">Ordered a wedding cake and it was the centerpiece of the
+                                            entire reception. Absolutely stunning and delicious.</p>
+                                        <div class="t-person"><img src="https://picsum.photos/seed/t2/100/100"
+                                                alt="Portrait of customer Marcus T.">
+                                            <div><b>Marcus T.</b>
+                                                <div class="stars"><i class="bi bi-star-fill"></i><i
+                                                        class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
+                                                        class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="t-card">
+                                        <div class="t-quote-mark">"</div>
+                                        <p class="body-txt">Their morning croissant and coffee combo has become part of
+                                            my daily routine. Consistently perfect.</p>
+                                        <div class="t-person"><img src="https://picsum.photos/seed/t3/100/100"
+                                                alt="Portrait of customer Sofia L.">
+                                            <div><b>Sofia L.</b>
+                                                <div class="stars"><i class="bi bi-star-fill"></i><i
+                                                        class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
+                                                        class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <div class="row g-4 justify-content-center">
+                                <div class="col-md-4">
+                                    <div class="t-card">
+                                        <div class="t-quote-mark">"</div>
+                                        <p class="body-txt">Delivery was fast and the box arrived still warm. That
+                                            cinnamon roll may be the best in the city.</p>
+                                        <div class="t-person"><img src="https://picsum.photos/seed/t4/100/100"
+                                                alt="Portrait of customer Daniel K.">
+                                            <div><b>Daniel K.</b>
+                                                <div class="stars"><i class="bi bi-star-fill"></i><i
+                                                        class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
+                                                        class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="t-card">
+                                        <div class="t-quote-mark">"</div>
+                                        <p class="body-txt">Custom kids cake exceeded every expectation — my daughter
+                                            still talks about her storybook cake.</p>
+                                        <div class="t-person"><img src="https://picsum.photos/seed/t5/100/100"
+                                                alt="Portrait of customer Priya N.">
+                                            <div><b>Priya N.</b>
+                                                <div class="stars"><i class="bi bi-star-fill"></i><i
+                                                        class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
+                                                        class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="t-card">
+                                        <div class="t-quote-mark">"</div>
+                                        <p class="body-txt">A neighborhood gem. The staff remembers your order and the
+                                            bread never disappoints.</p>
+                                        <div class="t-person"><img src="https://picsum.photos/seed/t6/100/100"
+                                                alt="Portrait of customer Oliver B.">
+                                            <div><b>Oliver B.</b>
+                                                <div class="stars"><i class="bi bi-star-fill"></i><i
+                                                        class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
+                                                        class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-center gap-2 mt-4">
+                        <button class="btn-ghost" data-bs-target="#testimonialCarousel" data-bs-slide="prev"
+                            style="width:44px;height:44px;border-radius:50%;padding:0;"><i
+                                class="bi bi-arrow-left"></i></button>
+                        <button class="btn-ghost" data-bs-target="#testimonialCarousel" data-bs-slide="next"
+                            style="width:44px;height:44px;border-radius:50%;padding:0;"><i
+                                class="bi bi-arrow-right"></i></button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ ORDER FORM ============ -->
+        <section id="order">
+            <div class="container-nice">
+                <div class="row g-5">
+                    <div class="col-lg-5 reveal">
+                        <span class="eyebrow">Reserve &amp; Order</span>
+                        <h2>Place your order</h2>
+                        <p style="color:#6b5a4e;">Tell us what you're craving and when you'd like it ready. We'll
+                            confirm by email within the hour.</p>
+                        <div class="d-flex gap-3 mt-4">
+                            <div class="feature-icon" style="margin-bottom:0;"><i class="bi bi-telephone"></i></div>
+                            <div><b style="color:var(--chocolate);">Prefer to call?</b><br><span
+                                    style="color:#7a695c; font-size:.9rem;">+1 (415) 555-0192</span></div>
+                        </div>
+                    </div>
+                    <div class="col-lg-7 reveal">
+                        <form class="order-form-wrap row g-3" id="orderForm">
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="ofName" placeholder="Full Name"
+                                        required>
+                                    <label for="ofName">Full Name</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input type="tel" class="form-control" id="ofPhone" placeholder="Phone" required>
+                                    <label for="ofPhone">Phone Number</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input type="email" class="form-control" id="ofEmail" placeholder="Email" required>
+                                    <label for="ofEmail">Email Address</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <select class="form-select" id="ofType">
+                                        <option>Pickup</option>
+                                        <option>Delivery</option>
+                                        <option>Custom Cake</option>
+                                        <option>Catering</option>
+                                    </select>
+                                    <label for="ofType">Order Type</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input type="date" class="form-control" id="ofDate">
+                                    <label for="ofDate">Pickup Date</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="ofItem" placeholder="Item">
+                                    <label for="ofItem">What are you craving?</label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <textarea class="form-control" id="ofMsg" placeholder="Message"
+                                        style="height:110px;"></textarea>
+                                    <label for="ofMsg">Special Requests</label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <button type="submit" class="btn-fill-luxe w-100 justify-content-center"
+                                    id="ofSubmit">Submit Order <i class="bi bi-send-check"></i></button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ CONTACT ============ -->
+        <section id="contact">
+            <div class="container-nice">
+                <div class="section-head reveal">
+                    <span class="eyebrow">Find Us</span>
+                    <h2>Visit the store</h2>
+                </div>
+                <div class="row g-4">
+                    <div class="col-lg-5 reveal">
+                        <div class="contact-info-item"><i class="bi bi-geo-alt"></i>
+                            <div><b>Store Address</b><span>128 Rue Chevalier, Bakers Quarter, City 30012</span></div>
+                        </div>
+                        <div class="contact-info-item"><i class="bi bi-telephone"></i>
+                            <div><b>Phone</b><span>+1 (415) 555-0192</span></div>
+                        </div>
+                        <div class="contact-info-item"><i class="bi bi-envelope"></i>
+                            <div><b>Email</b><span>hello@maisonfarine.com</span></div>
+                        </div>
+                        <div class="contact-info-item"><i class="bi bi-clock"></i>
+                            <div><b>Opening Hours</b><span>Mon – Sat: 6:00 AM – 8:00 PM · Sun: 7:00 AM – 3:00 PM</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-7 reveal">
+                        <div class="map-placeholder">
+                            <i class="bi bi-map map-pin"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ============ FOOTER ============ -->
+    <footer>
+        <div class="container-nice">
+            <div class="row g-5">
+                <div class="col-lg-4">
+                    <div class="flogo mb-3"><i class="bi bi-flower2" style="color:var(--primary);"></i> Maison Farine
+                    </div>
+                    <p>A handcrafted bakery, baked fresh every morning since 2004.</p>
+                    <div class="newsletter-input mt-3">
+                        <input type="email" placeholder="Your email address">
+                        <button type="button" id="newsletterBtn">Join</button>
+                    </div>
+                    <div class="social-row">
+                        <a href="#" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+                        <a href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+                        <a href="#" aria-label="Pinterest"><i class="bi bi-pinterest"></i></a>
+                        <a href="#" aria-label="TikTok"><i class="bi bi-tiktok"></i></a>
+                    </div>
+                </div>
+                <div class="col-6 col-lg-2">
+                    <h5>Quick Links</h5>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#collection">Menu</a></li>
+                        <li><a href="#story">Our Story</a></li>
+                        <li><a href="#gallery">Gallery</a></li>
+                        <li><a href="#order">Order</a></li>
+                    </ul>
+                </div>
+                <div class="col-6 col-lg-3">
+                    <h5>Opening Hours</h5>
+                    <ul>
+                        <li>Mon – Fri: 6:00 AM – 8:00 PM</li>
+                        <li>Saturday: 7:00 AM – 8:00 PM</li>
+                        <li>Sunday: 7:00 AM – 3:00 PM</li>
+                    </ul>
+                </div>
+                <div class="col-lg-3">
+                    <h5>Instagram</h5>
+                    <div class="ig-grid">
+                        <img src="https://picsum.photos/seed/ig1/150/150" alt="Instagram bakery photo 1">
+                        <img src="https://picsum.photos/seed/ig2/150/150" alt="Instagram bakery photo 2">
+                        <img src="https://picsum.photos/seed/ig3/150/150" alt="Instagram bakery photo 3">
+                        <img src="https://picsum.photos/seed/ig4/150/150" alt="Instagram bakery photo 4">
+                        <img src="https://picsum.photos/seed/ig5/150/150" alt="Instagram bakery photo 5">
+                        <img src="https://picsum.photos/seed/ig6/150/150" alt="Instagram bakery photo 6">
+                    </div>
+                </div>
+            </div>
+            <div class="f-bottom">
+                <span>© 2026 Maison Farine. All rights reserved.</span>
+                <span>Crafted with warmth, flour, and patience.</span>
+            </div>
+        </div>
+    </footer>
+
+    <button id="backToTop" aria-label="Back to top"><i class="bi bi-arrow-up"></i></button>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+
+            /* ---------------- Preloader ---------------- */
+            window.addEventListener('load', function () {
+                setTimeout(function () { document.getElementById('preloader').classList.add('hide'); }, 400);
+            });
+
+            /* ---------------- Nav solidify + active link ---------------- */
+            const nav = document.getElementById('mainNav');
+            window.addEventListener('scroll', function () {
+                nav.classList.toggle('solid', window.scrollY > 60);
+                document.getElementById('backToTop').classList.toggle('show', window.scrollY > 700);
+            });
+
+            /* ---------------- Mobile menu ---------------- */
+            const mobileMenu = document.getElementById('mobileMenu');
+            document.getElementById('mobileToggle').addEventListener('click', function () { mobileMenu.style.display = 'flex'; });
+            document.getElementById('closeMobile').addEventListener('click', function () { mobileMenu.style.display = 'none'; });
+            document.querySelectorAll('.mm-link').forEach(l => l.addEventListener('click', () => mobileMenu.style.display = 'none'));
+
+            /* ---------------- Ambient glow follows cursor ---------------- */
+            const glow = document.getElementById('glowFollow');
+            window.addEventListener('mousemove', function (e) {
+                glow.style.setProperty('--mx', e.clientX + 'px');
+                glow.style.setProperty('--my', e.clientY + 'px');
+            });
+
+            /* ---------------- Floating flour particles canvas ---------------- */
+            const canvas = document.getElementById('bg-canvas');
+            const ctx = canvas.getContext('2d');
+            let W, H, particles = [];
+            function resize() { W = canvas.width = window.innerWidth; H = canvas.height = document.documentElement.scrollHeight; }
+            resize();
+            window.addEventListener('resize', resize);
+            const PCOUNT = window.innerWidth < 768 ? 35 : 70;
+            for (let i = 0; i < PCOUNT; i++) {
+                particles.push({
+                    x: Math.random() * W, y: Math.random() * H, r: Math.random() * 2.4 + 0.6,
+                    vy: Math.random() * 0.25 + 0.08, vx: (Math.random() - 0.5) * 0.15, o: Math.random() * 0.5 + 0.15
+                });
+            }
+            function drawParticles() {
+                ctx.clearRect(0, 0, W, H);
+                ctx.fillStyle = '#D4A373';
+                particles.forEach(p => {
+                    ctx.globalAlpha = p.o;
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+                    ctx.fill();
+                    p.y -= p.vy; p.x += p.vx;
+                    if (p.y < -10) { p.y = H + 10; p.x = Math.random() * W; }
+                });
+                ctx.globalAlpha = 1;
+                requestAnimationFrame(drawParticles);
+            }
+            drawParticles();
+            setInterval(resize, 3000);
+
+            /* ---------------- Reveal on scroll ---------------- */
+            const revealEls = document.querySelectorAll('.reveal');
+            const revealObs = new IntersectionObserver((entries) => {
+                entries.forEach(en => { if (en.isIntersecting) { en.target.classList.add('visible'); revealObs.unobserve(en.target); } });
+            }, { threshold: 0.15 });
+            revealEls.forEach(el => revealObs.observe(el));
+
+            /* ---------------- Signature 3D tilt for product cards ---------------- */
+            function attachTilt(card) {
+                card.addEventListener('mousemove', function (e) {
+                    const r = card.getBoundingClientRect();
+                    const x = e.clientX - r.left, y = e.clientY - r.top;
+                    const rx = ((y / r.height) - 0.5) * -10;
+                    const ry = ((x / r.width) - 0.5) * 10;
+                    card.style.transform = `rotateX(${rx}deg) rotateY(${ry}deg) translateY(-6px)`;
+                });
+                card.addEventListener('mouseleave', function () { card.style.transform = 'rotateX(0) rotateY(0) translateY(0)'; });
+            }
+
+            /* ---------------- Product data + render ---------------- */
+            const products = [
+                { name: 'Butter Croissant', desc: 'Laminated 36 times for a shattering, golden crust.', price: '$4.50', rating: '4.9', img: 'https://picsum.photos/seed/prod-croissant/500/450', badge: 'Bestseller' },
+                { name: 'Country Sourdough', desc: '72-hour fermentation, naturally leavened.', price: '$8.00', rating: '5.0', img: 'https://picsum.photos/seed/prod-sourdough/500/450', badge: 'Chef Pick' },
+                { name: 'Dark Chocolate Cake', desc: 'Three layers of Valrhona ganache.', price: '$42.00', rating: '4.8', img: 'https://picsum.photos/seed/prod-choc/500/450', badge: '' },
+                { name: 'Red Velvet Cake', desc: 'Cocoa sponge with tangy cream cheese icing.', price: '$38.00', rating: '4.9', img: 'https://picsum.photos/seed/prod-redvelvet/500/450', badge: 'New' },
+                { name: 'French Macarons', desc: 'Six delicate shells, six seasonal flavors.', price: '$14.00', rating: '4.8', img: 'https://picsum.photos/seed/prod-macaron/500/450', badge: '' },
+                { name: 'Glazed Donuts', desc: 'Pillow-soft brioche dough, honey glaze.', price: '$3.50', rating: '4.7', img: 'https://picsum.photos/seed/prod-donut/500/450', badge: '' },
+                { name: 'Cinnamon Rolls', desc: 'Slow-proofed, rolled with Ceylon cinnamon.', price: '$5.50', rating: '4.9', img: 'https://picsum.photos/seed/prod-cinnamon/500/450', badge: 'Bestseller' },
+                { name: 'Vanilla Bean Cupcakes', desc: 'Madagascar vanilla, silky buttercream.', price: '$4.00', rating: '4.7', img: 'https://picsum.photos/seed/prod-cupcake/500/450', badge: '' }
+            ];
+            const grid = document.getElementById('productGrid');
+            products.forEach(p => {
+                const col = document.createElement('div');
+                col.className = 'col-sm-6 col-lg-3 reveal';
+                col.innerHTML = `
+    <div class="product-card">
+      ${p.badge ? `<span class="pc-badge">${p.badge}</span>` : ''}
+      <div class="pc-img-wrap"><img src="${p.img}" alt="${p.name}"><div class="pc-glass-sweep"></div></div>
+      <div class="pc-body">
+        <h4>${p.name}</h4>
+        <p>${p.desc}</p>
+        <div class="pc-rating"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-half"></i><span>${p.rating}</span></div>
+        <div class="pc-footer">
+          <span class="pc-price">${p.price}</span>
+          <button class="pc-order-btn" aria-label="Order ${p.name}"><i class="bi bi-plus-lg"></i></button>
+        </div>
+      </div>
+    </div>`;
+                grid.appendChild(col);
+                const card = col.querySelector('.product-card');
+                attachTilt(card);
+                revealObs.observe(col);
+            });
+
+            /* ---------------- Hero order card tabs ---------------- */
+            document.querySelectorAll('.oc-tab').forEach(tab => {
+                tab.addEventListener('click', function () {
+                    document.querySelectorAll('.oc-tab').forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                });
+            });
+
+            /* ---------------- Menu category switcher ---------------- */
+            const menuData = {
+                bread: [
+                    { name: 'Country Sourdough', price: '$8.00', img: 'https://picsum.photos/seed/menu-bread1/400/300' },
+                    { name: 'Baguette Tradition', price: '$3.50', img: 'https://picsum.photos/seed/menu-bread2/400/300' },
+                    { name: 'Rye &amp; Seed Loaf', price: '$7.00', img: 'https://picsum.photos/seed/menu-bread3/400/300' },
+                    { name: 'Olive Fougasse', price: '$6.50', img: 'https://picsum.photos/seed/menu-bread4/400/300' }
+                ],
+                pastries: [
+                    { name: 'Butter Croissant', price: '$4.50', img: 'https://picsum.photos/seed/menu-pastry1/400/300' },
+                    { name: 'Pain au Chocolat', price: '$4.80', img: 'https://picsum.photos/seed/menu-pastry2/400/300' },
+                    { name: 'Almond Danish', price: '$5.20', img: 'https://picsum.photos/seed/menu-pastry3/400/300' },
+                    { name: 'Kouign-Amann', price: '$5.50', img: 'https://picsum.photos/seed/menu-pastry4/400/300' }
+                ],
+                cakes: [
+                    { name: 'Dark Chocolate Cake', price: '$42.00', img: 'https://picsum.photos/seed/menu-cake1/400/300' },
+                    { name: 'Red Velvet Cake', price: '$38.00', img: 'https://picsum.photos/seed/menu-cake2/400/300' },
+                    { name: 'Lemon Elderflower Cake', price: '$40.00', img: 'https://picsum.photos/seed/menu-cake3/400/300' },
+                    { name: 'Carrot Walnut Cake', price: '$36.00', img: 'https://picsum.photos/seed/menu-cake4/400/300' }
+                ],
+                cookies: [
+                    { name: 'Sea Salt Chocolate Chip', price: '$3.00', img: 'https://picsum.photos/seed/menu-cookie1/400/300' },
+                    { name: 'Pistachio Shortbread', price: '$3.50', img: 'https://picsum.photos/seed/menu-cookie2/400/300' },
+                    { name: 'Oat &amp; Honey', price: '$2.80', img: 'https://picsum.photos/seed/menu-cookie3/400/300' },
+                    { name: 'Double Ginger Snap', price: '$2.90', img: 'https://picsum.photos/seed/menu-cookie4/400/300' }
+                ],
+                desserts: [
+                    { name: 'Creme Brulee Tart', price: '$7.50', img: 'https://picsum.photos/seed/menu-dess1/400/300' },
+                    { name: 'Fig &amp; Honey Tart', price: '$7.00', img: 'https://picsum.photos/seed/menu-dess2/400/300' },
+                    { name: 'Chocolate Mousse Cup', price: '$6.50', img: 'https://picsum.photos/seed/menu-dess3/400/300' },
+                    { name: 'Berry Panna Cotta', price: '$6.80', img: 'https://picsum.photos/seed/menu-dess4/400/300' }
+                ],
+                coffee: [
+                    { name: 'Single Origin Espresso', price: '$3.50', img: 'https://picsum.photos/seed/menu-coffee1/400/300' },
+                    { name: 'Oat Milk Latte', price: '$4.80', img: 'https://picsum.photos/seed/menu-coffee2/400/300' },
+                    { name: 'Cold Brew', price: '$4.20', img: 'https://picsum.photos/seed/menu-coffee3/400/300' },
+                    { name: 'Cardamom Cappuccino', price: '$4.60', img: 'https://picsum.photos/seed/menu-coffee4/400/300' }
+                ]
+            };
+            const menuContent = document.getElementById('menuContent');
+            Object.keys(menuData).forEach(key => {
+                const wrap = document.createElement('div');
+                wrap.className = 'row g-4 menu-grid' + (key === 'bread' ? ' active' : '');
+                wrap.dataset.menuGrid = key;
+                menuData[key].forEach(item => {
+                    wrap.innerHTML += `
+      <div class="col-sm-6 col-lg-3">
+        <div class="product-card">
+          <div class="pc-img-wrap"><img src="${item.img}" alt="${item.name}"><div class="pc-glass-sweep"></div></div>
+          <div class="pc-body">
+            <h4 style="font-size:1.15rem;">${item.name}</h4>
+            <div class="pc-footer" style="margin-top:.6rem;">
+              <span class="pc-price">${item.price}</span>
+              <button class="pc-order-btn"><i class="bi bi-plus-lg"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>`;
+                });
+                menuContent.appendChild(wrap);
+            });
+            document.querySelectorAll('.menu-tab').forEach(tab => {
+                tab.addEventListener('click', function () {
+                    document.querySelectorAll('.menu-tab').forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    document.querySelectorAll('.menu-grid').forEach(g => g.classList.remove('active'));
+                    document.querySelector(`[data-menu-grid="${tab.dataset.menu}"]`).classList.add('active');
+                });
+            });
+            document.querySelectorAll('#menuContent .product-card').forEach(attachTilt);
+
+            /* ---------------- Animated signature draw ---------------- */
+            const sigObs = new IntersectionObserver((entries) => {
+                entries.forEach(en => { if (en.isIntersecting) { en.target.classList.add('in-view'); } });
+            }, { threshold: 0.5 });
+            sigObs.observe(document.getElementById('signatureSvg'));
+
+            /* ---------------- Animated counters ---------------- */
+            const counters = document.querySelectorAll('.num[data-count]');
+            const countObs = new IntersectionObserver((entries) => {
+                entries.forEach(en => {
+                    if (en.isIntersecting) {
+                        const el = en.target;
+                        const target = parseInt(el.dataset.count, 10);
+                        const suffix = el.dataset.suffix || '+';
+                        let cur = 0;
+                        const step = Math.max(1, Math.ceil(target / 60));
+                        const tick = setInterval(() => {
+                            cur += step;
+                            if (cur >= target) { cur = target; clearInterval(tick); }
+                            el.textContent = cur + suffix;
+                        }, 25);
+                        countObs.unobserve(el);
+                    }
+                });
+            }, { threshold: 0.5 });
+            counters.forEach(c => countObs.observe(c));
+
+            /* ---------------- Order form submit ---------------- */
+            document.getElementById('orderForm').addEventListener('submit', function (e) {
+                e.preventDefault();
+                const btn = document.getElementById('ofSubmit');
+                const original = btn.innerHTML;
+                btn.innerHTML = '<i class="bi bi-check2-circle"></i> Order Received — We will Confirm Shortly';
+                btn.style.background = 'linear-gradient(135deg,#6b8f63,#557a4f)';
+                setTimeout(() => { this.reset(); btn.innerHTML = original; btn.style.background = ''; }, 3200);
+            });
+
+            /* ---------------- Newsletter ---------------- */
+            document.getElementById('newsletterBtn').addEventListener('click', function () {
+                const input = this.previousElementSibling;
+                if (input.value.trim()) {
+                    this.textContent = 'Subscribed';
+                    setTimeout(() => { this.textContent = 'Join'; input.value = ''; }, 2200);
+                }
+            });
+
+            /* ---------------- Back to top ---------------- */
+            document.getElementById('backToTop').addEventListener('click', function () {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+
+            /* ---------------- Active nav link on scroll ---------------- */
+            const sections = document.querySelectorAll('main section[id]');
+            const navA = document.querySelectorAll('.nav-links a');
+            const navObs = new IntersectionObserver((entries) => {
+                entries.forEach(en => {
+                    if (en.isIntersecting) {
+                        navA.forEach(a => a.classList.remove('active'));
+                        const active = document.querySelector(`.nav-links a[href="#${en.target.id}"]`);
+                        if (active) active.classList.add('active');
+                    }
+                });
+            }, { rootMargin: '-40% 0px -50% 0px' });
+            sections.forEach(s => navObs.observe(s));
+
+        });
+    </script>
+</body>
+
+</html>

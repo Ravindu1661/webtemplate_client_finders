@@ -1,0 +1,1637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NOIR & GOLD — Coffee Beyond Ordinary</title>
+<meta name="description" content="NOIR & GOLD is a luxury coffee house crafting rare single-origin roasts, precision espresso, and immersive cafe experiences. Reserve your table for coffee beyond ordinary.">
+<meta name="keywords" content="luxury coffee shop, specialty coffee, espresso bar, coffee reservation, single origin coffee, artisan cafe">
+<meta property="og:title" content="NOIR & GOLD — Experience Coffee Beyond Ordinary">
+<meta property="og:description" content="A cinematic, luxury coffee house experience. Rare roasts, precision espresso, immersive atmosphere.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&w=1200&auto=format&fit=crop">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CafeOrCoffeeShop",
+  "name": "NOIR & GOLD",
+  "image": "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&w=1200&auto=format&fit=crop",
+  "description": "A luxury coffee house crafting rare single-origin roasts and precision espresso in an immersive, cinematic atmosphere.",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "12 Rue des Ateliers",
+    "addressLocality": "Geneva",
+    "postalCode": "1201",
+    "addressCountry": "CH"
+  },
+  "servesCuisine": "Coffee, Desserts",
+  "priceRange": "$$$",
+  "telephone": "+41-22-555-0192",
+  "openingHours": "Mo-Su 07:00-22:00"
+}
+</script>
+
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,500&family=Outfit:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<!-- Bootstrap 5 CDN -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<!-- Bootstrap Icons -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+<!-- AOS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
+<!-- Swiper -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+
+<style>
+/* ============================================================
+   NOIR & GOLD — DESIGN TOKENS
+   ============================================================ */
+:root{
+  --bg:#FFF8F0;
+  --cream:#F5E6D3;
+  --coffee:#6F4E37;
+  --gold:#C89B3C;
+  --text:#241A12;
+  --text-soft:#5c4a3a;
+  --card:#FFFFFF;
+  --glass: rgba(255,255,255,0.55);
+  --glass-border: rgba(111,78,55,0.14);
+  --line: rgba(111,78,55,0.16);
+  --shadow: 0 30px 60px -25px rgba(111,78,55,0.35);
+  --radius-lg: 28px;
+  --radius-md: 18px;
+  --radius-sm: 12px;
+  color-scheme: light;
+}
+html[data-theme="dark"]{
+  --bg:#0B0B0B;
+  --cream:#161616;
+  --coffee:#D4A373;
+  --gold:#D4A373;
+  --text:#FFFFFF;
+  --text-soft:#c9bfb4;
+  --card:#141414;
+  --glass: rgba(22,22,22,0.55);
+  --glass-border: rgba(212,163,115,0.18);
+  --line: rgba(212,163,115,0.16);
+  --shadow: 0 30px 70px -25px rgba(0,0,0,0.65);
+  color-scheme: dark;
+}
+
+*{box-sizing:border-box;}
+html{scroll-behavior:auto;}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Outfit', sans-serif;
+  font-weight:300;
+  overflow-x:hidden;
+  transition: background 1s ease, color 1s ease;
+  cursor:none;
+}
+::selection{ background:var(--gold); color:#0B0B0B; }
+
+h1,h2,h3,h4,.font-display{
+  font-family:'Playfair Display', serif;
+}
+
+.eyebrow{
+  font-family:'Outfit',sans-serif;
+  letter-spacing:.35em;
+  text-transform:uppercase;
+  font-size:.72rem;
+  color:var(--gold);
+  font-weight:500;
+}
+
+.text-soft{ color:var(--text-soft); }
+.gold{ color:var(--gold); }
+
+a{ text-decoration:none; }
+
+/* ---------- scrollbar ---------- */
+::-webkit-scrollbar{ width:8px; }
+::-webkit-scrollbar-track{ background:transparent; }
+::-webkit-scrollbar-thumb{ background:var(--gold); border-radius:10px; }
+
+/* ============================================================
+   PRELOADER
+   ============================================================ */
+#preloader{
+  position:fixed; inset:0; z-index:99999;
+  background:#0B0B0B;
+  display:flex; align-items:center; justify-content:center; flex-direction:column;
+  transition: opacity .9s ease, visibility .9s ease;
+}
+#preloader.hide{ opacity:0; visibility:hidden; pointer-events:none; }
+.preload-cup{ position:relative; width:80px; height:96px; }
+.preload-cup svg{ width:100%; height:100%; display:block; }
+.preload-fill{
+  transform-origin:bottom;
+  transform:scaleY(0);
+  animation: fillCup 2.2s ease-in-out infinite;
+}
+@keyframes fillCup{
+  0%{ transform:scaleY(0); }
+  60%{ transform:scaleY(1); }
+  100%{ transform:scaleY(1); }
+}
+.preload-steam{
+  position:absolute; top:-26px; left:50%; width:3px; height:26px;
+  background:linear-gradient(to top, rgba(212,163,115,.9), transparent);
+  border-radius:6px; filter:blur(1px);
+  animation: steamRise 2.2s ease-in-out infinite;
+}
+.preload-steam:nth-child(2){ left:38%; animation-delay:.3s; }
+.preload-steam:nth-child(3){ left:62%; animation-delay:.6s; }
+@keyframes steamRise{
+  0%{ opacity:0; transform:translateY(0) translateX(0) scaleY(.6);}
+  40%{ opacity:.8; }
+  100%{ opacity:0; transform:translateY(-34px) translateX(6px) scaleY(1.3);}
+}
+.preload-word{
+  font-family:'Playfair Display', serif; letter-spacing:.28em; text-transform:uppercase;
+  color:#EFE3D3; font-size:.85rem; margin-top:26px; opacity:.85;
+}
+.preload-line{
+  width:200px; height:2px; background:rgba(255,255,255,.08); margin-top:18px; overflow:hidden; border-radius:2px;
+}
+.preload-line span{
+  display:block; height:100%; width:40%; background:linear-gradient(90deg,#C89B3C,#D4A373);
+  animation: loadSweep 1.4s ease-in-out infinite;
+}
+@keyframes loadSweep{
+  0%{ transform:translateX(-100%);}
+  100%{ transform:translateX(350%);}
+}
+
+/* ============================================================
+   CUSTOM CURSOR
+   ============================================================ */
+.cursor-dot, .cursor-ring{
+  position:fixed; top:0; left:0; pointer-events:none; z-index:99998;
+  border-radius:50%; transform:translate(-50%,-50%);
+  transition: opacity .3s ease;
+}
+.cursor-dot{ width:6px; height:6px; background:var(--gold); }
+.cursor-ring{
+  width:38px; height:38px; border:1px solid var(--gold);
+  transition: width .25s ease, height .25s ease, border-color .25s ease, background .25s ease, transform .08s linear;
+}
+.cursor-ring.grow{ width:80px; height:80px; background:rgba(200,155,60,0.08); }
+.cursor-ring.btn{ width:64px; height:64px; background:var(--gold); border-color:transparent; mix-blend-mode:difference; }
+@media (max-width: 991px){
+  .cursor-dot,.cursor-ring{ display:none; }
+  body{ cursor:auto; }
+}
+
+/* ============================================================
+   NAVBAR
+   ============================================================ */
+.navbar-float{
+  position:fixed; top:22px; left:50%; transform:translateX(-50%);
+  width:min(1180px, 92%);
+  z-index:1000;
+  background:transparent;
+  border:1px solid transparent;
+  border-radius:100px;
+  padding:10px 10px 10px 28px;
+  display:flex; align-items:center; justify-content:space-between;
+  transition: all .5s cubic-bezier(.4,0,.2,1);
+}
+.navbar-float.scrolled{
+  background:var(--glass);
+  backdrop-filter: blur(18px) saturate(160%);
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+  border:1px solid var(--glass-border);
+  box-shadow: var(--shadow);
+  padding:8px 8px 8px 26px;
+}
+.brand{
+  font-family:'Playfair Display', serif; font-weight:700; font-size:1.25rem;
+  color:var(--text); display:flex; align-items:center; gap:8px; letter-spacing:.02em;
+}
+.brand .bi{ color:var(--gold); }
+.nav-links{ display:flex; gap:2.1rem; align-items:center; margin:0; padding:0; list-style:none; }
+.nav-links a{
+  color:var(--text); font-size:.88rem; font-weight:400; position:relative; opacity:.85;
+  transition:opacity .3s ease;
+}
+.nav-links a::after{
+  content:''; position:absolute; left:0; bottom:-6px; width:0; height:1px; background:var(--gold);
+  transition: width .35s ease;
+}
+.nav-links a:hover{ opacity:1; }
+.nav-links a:hover::after{ width:100%; }
+.nav-actions{ display:flex; align-items:center; gap:10px; }
+.theme-toggle{
+  width:44px; height:44px; border-radius:50%; border:1px solid var(--glass-border);
+  display:flex; align-items:center; justify-content:center; background:var(--glass);
+  color:var(--gold); font-size:1.05rem; cursor:pointer;
+}
+.btn-gold{
+  background: linear-gradient(135deg, var(--gold), #a9782f);
+  color:#1a1208; border:none; border-radius:100px; padding:.65rem 1.4rem;
+  font-size:.82rem; font-weight:600; letter-spacing:.03em;
+  transition: transform .3s ease, box-shadow .3s ease;
+}
+html[data-theme="dark"] .btn-gold{ color:#0B0B0B; }
+.btn-gold:hover{ transform:translateY(-2px); box-shadow:0 12px 30px -10px rgba(200,155,60,.6); color:#1a1208; }
+.btn-outline-gold{
+  border:1px solid var(--gold); color:var(--text); border-radius:100px; padding:.62rem 1.3rem;
+  font-size:.82rem; font-weight:500; background:transparent; transition:all .3s ease;
+}
+.btn-outline-gold:hover{ background:var(--gold); color:#1a1208; }
+.burger{ display:none; }
+@media (max-width: 991px){
+  .nav-links{ display:none; }
+  .burger{
+    display:flex; width:44px; height:44px; border-radius:50%; border:1px solid var(--glass-border);
+    align-items:center; justify-content:center; background:var(--glass); color:var(--text);
+  }
+  .navbar-float{ padding:8px 8px 8px 20px; }
+}
+
+/* mobile offcanvas */
+.offcanvas-luxury{ background:var(--bg); color:var(--text); width:78vw; max-width:340px; }
+.offcanvas-luxury a{ color:var(--text); font-size:1.1rem; font-family:'Playfair Display',serif; }
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero{
+  position:relative; height:100vh; min-height:720px; overflow:hidden;
+  display:flex; align-items:center;
+}
+.hero-bg{
+  position:absolute; inset:0; z-index:0;
+  background: url('https://images.unsplash.com/photo-1445116572660-236099ec97a0?q=80&w=1800&auto=format&fit=crop') center/cover no-repeat;
+  transform: scale(1.08);
+}
+.hero-bg::after{
+  content:''; position:absolute; inset:0;
+  background: linear-gradient(180deg, rgba(6,4,2,.55) 0%, rgba(6,4,2,.72) 55%, rgba(6,4,2,.92) 100%);
+}
+.hero-rays{
+  position:absolute; inset:0; z-index:1; pointer-events:none; mix-blend-mode:screen; opacity:.5;
+  background: conic-gradient(from 200deg at 70% 20%, rgba(212,163,115,0.25), transparent 30%);
+  animation: raySwing 12s ease-in-out infinite alternate;
+}
+@keyframes raySwing{ 0%{ opacity:.3;} 100%{ opacity:.6;} }
+
+.particle{
+  position:absolute; border-radius:50%; background:rgba(212,163,115,.55); filter:blur(1px);
+  animation: floatUp linear infinite;
+}
+@keyframes floatUp{
+  0%{ transform:translateY(0) translateX(0); opacity:0; }
+  10%{ opacity:.8; }
+  90%{ opacity:.5; }
+  100%{ transform:translateY(-100vh) translateX(30px); opacity:0; }
+}
+
+.hero-content{ position:relative; z-index:2; color:#fff; }
+.hero-content .eyebrow{ color:#D4A373; }
+.hero-title{
+  font-size: clamp(2.6rem, 6.2vw, 5.6rem);
+  font-weight:700; line-height:1.03; letter-spacing:-.01em;
+  margin: 1rem 0 1.4rem;
+}
+.hero-title em{ font-style:italic; font-weight:500; color:#D4A373; }
+.hero-sub{ font-size:1.1rem; color:rgba(255,255,255,.78); max-width:480px; font-weight:300; }
+.hero-btns{ display:flex; gap:1rem; margin-top:2.4rem; flex-wrap:wrap; }
+.btn-ghost-light{
+  border:1px solid rgba(255,255,255,.5); color:#fff; border-radius:100px; padding:.85rem 1.8rem;
+  font-size:.85rem; letter-spacing:.02em; transition:all .3s ease; display:inline-flex; align-items:center; gap:.5rem;
+}
+.btn-ghost-light:hover{ background:#fff; color:#1a1208; }
+.btn-gold-lg{
+  background:linear-gradient(135deg,var(--gold),#a9782f); color:#1a1208; border-radius:100px; padding:.85rem 1.9rem;
+  font-size:.85rem; font-weight:600; display:inline-flex; align-items:center; gap:.5rem; transition:transform .3s ease, box-shadow .3s ease;
+}
+.btn-gold-lg:hover{ transform:translateY(-3px); box-shadow:0 16px 34px -12px rgba(212,163,115,.6); color:#1a1208; }
+
+.hero-float-card{
+  position:absolute; right:6%; bottom:14%; z-index:3;
+  width:240px; padding:1.4rem; border-radius:var(--radius-lg);
+  background:rgba(255,255,255,.08); backdrop-filter:blur(18px);
+  border:1px solid rgba(255,255,255,.18); color:#fff;
+  transform: perspective(800px) rotateX(4deg) rotateY(-8deg);
+  box-shadow: 0 40px 80px -30px rgba(0,0,0,.6);
+}
+.hero-float-card img{ border-radius:14px; width:100%; height:120px; object-fit:cover; margin-bottom:.8rem; }
+.hero-float-card .rating{ color:var(--gold); font-size:.8rem; }
+@media (max-width:991px){ .hero-float-card{ display:none; } }
+
+.scroll-cue{
+  position:absolute; bottom:34px; left:50%; transform:translateX(-50%); z-index:3;
+  color:rgba(255,255,255,.7); font-size:.72rem; letter-spacing:.3em; text-transform:uppercase;
+  display:flex; flex-direction:column; align-items:center; gap:.6rem;
+}
+.scroll-cue .line{ width:1px; height:38px; background:rgba(255,255,255,.4); position:relative; overflow:hidden; }
+.scroll-cue .line span{ position:absolute; top:-40%; width:100%; height:40%; background:var(--gold); animation:scrollDown 1.8s ease-in-out infinite; }
+@keyframes scrollDown{ 0%{ top:-40%; } 100%{ top:100%; } }
+
+/* ============================================================
+   SECTION SHELL
+   ============================================================ */
+.section{ padding:7rem 0; position:relative; }
+.section-head{ max-width:640px; }
+.section-title{ font-size: clamp(2rem, 3.6vw, 3.2rem); font-weight:600; line-height:1.1; margin-top:.6rem; }
+.divider-gold{ width:60px; height:2px; background:var(--gold); margin:1.6rem 0; }
+
+.glass-card{
+  background:var(--glass);
+  backdrop-filter:blur(16px) saturate(150%);
+  -webkit-backdrop-filter:blur(16px) saturate(150%);
+  border:1px solid var(--glass-border);
+  border-radius:var(--radius-lg);
+  box-shadow: var(--shadow);
+}
+
+/* ============================================================
+   BEAN JOURNEY TIMELINE
+   ============================================================ */
+.journey-track{ position:relative; padding-top:2rem; }
+.journey-line{
+  position:absolute; top:calc(2rem + 34px); left:0; right:0; height:2px;
+  background:linear-gradient(90deg, transparent, var(--line) 10%, var(--line) 90%, transparent);
+}
+.journey-line-fill{
+  position:absolute; top:0; left:0; height:100%; width:0%;
+  background:linear-gradient(90deg, var(--gold), #a9782f);
+  transition: width 1.6s cubic-bezier(.4,0,.2,1);
+}
+.journey-step{ text-align:center; position:relative; }
+.journey-dot{
+  width:70px; height:70px; border-radius:50%; margin:0 auto 1.4rem;
+  background:var(--card); border:1px solid var(--line); display:flex; align-items:center; justify-content:center;
+  font-size:1.5rem; color:var(--gold); position:relative; z-index:2; box-shadow:var(--shadow);
+  transition: transform .4s ease;
+}
+.journey-step:hover .journey-dot{ transform:scale(1.1) rotate(8deg); }
+.journey-step h5{ font-family:'Playfair Display',serif; font-size:1.15rem; margin-bottom:.5rem; }
+.bean-drift{
+  position:absolute; width:10px; height:14px; background:var(--coffee); border-radius:60% 60% 60% 60% / 70% 70% 60% 60%;
+  opacity:.5; top:1.6rem; animation: beanMove 7s linear infinite;
+}
+@keyframes beanMove{
+  0%{ left:-5%; transform:rotate(0deg); }
+  100%{ left:105%; transform:rotate(340deg); }
+}
+
+/* ============================================================
+   MENU (3D tilt cards)
+   ============================================================ */
+.menu-card{
+  border-radius:var(--radius-lg); overflow:hidden; position:relative; background:var(--card);
+  border:1px solid var(--line); transition: transform .1s ease, box-shadow .4s ease; box-shadow:var(--shadow);
+  height:100%;
+}
+.menu-card .img-wrap{ height:230px; overflow:hidden; position:relative; }
+.menu-card .img-wrap img{ width:100%; height:100%; object-fit:cover; transition:transform .7s ease; }
+.menu-card:hover .img-wrap img{ transform:scale(1.08); }
+.menu-card .shine{
+  position:absolute; inset:0; background:linear-gradient(120deg, transparent 30%, rgba(255,255,255,.25) 45%, transparent 60%);
+  transform:translateX(-120%); transition:transform .9s ease;
+}
+.menu-card:hover .shine{ transform:translateX(120%); }
+.menu-body{ padding:1.4rem 1.5rem 1.6rem; }
+.menu-body h5{ font-family:'Playfair Display',serif; font-size:1.25rem; }
+.menu-price{ font-family:'Playfair Display',serif; color:var(--gold); font-size:1.3rem; }
+.menu-rating{ color:var(--gold); font-size:.78rem; }
+.btn-order-sm{
+  border:1px solid var(--gold); color:var(--text); border-radius:100px; padding:.45rem 1.1rem; font-size:.78rem;
+  background:transparent; transition:all .3s ease;
+}
+.btn-order-sm:hover{ background:var(--gold); color:#1a1208; }
+
+/* ============================================================
+   BARISTA EDITORIAL
+   ============================================================ */
+.barista-sig{ font-family:'Playfair Display',serif; font-style:italic; font-size:2rem; color:var(--gold); }
+.barista-award{ display:flex; align-items:flex-start; gap:.9rem; margin-bottom:1.1rem; }
+.barista-award .bi{ color:var(--gold); font-size:1.2rem; margin-top:2px; }
+.barista-photo-wrap{ position:relative; border-radius:var(--radius-lg); overflow:hidden; }
+.barista-photo-wrap img{ width:100%; display:block; }
+.barista-frame{
+  position:absolute; inset:14px; border:1px solid rgba(255,255,255,.5); border-radius:calc(var(--radius-lg) - 10px); pointer-events:none;
+}
+
+/* ============================================================
+   CAFE EXPERIENCE (immersive rows)
+   ============================================================ */
+.exp-row{ display:flex; align-items:stretch; margin-bottom:1.4rem; border-radius:var(--radius-lg); overflow:hidden; min-height:340px; }
+.exp-row .exp-img{ flex:1 1 45%; overflow:hidden; }
+.exp-row .exp-img img{ width:100%; height:100%; object-fit:cover; min-height:340px; transition:transform .8s ease; }
+.exp-row:hover .exp-img img{ transform:scale(1.06); }
+.exp-row .exp-text{ flex:1 1 55%; background:var(--cream); display:flex; flex-direction:column; justify-content:center; padding:3rem; }
+.exp-row.reverse{ flex-direction:row-reverse; }
+@media (max-width: 767px){
+  .exp-row, .exp-row.reverse{ flex-direction:column; }
+  .exp-row .exp-img img{ min-height:220px; }
+}
+.exp-num{ font-family:'Playfair Display',serif; font-size:.9rem; color:var(--gold); letter-spacing:.2em; }
+
+/* ============================================================
+   DESSERT PAIRING
+   ============================================================ */
+.dessert-card{ text-align:center; }
+.dessert-circle{
+  width:100%; aspect-ratio:1/1; border-radius:50%; overflow:hidden; position:relative;
+  border:1px solid var(--line); box-shadow:var(--shadow); margin-bottom:1.1rem;
+}
+.dessert-circle img{ width:100%; height:100%; object-fit:cover; transition:transform .6s ease; }
+.dessert-card:hover .dessert-circle img{ transform:scale(1.12) rotate(3deg); }
+
+/* ============================================================
+   ORDER UI
+   ============================================================ */
+.filter-pill{
+  border:1px solid var(--line); background:transparent; color:var(--text); border-radius:100px;
+  padding:.5rem 1.2rem; font-size:.84rem; transition:all .3s ease;
+}
+.filter-pill.active, .filter-pill:hover{ background:var(--gold); color:#1a1208; border-color:var(--gold); }
+.order-card{
+  border-radius:var(--radius-md); background:var(--card); border:1px solid var(--line); overflow:hidden;
+  transition:transform .35s ease, box-shadow .35s ease; height:100%;
+}
+.order-card:hover{ transform:translateY(-6px); box-shadow:var(--shadow); }
+.order-card img{ width:100%; height:160px; object-fit:cover; }
+.order-card .body{ padding:1.1rem 1.2rem 1.3rem; }
+.qty-control{ display:flex; align-items:center; gap:.7rem; }
+.qty-control button{
+  width:30px; height:30px; border-radius:50%; border:1px solid var(--line); background:transparent; color:var(--text);
+}
+.cart-fab{
+  position:fixed; bottom:26px; right:26px; z-index:900; width:60px; height:60px; border-radius:50%;
+  background:linear-gradient(135deg, var(--gold), #a9782f); color:#1a1208; display:flex; align-items:center; justify-content:center;
+  box-shadow:0 16px 34px -10px rgba(200,155,60,.6); font-size:1.3rem; border:none;
+}
+.cart-fab .badge{ position:absolute; top:-4px; right:-4px; background:#241A12; color:#fff; border-radius:50%; width:22px; height:22px; font-size:.7rem; display:flex; align-items:center; justify-content:center; }
+
+/* ============================================================
+   RESERVATION
+   ============================================================ */
+.reservation-wrap{
+  border-radius:var(--radius-lg); overflow:hidden; position:relative;
+  background: url('https://images.unsplash.com/photo-1493857671505-72967e2e2760?q=80&w=1600&auto=format&fit=crop') center/cover;
+}
+.reservation-overlay{ background:rgba(8,6,4,.72); padding:4rem 3rem; }
+.form-control-lux{
+  background:transparent; border:none; border-bottom:1px solid rgba(255,255,255,.35); color:#fff; border-radius:0;
+  padding:.7rem .2rem; font-size:.95rem;
+}
+.form-control-lux:focus{ background:transparent; box-shadow:none; border-bottom-color:var(--gold); color:#fff; }
+.form-control-lux::placeholder{ color:rgba(255,255,255,.45); }
+label.lux-label{ font-size:.72rem; letter-spacing:.15em; text-transform:uppercase; color:rgba(255,255,255,.6); margin-bottom:.4rem; display:block; }
+
+/* success modal */
+.success-check{
+  width:80px; height:80px; border-radius:50%; border:2px solid var(--gold); display:flex; align-items:center; justify-content:center;
+  font-size:2rem; color:var(--gold); margin:0 auto 1.2rem; animation: popIn .5s ease;
+}
+@keyframes popIn{ 0%{ transform:scale(0); opacity:0;} 70%{ transform:scale(1.15);} 100%{ transform:scale(1); opacity:1;} }
+
+/* ============================================================
+   GALLERY MASONRY
+   ============================================================ */
+.masonry{ column-count:3; column-gap:1rem; }
+.masonry-item{ break-inside:avoid; margin-bottom:1rem; border-radius:var(--radius-md); overflow:hidden; position:relative; cursor:pointer; }
+.masonry-item img{ width:100%; display:block; transition:transform .6s ease; }
+.masonry-item:hover img{ transform:scale(1.08); }
+.masonry-item .m-overlay{
+  position:absolute; inset:0; background:rgba(10,8,6,0); display:flex; align-items:center; justify-content:center;
+  color:#fff; opacity:0; transition:all .35s ease; font-size:1.4rem;
+}
+.masonry-item:hover .m-overlay{ opacity:1; background:rgba(10,8,6,.35); }
+@media (max-width:767px){ .masonry{ column-count:2; } }
+
+/* ============================================================
+   TESTIMONIALS
+   ============================================================ */
+.testi-card{ padding:2.4rem; text-align:center; }
+.testi-card img{ width:70px; height:70px; border-radius:50%; object-fit:cover; margin:0 auto 1rem; border:2px solid var(--gold); }
+.testi-quote{ font-family:'Playfair Display',serif; font-style:italic; font-size:1.2rem; max-width:640px; margin:0 auto 1.2rem; }
+.testi-stars{ color:var(--gold); font-size:.85rem; margin-bottom:.6rem; }
+
+/* ============================================================
+   STATISTICS
+   ============================================================ */
+.stat-num{ font-family:'Playfair Display',serif; font-weight:700; font-size:clamp(2.2rem,4vw,3.4rem); color:var(--gold); }
+.stat-label{ font-size:.82rem; letter-spacing:.1em; text-transform:uppercase; color:var(--text-soft); }
+
+/* ============================================================
+   LOCATION
+   ============================================================ */
+.map-frame{ border-radius:var(--radius-lg); overflow:hidden; border:1px solid var(--line); filter: grayscale(.25) contrast(1.05); }
+html[data-theme="dark"] .map-frame{ filter: invert(.9) grayscale(.4) contrast(1.05); }
+.info-float{
+  position:absolute; bottom:20px; left:20px; right:20px; padding:1.4rem 1.6rem; border-radius:var(--radius-md);
+}
+@media (min-width:768px){ .info-float{ right:auto; width:300px; } }
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+footer{ background:var(--coffee); color:#fff; padding-top:5rem; }
+html[data-theme="dark"] footer{ background:#0d0d0d; border-top:1px solid var(--line); }
+footer a{ color:rgba(255,255,255,.75); }
+footer a:hover{ color:var(--gold); }
+.footer-brand{ font-family:'Playfair Display',serif; font-size:1.5rem; font-weight:700; color:#fff; }
+.social-circle{
+  width:40px; height:40px; border-radius:50%; border:1px solid rgba(255,255,255,.25); display:flex; align-items:center; justify-content:center; color:#fff;
+  transition: all .3s ease;
+}
+.social-circle:hover{ background:var(--gold); border-color:var(--gold); color:#1a1208; }
+.insta-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:.5rem; }
+.insta-grid img{ width:100%; aspect-ratio:1/1; object-fit:cover; border-radius:8px; }
+.footer-bottom{ border-top:1px solid rgba(255,255,255,.12); margin-top:3rem; padding:1.6rem 0; font-size:.82rem; color:rgba(255,255,255,.55); }
+.newsletter-input{
+  background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.2); color:#fff; border-radius:100px 0 0 100px;
+  padding:.7rem 1.2rem;
+}
+.newsletter-input:focus{ background:rgba(255,255,255,.1); color:#fff; box-shadow:none; border-color:var(--gold); }
+.newsletter-btn{ border-radius:0 100px 100px 0; background:var(--gold); border:1px solid var(--gold); color:#1a1208; padding:.7rem 1.3rem; }
+
+/* ============================================================
+   FLOATING UTILITIES
+   ============================================================ */
+.whatsapp-fab{
+  position:fixed; bottom:98px; right:26px; z-index:900; width:56px; height:56px; border-radius:50%;
+  background:#25D366; color:#fff; display:flex; align-items:center; justify-content:center; font-size:1.5rem;
+  box-shadow:0 14px 30px -10px rgba(37,211,102,.6);
+}
+.back-to-top{
+  position:fixed; bottom:26px; left:26px; z-index:900; width:48px; height:48px; border-radius:50%;
+  background:var(--glass); border:1px solid var(--glass-border); backdrop-filter:blur(10px); color:var(--text);
+  display:flex; align-items:center; justify-content:center; opacity:0; visibility:hidden; transition:all .4s ease;
+}
+.back-to-top.show{ opacity:1; visibility:visible; }
+
+.cookie-banner{
+  position:fixed; bottom:0; left:0; right:0; z-index:1200; background:var(--card); border-top:1px solid var(--line);
+  padding:1.2rem 1.5rem; display:flex; align-items:center; justify-content:center; gap:1.4rem; flex-wrap:wrap;
+  transform:translateY(110%); transition:transform .6s cubic-bezier(.4,0,.2,1); box-shadow:0 -10px 30px rgba(0,0,0,.15);
+}
+.cookie-banner.show{ transform:translateY(0); }
+
+.search-popup, .newsletter-popup{
+  position:fixed; inset:0; z-index:1300; background:rgba(6,4,2,.75); display:flex; align-items:center; justify-content:center;
+  opacity:0; visibility:hidden; transition:all .4s ease; backdrop-filter:blur(6px);
+}
+.search-popup.show, .newsletter-popup.show{ opacity:1; visibility:visible; }
+.search-box{ width:min(600px,90%); }
+.search-box input{
+  width:100%; background:transparent; border:none; border-bottom:1px solid var(--gold); color:#fff;
+  font-family:'Playfair Display',serif; font-size:2rem; padding:.6rem 0;
+}
+.search-box input:focus{ outline:none; }
+.newsletter-popup .glass-card{ width:min(460px,90%); padding:2.6rem; text-align:center; position:relative; }
+.popup-close{ position:absolute; top:16px; right:16px; background:none; border:none; font-size:1.4rem; color:var(--text); }
+
+.lang-curr-toggle{ display:flex; gap:.5rem; }
+.lang-curr-toggle select{
+  background:var(--glass); border:1px solid var(--glass-border); color:var(--text); border-radius:100px; font-size:.78rem; padding:.35rem .8rem;
+}
+
+/* FAQ */
+.accordion-item{ background:transparent; border:none; border-bottom:1px solid var(--line); }
+.accordion-button{ background:transparent; color:var(--text); font-family:'Playfair Display',serif; font-size:1.05rem; box-shadow:none; padding:1.3rem 0; }
+.accordion-button:not(.collapsed){ background:transparent; color:var(--gold); box-shadow:none; }
+.accordion-button::after{ filter:none; }
+.accordion-body{ padding:0 0 1.3rem; color:var(--text-soft); }
+
+/* reveal animations helper */
+.reveal-img{ overflow:hidden; border-radius:var(--radius-lg); }
+.reveal-img img{ width:100%; display:block; }
+
+@media (max-width: 767px){
+  .masonry{ column-count:1; }
+  .reservation-overlay{ padding:2.4rem 1.4rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- ================= PRELOADER ================= -->
+<div id="preloader">
+  <div class="preload-cup">
+    <div class="preload-steam"></div>
+    <div class="preload-steam"></div>
+    <div class="preload-steam"></div>
+    <svg viewBox="0 0 80 96">
+      <defs>
+        <clipPath id="cupClip">
+          <path d="M10 14 H60 L54 70 Q52 84 40 84 Q28 84 26 70 Z"/>
+        </clipPath>
+      </defs>
+      <path d="M10 14 H60 L54 70 Q52 84 40 84 Q28 84 26 70 Z" fill="none" stroke="#D4A373" stroke-width="2"/>
+      <path d="M60 22 Q76 22 76 38 Q76 52 60 50" fill="none" stroke="#D4A373" stroke-width="2"/>
+      <g clip-path="url(#cupClip)">
+        <rect class="preload-fill" x="8" y="20" width="64" height="66" fill="#C89B3C"/>
+      </g>
+    </svg>
+  </div>
+  <div class="preload-word">Noir &amp; Gold</div>
+  <div class="preload-line"><span></span></div>
+</div>
+
+<!-- ================= CUSTOM CURSOR ================= -->
+<div class="cursor-dot"></div>
+<div class="cursor-ring"></div>
+
+<!-- ================= NAVBAR ================= -->
+<nav class="navbar-float" id="mainNav">
+  <a href="#home" class="brand"><i class="bi bi-cup-hot-fill"></i> NOIR &amp; GOLD</a>
+  <ul class="nav-links">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#reservation">Reservation</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="nav-actions">
+    <button class="theme-toggle" id="themeToggle" title="Toggle theme"><i class="bi bi-moon-stars-fill" id="themeIcon"></i></button>
+    <a href="#order" class="btn-outline-gold d-none d-lg-inline-block">Order Now</a>
+    <a href="#reservation" class="btn-gold d-none d-lg-inline-block">Book Table</a>
+    <button class="burger" data-bs-toggle="offcanvas" data-bs-target="#mobileMenu"><i class="bi bi-list"></i></button>
+  </div>
+</nav>
+
+<!-- Mobile Offcanvas -->
+<div class="offcanvas offcanvas-end offcanvas-luxury" tabindex="-1" id="mobileMenu">
+  <div class="offcanvas-header">
+    <span class="brand">NOIR &amp; GOLD</span>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+  </div>
+  <div class="offcanvas-body d-flex flex-column gap-3">
+    <a href="#home" data-bs-dismiss="offcanvas">Home</a>
+    <a href="#about" data-bs-dismiss="offcanvas">About</a>
+    <a href="#menu" data-bs-dismiss="offcanvas">Menu</a>
+    <a href="#experience" data-bs-dismiss="offcanvas">Experience</a>
+    <a href="#gallery" data-bs-dismiss="offcanvas">Gallery</a>
+    <a href="#reservation" data-bs-dismiss="offcanvas">Reservation</a>
+    <a href="#contact" data-bs-dismiss="offcanvas">Contact</a>
+    <a href="#order" class="btn-gold text-center mt-3" data-bs-dismiss="offcanvas">Order Now</a>
+  </div>
+</div>
+
+<!-- ================= HERO ================= -->
+<section class="hero" id="home">
+  <div class="hero-bg" id="heroBg"></div>
+  <div class="hero-rays"></div>
+  <div id="particles"></div>
+  <div class="container hero-content">
+    <div class="row">
+      <div class="col-lg-8">
+        <p class="eyebrow" data-aos="fade-up">Est. 2028 · Geneva</p>
+        <h1 class="hero-title" data-aos="fade-up" data-aos-delay="100">Experience Coffee<br><em>Beyond Ordinary</em></h1>
+        <p class="hero-sub" data-aos="fade-up" data-aos-delay="200">Crafted moments, roasted perfection. A rare coffee house where each cup is composed like a fine perfume — precise, layered, unforgettable.</p>
+        <div class="hero-btns" data-aos="fade-up" data-aos-delay="300">
+          <a href="#menu" class="btn-gold-lg">Explore Menu <i class="bi bi-arrow-right"></i></a>
+          <a href="#reservation" class="btn-ghost-light">Reserve Table <i class="bi bi-calendar-heart"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-float-card" id="floatCard" data-aos="fade-left" data-aos-delay="500">
+    <img src="https://images.unsplash.com/photo-1541167760496-1628856ab772?q=80&w=500&auto=format&fit=crop" alt="Signature latte art" loading="lazy">
+    <div class="rating"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></div>
+    <p class="mb-0" style="font-size:.82rem; margin-top:.4rem;">"Signature Blend" — our most awarded pour, tasted by over 40,000 guests.</p>
+  </div>
+  <div class="scroll-cue"><span>Scroll</span><div class="line"><span></span></div></div>
+</section>
+
+<!-- ================= ABOUT / STORY ================= -->
+<section class="section" id="about">
+  <div class="container">
+    <div class="row align-items-center g-5">
+      <div class="col-lg-6" data-aos="fade-right">
+        <div class="reveal-img">
+          <img src="https://images.unsplash.com/photo-1447933601403-0c6688de566e?q=80&w=1200&auto=format&fit=crop" alt="Luxury coffee shop interior" loading="lazy">
+        </div>
+      </div>
+      <div class="col-lg-6" data-aos="fade-left">
+        <p class="eyebrow">Our Philosophy</p>
+        <h2 class="section-title">A sanctuary built<br>around the bean.</h2>
+        <div class="divider-gold"></div>
+        <p class="text-soft">NOIR &amp; GOLD was founded on a single idea: that coffee deserves the same reverence as fine wine. Every element of our house — the light, the sound, the silence between sips — is designed to slow you down and let the roast speak.</p>
+        <p class="text-soft">We work directly with fewer than twenty micro-farms across Ethiopia, Panama and Colombia, roasting in small batches inside our Geneva atelier every single morning.</p>
+        <div class="row mt-4">
+          <div class="col-6"><h3 class="stat-num" data-count="10">0</h3><p class="stat-label">Years of Craft</p></div>
+          <div class="col-6"><h3 class="stat-num" data-count="15">0</h3><p class="stat-label">Origin Partners</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= COFFEE BEAN EXPERIENCE (TIMELINE) ================= -->
+<section class="section" style="background:var(--cream);">
+  <div class="container">
+    <div class="section-head mx-auto text-center" data-aos="fade-up">
+      <p class="eyebrow">From Farm To Cup</p>
+      <h2 class="section-title">The Bean Journey</h2>
+    </div>
+    <div class="journey-track mt-5">
+      <div class="journey-line"><div class="journey-line-fill" id="journeyFill"></div>
+        <div class="bean-drift" style="animation-delay:0s;"></div>
+        <div class="bean-drift" style="animation-delay:-2.3s;"></div>
+        <div class="bean-drift" style="animation-delay:-4.6s;"></div>
+      </div>
+      <div class="row g-4">
+        <div class="col-6 col-md-3 journey-step" data-aos="fade-up" data-aos-delay="0">
+          <div class="journey-dot"><i class="bi bi-flower2"></i></div>
+          <h5>01. Origin</h5>
+          <p class="text-soft small">Hand-picked cherries from single-estate farms at 1,800m altitude.</p>
+        </div>
+        <div class="col-6 col-md-3 journey-step" data-aos="fade-up" data-aos-delay="150">
+          <div class="journey-dot"><i class="bi bi-fire"></i></div>
+          <h5>02. Roasting</h5>
+          <p class="text-soft small">Slow-roasted in small batches to unlock caramel and stone-fruit notes.</p>
+        </div>
+        <div class="col-6 col-md-3 journey-step" data-aos="fade-up" data-aos-delay="300">
+          <div class="journey-dot"><i class="bi bi-gear-wide-connected"></i></div>
+          <h5>03. Grinding</h5>
+          <p class="text-soft small">Precision-milled seconds before brewing to preserve aromatic oils.</p>
+        </div>
+        <div class="col-6 col-md-3 journey-step" data-aos="fade-up" data-aos-delay="450">
+          <div class="journey-dot"><i class="bi bi-cup-hot"></i></div>
+          <h5>04. Brewing</h5>
+          <p class="text-soft small">Extracted at exact temperature and pressure for a flawless pour.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SIGNATURE MENU ================= -->
+<section class="section" id="menu">
+  <div class="container">
+    <div class="d-flex justify-content-between align-items-end flex-wrap gap-3 mb-5" data-aos="fade-up">
+      <div>
+        <p class="eyebrow">Signature Selection</p>
+        <h2 class="section-title mb-0">Our Coffee Menu</h2>
+      </div>
+      <p class="text-soft" style="max-width:360px;">Six expressions of the bean, each composed to reveal a different side of our roast.</p>
+    </div>
+    <div class="row g-4" id="menuGrid">
+      <!-- items injected also statically for content -->
+      <div class="col-md-6 col-lg-4" data-aos="fade-up">
+        <div class="menu-card tilt-card">
+          <div class="img-wrap"><img src="https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04?q=80&w=800&auto=format&fit=crop" alt="Espresso" loading="lazy"><div class="shine"></div></div>
+          <div class="menu-body">
+            <div class="d-flex justify-content-between align-items-start"><h5>Espresso</h5><span class="menu-price">$6</span></div>
+            <p class="text-soft small mb-2">Double-shot ristretto, notes of dark chocolate and toasted hazelnut.</p>
+            <div class="d-flex justify-content-between align-items-center">
+              <span class="menu-rating"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-half"></i> 4.5</span>
+              <button class="btn-order-sm add-to-cart" data-name="Espresso" data-price="6">Order</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
+        <div class="menu-card tilt-card">
+          <div class="img-wrap"><img src="https://images.unsplash.com/photo-1572442388796-11668a67e53d?q=80&w=800&auto=format&fit=crop" alt="Cappuccino" loading="lazy"><div class="shine"></div></div>
+          <div class="menu-body">
+            <div class="d-flex justify-content-between align-items-start"><h5>Cappuccino</h5><span class="menu-price">$7</span></div>
+            <p class="text-soft small mb-2">Silken microfoam over espresso, dusted with Ceylon cinnamon.</p>
+            <div class="d-flex justify-content-between align-items-center">
+              <span class="menu-rating"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i> 5.0</span>
+              <button class="btn-order-sm add-to-cart" data-name="Cappuccino" data-price="7">Order</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="200">
+        <div class="menu-card tilt-card">
+          <div class="img-wrap"><img src="https://images.unsplash.com/photo-1461023058943-07fcbe16d735?q=80&w=800&auto=format&fit=crop" alt="Latte" loading="lazy"><div class="shine"></div></div>
+          <div class="menu-body">
+            <div class="d-flex justify-content-between align-items-start"><h5>Latte</h5><span class="menu-price">$7.5</span></div>
+            <p class="text-soft small mb-2">Steamed oat milk poured over espresso in a rosetta finish.</p>
+            <div class="d-flex justify-content-between align-items-center">
+              <span class="menu-rating"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star"></i> 4.0</span>
+              <button class="btn-order-sm add-to-cart" data-name="Latte" data-price="7.5">Order</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4" data-aos="fade-up">
+        <div class="menu-card tilt-card">
+          <div class="img-wrap"><img src="https://images.unsplash.com/photo-1517701604599-bb29b565090c?q=80&w=800&auto=format&fit=crop" alt="Cold Brew" loading="lazy"><div class="shine"></div></div>
+          <div class="menu-body">
+            <div class="d-flex justify-content-between align-items-start"><h5>Cold Brew</h5><span class="menu-price">$7</span></div>
+            <p class="text-soft small mb-2">Steeped 18 hours, served over hand-cut ice with citrus oils.</p>
+            <div class="d-flex justify-content-between align-items-center">
+              <span class="menu-rating"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-half"></i> 4.5</span>
+              <button class="btn-order-sm add-to-cart" data-name="Cold Brew" data-price="7">Order</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
+        <div class="menu-card tilt-card">
+          <div class="img-wrap"><img src="https://images.unsplash.com/photo-1578314675249-a6910f80cc4e?q=80&w=800&auto=format&fit=crop" alt="Mocha" loading="lazy"><div class="shine"></div></div>
+          <div class="menu-body">
+            <div class="d-flex justify-content-between align-items-start"><h5>Mocha</h5><span class="menu-price">$8</span></div>
+            <p class="text-soft small mb-2">Single-origin espresso with 70% Valrhona and whipped cream.</p>
+            <div class="d-flex justify-content-between align-items-center">
+              <span class="menu-rating"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star"></i> 4.2</span>
+              <button class="btn-order-sm add-to-cart" data-name="Mocha" data-price="8">Order</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="200">
+        <div class="menu-card tilt-card">
+          <div class="img-wrap"><img src="https://images.unsplash.com/photo-1497935586351-b67a49e012bf?q=80&w=800&auto=format&fit=crop" alt="Signature Blend" loading="lazy"><div class="shine"></div></div>
+          <div class="menu-body">
+            <div class="d-flex justify-content-between align-items-start"><h5>Signature Blend</h5><span class="menu-price">$9.5</span></div>
+            <p class="text-soft small mb-2">Our house reserve — Panama Geisha finished with orange blossom.</p>
+            <div class="d-flex justify-content-between align-items-center">
+              <span class="menu-rating"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i> 5.0</span>
+              <button class="btn-order-sm add-to-cart" data-name="Signature Blend" data-price="9.5">Order</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= BARISTA EDITORIAL ================= -->
+<section class="section" style="background:var(--cream);">
+  <div class="container">
+    <div class="row align-items-center g-5">
+      <div class="col-lg-5" data-aos="fade-right">
+        <div class="barista-photo-wrap">
+          <img src="https://images.unsplash.com/photo-1521017432531-fbd92d768814?q=80&w=1000&auto=format&fit=crop" alt="Head barista" loading="lazy">
+          <div class="barista-frame"></div>
+        </div>
+      </div>
+      <div class="col-lg-7" data-aos="fade-left">
+        <p class="eyebrow">Master Of The Craft</p>
+        <h2 class="section-title">Elena Vasquez</h2>
+        <p class="text-soft mb-4">Head Barista &amp; Roast Director. Trained in Milan and Kyoto, Elena has spent fourteen years chasing the perfect extraction — and has finally found it, one gram at a time.</p>
+        <div class="barista-award"><i class="bi bi-trophy-fill"></i><div><strong>World Latte Art Champion</strong><br><span class="text-soft small">Milan, 2026</span></div></div>
+        <div class="barista-award"><i class="bi bi-award-fill"></i><div><strong>Q-Grader Certified</strong><br><span class="text-soft small">Coffee Quality Institute</span></div></div>
+        <div class="barista-award"><i class="bi bi-cup-straw"></i><div><strong>14 Years Experience</strong><br><span class="text-soft small">Milan · Kyoto · Geneva</span></div></div>
+        <p class="barista-sig mt-4">— E. Vasquez</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CAFE EXPERIENCE ================= -->
+<section class="section" id="experience">
+  <div class="container">
+    <div class="section-head mx-auto text-center mb-5" data-aos="fade-up">
+      <p class="eyebrow">Moments Inside NOIR &amp; GOLD</p>
+      <h2 class="section-title">The Cafe Experience</h2>
+    </div>
+
+    <div class="exp-row" data-aos="fade-up">
+      <div class="exp-img"><img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&w=1000&auto=format&fit=crop" alt="Morning coffee ritual" loading="lazy"></div>
+      <div class="exp-text"><span class="exp-num">MORNING</span><h3 class="font-display mt-2">The First Pour</h3><p class="text-soft mb-0">Sunlight through linen curtains, the low hum of the grinder — mornings here begin slow and deliberate.</p></div>
+    </div>
+
+    <div class="exp-row reverse" data-aos="fade-up">
+      <div class="exp-img"><img src="https://images.unsplash.com/photo-1497215842964-222b430dc094?q=80&w=1000&auto=format&fit=crop" alt="Work space at cafe" loading="lazy"></div>
+      <div class="exp-text"><span class="exp-num">FOCUS</span><h3 class="font-display mt-2">The Work Table</h3><p class="text-soft mb-0">Marble counters, hushed acoustics and endless espresso for those building something great.</p></div>
+    </div>
+
+    <div class="exp-row" data-aos="fade-up">
+      <div class="exp-img"><img src="https://images.unsplash.com/photo-1522992319-0365e5f11656?q=80&w=1000&auto=format&fit=crop" alt="Friends meeting over coffee" loading="lazy"></div>
+      <div class="exp-text"><span class="exp-num">GATHER</span><h3 class="font-display mt-2">Friends Meetup</h3><p class="text-soft mb-0">Long tables, shared plates and conversations that outlast the last drop in the cup.</p></div>
+    </div>
+
+    <div class="exp-row reverse" data-aos="fade-up">
+      <div class="exp-img"><img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?q=80&w=1000&auto=format&fit=crop" alt="Evening lounge with dim lighting" loading="lazy"></div>
+      <div class="exp-text"><span class="exp-num">UNWIND</span><h3 class="font-display mt-2">Evening Lounge</h3><p class="text-soft mb-0">Candlelight, decaf negronis and vinyl jazz as the day folds into night.</p></div>
+    </div>
+
+    <div class="exp-row" data-aos="fade-up">
+      <div class="exp-img"><img src="https://images.unsplash.com/photo-1470337458703-46ad1756a187?q=80&w=1000&auto=format&fit=crop" alt="Dessert time at cafe" loading="lazy"></div>
+      <div class="exp-text"><span class="exp-num">INDULGE</span><h3 class="font-display mt-2">Dessert Time</h3><p class="text-soft mb-0">A final act of sweetness — house pastries built to pair, not compete, with the roast.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= DESSERT PAIRING ================= -->
+<section class="section" style="background:var(--cream);">
+  <div class="container">
+    <div class="section-head mx-auto text-center mb-5" data-aos="fade-up">
+      <p class="eyebrow">Pair The Perfect Bite</p>
+      <h2 class="section-title">Dessert Pairing</h2>
+    </div>
+    <div class="row g-4 text-center">
+      <div class="col-6 col-md-4 col-lg-2" data-aos="zoom-in">
+        <div class="dessert-card"><div class="dessert-circle"><img src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?q=80&w=500&auto=format&fit=crop" alt="Croissant" loading="lazy"></div><h6 class="font-display mb-0">Croissant</h6></div>
+      </div>
+      <div class="col-6 col-md-4 col-lg-2" data-aos="zoom-in" data-aos-delay="100">
+        <div class="dessert-card"><div class="dessert-circle"><img src="https://images.unsplash.com/photo-1533134242443-d4fd215305ad?q=80&w=500&auto=format&fit=crop" alt="Cheesecake" loading="lazy"></div><h6 class="font-display mb-0">Cheesecake</h6></div>
+      </div>
+      <div class="col-6 col-md-4 col-lg-2" data-aos="zoom-in" data-aos-delay="200">
+        <div class="dessert-card"><div class="dessert-circle"><img src="https://images.unsplash.com/photo-1606313564200-e75d5e30476c?q=80&w=500&auto=format&fit=crop" alt="Chocolate cake" loading="lazy"></div><h6 class="font-display mb-0">Chocolate Cake</h6></div>
+      </div>
+      <div class="col-6 col-md-4 col-lg-2" data-aos="zoom-in" data-aos-delay="300">
+        <div class="dessert-card"><div class="dessert-circle"><img src="https://images.unsplash.com/photo-1569864358642-9d1684040f43?q=80&w=500&auto=format&fit=crop" alt="Macaron" loading="lazy"></div><h6 class="font-display mb-0">Macaron</h6></div>
+      </div>
+      <div class="col-6 col-md-4 col-lg-2" data-aos="zoom-in" data-aos-delay="400">
+        <div class="dessert-card"><div class="dessert-circle"><img src="https://images.unsplash.com/photo-1606313564200-e75d5e30476c?q=80&w=500&auto=format&fit=crop&sat=-30" alt="Brownie" loading="lazy"></div><h6 class="font-display mb-0">Brownie</h6></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= ONLINE ORDER ================= -->
+<section class="section" id="order">
+  <div class="container">
+    <div class="section-head mx-auto text-center mb-4" data-aos="fade-up">
+      <p class="eyebrow">Order Ahead</p>
+      <h2 class="section-title">Bring The Roast Home</h2>
+    </div>
+    <div class="d-flex justify-content-center flex-wrap gap-2 mb-5" data-aos="fade-up">
+      <button class="filter-pill active" data-filter="all">All</button>
+      <button class="filter-pill" data-filter="coffee">Coffee</button>
+      <button class="filter-pill" data-filter="dessert">Desserts</button>
+      <button class="filter-pill" data-filter="beans">Whole Beans</button>
+    </div>
+    <div class="row g-4" id="orderGrid">
+      <div class="col-6 col-md-4 col-lg-3 order-item" data-cat="coffee" data-aos="fade-up">
+        <div class="order-card">
+          <img src="https://images.unsplash.com/photo-1497935586351-b67a49e012bf?q=80&w=600&auto=format&fit=crop" alt="Signature Blend cup" loading="lazy">
+          <div class="body">
+            <h6 class="font-display mb-1">Signature Blend</h6>
+            <p class="text-soft small mb-2">$9.50</p>
+            <button class="btn-order-sm w-100 add-to-cart" data-name="Signature Blend" data-price="9.5">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-6 col-md-4 col-lg-3 order-item" data-cat="coffee" data-aos="fade-up" data-aos-delay="100">
+        <div class="order-card">
+          <img src="https://images.unsplash.com/photo-1517701604599-bb29b565090c?q=80&w=600&auto=format&fit=crop" alt="Cold Brew bottle" loading="lazy">
+          <div class="body">
+            <h6 class="font-display mb-1">Cold Brew Bottle</h6>
+            <p class="text-soft small mb-2">$8.00</p>
+            <button class="btn-order-sm w-100 add-to-cart" data-name="Cold Brew Bottle" data-price="8">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-6 col-md-4 col-lg-3 order-item" data-cat="dessert" data-aos="fade-up" data-aos-delay="200">
+        <div class="order-card">
+          <img src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?q=80&w=600&auto=format&fit=crop" alt="Butter croissant" loading="lazy">
+          <div class="body">
+            <h6 class="font-display mb-1">Butter Croissant</h6>
+            <p class="text-soft small mb-2">$4.50</p>
+            <button class="btn-order-sm w-100 add-to-cart" data-name="Butter Croissant" data-price="4.5">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-6 col-md-4 col-lg-3 order-item" data-cat="beans" data-aos="fade-up" data-aos-delay="300">
+        <div class="order-card">
+          <img src="https://images.unsplash.com/photo-1447933601403-0c6688de566e?q=80&w=600&auto=format&fit=crop" alt="Whole bean coffee bag" loading="lazy">
+          <div class="body">
+            <h6 class="font-display mb-1">Panama Geisha 250g</h6>
+            <p class="text-soft small mb-2">$28.00</p>
+            <button class="btn-order-sm w-100 add-to-cart" data-name="Panama Geisha 250g" data-price="28">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= RESERVATION ================= -->
+<section class="section" id="reservation">
+  <div class="container">
+    <div class="reservation-wrap" data-aos="fade-up">
+      <div class="reservation-overlay">
+        <div class="row">
+          <div class="col-lg-6 text-white mb-4 mb-lg-0">
+            <p class="eyebrow">Reserve Your Table</p>
+            <h2 class="section-title text-white">Book An Evening<br>With Us</h2>
+            <p class="text-white-50 mt-3" style="max-width:420px;">Limited seating, unlimited atmosphere. Reserve ahead to guarantee your place at our marble counter or garden terrace.</p>
+          </div>
+          <div class="col-lg-6">
+            <form id="reservationForm" class="row g-3">
+              <div class="col-md-6"><label class="lux-label">Full Name</label><input type="text" class="form-control form-control-lux" placeholder="Your name" required></div>
+              <div class="col-md-6"><label class="lux-label">Email</label><input type="email" class="form-control form-control-lux" placeholder="you@email.com" required></div>
+              <div class="col-md-6"><label class="lux-label">Phone</label><input type="tel" class="form-control form-control-lux" placeholder="+41 00 000 00 00" required></div>
+              <div class="col-md-6"><label class="lux-label">Guests</label>
+                <select class="form-control form-control-lux">
+                  <option style="color:#000">1 Guest</option>
+                  <option style="color:#000" selected>2 Guests</option>
+                  <option style="color:#000">3 Guests</option>
+                  <option style="color:#000">4+ Guests</option>
+                </select>
+              </div>
+              <div class="col-md-6"><label class="lux-label">Date</label><input type="date" class="form-control form-control-lux" required></div>
+              <div class="col-md-6"><label class="lux-label">Time</label><input type="time" class="form-control form-control-lux" required></div>
+              <div class="col-12 mt-4"><button type="submit" class="btn-gold-lg w-100 justify-content-center">Confirm Reservation <i class="bi bi-check2-circle"></i></button></div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Reservation Success Modal -->
+<div class="modal fade" id="successModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content glass-card text-center p-4 border-0">
+      <div class="modal-body">
+        <div class="success-check"><i class="bi bi-check-lg"></i></div>
+        <h4 class="font-display">Reservation Confirmed</h4>
+        <p class="text-soft">A confirmation has been sent to your email. We look forward to hosting you at NOIR &amp; GOLD.</p>
+        <button class="btn-gold mt-2 px-4" data-bs-dismiss="modal">Done</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ================= GALLERY ================= -->
+<section class="section" id="gallery">
+  <div class="container">
+    <div class="section-head mx-auto text-center mb-5" data-aos="fade-up">
+      <p class="eyebrow">Visual Stories</p>
+      <h2 class="section-title">Gallery</h2>
+    </div>
+    <div class="masonry" data-aos="fade-up">
+      <div class="masonry-item"><img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?q=80&w=700&auto=format&fit=crop" alt="Cafe interior" loading="lazy"><div class="m-overlay"><i class="bi bi-arrows-angle-expand"></i></div></div>
+      <div class="masonry-item"><img src="https://images.unsplash.com/photo-1442512595331-e89e73853f31?q=80&w=700&auto=format&fit=crop" alt="Coffee latte art" loading="lazy"><div class="m-overlay"><i class="bi bi-arrows-angle-expand"></i></div></div>
+      <div class="masonry-item"><img src="https://images.unsplash.com/photo-1453614512568-c4024d13c247?q=80&w=700&auto=format&fit=crop" alt="Customers enjoying coffee" loading="lazy"><div class="m-overlay"><i class="bi bi-arrows-angle-expand"></i></div></div>
+      <div class="masonry-item"><img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&w=700&auto=format&fit=crop" alt="Cafe exterior" loading="lazy"><div class="m-overlay"><i class="bi bi-arrows-angle-expand"></i></div></div>
+      <div class="masonry-item"><img src="https://images.unsplash.com/photo-1461023058943-07fcbe16d735?q=80&w=700&auto=format&fit=crop" alt="Latte close up" loading="lazy"><div class="m-overlay"><i class="bi bi-arrows-angle-expand"></i></div></div>
+      <div class="masonry-item"><img src="https://images.unsplash.com/photo-1517705008128-361805f42e86?q=80&w=700&auto=format&fit=crop" alt="Coffee beans" loading="lazy"><div class="m-overlay"><i class="bi bi-arrows-angle-expand"></i></div></div>
+      <div class="masonry-item"><img src="https://images.unsplash.com/photo-1495521821757-a1efb6729352?q=80&w=700&auto=format&fit=crop" alt="Pastry plate" loading="lazy"><div class="m-overlay"><i class="bi bi-arrows-angle-expand"></i></div></div>
+      <div class="masonry-item"><img src="https://images.unsplash.com/photo-1442512595331-e89e73853f31?q=80&w=700&auto=format&fit=crop&sat=20" alt="Barista pouring coffee" loading="lazy"><div class="m-overlay"><i class="bi bi-arrows-angle-expand"></i></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- Lightbox -->
+<div class="modal fade" id="lightboxModal">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content bg-transparent border-0">
+      <img id="lightboxImg" src="" class="img-fluid rounded-4" alt="Gallery preview">
+    </div>
+  </div>
+</div>
+
+<!-- ================= TESTIMONIALS ================= -->
+<section class="section" style="background:var(--cream);">
+  <div class="container">
+    <div class="section-head mx-auto text-center mb-4" data-aos="fade-up">
+      <p class="eyebrow">Guest Voices</p>
+      <h2 class="section-title">What They Say</h2>
+    </div>
+    <div class="swiper testiSwiper" data-aos="fade-up">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide">
+          <div class="glass-card testi-card mx-auto" style="max-width:700px;">
+            <img src="https://images.unsplash.com/photo-1489424731084-a5d8b219a5bb?q=80&w=200&auto=format&fit=crop" alt="Guest from France" loading="lazy">
+            <div class="testi-stars"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></div>
+            <p class="testi-quote">Every visit feels like stepping into a different, more elegant timeline. The Signature Blend alone is worth the trip.</p>
+            <h6 class="mb-0">Camille Laurent</h6><span class="text-soft small">France</span>
+          </div>
+        </div>
+        <div class="swiper-slide">
+          <div class="glass-card testi-card mx-auto" style="max-width:700px;">
+            <img src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=200&auto=format&fit=crop" alt="Guest from Japan" loading="lazy">
+            <div class="testi-stars"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></div>
+            <p class="testi-quote">Precision, warmth, and design — NOIR &amp; GOLD understands that coffee is theatre. Simply the best in Europe.</p>
+            <h6 class="mb-0">Haruto Sato</h6><span class="text-soft small">Japan</span>
+          </div>
+        </div>
+        <div class="swiper-slide">
+          <div class="glass-card testi-card mx-auto" style="max-width:700px;">
+            <img src="https://images.unsplash.com/photo-1548142813-c348350df52b?q=80&w=200&auto=format&fit=crop" alt="Guest from USA" loading="lazy">
+            <div class="testi-stars"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-half"></i></div>
+            <p class="testi-quote">The evening lounge with live vinyl and dim gold light turned a quick coffee stop into our favorite date spot.</p>
+            <h6 class="mb-0">Sarah Bennett</h6><span class="text-soft small">United States</span>
+          </div>
+        </div>
+      </div>
+      <div class="swiper-pagination mt-4"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= STATISTICS ================= -->
+<section class="section">
+  <div class="container">
+    <div class="row text-center g-4">
+      <div class="col-6 col-md-3" data-aos="fade-up"><h3 class="stat-num" data-count="100">0</h3><p class="stat-label">K+ Coffee Served</p></div>
+      <div class="col-6 col-md-3" data-aos="fade-up" data-aos-delay="100"><h3 class="stat-num" data-count="25">0</h3><p class="stat-label">Coffee Types</p></div>
+      <div class="col-6 col-md-3" data-aos="fade-up" data-aos-delay="200"><h3 class="stat-num" data-count="15">0</h3><p class="stat-label">Expert Baristas</p></div>
+      <div class="col-6 col-md-3" data-aos="fade-up" data-aos-delay="300"><h3 class="stat-num" data-count="10">0</h3><p class="stat-label">Years Experience</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FAQ ================= -->
+<section class="section" style="background:var(--cream);">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-5" data-aos="fade-right">
+        <p class="eyebrow">Good To Know</p>
+        <h2 class="section-title">Frequently Asked</h2>
+      </div>
+      <div class="col-lg-7" data-aos="fade-left">
+        <div class="accordion" id="faqAcc">
+          <div class="accordion-item">
+            <h2 class="accordion-header"><button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#faq1">Do you take walk-ins?</button></h2>
+            <div id="faq1" class="accordion-collapse collapse" data-bs-parent="#faqAcc"><div class="accordion-body">Yes — walk-ins are always welcome, though reservations guarantee seating during peak hours.</div></div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header"><button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#faq2">Is there a dress code?</button></h2>
+            <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAcc"><div class="accordion-body">Smart casual is recommended for our evening lounge sessions after 6pm.</div></div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header"><button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#faq3">Can I buy whole beans to take home?</button></h2>
+            <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAcc"><div class="accordion-body">Absolutely — our full retail selection is available in-house and through our order-ahead menu above.</div></div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header"><button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#faq4">Do you cater private events?</button></h2>
+            <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAcc"><div class="accordion-body">Yes, our terrace and lounge can be booked privately — contact us for tailored coffee catering.</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= LOCATION ================= -->
+<section class="section" id="contact">
+  <div class="container">
+    <div class="section-head mx-auto text-center mb-5" data-aos="fade-up">
+      <p class="eyebrow">Find Us</p>
+      <h2 class="section-title">Visit The House</h2>
+    </div>
+    <div class="position-relative" data-aos="fade-up">
+      <div class="map-frame">
+        <iframe src="https://www.openstreetmap.org/export/embed.html?bbox=6.1296%2C46.2002%2C6.1596%2C46.2152&layer=mapnik" width="100%" height="440" style="border:0; display:block;" loading="lazy" title="Cafe location map"></iframe>
+      </div>
+      <div class="info-float glass-card">
+        <h6 class="font-display mb-3">NOIR &amp; GOLD, Geneva</h6>
+        <p class="small mb-2"><i class="bi bi-geo-alt-fill gold me-2"></i>12 Rue des Ateliers, 1201 Geneva</p>
+        <p class="small mb-2"><i class="bi bi-clock-fill gold me-2"></i>Mon – Sun · 7:00 AM – 10:00 PM</p>
+        <p class="small mb-0"><i class="bi bi-telephone-fill gold me-2"></i>+41 22 555 0192</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer id="siteFooter">
+  <div class="container">
+    <div class="row g-5">
+      <div class="col-lg-4">
+        <span class="footer-brand"><i class="bi bi-cup-hot-fill gold"></i> NOIR &amp; GOLD</span>
+        <p class="mt-3" style="color:rgba(255,255,255,.65);">A luxury coffee house crafting rare single-origin roasts and immersive cafe experiences since 2028.</p>
+        <div class="d-flex gap-2 mt-3">
+          <a href="#" class="social-circle"><i class="bi bi-instagram"></i></a>
+          <a href="#" class="social-circle"><i class="bi bi-facebook"></i></a>
+          <a href="#" class="social-circle"><i class="bi bi-twitter-x"></i></a>
+          <a href="#" class="social-circle"><i class="bi bi-tiktok"></i></a>
+        </div>
+      </div>
+      <div class="col-lg-2 col-6">
+        <h6 class="text-white mb-3">Menu</h6>
+        <div class="d-flex flex-column gap-2">
+          <a href="#menu">Espresso</a><a href="#menu">Cappuccino</a><a href="#menu">Latte</a><a href="#menu">Cold Brew</a>
+        </div>
+      </div>
+      <div class="col-lg-2 col-6">
+        <h6 class="text-white mb-3">Explore</h6>
+        <div class="d-flex flex-column gap-2">
+          <a href="#about">About</a><a href="#gallery">Gallery</a><a href="#reservation">Reservation</a><a href="#contact">Contact</a>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <h6 class="text-white mb-3">@noirandgold</h6>
+        <div class="insta-grid mb-3">
+          <img src="https://images.unsplash.com/photo-1442512595331-e89e73853f31?q=80&w=200&auto=format&fit=crop" alt="Instagram preview 1" loading="lazy">
+          <img src="https://images.unsplash.com/photo-1517705008128-361805f42e86?q=80&w=200&auto=format&fit=crop" alt="Instagram preview 2" loading="lazy">
+          <img src="https://images.unsplash.com/photo-1453614512568-c4024d13c247?q=80&w=200&auto=format&fit=crop" alt="Instagram preview 3" loading="lazy">
+          <img src="https://images.unsplash.com/photo-1495521821757-a1efb6729352?q=80&w=200&auto=format&fit=crop" alt="Instagram preview 4" loading="lazy">
+        </div>
+        <h6 class="text-white mb-2">Newsletter</h6>
+        <form class="d-flex" id="footerNewsletter">
+          <input type="email" class="form-control newsletter-input" placeholder="Your email" required>
+          <button class="newsletter-btn" type="submit"><i class="bi bi-send-fill"></i></button>
+        </form>
+      </div>
+    </div>
+    <div class="footer-bottom d-flex justify-content-between flex-wrap gap-2">
+      <span>© 2028 NOIR &amp; GOLD. All rights reserved.</span>
+      <span>Crafted with care in Geneva, Switzerland.</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ================= FLOATING UTILITIES ================= -->
+<button class="cart-fab" data-bs-toggle="modal" data-bs-target="#cartModal"><i class="bi bi-bag-fill"></i><span class="badge" id="cartBadge">0</span></button>
+<a href="https://wa.me/41225550192" target="_blank" class="whatsapp-fab"><i class="bi bi-whatsapp"></i></a>
+<button class="back-to-top" id="backToTop"><i class="bi bi-arrow-up"></i></button>
+
+<!-- Cart Modal -->
+<div class="modal fade" id="cartModal">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content glass-card border-0">
+      <div class="modal-header border-0">
+        <h5 class="font-display mb-0">Your Cart</h5>
+        <button class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <div id="cartItems"><p class="text-soft text-center">Your cart is empty.</p></div>
+        <div class="d-flex justify-content-between mt-3 pt-3" style="border-top:1px solid var(--line);">
+          <strong>Total</strong><strong id="cartTotal" class="gold">$0.00</strong>
+        </div>
+      </div>
+      <div class="modal-footer border-0">
+        <button class="btn-gold w-100" data-bs-toggle="modal" data-bs-target="#checkoutModal" data-bs-dismiss="modal">Checkout</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Checkout Modal -->
+<div class="modal fade" id="checkoutModal">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content glass-card border-0 text-center p-4">
+      <div class="success-check"><i class="bi bi-bag-check-fill"></i></div>
+      <h4 class="font-display">Order Placed</h4>
+      <p class="text-soft">Thank you — your order is being prepared and will be ready for pickup in 15 minutes.</p>
+      <button class="btn-gold mt-2 px-4 mx-auto" data-bs-dismiss="modal">Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- Search Popup -->
+<div class="search-popup" id="searchPopup">
+  <div class="search-box position-relative">
+    <button class="popup-close text-white" id="closeSearch"><i class="bi bi-x-lg"></i></button>
+    <input type="text" placeholder="Search menu, articles, events..." id="searchInput">
+    <p class="text-white-50 small mt-3">Try "espresso", "reservation" or "gallery"</p>
+  </div>
+</div>
+
+<!-- Newsletter Popup -->
+<div class="newsletter-popup" id="newsletterPopup">
+  <div class="glass-card">
+    <button class="popup-close" id="closeNewsletter"><i class="bi bi-x-lg"></i></button>
+    <i class="bi bi-envelope-heart gold" style="font-size:2.2rem;"></i>
+    <h4 class="font-display mt-3">Join The Inner Circle</h4>
+    <p class="text-soft">Get 15% off your first order and early access to seasonal blends.</p>
+    <form id="popupNewsletterForm">
+      <input type="email" class="form-control mb-3" placeholder="Your email" required style="border-radius:100px; padding:.7rem 1.2rem;">
+      <button class="btn-gold w-100" type="submit">Subscribe</button>
+    </form>
+  </div>
+</div>
+
+<!-- Cookie Banner -->
+<div class="cookie-banner" id="cookieBanner">
+  <p class="mb-0 small text-soft">We use cookies to enhance your experience, in line with GDPR. <a href="#" class="gold">Learn more</a></p>
+  <div class="d-flex gap-2">
+    <button class="btn-outline-gold btn-sm" id="cookieDecline">Decline</button>
+    <button class="btn-gold btn-sm" id="cookieAccept">Accept All</button>
+  </div>
+</div>
+
+<!-- Utility bar: search / lang / currency (fixed top-right small) -->
+<div style="position:fixed; top:22px; right:22px; z-index:1001; display:none;"></div>
+
+<!-- ================= SCRIPTS ================= -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+
+<script>
+/* ============================================================
+   THEME (Dark / Light) with localStorage
+   ============================================================ */
+(function(){
+  const root = document.documentElement;
+  const saved = localStorage.getItem('ng-theme');
+  if(saved){ root.setAttribute('data-theme', saved); }
+  else if(window.matchMedia('(prefers-color-scheme: dark)').matches){ root.setAttribute('data-theme','dark'); }
+
+  function updateIcon(){
+    const icon = document.getElementById('themeIcon');
+    const isDark = root.getAttribute('data-theme') === 'dark';
+    icon.className = isDark ? 'bi bi-sun-fill' : 'bi bi-moon-stars-fill';
+  }
+  updateIcon();
+
+  document.getElementById('themeToggle').addEventListener('click', function(){
+    const isDark = root.getAttribute('data-theme') === 'dark';
+    root.style.transition = 'background 1s ease, color 1s ease';
+    root.setAttribute('data-theme', isDark ? 'light' : 'dark');
+    localStorage.setItem('ng-theme', isDark ? 'light' : 'dark');
+    updateIcon();
+  });
+})();
+
+/* ============================================================
+   PRELOADER
+   ============================================================ */
+window.addEventListener('load', function(){
+  setTimeout(function(){
+    document.getElementById('preloader').classList.add('hide');
+  }, 1200);
+});
+
+/* ============================================================
+   AOS INIT
+   ============================================================ */
+AOS.init({ duration:900, once:true, offset:60, easing:'ease-out-cubic' });
+
+/* ============================================================
+   LENIS SMOOTH SCROLL
+   ============================================================ */
+if (window.Lenis) {
+  const lenis = new Lenis({ duration:1.1, smoothWheel:true });
+  function raf(time){ lenis.raf(time); requestAnimationFrame(raf); }
+  requestAnimationFrame(raf);
+  lenis.on('scroll', ()=>{ if(window.ScrollTrigger) ScrollTrigger.update(); });
+}
+
+/* ============================================================
+   CUSTOM CURSOR
+   ============================================================ */
+(function(){
+  if(window.matchMedia('(max-width: 991px)').matches) return;
+  const dot = document.querySelector('.cursor-dot');
+  const ring = document.querySelector('.cursor-ring');
+  let mx=0,my=0,rx=0,ry=0;
+  window.addEventListener('mousemove', e=>{
+    mx=e.clientX; my=e.clientY;
+    dot.style.left = mx+'px'; dot.style.top = my+'px';
+  });
+  function loop(){
+    rx += (mx-rx)*0.18; ry += (my-ry)*0.18;
+    ring.style.left = rx+'px'; ring.style.top = ry+'px';
+    requestAnimationFrame(loop);
+  }
+  loop();
+  document.querySelectorAll('a, button, .menu-card, .order-card, .masonry-item, .dessert-card').forEach(el=>{
+    el.addEventListener('mouseenter', ()=> ring.classList.add(el.matches('button,a') ? 'btn' : 'grow'));
+    el.addEventListener('mouseleave', ()=> ring.classList.remove('btn','grow'));
+  });
+  document.querySelectorAll('img').forEach(el=>{
+    el.addEventListener('mouseenter', ()=> ring.classList.add('grow'));
+    el.addEventListener('mouseleave', ()=> ring.classList.remove('grow'));
+  });
+})();
+
+/* ============================================================
+   NAVBAR SCROLL STATE
+   ============================================================ */
+const nav = document.getElementById('mainNav');
+window.addEventListener('scroll', function(){
+  if(window.scrollY > 60){ nav.classList.add('scrolled'); } else { nav.classList.remove('scrolled'); }
+  document.getElementById('backToTop').classList.toggle('show', window.scrollY > 700);
+});
+
+/* ============================================================
+   HERO PARTICLES
+   ============================================================ */
+(function(){
+  const container = document.getElementById('particles');
+  for(let i=0;i<28;i++){
+    const p = document.createElement('div');
+    p.className = 'particle';
+    const size = Math.random()*4+2;
+    p.style.width = size+'px'; p.style.height = size+'px';
+    p.style.left = Math.random()*100+'%';
+    p.style.bottom = '-10px';
+    p.style.animationDuration = (8+Math.random()*10)+'s';
+    p.style.animationDelay = (Math.random()*8)+'s';
+    container.appendChild(p);
+  }
+})();
+
+/* Hero mouse parallax for floating card */
+document.querySelector('.hero')?.addEventListener('mousemove', function(e){
+  const card = document.getElementById('floatCard');
+  if(!card || window.innerWidth < 992) return;
+  const x = (e.clientX / window.innerWidth - 0.5) * 24;
+  const y = (e.clientY / window.innerHeight - 0.5) * 24;
+  card.style.transform = `perspective(800px) rotateX(${4-y}deg) rotateY(${-8+x}deg) translate(${x*0.4}px, ${y*0.4}px)`;
+});
+
+/* ============================================================
+   GSAP SCROLLTRIGGER — HERO PARALLAX + BEAN JOURNEY
+   ============================================================ */
+if(window.gsap && window.ScrollTrigger){
+  gsap.registerPlugin(ScrollTrigger);
+  gsap.to('#heroBg', {
+    scale:1.2, ease:'none',
+    scrollTrigger:{ trigger:'.hero', start:'top top', end:'bottom top', scrub:true }
+  });
+  ScrollTrigger.create({
+    trigger:'.journey-track', start:'top 70%',
+    onEnter:()=>{ document.getElementById('journeyFill').style.width='100%'; }
+  });
+}
+
+/* ============================================================
+   TILT 3D EFFECT ON MENU CARDS
+   ============================================================ */
+document.querySelectorAll('.tilt-card').forEach(card=>{
+  card.addEventListener('mousemove', function(e){
+    const r = card.getBoundingClientRect();
+    const x = e.clientX - r.left, y = e.clientY - r.top;
+    const rx = ((y / r.height) - 0.5) * -10;
+    const ry = ((x / r.width) - 0.5) * 10;
+    card.style.transform = `perspective(700px) rotateX(${rx}deg) rotateY(${ry}deg) translateY(-4px)`;
+  });
+  card.addEventListener('mouseleave', function(){ card.style.transform = 'perspective(700px) rotateX(0) rotateY(0)'; });
+});
+
+/* ============================================================
+   ANIMATED COUNTERS
+   ============================================================ */
+const counters = document.querySelectorAll('.stat-num');
+const counterObserver = new IntersectionObserver((entries)=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      const el = entry.target;
+      const target = +el.getAttribute('data-count');
+      let cur = 0; const step = Math.max(1, target/60);
+      const timer = setInterval(()=>{
+        cur += step;
+        if(cur >= target){ cur = target; clearInterval(timer); }
+        el.textContent = Math.floor(cur);
+      }, 25);
+      counterObserver.unobserve(el);
+    }
+  });
+}, { threshold:0.5 });
+counters.forEach(c=>counterObserver.observe(c));
+
+/* ============================================================
+   SWIPER — TESTIMONIALS
+   ============================================================ */
+if(window.Swiper){
+  new Swiper('.testiSwiper', {
+    loop:true,
+    autoplay:{ delay:5000 },
+    pagination:{ el:'.swiper-pagination', clickable:true }
+  });
+}
+
+/* ============================================================
+   GALLERY LIGHTBOX
+   ============================================================ */
+document.querySelectorAll('.masonry-item img').forEach(img=>{
+  img.addEventListener('click', function(){
+    document.getElementById('lightboxImg').src = this.src;
+    new bootstrap.Modal(document.getElementById('lightboxModal')).show();
+  });
+});
+
+/* ============================================================
+   RESERVATION FORM
+   ============================================================ */
+document.getElementById('reservationForm').addEventListener('submit', function(e){
+  e.preventDefault();
+  new bootstrap.Modal(document.getElementById('successModal')).show();
+  this.reset();
+});
+
+/* ============================================================
+   ORDER FILTER
+   ============================================================ */
+document.querySelectorAll('.filter-pill').forEach(btn=>{
+  btn.addEventListener('click', function(){
+    document.querySelectorAll('.filter-pill').forEach(b=>b.classList.remove('active'));
+    this.classList.add('active');
+    const filter = this.getAttribute('data-filter');
+    document.querySelectorAll('.order-item').forEach(item=>{
+      item.style.display = (filter === 'all' || item.getAttribute('data-cat') === filter) ? '' : 'none';
+    });
+  });
+});
+
+/* ============================================================
+   CART SYSTEM
+   ============================================================ */
+let cart = [];
+function renderCart(){
+  const wrap = document.getElementById('cartItems');
+  const badge = document.getElementById('cartBadge');
+  const totalEl = document.getElementById('cartTotal');
+  if(cart.length === 0){
+    wrap.innerHTML = '<p class="text-soft text-center">Your cart is empty.</p>';
+  } else {
+    wrap.innerHTML = cart.map((item, i)=>`
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <div>
+          <div class="fw-semibold">${item.name}</div>
+          <div class="text-soft small">$${item.price.toFixed(2)}</div>
+        </div>
+        <div class="qty-control">
+          <button onclick="changeQty(${i},-1)">-</button>
+          <span>${item.qty}</span>
+          <button onclick="changeQty(${i},1)">+</button>
+        </div>
+      </div>`).join('');
+  }
+  const totalQty = cart.reduce((s,i)=>s+i.qty,0);
+  const totalPrice = cart.reduce((s,i)=>s+i.qty*i.price,0);
+  badge.textContent = totalQty;
+  totalEl.textContent = '$'+totalPrice.toFixed(2);
+}
+function changeQty(i, delta){
+  cart[i].qty += delta;
+  if(cart[i].qty <= 0) cart.splice(i,1);
+  renderCart();
+}
+document.querySelectorAll('.add-to-cart').forEach(btn=>{
+  btn.addEventListener('click', function(){
+    const name = this.getAttribute('data-name');
+    const price = parseFloat(this.getAttribute('data-price'));
+    const existing = cart.find(i=>i.name===name);
+    if(existing){ existing.qty++; } else { cart.push({name, price, qty:1}); }
+    renderCart();
+    this.textContent = 'Added ✓';
+    setTimeout(()=>{ this.textContent = this.closest('.order-card') ? 'Add to Cart' : 'Order'; }, 1200);
+  });
+});
+renderCart();
+
+/* ============================================================
+   COOKIE BANNER
+   ============================================================ */
+(function(){
+  const banner = document.getElementById('cookieBanner');
+  if(!localStorage.getItem('ng-cookie-consent')){
+    setTimeout(()=>banner.classList.add('show'), 1600);
+  }
+  document.getElementById('cookieAccept').addEventListener('click', ()=>{
+    localStorage.setItem('ng-cookie-consent','accepted'); banner.classList.remove('show');
+  });
+  document.getElementById('cookieDecline').addEventListener('click', ()=>{
+    localStorage.setItem('ng-cookie-consent','declined'); banner.classList.remove('show');
+  });
+})();
+
+/* ============================================================
+   NEWSLETTER POPUP (delayed)
+   ============================================================ */
+(function(){
+  const popup = document.getElementById('newsletterPopup');
+  if(!sessionStorage.getItem('ng-newsletter-shown')){
+    setTimeout(()=>{ popup.classList.add('show'); sessionStorage.setItem('ng-newsletter-shown','1'); }, 9000);
+  }
+  document.getElementById('closeNewsletter').addEventListener('click', ()=>popup.classList.remove('show'));
+  popup.addEventListener('click', e=>{ if(e.target === popup) popup.classList.remove('show'); });
+  document.getElementById('popupNewsletterForm').addEventListener('submit', function(e){
+    e.preventDefault(); popup.classList.remove('show'); this.reset();
+  });
+  document.getElementById('footerNewsletter').addEventListener('submit', function(e){
+    e.preventDefault(); this.reset();
+    const btn = this.querySelector('button');
+    const old = btn.innerHTML; btn.innerHTML = '<i class="bi bi-check2"></i>';
+    setTimeout(()=>btn.innerHTML = old, 1800);
+  });
+})();
+
+/* ============================================================
+   SEARCH POPUP (bind to a global shortcut + could be triggered elsewhere)
+   ============================================================ */
+document.addEventListener('keydown', function(e){
+  if((e.ctrlKey || e.metaKey) && e.key.toLowerCase()==='k'){
+    e.preventDefault();
+    document.getElementById('searchPopup').classList.add('show');
+    document.getElementById('searchInput').focus();
+  }
+  if(e.key === 'Escape'){ document.getElementById('searchPopup').classList.remove('show'); }
+});
+document.getElementById('closeSearch').addEventListener('click', ()=>{
+  document.getElementById('searchPopup').classList.remove('show');
+});
+
+/* ============================================================
+   BACK TO TOP
+   ============================================================ */
+document.getElementById('backToTop').addEventListener('click', function(){
+  if(window.lenis) window.lenis.scrollTo(0); else window.scrollTo({top:0, behavior:'smooth'});
+});
+</script>
+</body>
+</html>

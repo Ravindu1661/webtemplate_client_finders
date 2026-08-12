@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<meta name="description" content="LUXE DENTAL - Crafting Perfect Smiles. Premium private dental clinic."/>
+<title>LUXE DENTAL | Crafting Perfect Smiles</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+<link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config={theme:{extend:{colors:{lux:{white:'#FFFFFF',soft:'#FAFAFA',pearl:'#F6F5F3',gray:'#EDEDED',blue:'#4DA8DA',gold:'#C5A46D',charcoal:'#1E1E1E'}},fontFamily:{playfair:['"Playfair Display"','serif'],manrope:['"Manrope"','sans-serif']},boxShadow:{'lux':'0 20px 40px rgba(30,30,30,0.05)','lux-lg':'0 30px 60px rgba(30,30,30,0.08)'}}}}
+</script>
+<style>
+:root{--wht:#FFFFFF;--sft:#FAFAFA;--prl:#F6F5F3;--gry:#EDEDED;--blu:#4DA8DA;--gld:#C5A46D;--chr:#1E1E1E;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Manrope',sans-serif;background-color:var(--sft);color:var(--chr);overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+::-webkit-scrollbar{width:6px;}
+::-webkit-scrollbar-track{background:var(--sft);}
+::-webkit-scrollbar-thumb{background:var(--gry);border-radius:3px;}
+::-webkit-scrollbar-thumb:hover{background:var(--gld);}
+
+/* LENIS */
+html.lenis, html.lenis body {height:auto;width:100vw;}
+.lenis.lenis-smooth {scroll-behavior:auto!important;}
+.lenis.lenis-smooth [data-lenis-prevent] {overscroll-behavior:contain;}
+.lenis.lenis-stopped {overflow:hidden;}
+.lenis.lenis-smooth iframe {pointer-events:none;}
+
+/* LOADER */
+#loader{position:fixed;inset:0;background:var(--wht);z-index:9999;display:flex;align-items:center;justify-content:center;flex-direction:column;transition:opacity 0.8s ease,visibility 0.8s ease;}
+#loader.hidden{opacity:0;visibility:hidden;}
+.loader-text{font-family:'Playfair Display',serif;font-size:3rem;color:var(--chr);letter-spacing:4px;}
+.loader-text span{color:var(--gld);font-style:italic;}
+.loader-bar{width:150px;height:1px;background:var(--gry);margin-top:1.5rem;position:relative;overflow:hidden;}
+.loader-bar::after{content:'';position:absolute;top:0;left:0;height:100%;width:0%;background:var(--gld);animation:load-bar 1.5s cubic-bezier(0.77,0,0.175,1) forwards;}
+@keyframes load-bar{0%{width:0%;}100%{width:100%;}}
+
+/* NAVBAR */
+#nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(255,255,255,0);transition:all 0.4s cubic-bezier(0.4,0,0.2,1);padding:1.5rem 0;}
+#nav.scrolled{background:rgba(255,255,255,0.95);padding:1rem 0;box-shadow:0 10px 30px rgba(0,0,0,0.03);backdrop-filter:blur(15px);}
+.nav-link{font-size:0.8rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--wht);transition:color 0.3s;position:relative;}
+#nav.scrolled .nav-link{color:var(--chr);}
+.nav-link::after{content:'';position:absolute;bottom:-6px;left:0;width:0;height:1px;background:var(--gld);transition:width 0.3s cubic-bezier(0.4,0,0.2,1);}
+.nav-link:hover::after,.nav-link.active::after{width:100%;}
+.nav-link:hover{color:var(--gld);}
+#nav.scrolled .nav-link:hover{color:var(--gld);}
+
+/* UTILS */
+.heading-playfair{font-family:'Playfair Display',serif;}
+.btn-primary{background:var(--chr);color:var(--wht);font-size:0.85rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;padding:1.2rem 2.5rem;border-radius:50px;transition:all 0.4s cubic-bezier(0.4,0,0.2,1);display:inline-flex;align-items:center;gap:0.75rem;border:1px solid var(--chr);}
+.btn-primary:hover{background:var(--gld);border-color:var(--gld);transform:translateY(-2px);box-shadow:0 15px 30px rgba(197,164,109,0.3);}
+.btn-outline{background:transparent;color:var(--wht);font-size:0.85rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;padding:1.2rem 2.5rem;border-radius:50px;transition:all 0.4s cubic-bezier(0.4,0,0.2,1);display:inline-flex;align-items:center;gap:0.75rem;border:1px solid rgba(255,255,255,0.5);}
+.btn-outline:hover{background:var(--wht);color:var(--chr);border-color:var(--wht);transform:translateY(-2px);}
+#nav.scrolled .btn-outline{color:var(--chr);border-color:var(--gry);}
+#nav.scrolled .btn-outline:hover{background:var(--chr);color:var(--wht);border-color:var(--chr);}
+
+.sec-title{font-size:clamp(2.5rem,5vw,4.5rem);font-weight:500;line-height:1.1;color:var(--chr);}
+.sec-subtitle{font-size:0.8rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--gld);margin-bottom:1rem;display:block;}
+
+/* HERO */
+#hero{position:relative;height:100vh;min-height:800px;display:flex;align-items:center;overflow:hidden;}
+.hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;will-change:transform;}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to right,rgba(30,30,30,0.8) 0%,rgba(30,30,30,0.4) 50%,rgba(30,30,30,0.1) 100%);}
+.hero-content{position:relative;z-index:2;width:100%;max-width:1400px;margin:0 auto;padding:0 2rem;margin-top:4rem;}
+.hero-title{font-size:clamp(3.5rem,8vw,7.5rem);color:var(--wht);line-height:1;margin-bottom:1.5rem;font-weight:400;}
+.hero-title span{font-style:italic;color:var(--gld);}
+.scroll-indicator{position:absolute;bottom:3rem;left:2rem;z-index:2;display:flex;align-items:center;gap:1rem;transform:rotate(-90deg);transform-origin:left center;}
+.scroll-line{width:60px;height:1px;background:rgba(255,255,255,0.3);position:relative;overflow:hidden;}
+.scroll-line::after{content:'';position:absolute;top:0;left:0;height:100%;width:30%;background:var(--wht);animation:scroll-x 2s ease-in-out infinite;}
+@keyframes scroll-x{0%{left:-30%;}100%{left:100%;}}
+.scroll-text{font-size:0.75rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--wht);font-weight:600;}
+
+/* FLOATERS */
+.floater{position:absolute;border:1px solid rgba(255,255,255,0.1);border-radius:50%;z-index:1;pointer-events:none;}
+.f-1{width:400px;height:400px;top:-100px;right:-100px;animation:float1 10s ease-in-out infinite;}
+.f-2{width:600px;height:600px;bottom:-200px;right:10%;animation:float2 14s ease-in-out infinite;border-color:rgba(255,255,255,0.05);}
+@keyframes float1{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(-20px,20px) scale(1.05);}}
+@keyframes float2{0%,100%{transform:translate(0,0) rotate(0deg);}50%{transform:translate(30px,-30px) rotate(10deg);}}
+
+/* ABOUT */
+.about-img-wrap{position:relative;overflow:hidden;border-radius:24px 24px 0 24px;}
+.about-img-wrap img{width:100%;height:100%;object-fit:cover;transition:transform 1.5s cubic-bezier(0.165,0.84,0.44,1);}
+.about-img-wrap:hover img{transform:scale(1.05);}
+.about-badge{position:absolute;bottom:0;right:0;background:var(--wht);padding:2.5rem;border-radius:24px 0 0 0;}
+
+/* STATS */
+.stat-box{text-align:center;padding:2rem;}
+.stat-num{font-family:'Playfair Display',serif;font-size:clamp(3rem,5vw,4.5rem);font-weight:500;color:var(--chr);line-height:1;margin-bottom:0.5rem;}
+.stat-label{font-size:0.8rem;text-transform:uppercase;letter-spacing:0.15em;color:var(--chr);opacity:0.6;font-weight:600;}
+
+/* TREATMENTS */
+.treat-card{background:var(--wht);border-radius:24px;padding:2.5rem;transition:all 0.4s cubic-bezier(0.4,0,0.2,1);position:relative;overflow:hidden;box-shadow:var(--lux);border:1px solid rgba(0,0,0,0.02);}
+.treat-card:hover{transform:translateY(-10px);box-shadow:var(--lux-lg);border-color:var(--gld);}
+.treat-icon{width:60px;height:60px;background:var(--prl);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.5rem;color:var(--blu);margin-bottom:2rem;transition:all 0.4s;}
+.treat-card:hover .treat-icon{background:var(--blu);color:var(--wht);transform:rotateY(180deg);}
+.treat-meta{display:flex;align-items:center;justify-content:space-between;margin-top:2rem;padding-top:1.5rem;border-top:1px solid var(--gry);font-size:0.85rem;}
+
+/* WHY CHOOSE US */
+.feat-box{display:flex;gap:1.5rem;margin-bottom:2rem;padding:1.5rem;border-radius:20px;transition:all 0.3s;}
+.feat-box:hover{background:var(--wht);box-shadow:var(--lux);}
+.feat-icon{width:50px;height:50px;border-radius:50%;background:var(--sft);display:flex;align-items:center;justify-content:center;color:var(--gld);font-size:1.2rem;flex-shrink:0;border:1px solid var(--gry);}
+
+/* DOCTORS */
+.doc-card{background:var(--wht);border-radius:24px;overflow:hidden;box-shadow:var(--lux);transition:all 0.4s;border:1px solid transparent;}
+.doc-card:hover{transform:translateY(-10px);border-color:var(--gry);}
+.doc-img{width:100%;aspect-ratio:3/4;object-fit:cover;transition:transform 0.8s;}
+.doc-card:hover .doc-img{transform:scale(1.05);}
+.doc-content{padding:2.5rem;position:relative;}
+.doc-soc{position:absolute;top:-25px;right:2rem;display:flex;gap:0.5rem;}
+.d-soc-link{width:40px;height:40px;border-radius:50%;background:var(--wht);color:var(--chr);display:flex;align-items:center;justify-content:center;box-shadow:0 10px 20px rgba(0,0,0,0.1);transition:all 0.3s;}
+.d-soc-link:hover{background:var(--gld);color:var(--wht);}
+
+/* GALLERY */
+.gal-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));grid-auto-rows:250px;gap:1.5rem;grid-auto-flow:dense;}
+.gal-item{position:relative;border-radius:20px;overflow:hidden;cursor:pointer;}
+.gal-item:nth-child(2n){grid-row:span 2;}
+.gal-item:nth-child(5n){grid-column:span 2;grid-row:span 2;}
+.gal-item img{width:100%;height:100%;object-fit:cover;transition:transform 1s ease;}
+.gal-item:hover img{transform:scale(1.08);}
+.gal-overlay{position:absolute;inset:0;background:rgba(30,30,30,0.4);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity 0.4s ease;}
+.gal-item:hover .gal-overlay{opacity:1;}
+.gal-icon{width:60px;height:60px;background:rgba(255,255,255,0.2);backdrop-filter:blur(10px);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--wht);font-size:1.2rem;border:1px solid rgba(255,255,255,0.4);}
+
+/* LIGHTBOX */
+#lightbox{position:fixed;inset:0;background:rgba(30,30,30,0.95);z-index:9999;display:none;align-items:center;justify-content:center;backdrop-filter:blur(10px);}
+#lightbox.active{display:flex;}
+#lb-img{max-width:90vw;max-height:85vh;border-radius:12px;box-shadow:0 30px 60px rgba(0,0,0,0.5);object-fit:contain;}
+.lb-btn{position:absolute;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);color:var(--wht);width:50px;height:50px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.2rem;cursor:pointer;transition:all 0.3s;}
+.lb-btn:hover{background:var(--wht);color:var(--chr);}
+#lb-prev{left:2rem;}
+#lb-next{right:2rem;}
+#lb-close{top:2rem;right:2rem;}
+
+/* SMILE COMPARE */
+.compare-wrap{position:relative;width:100%;max-width:900px;margin:0 auto;aspect-ratio:16/9;border-radius:24px;overflow:hidden;box-shadow:var(--lux-lg);}
+.compare-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+.compare-overlay{position:absolute;inset:0;width:50%;overflow:hidden;}
+.compare-slider{position:absolute;top:0;bottom:0;left:50%;width:4px;background:var(--wht);cursor:ew-resize;transform:translateX(-50%);z-index:10;}
+.compare-handle{position:absolute;top:50%;left:50%;width:40px;height:40px;background:var(--wht);border-radius:50%;transform:translate(-50%,-50%);display:flex;align-items:center;justify-content:center;color:var(--chr);box-shadow:0 0 20px rgba(0,0,0,0.2);}
+
+/* TECHNOLOGY */
+.tech-card{text-align:center;padding:3rem 2rem;background:var(--wht);border-radius:24px;box-shadow:var(--lux);transition:all 0.4s;}
+.tech-card:hover{transform:translateY(-10px);}
+.tech-icon{font-size:3rem;color:var(--blu);margin-bottom:1.5rem;}
+
+/* TIMELINE */
+.timeline{position:relative;max-width:800px;margin:0 auto;}
+.timeline::before{content:'';position:absolute;top:0;bottom:0;left:50%;width:2px;background:var(--gry);transform:translateX(-50%);}
+.tl-item{position:relative;margin-bottom:4rem;width:50%;}
+.tl-item:nth-child(odd){left:0;padding-right:3rem;text-align:right;}
+.tl-item:nth-child(even){left:50%;padding-left:3rem;}
+.tl-dot{position:absolute;top:0;width:20px;height:20px;background:var(--gld);border-radius:50%;border:4px solid var(--wht);box-shadow:0 0 0 4px rgba(197,164,109,0.2);}
+.tl-item:nth-child(odd) .tl-dot{right:-10px;}
+.tl-item:nth-child(even) .tl-dot{left:-10px;}
+.tl-content{background:var(--wht);padding:2rem;border-radius:20px;box-shadow:var(--lux);position:relative;}
+
+/* TESTIMONIALS */
+.test-card{background:rgba(255,255,255,0.8);backdrop-filter:blur(20px);padding:4rem 3rem;border-radius:24px;text-align:center;border:1px solid rgba(255,255,255,0.5);box-shadow:var(--lux);margin:2rem 1rem;}
+.test-img{width:80px;height:80px;border-radius:50%;object-fit:cover;margin:0 auto 1.5rem;}
+.test-text{font-family:'Playfair Display',serif;font-size:1.3rem;line-height:1.8;color:var(--chr);font-style:italic;margin-bottom:2rem;}
+.swiper-pagination-bullet{background:var(--chr)!important;opacity:0.2!important;}
+.swiper-pagination-bullet-active{background:var(--gld)!important;opacity:1!important;width:24px!important;border-radius:4px!important;}
+
+/* FAQ */
+.faq-item{border-bottom:1px solid var(--gry);padding:1.5rem 0;}
+.faq-head{display:flex;align-items:center;justify-content:space-between;cursor:pointer;font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:500;}
+.faq-icon{font-size:1rem;color:var(--gld);transition:transform 0.4s;}
+.faq-body{max-height:0;overflow:hidden;transition:max-height 0.4s ease;color:var(--chr);opacity:0.7;line-height:1.7;}
+.faq-item.active .faq-body{max-height:300px;margin-top:1rem;}
+.faq-item.active .faq-icon{transform:rotate(45deg);}
+
+/* PARTNERS */
+.partner-logo{height:60px;object-fit:contain;filter:grayscale(100%) opacity(0.5);transition:all 0.3s;}
+.partner-logo:hover{filter:grayscale(0%) opacity(1);}
+
+/* FORM */
+.form-input{width:100%;background:rgba(255,255,255,0.8);backdrop-filter:blur(10px);border:1px solid var(--gry);padding:1.2rem 1.5rem;border-radius:12px;font-family:'Manrope',sans-serif;font-size:0.95rem;color:var(--chr);outline:none;transition:all 0.3s;}
+.form-input:focus{border-color:var(--blu);box-shadow:0 0 0 4px rgba(77,168,218,0.1);background:var(--wht);}
+.form-input::placeholder{color:var(--chr);opacity:0.4;}
+textarea.form-input{min-height:150px;resize:none;}
+select.form-input{color:var(--chr);}
+
+/* MAP & CONTACT */
+.map-container{border-radius:24px;overflow:hidden;height:100%;min-height:400px;box-shadow:var(--lux);}
+.contact-card{background:var(--wht);padding:2rem;border-radius:20px;box-shadow:var(--lux);display:flex;align-items:flex-start;gap:1.5rem;transition:transform 0.3s;}
+.contact-card:hover{transform:translateY(-5px);}
+.cc-icon{width:50px;height:50px;border-radius:50%;background:var(--prl);display:flex;align-items:center;justify-content:center;font-size:1.2rem;color:var(--blu);flex-shrink:0;}
+
+/* NEWSLETTER */
+.nl-wrap{background:var(--chr);border-radius:30px;padding:6rem 3rem;text-align:center;color:var(--wht);position:relative;overflow:hidden;box-shadow:var(--lux-lg);}
+.nl-bg{position:absolute;inset:0;background-image:url('https://images.unsplash.com/photo-1606811841689-23dfddce3e95?w=1200&q=80');background-size:cover;background-position:center;opacity:0.1;mix-blend-mode:luminosity;}
+
+/* FOOTER */
+.footer{background:var(--wht);padding:6rem 0 2rem;}
+.f-link{color:var(--chr);opacity:0.6;font-size:0.9rem;transition:all 0.3s;}
+.f-link:hover{color:var(--blu);opacity:1;}
+.f-soc{width:40px;height:40px;border-radius:50%;background:var(--prl);display:flex;align-items:center;justify-content:center;color:var(--chr);transition:all 0.3s;}
+.f-soc:hover{background:var(--blu);color:var(--wht);}
+
+/* MOBILE MENU */
+#mob-menu{position:fixed;inset:0;background:var(--wht);z-index:998;display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transition:all 0.5s cubic-bezier(0.4,0,0.2,1);}
+#mob-menu.active{opacity:1;visibility:visible;}
+.mob-link{font-family:'Playfair Display',serif;font-size:2.5rem;font-weight:500;color:var(--chr);margin:1rem 0;display:block;text-align:center;transition:color 0.3s;}
+.mob-link:hover{color:var(--gld);}
+.hamburger{width:30px;height:20px;position:relative;cursor:pointer;z-index:1001;}
+.hamburger span{display:block;position:absolute;height:2px;width:100%;background:var(--wht);border-radius:2px;opacity:1;left:0;transform:rotate(0deg);transition:0.25s ease-in-out;}
+#nav.scrolled .hamburger span{background:var(--chr);}
+.hamburger span:nth-child(1){top:0px;}
+.hamburger span:nth-child(2){top:9px;}
+.hamburger span:nth-child(3){top:18px;}
+.hamburger.open span{background:var(--chr);}
+.hamburger.open span:nth-child(1){top:9px;transform:rotate(135deg);}
+.hamburger.open span:nth-child(2){opacity:0;left:-60px;}
+.hamburger.open span:nth-child(3){top:9px;transform:rotate(-135deg);}
+
+/* RESPONSIVE TIMELINE */
+@media (max-width: 768px) {
+  .timeline::before{left:20px;}
+  .tl-item{width:100% !important;padding-left:50px !important;padding-right:0 !important;text-align:left !important;left:0 !important;}
+  .tl-dot{left:10px !important;right:auto !important;}
+}
+</style>
+</head>
+<body>
+
+<!-- LOADER -->
+<div id="loader">
+  <div class="loader-text">LUXE <span>DENTAL</span></div>
+  <div class="loader-bar"></div>
+</div>
+
+<!-- NAVBAR -->
+<nav id="nav">
+  <div class="max-w-[1400px] mx-auto px-6 md:px-12 flex items-center justify-between">
+    <a href="#hero" class="heading-playfair text-2xl md:text-3xl font-semibold tracking-wide z-[1001]" style="position:relative;">LUXE <span style="color:var(--gld)">DENTAL</span></a>
+    <div class="hidden lg:flex items-center gap-8">
+      <a href="#about" class="nav-link">About</a>
+      <a href="#treatments" class="nav-link">Treatments</a>
+      <a href="#doctors" class="nav-link">Doctors</a>
+      <a href="#gallery" class="nav-link">Gallery</a>
+      <a href="#reviews" class="nav-link">Reviews</a>
+    </div>
+    <div class="hidden lg:flex items-center gap-6">
+      <a href="#contact" class="nav-link">Contact</a>
+      <a href="#book" class="btn-outline">Book Appointment</a>
+    </div>
+    <div class="lg:hidden hamburger" id="ham">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div id="mob-menu">
+  <div class="flex flex-col items-center">
+    <a href="#about" class="mob-link">About</a>
+    <a href="#treatments" class="mob-link">Treatments</a>
+    <a href="#doctors" class="mob-link">Doctors</a>
+    <a href="#gallery" class="mob-link">Gallery</a>
+    <a href="#contact" class="mob-link">Contact</a>
+    <a href="#book" class="btn-primary mt-8">Book Appointment</a>
+  </div>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="floater f-1"></div>
+  <div class="floater f-2"></div>
+  <img src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?w=1920&q=90" alt="Luxury Clinic" class="hero-img" id="hero-img"/>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <p class="text-white text-sm md:text-base tracking-[0.3em] uppercase mb-6 font-semibold" data-aos="fade-down" data-aos-duration="1000">Welcome to Excellence</p>
+    <h1 class="heading-playfair hero-title" data-aos="fade-up" data-aos-delay="200" data-aos-duration="1200">Crafting<br/><span>Perfect Smiles.</span></h1>
+    <p class="text-white/90 text-lg md:text-xl font-light max-w-2xl mb-10" data-aos="fade-up" data-aos-delay="400" data-aos-duration="1000">Experience world-class dental care in a pristine, relaxing environment designed for your comfort and absolute confidence.</p>
+    <div class="flex flex-wrap gap-5" data-aos="fade-up" data-aos-delay="600" data-aos-duration="1000">
+      <a href="#book" class="btn-primary">Book Appointment</a>
+      <a href="#treatments" class="btn-outline">View Treatments</a>
+    </div>
+  </div>
+  <div class="scroll-indicator">
+    <span class="scroll-text">Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="py-24 md:py-32 bg-sft">
+  <div class="max-w-[1400px] mx-auto px-6 md:px-12">
+    <div class="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+      <div data-aos="fade-right">
+        <span class="sec-subtitle">Our Philosophy</span>
+        <h2 class="heading-playfair sec-title mb-8">Redefining <br/>Modern <span style="color:var(--gld);font-style:italic;">Dentistry</span></h2>
+        <p class="text-gray-600 text-lg leading-relaxed mb-6">At Luxe Dental, we believe a visit to the dentist should feel like a premium wellness experience. We have completely reimagined the dental journey by combining world-class specialists with state-of-the-art technology in a serene, luxurious setting.</p>
+        <p class="text-gray-600 text-lg leading-relaxed mb-10">Our focus is on minimally invasive, pain-free treatments that deliver flawless aesthetic results. From digital smile design to advanced implantology, we engineer confidence.</p>
+        <a href="#book" class="btn-primary">Discover the Difference</a>
+      </div>
+      <div class="relative" data-aos="fade-left" data-aos-delay="200">
+        <div class="about-img-wrap aspect-[4/5] shadow-lux">
+          <img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=800&q=80" alt="Smiling Patient"/>
+        </div>
+        <div class="about-badge shadow-lux">
+          <p class="heading-playfair text-4xl text-chr mb-2">25+</p>
+          <p class="text-xs font-bold uppercase tracking-widest text-gld">Years of<br/>Expertise</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="py-16 bg-wht border-y border-gry">
+  <div class="max-w-[1400px] mx-auto px-6 md:px-12">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+      <div class="stat-box" data-aos="fade-up" data-aos-delay="0">
+        <div class="stat-num" data-val="18000">0</div>
+        <span class="stat-label">Happy Patients</span>
+      </div>
+      <div class="stat-box" data-aos="fade-up" data-aos-delay="100">
+        <div class="stat-num" data-val="12">0</div>
+        <span class="stat-label">Specialist Doctors</span>
+      </div>
+      <div class="stat-box" data-aos="fade-up" data-aos-delay="200">
+        <div class="stat-num" data-val="35">0</div>
+        <span class="stat-label">Industry Awards</span>
+      </div>
+      <div class="stat-box" data-aos="fade-up" data-aos-delay="300">
+        <div class="stat-num" data-val="100">0</div>
+        <span class="stat-label">% Satisfaction</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TREATMENTS -->
+<section id="treatments" class="py-24 md:py-32 bg-prl">
+  <div class="max-w-[1400px] mx-auto px-6 md:px-12">
+    <div class="flex flex-col md:flex-row md:items-end justify-between mb-16" data-aos="fade-up">
+      <div>
+        <span class="sec-subtitle">Comprehensive Care</span>
+        <h2 class="heading-playfair sec-title">Premium <span style="font-style:italic;">Treatments</span></h2>
+      </div>
+      <a href="#contact" class="btn-outline !text-chr !border-chr hover:!bg-chr hover:!text-wht mt-6 md:mt-0">View All Services</a>
+    </div>
+    
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+      
+      <!-- T1 -->
+      <div class="treat-card" data-aos="fade-up" data-aos-delay="0">
+        <div class="treat-icon"><i class="fa-solid fa-tooth"></i></div>
+        <h3 class="heading-playfair text-2xl font-semibold mb-3">Dental Implants</h3>
+        <p class="text-sm text-gray-500 line-clamp-3">Permanent, natural-looking tooth replacement using premium Swiss titanium implants.</p>
+        <div class="treat-meta">
+          <span class="font-bold">From $2,500</span>
+          <a href="#book" class="text-blu font-bold"><i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+      </div>
+      
+      <!-- T2 -->
+      <div class="treat-card" data-aos="fade-up" data-aos-delay="100">
+        <div class="treat-icon"><i class="fa-solid fa-face-smile-beam"></i></div>
+        <h3 class="heading-playfair text-2xl font-semibold mb-3">Smile Makeover</h3>
+        <p class="text-sm text-gray-500 line-clamp-3">Complete aesthetic transformation using digital smile design (DSD) technology.</p>
+        <div class="treat-meta">
+          <span class="font-bold">Custom</span>
+          <a href="#book" class="text-blu font-bold"><i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+      </div>
+
+      <!-- T3 -->
+      <div class="treat-card" data-aos="fade-up" data-aos-delay="200">
+        <div class="treat-icon"><i class="fa-solid fa-teeth"></i></div>
+        <h3 class="heading-playfair text-2xl font-semibold mb-3">Porcelain Veneers</h3>
+        <p class="text-sm text-gray-500 line-clamp-3">Ultra-thin, custom-made ceramic shells for a flawless, bright, and symmetrical smile.</p>
+        <div class="treat-meta">
+          <span class="font-bold">From $800/th</span>
+          <a href="#book" class="text-blu font-bold"><i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+      </div>
+
+      <!-- T4 -->
+      <div class="treat-card" data-aos="fade-up" data-aos-delay="300">
+        <div class="treat-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+        <h3 class="heading-playfair text-2xl font-semibold mb-3">Teeth Whitening</h3>
+        <p class="text-sm text-gray-500 line-clamp-3">Advanced laser whitening for instant results. Brighten your smile up to 8 shades.</p>
+        <div class="treat-meta">
+          <span class="font-bold">From $450</span>
+          <a href="#book" class="text-blu font-bold"><i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+      </div>
+      
+      <!-- T5 -->
+      <div class="treat-card" data-aos="fade-up" data-aos-delay="0">
+        <div class="treat-icon"><i class="fa-solid fa-teeth-open"></i></div>
+        <h3 class="heading-playfair text-2xl font-semibold mb-3">Invisible Aligners</h3>
+        <p class="text-sm text-gray-500 line-clamp-3">Straighten teeth discreetly with clear, custom-fit aligners. Faster and more comfortable.</p>
+        <div class="treat-meta">
+          <span class="font-bold">From $3,000</span>
+          <a href="#book" class="text-blu font-bold"><i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+      </div>
+
+      <!-- T6 -->
+      <div class="treat-card" data-aos="fade-up" data-aos-delay="100">
+        <div class="treat-icon"><i class="fa-solid fa-stethoscope"></i></div>
+        <h3 class="heading-playfair text-2xl font-semibold mb-3">Root Canal</h3>
+        <p class="text-sm text-gray-500 line-clamp-3">Painless endodontic therapy using microscopic precision to save damaged teeth.</p>
+        <div class="treat-meta">
+          <span class="font-bold">From $900</span>
+          <a href="#book" class="text-blu font-bold"><i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+      </div>
+
+      <!-- T7 -->
+      <div class="treat-card" data-aos="fade-up" data-aos-delay="200">
+        <div class="treat-icon"><i class="fa-solid fa-child"></i></div>
+        <h3 class="heading-playfair text-2xl font-semibold mb-3">Pediatric Care</h3>
+        <p class="text-sm text-gray-500 line-clamp-3">Gentle, fear-free dentistry for children in a comforting and playful environment.</p>
+        <div class="treat-meta">
+          <span class="font-bold">From $150</span>
+          <a href="#book" class="text-blu font-bold"><i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+      </div>
+
+      <!-- T8 -->
+      <div class="treat-card" data-aos="fade-up" data-aos-delay="300">
+        <div class="treat-icon"><i class="fa-solid fa-truck-medical"></i></div>
+        <h3 class="heading-playfair text-2xl font-semibold mb-3">Emergency Care</h3>
+        <p class="text-sm text-gray-500 line-clamp-3">Immediate attention for dental trauma, severe pain, or lost restorations. 24/7 support.</p>
+        <div class="treat-meta">
+          <span class="font-bold">Priority</span>
+          <a href="#book" class="text-blu font-bold"><i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- WHY CHOOSE US -->
+<section class="py-24 md:py-32 bg-wht">
+  <div class="max-w-[1400px] mx-auto px-6 md:px-12 grid lg:grid-cols-2 gap-16 items-center">
+    <div data-aos="fade-right">
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-6">
+        <div class="feat-box">
+          <div class="feat-icon"><i class="fa-solid fa-desktop"></i></div>
+          <div><h4 class="font-bold text-lg mb-1">Digital Dentistry</h4><p class="text-xs text-gray-500">No messy impressions.</p></div>
+        </div>
+        <div class="feat-box">
+          <div class="feat-icon"><i class="fa-solid fa-leaf"></i></div>
+          <div><h4 class="font-bold text-lg mb-1">Pain-Free</h4><p class="text-xs text-gray-500">Advanced anesthesia.</p></div>
+        </div>
+        <div class="feat-box">
+          <div class="feat-icon"><i class="fa-solid fa-microscope"></i></div>
+          <div><h4 class="font-bold text-lg mb-1">High Tech</h4><p class="text-xs text-gray-500">3D CBCT scanners.</p></div>
+        </div>
+        <div class="feat-box">
+          <div class="feat-icon"><i class="fa-solid fa-couch"></i></div>
+          <div><h4 class="font-bold text-lg mb-1">Luxury Lounge</h4><p class="text-xs text-gray-500">Relaxing environment.</p></div>
+        </div>
+      </div>
+    </div>
+    <div data-aos="fade-left">
+      <span class="sec-subtitle">The Luxe Standard</span>
+      <h2 class="heading-playfair sec-title mb-6">Excellence in <br/>Every <span style="color:var(--gld);font-style:italic;">Detail</span></h2>
+      <p class="text-gray-600 text-lg leading-relaxed">We combine artistry with advanced medical science. Our clinic is equipped with the latest diagnostic technology, allowing us to plan treatments with absolute precision. Your comfort, safety, and ultimate satisfaction are the pillars of our practice.</p>
+    </div>
+  </div>
+</section>
+
+<!-- DOCTORS -->
+<section id="doctors" class="py-24 md:py-32 bg-sft border-t border-gry">
+  <div class="max-w-[1400px] mx-auto px-6 md:px-12">
+    <div class="text-center max-w-3xl mx-auto mb-16" data-aos="fade-up">
+      <span class="sec-subtitle justify-center">The Experts</span>
+      <h2 class="heading-playfair sec-title">Meet Our <span style="color:var(--gld);font-style:italic;">Specialists</span></h2>
+    </div>
+    
+    <div class="grid md:grid-cols-3 gap-8">
+      
+      <!-- Doc 1 -->
+      <div class="doc-card" data-aos="fade-up" data-aos-delay="0">
+        <div class="overflow-hidden"><img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=600&q=80" alt="Dr. Sarah" class="doc-img"/></div>
+        <div class="doc-content">
+          <div class="doc-soc">
+            <a href="#" class="d-soc-link"><i class="fa-brands fa-linkedin-in"></i></a>
+          </div>
+          <p class="text-xs tracking-widest text-blu uppercase font-bold mb-2">Cosmetic Dentist</p>
+          <h3 class="heading-playfair text-2xl font-semibold mb-3">Dr. Sarah Jenkins</h3>
+          <p class="text-sm text-gray-500 mb-6">Renowned for creating natural, beautiful smiles using ultra-thin porcelain veneers and DSD.</p>
+          <a href="#book" class="text-sm font-bold uppercase tracking-widest border-b border-chr pb-1 hover:text-blu hover:border-blu transition-colors">Book Consultation</a>
+        </div>
+      </div>
+
+      <!-- Doc 2 -->
+      <div class="doc-card" data-aos="fade-up" data-aos-delay="100">
+        <div class="overflow-hidden"><img src="https://images.unsplash.com/photo-1537368910025-700350fe46c7?w=600&q=80" alt="Dr. Michael" class="doc-img"/></div>
+        <div class="doc-content">
+          <div class="doc-soc">
+            <a href="#" class="d-soc-link"><i class="fa-brands fa-linkedin-in"></i></a>
+          </div>
+          <p class="text-xs tracking-widest text-blu uppercase font-bold mb-2">Implantologist</p>
+          <h3 class="heading-playfair text-2xl font-semibold mb-3">Dr. Michael Rossi</h3>
+          <p class="text-sm text-gray-500 mb-6">Expert in full-mouth restorations and complex oral surgeries with 15+ years experience.</p>
+          <a href="#book" class="text-sm font-bold uppercase tracking-widest border-b border-chr pb-1 hover:text-blu hover:border-blu transition-colors">Book Consultation</a>
+        </div>
+      </div>
+
+      <!-- Doc 3 -->
+      <div class="doc-card" data-aos="fade-up" data-aos-delay="200">
+        <div class="overflow-hidden"><img src="https://images.unsplash.com/photo-1594824432258-f71661d76378?w=600&q=80" alt="Dr. Elena" class="doc-img"/></div>
+        <div class="doc-content">
+          <div class="doc-soc">
+            <a href="#" class="d-soc-link"><i class="fa-brands fa-linkedin-in"></i></a>
+          </div>
+          <p class="text-xs tracking-widest text-blu uppercase font-bold mb-2">Orthodontist</p>
+          <h3 class="heading-playfair text-2xl font-semibold mb-3">Dr. Elena Volkov</h3>
+          <p class="text-sm text-gray-500 mb-6">Specialist in invisible aligners and advanced interceptive orthodontics for adults and teens.</p>
+          <a href="#book" class="text-sm font-bold uppercase tracking-widest border-b border-chr pb-1 hover:text-blu hover:border-blu transition-colors">Book Consultation</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- TECHNOLOGY SECTION -->
+<section class="py-24 bg-wht">
+  <div class="max-w-[1400px] mx-auto px-6 md:px-12">
+    <div class="text-center mb-16" data-aos="fade-up">
+      <span class="sec-subtitle justify-center">Innovation</span>
+      <h2 class="heading-playfair sec-title">Advanced <span style="color:var(--gld);font-style:italic;">Technology</span></h2>
+    </div>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+      <div class="tech-card" data-aos="zoom-in" data-aos-delay="0"><i class="fa-solid fa-cube tech-icon"></i><h4 class="font-bold text-lg">3D CBCT Scanner</h4></div>
+      <div class="tech-card" data-aos="zoom-in" data-aos-delay="100"><i class="fa-solid fa-camera-retro tech-icon"></i><h4 class="font-bold text-lg">Digital Impressions</h4></div>
+      <div class="tech-card" data-aos="zoom-in" data-aos-delay="200"><i class="fa-solid fa-wand-magic-sparkles tech-icon"></i><h4 class="font-bold text-lg">Laser Dentistry</h4></div>
+      <div class="tech-card" data-aos="zoom-in" data-aos-delay="300"><i class="fa-solid fa-microscope tech-icon"></i><h4 class="font-bold text-lg">Microscope Precision</h4></div>
+    </div>
+  </div>
+</section>
+
+<!-- SMILE TRANSFORMATION (COMPARE) -->
+<section class="py-24 md:py-32 bg-prl overflow-hidden">
+  <div class="max-w-[1400px] mx-auto px-6 md:px-12">
+    <div class="text-center mb-16" data-aos="fade-up">
+      <span class="sec-subtitle justify-center">Real Results</span>
+      <h2 class="heading-playfair sec-title">Smile <span style="color:var(--gld);font-style:italic;">Makeovers</span></h2>
+      <p class="text-gray-500 mt-4">Drag the slider to see the transformation.</p>
+    </div>
+    
+    <div class="compare-wrap" data-aos="fade-up" id="compare-container">
+      <img src="https://images.unsplash.com/photo-1590623695289-4b2a3a82ce18?w=1000&q=80" alt="After" class="compare-img"/>
+      <div class="compare-overlay" id="compare-overlay">
+        <!-- Re-using similar image for demonstration, normally would be before/after -->
+        <img src="https://images.unsplash.com/photo-1590623695289-4b2a3a82ce18?w=1000&q=80" alt="Before" class="compare-img" style="filter:grayscale(100%) brightness(0.8); width:900px; max-width:none;"/>
+      </div>
+      <div class="compare-slider" id="compare-slider">
+        <div class="compare-handle"><i class="fa-solid fa-arrows-left-right"></i></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section class="py-24 md:py-32 bg-wht">
+  <div class="max-w-[1400px] mx-auto px-6 md:px-12">
+    <div class="text-center mb-20" data-aos="fade-up">
+      <span class="sec-subtitle justify-center">Process</span>
+      <h2 class="heading-playfair sec-title">The Patient <span style="color:var(--gld);font-style:italic;">Journey</span></h2>
+    </div>
+    
+    <div class="timeline">
+      <div class="tl-item" data-aos="fade-up">
+        <div class="tl-dot"></div>
+        <div class="tl-content">
+          <h4 class="font-bold text-xl mb-2 text-blu">1. Consultation</h4>
+          <p class="text-sm text-gray-600">A comprehensive discussion of your goals and a full 3D digital scan of your mouth.</p>
+        </div>
+      </div>
+      <div class="tl-item" data-aos="fade-up">
+        <div class="tl-dot"></div>
+        <div class="tl-content">
+          <h4 class="font-bold text-xl mb-2 text-blu">2. Smile Design</h4>
+          <p class="text-sm text-gray-600">Using AI and digital tools, we design your perfect smile and show you the expected outcome.</p>
+        </div>
+      </div>
+      <div class="tl-item" data-aos="fade-up">
+        <div class="tl-dot"></div>
+        <div class="tl-content">
+          <h4 class="font-bold text-xl mb-2 text-blu">3. Treatment</h4>
+          <p class="text-sm text-gray-600">Pain-free procedure in our luxury suites using the finest materials and advanced techniques.</p>
+        </div>
+      </div>
+      <div class="tl-item" data-aos="fade-up">
+        <div class="tl-dot"></div>
+        <div class="tl-content">
+          <h4 class="font-bold text-xl mb-2 text-blu">4. Aftercare</h4>
+          <p class="text-sm text-gray-600">Dedicated follow-up to ensure perfect healing and absolute satisfaction with your new smile.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery" class="py-24 bg-sft border-t border-gry">
+  <div class="max-w-[1400px] mx-auto px-6 md:px-12">
+    <div class="text-center mb-16" data-aos="fade-up">
+      <span class="sec-subtitle justify-center">Visual Tour</span>
+      <h2 class="heading-playfair sec-title">Clinic <span style="color:var(--gld);font-style:italic;">Gallery</span></h2>
+    </div>
+    
+    <div class="gal-grid">
+      <div class="gal-item" data-aos="zoom-in"><img src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=800&q=80" alt="Reception"/><div class="gal-overlay"><div class="gal-icon"><i class="fa-solid fa-expand"></i></div></div></div>
+      <div class="gal-item" data-aos="zoom-in"><img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=800&q=80" alt="Patient"/><div class="gal-overlay"><div class="gal-icon"><i class="fa-solid fa-expand"></i></div></div></div>
+      <div class="gal-item" data-aos="zoom-in"><img src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?w=800&q=80" alt="Clinic"/><div class="gal-overlay"><div class="gal-icon"><i class="fa-solid fa-expand"></i></div></div></div>
+      <div class="gal-item" data-aos="zoom-in"><img src="https://images.unsplash.com/photo-1609840114035-3c981b782dfe?w=800&q=80" alt="Tools"/><div class="gal-overlay"><div class="gal-icon"><i class="fa-solid fa-expand"></i></div></div></div>
+      <div class="gal-item" data-aos="zoom-in"><img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=800&q=80" alt="Doctor"/><div class="gal-overlay"><div class="gal-icon"><i class="fa-solid fa-expand"></i></div></div></div>
+      <div class="gal-item" data-aos="zoom-in"><img src="https://images.unsplash.com/photo-1598256989800-fea5ce5146f2?w=800&q=80" alt="Interior"/><div class="gal-overlay"><div class="gal-icon"><i class="fa-solid fa-expand"></i></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="reviews" class="py-24 md:py-32 bg-wht relative overflow-hidden">
+  <!-- Bg shapes -->
+  <div style="position:absolute;top:-100px;left:-100px;width:400px;height:400px;border-radius:50%;background:var(--prl);z-index:0;"></div>
+  <div style="position:absolute;bottom:-100px;right:-100px;width:500px;height:500px;border-radius:50%;background:rgba(77,168,218,0.05);z-index:0;"></div>
+  
+  <div class="max-w-[1400px] mx-auto px-6 md:px-12 relative z-10">
+    <div class="text-center mb-16" data-aos="fade-up">
+      <span class="sec-subtitle justify-center">Testimonials</span>
+      <h2 class="heading-playfair sec-title">Patient <span style="color:var(--gld);font-style:italic;">Stories</span></h2>
+    </div>
+    
+    <div class="swiper testSwiper max-w-4xl mx-auto" data-aos="fade-up" data-aos-delay="100">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide">
+          <div class="test-card">
+            <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&q=80" alt="Emma" class="test-img"/>
+            <div class="text-gld text-lg mb-4"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+            <p class="test-text">"I traveled from London specifically to get my veneers done here. The clinic feels like a 5-star hotel, and Dr. Sarah is a true artist. The process was completely painless, and my new smile has changed my life."</p>
+            <h5 class="font-bold uppercase tracking-widest text-sm">Emma Thompson</h5>
+            <p class="text-xs text-gray-500 mt-1">London, UK</p>
+          </div>
+        </div>
+        <div class="swiper-slide">
+          <div class="test-card">
+            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&q=80" alt="James" class="test-img"/>
+            <div class="text-gld text-lg mb-4"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+            <p class="test-text">"The level of technology at Luxe Dental is mind-blowing. They showed me a 3D simulation of my smile before we even started. The implant procedure was smooth and the staff made me feel incredibly comfortable."</p>
+            <h5 class="font-bold uppercase tracking-widest text-sm">James Peterson</h5>
+            <p class="text-xs text-gray-500 mt-1">New York, USA</p>
+          </div>
+        </div>
+      </div>
+      <div class="swiper-pagination mt-8 relative"></div>
+    </div>
+  </div>
+</section>
+
+<!-- INSURANCE PARTNERS -->
+<section class="py-16 bg-prl border-y border-gry">
+  <div class="max-w-[1400px] mx-auto px-6 md:px-12 text-center">
+    <p class="text-sm font-bold tracking-widest uppercase text-gray-500 mb-8">Recognized Insurance Partners</p>
+    <div class="flex flex-wrap justify-center gap-12 md:gap-20 opacity-70">
+      <!-- Font Awesome Icons as placeholders for logos -->
+      <i class="fa-brands fa-cc-visa text-5xl partner-logo" style="width:auto;height:auto"></i>
+      <i class="fa-brands fa-cc-mastercard text-5xl partner-logo" style="width:auto;height:auto"></i>
+      <i class="fa-brands fa-cc-amex text-5xl partner-logo" style="width:auto;height:auto"></i>
+      <i class="fa-solid fa-shield-heart text-5xl partner-logo" style="width:auto;height:auto"></i>
+      <i class="fa-solid fa-file-medical text-5xl partner-logo" style="width:auto;height:auto"></i>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ & APPOINTMENT -->
+<section id="book" class="py-24 md:py-32 bg-wht">
+  <div class="max-w-[1400px] mx-auto px-6 md:px-12 grid lg:grid-cols-2 gap-16">
+    
+    <!-- FAQ -->
+    <div data-aos="fade-right">
+      <span class="sec-subtitle">Information</span>
+      <h2 class="heading-playfair sec-title mb-10">Frequently Asked <span style="color:var(--gld);font-style:italic;">Questions</span></h2>
+      
+      <div class="faq-wrapper">
+        <div class="faq-item active">
+          <div class="faq-head">Does the treatment hurt? <i class="fa-solid fa-plus faq-icon"></i></div>
+          <div class="faq-body">No. We use state-of-the-art computer-controlled anesthesia (The Wand) and offer various sedation options to ensure a completely pain-free and relaxing experience.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-head">How long do porcelain veneers last? <i class="fa-solid fa-plus faq-icon"></i></div>
+          <div class="faq-body">With proper care and regular check-ups, our premium porcelain veneers can last 15-20 years. They are highly resistant to staining and chipping.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-head">Do you offer payment plans? <i class="fa-solid fa-plus faq-icon"></i></div>
+          <div class="faq-body">Yes, we offer flexible 0% interest financing plans up to 24 months to help make your dream smile accessible.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-head">What happens in the first consultation? <i class="fa-solid fa-plus faq-icon"></i></div>
+          <div class="faq-body">Your first visit includes a comprehensive examination, 3D scanning, digital photography, and a detailed discussion of your goals with our specialists.</div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Booking Form -->
+    <div data-aos="fade-left">
+      <div class="bg-prl rounded-3xl p-8 md:p-12 shadow-lux relative overflow-hidden border border-gry">
+        <div style="position:absolute;top:-50px;right:-50px;width:150px;height:150px;border-radius:50%;background:rgba(197,164,109,0.1);"></div>
+        <h3 class="heading-playfair text-3xl mb-2">Request Appointment</h3>
+        <p class="text-sm text-gray-500 mb-8">Our concierge team will contact you within 2 hours to confirm your schedule.</p>
+        
+        <form class="grid grid-cols-1 md:grid-cols-2 gap-5" onsubmit="event.preventDefault(); alert('Request Sent. We will contact you shortly.');">
+          <input type="text" placeholder="Full Name *" class="form-input" required/>
+          <input type="email" placeholder="Email Address *" class="form-input" required/>
+          <input type="tel" placeholder="Phone Number *" class="form-input md:col-span-2" required/>
+          <select class="form-input" required>
+            <option value="" disabled selected>Treatment of Interest *</option>
+            <option>Veneers</option>
+            <option>Implants</option>
+            <option>Whitening</option>
+            <option>Invisalign</option>
+            <option>General Checkup</option>
+          </select>
+          <select class="form-input">
+            <option value="" disabled selected>Preferred Doctor</option>
+            <option>Dr. Sarah Jenkins</option>
+            <option>Dr. Michael Rossi</option>
+            <option>Dr. Elena Volkov</option>
+            <option>Any Available</option>
+          </select>
+          <input type="date" class="form-input text-gray-500" required/>
+          <input type="time" class="form-input text-gray-500"/>
+          <textarea placeholder="Additional Details" class="form-input md:col-span-2"></textarea>
+          <button type="submit" class="btn-primary md:col-span-2 justify-center w-full !rounded-xl">Submit Request</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LOCATION -->
+<section id="contact" class="py-12 bg-sft border-t border-gry">
+  <div class="max-w-[1400px] mx-auto px-6 md:px-12 grid lg:grid-cols-3 gap-8 items-stretch">
+    <div class="lg:col-span-2 map-container relative">
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d193595.2527999127!2d-74.14448744576307!3d40.69763123337911!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24fa5d33f083b%3A0xc80b8f06e177fe62!2sNew%20York%2C%20NY!5e0!3m2!1sen!2sus!4v1700000000000" width="100%" height="100%" style="border:0; filter: grayscale(80%) contrast(1.1);" allowfullscreen="" loading="lazy"></iframe>
+    </div>
+    <div class="flex flex-col gap-6 justify-center">
+      <div class="contact-card">
+        <div class="cc-icon"><i class="fa-solid fa-location-dot"></i></div>
+        <div><h5 class="font-bold text-sm uppercase tracking-widest text-chr mb-2">Clinic Address</h5><p class="text-gray-500 text-sm">450 Luxury Avenue, Suite 200<br/>New York, NY 10012</p></div>
+      </div>
+      <div class="contact-card">
+        <div class="cc-icon"><i class="fa-solid fa-phone"></i></div>
+        <div><h5 class="font-bold text-sm uppercase tracking-widest text-chr mb-2">Contact</h5><p class="text-gray-500 text-sm">+1 (800) 123-SMILE<br/>hello@luxedental.com</p></div>
+      </div>
+      <div class="contact-card !border !border-blu">
+        <div class="cc-icon !bg-blu !text-wht"><i class="fa-solid fa-truck-medical"></i></div>
+        <div><h5 class="font-bold text-sm uppercase tracking-widest text-blu mb-2">24/7 Emergency</h5><p class="text-gray-500 text-sm">+1 (800) 999-URGENT</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="py-24 bg-wht">
+  <div class="max-w-[1200px] mx-auto px-6">
+    <div class="nl-wrap" data-aos="zoom-in">
+      <div class="nl-bg"></div>
+      <div class="relative z-10 max-w-2xl mx-auto">
+        <h2 class="heading-playfair text-4xl md:text-5xl mb-4">Smile Journal</h2>
+        <p class="text-wht opacity-80 mb-8 font-light">Subscribe to receive expert dental care tips, clinic news, and exclusive offers.</p>
+        <form class="flex flex-col sm:flex-row gap-4" onsubmit="event.preventDefault();">
+          <input type="email" placeholder="Email Address" class="flex-grow bg-white/10 border border-white/20 text-white placeholder-white/50 px-6 py-4 rounded-full outline-none focus:border-gld transition-colors" required/>
+          <button type="submit" class="btn-primary !bg-wht !text-chr hover:!bg-gld hover:!border-gld hover:!text-wht !rounded-full">Subscribe</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="max-w-[1400px] mx-auto px-6 md:px-12">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16 border-b border-gry pb-16">
+      <div class="lg:col-span-1">
+        <a href="#" class="heading-playfair text-3xl font-semibold tracking-wide mb-6 block text-chr">LUXE <span style="color:var(--gld)">DENTAL</span></a>
+        <p class="text-gray-500 text-sm leading-relaxed mb-8">Pioneering the future of luxury dental care. Engineering flawless smiles with precision, artistry, and advanced technology.</p>
+        <div class="flex gap-4">
+          <a href="#" class="f-soc"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#" class="f-soc"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="#" class="f-soc"><i class="fa-brands fa-twitter"></i></a>
+        </div>
+      </div>
+      
+      <div>
+        <h4 class="font-bold text-sm uppercase tracking-widest text-chr mb-6">Quick Links</h4>
+        <ul class="flex flex-col gap-4">
+          <li><a href="#about" class="f-link">Our Story</a></li>
+          <li><a href="#doctors" class="f-link">The Specialists</a></li>
+          <li><a href="#gallery" class="f-link">Clinic Tour</a></li>
+          <li><a href="#reviews" class="f-link">Patient Stories</a></li>
+        </ul>
+      </div>
+      
+      <div>
+        <h4 class="font-bold text-sm uppercase tracking-widest text-chr mb-6">Treatments</h4>
+        <ul class="flex flex-col gap-4">
+          <li><a href="#treatments" class="f-link">Dental Implants</a></li>
+          <li><a href="#treatments" class="f-link">Porcelain Veneers</a></li>
+          <li><a href="#treatments" class="f-link">Invisible Aligners</a></li>
+          <li><a href="#treatments" class="f-link">Smile Makeover</a></li>
+        </ul>
+      </div>
+      
+      <div>
+        <h4 class="font-bold text-sm uppercase tracking-widest text-chr mb-6">Working Hours</h4>
+        <ul class="flex flex-col gap-4 text-sm text-gray-500">
+          <li class="flex justify-between border-b border-gry pb-2"><span>Monday - Friday</span> <span class="font-semibold">8AM - 7PM</span></li>
+          <li class="flex justify-between border-b border-gry pb-2"><span>Saturday</span> <span class="font-semibold">9AM - 4PM</span></li>
+          <li class="flex justify-between pb-2"><span>Sunday</span> <span class="text-blu font-semibold">Closed</span></li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="flex flex-col md:flex-row justify-between items-center">
+      <p class="text-gray-400 text-sm mb-4 md:mb-0">&copy; 2024 LUXE DENTAL. All Rights Reserved.</p>
+      <div class="flex gap-6">
+        <a href="#" class="text-gray-400 hover:text-blu text-sm transition-colors">Privacy Policy</a>
+        <a href="#" class="text-gray-400 hover:text-blu text-sm transition-colors">Terms of Use</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- LIGHTBOX -->
+<div id="lightbox">
+  <div class="lb-btn" id="lb-close"><i class="fa-solid fa-xmark"></i></div>
+  <div class="lb-btn" id="lb-prev"><i class="fa-solid fa-chevron-left"></i></div>
+  <img id="lb-img" src="" alt="Gallery Image"/>
+  <div class="lb-btn" id="lb-next"><i class="fa-solid fa-chevron-right"></i></div>
+</div>
+
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.19/bundled/lenis.min.js"></script>
+
+<script>
+// Lenis Smooth Scroll Setup
+const lenis = new Lenis({
+  duration: 1.2,
+  easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+  direction: 'vertical',
+  gestureDirection: 'vertical',
+  smooth: true,
+})
+function raf(time) {
+  lenis.raf(time);
+  requestAnimationFrame(raf);
+}
+requestAnimationFrame(raf);
+
+// Loader
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    document.getElementById('loader').classList.add('hidden');
+    AOS.init({duration:1000, easing:'ease-out-cubic', once:true, offset:50});
+  }, 1800);
+});
+
+// Parallax Hero
+const heroImg = document.getElementById('hero-img');
+lenis.on('scroll', (e) => {
+  const scrollY = window.scrollY;
+  if(scrollY < window.innerHeight) {
+    heroImg.style.transform = `translateY(${scrollY * 0.3}px)`;
+  }
+});
+
+// Navbar
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 50) {
+    nav.classList.add('scrolled');
+  } else {
+    nav.classList.remove('scrolled');
+  }
+});
+
+// Mobile Menu
+const ham = document.getElementById('ham');
+const mobMenu = document.getElementById('mob-menu');
+ham.addEventListener('click', () => {
+  ham.classList.toggle('open');
+  mobMenu.classList.toggle('active');
+  if(mobMenu.classList.contains('active')) lenis.stop();
+  else lenis.start();
+});
+document.querySelectorAll('.mob-link').forEach(link => {
+  link.addEventListener('click', () => {
+    ham.classList.remove('open');
+    mobMenu.classList.remove('active');
+    lenis.start();
+  });
+});
+
+// FAQ Accordion
+document.querySelectorAll('.faq-item').forEach(item => {
+  item.querySelector('.faq-head').addEventListener('click', () => {
+    const isActive = item.classList.contains('active');
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('active'));
+    if (!isActive) item.classList.add('active');
+  });
+});
+
+// Swiper
+new Swiper('.testSwiper', {
+  loop: true,
+  autoplay: { delay: 6000, disableOnInteraction: false },
+  pagination: { el: '.swiper-pagination', clickable: true },
+  slidesPerView: 1,
+});
+
+// Animated Counter
+const stats = document.querySelectorAll('.stat-num');
+let animated = false;
+const statObserver = new IntersectionObserver((entries) => {
+  if(entries[0].isIntersecting && !animated) {
+    animated = true;
+    stats.forEach(stat => {
+      const target = parseInt(stat.getAttribute('data-val'));
+      let count = 0;
+      const inc = target / 50;
+      const update = () => {
+        count += inc;
+        if(count < target) {
+          stat.innerText = Math.ceil(count) + (target>1000?'+':'');
+          requestAnimationFrame(update);
+        } else {
+          stat.innerText = target + (target>1000?'+':'');
+        }
+      };
+      update();
+    });
+  }
+}, {threshold: 0.5});
+if(stats.length > 0) statObserver.observe(document.querySelector('.stat-box'));
+
+// Image Comparison Slider
+const container = document.getElementById('compare-container');
+const overlay = document.getElementById('compare-overlay');
+const slider = document.getElementById('compare-slider');
+
+if(container && overlay && slider) {
+  let isDragging = false;
+  
+  const moveSlider = (x) => {
+    const rect = container.getBoundingClientRect();
+    let pos = ((x - rect.left) / rect.width) * 100;
+    if(pos < 0) pos = 0;
+    if(pos > 100) pos = 100;
+    overlay.style.width = `${pos}%`;
+    slider.style.left = `${pos}%`;
+  };
+
+  slider.addEventListener('mousedown', () => isDragging = true);
+  window.addEventListener('mouseup', () => isDragging = false);
+  window.addEventListener('mousemove', (e) => {
+    if(!isDragging) return;
+    moveSlider(e.clientX);
+  });
+  
+  // Touch support
+  slider.addEventListener('touchstart', () => isDragging = true);
+  window.addEventListener('touchend', () => isDragging = false);
+  window.addEventListener('touchmove', (e) => {
+    if(!isDragging) return;
+    moveSlider(e.touches[0].clientX);
+  });
+}
+
+// Lightbox
+const lb = document.getElementById('lightbox');
+const lbImg = document.getElementById('lb-img');
+const galItems = document.querySelectorAll('.gal-item img');
+let currIdx = 0;
+const imgArray = Array.from(galItems).map(img => img.src);
+
+document.querySelectorAll('.gal-item').forEach((item, idx) => {
+  item.addEventListener('click', () => {
+    currIdx = idx;
+    lbImg.src = imgArray[currIdx];
+    lb.classList.add('active');
+    lenis.stop();
+  });
+});
+document.getElementById('lb-close').addEventListener('click', () => {
+  lb.classList.remove('active');
+  lenis.start();
+});
+document.getElementById('lb-next').addEventListener('click', (e) => {
+  e.stopPropagation();
+  currIdx = (currIdx + 1) % imgArray.length;
+  lbImg.src = imgArray[currIdx];
+});
+document.getElementById('lb-prev').addEventListener('click', (e) => {
+  e.stopPropagation();
+  currIdx = (currIdx - 1 + imgArray.length) % imgArray.length;
+  lbImg.src = imgArray[currIdx];
+});
+lb.addEventListener('click', () => {
+  lb.classList.remove('active');
+  lenis.start();
+});
+</script>
+</body>
+</html>
