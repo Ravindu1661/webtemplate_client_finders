@@ -1,0 +1,1272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aurelio Bay — A Boutique Hotel Where Time of Day Sets the Mood</title>
+<meta name="description" content="Aurelio Bay is a boutique hotel on the Amalfi cliffs where every room, meal and ritual is tuned to the hour — from ivory mornings to emerald nights. Reserve your stay.">
+<meta name="keywords" content="boutique hotel, luxury resort, Amalfi coast hotel, ocean villa, spa retreat, fine dining hotel">
+<meta name="author" content="Aurelio Bay">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Aurelio Bay — A Boutique Hotel Tuned to the Hour">
+<meta property="og:description" content="An intimate cliffside hotel where light, not the clock, sets the pace. Ocean villas, a wine cellar carved into stone, and a spa that opens onto the sea.">
+<meta property="og:image" content="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1200&q=80">
+<meta property="og:url" content="https://www.aureliobay.com">
+<meta property="og:site_name" content="Aurelio Bay">
+
+<!-- Schema.org Hotel Markup -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Hotel",
+  "name": "Aurelio Bay",
+  "description": "A boutique cliffside hotel on the Amalfi coast with ocean villas, a wine cellar, spa and fine dining, where the mood of the property shifts with the hour of day.",
+  "image": "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1200&q=80",
+  "priceRange": "$$$$",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Via delle Sirene 12",
+    "addressLocality": "Praiano",
+    "addressCountry": "IT"
+  },
+  "starRating": { "@type": "Rating", "ratingValue": "5" },
+  "telephone": "+39 089 000 000"
+}
+</script>
+
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<!-- Bootstrap 5 CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<!-- Bootstrap Icons -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+<!-- AOS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
+
+<style>
+/* ============================================================
+   DESIGN TOKENS — Aurelio Bay
+   Palette: Warm Ivory #F7F1E6 · Champagne Gold #C9A24B
+            Deep Emerald #0F3C33 · Luxury Black #10100E · Sand Beige #E4D9C4
+   Type: Playfair Display (display) / Outfit (body + UI)
+   Signature: the "Hour Dial" — a draggable sun-arc in the hero that
+   physically retimes the entire site's lighting via CSS variables.
+   ============================================================ */
+:root{
+  --ivory:#F7F1E6;
+  --gold:#C9A24B;
+  --gold-soft:#E7D3A1;
+  --emerald:#0F3C33;
+  --emerald-deep:#0A2A24;
+  --black:#10100E;
+  --sand:#E4D9C4;
+  --ink:#1B1B18;
+
+  /* dynamic, rewritten by JS as the Hour Dial moves */
+  --bg:#F7F1E6;
+  --bg-elevated:#FFFFFF;
+  --text:#1B1B18;
+  --text-soft:rgba(27,27,24,.62);
+  --line:rgba(27,27,24,.12);
+  --sky-a:#FDEFD9;
+  --sky-b:#F7DFC0;
+  --glow: rgba(201,162,75,.35);
+  --nav-bg: rgba(255,255,255,.55);
+  --card-bg: rgba(255,255,255,.6);
+  --card-border: rgba(255,255,255,.5);
+
+  --serif:'Playfair Display', serif;
+  --sans:'Outfit', sans-serif;
+  --ease:cubic-bezier(.22,1,.36,1);
+}
+
+*{box-sizing:border-box;}
+html{scroll-behavior:auto;}
+body{
+  font-family:var(--sans);
+  background:var(--bg);
+  color:var(--text);
+  overflow-x:hidden;
+  transition:background 1.2s var(--ease), color 1.2s var(--ease);
+  cursor:auto;
+}
+h1,h2,h3,h4,.display-font{font-family:var(--serif); font-weight:500; letter-spacing:-.01em;}
+p{color:var(--text-soft); line-height:1.75;}
+a{text-decoration:none; color:inherit;}
+::selection{background:var(--gold); color:#fff;}
+.eyebrow{
+  font-family:var(--sans); text-transform:uppercase; letter-spacing:.28em;
+  font-size:.72rem; color:var(--gold); font-weight:600; display:inline-flex; align-items:center; gap:.6rem;
+}
+.eyebrow::before{content:''; width:28px; height:1px; background:var(--gold);}
+.section{padding:clamp(70px,10vw,150px) 0; position:relative;}
+.container-xl{max-width:1360px;}
+
+/* buttons */
+.btn-gold{
+  background:var(--gold); border:1px solid var(--gold); color:#fff;
+  font-family:var(--sans); font-weight:500; letter-spacing:.03em; padding:.85rem 2rem;
+  border-radius:2px; transition:all .4s var(--ease); font-size:.92rem;
+}
+.btn-gold:hover{background:transparent; color:var(--gold);}
+.btn-outline-lux{
+  background:transparent; border:1px solid var(--text); color:var(--text);
+  font-weight:500; letter-spacing:.03em; padding:.85rem 2rem; border-radius:2px;
+  transition:all .4s var(--ease); font-size:.92rem;
+}
+.btn-outline-lux:hover{background:var(--text); color:var(--bg);}
+.btn-ghost-light{
+  background:transparent;border:1px solid rgba(255,255,255,.55);color:#fff;
+  font-weight:500;letter-spacing:.03em;padding:.85rem 2rem;border-radius:2px;
+  transition:all .4s var(--ease);font-size:.92rem;
+}
+.btn-ghost-light:hover{background:#fff;color:var(--black);}
+
+/* ---------------- PRELOADER ---------------- */
+#preloader{
+  position:fixed; inset:0; z-index:9999; background:var(--black);
+  display:flex; align-items:center; justify-content:center; flex-direction:column;
+  transition:opacity 1s var(--ease), visibility 1s var(--ease);
+}
+#preloader.hide{opacity:0; visibility:hidden;}
+.pre-logo{font-family:var(--serif); color:var(--ivory); font-size:clamp(1.8rem,4vw,3rem); letter-spacing:.08em; opacity:0; animation:preFade 1.4s var(--ease) forwards .2s;}
+.pre-line{width:0; height:1px; background:var(--gold); margin-top:18px; animation:preLine 1.6s var(--ease) forwards 1s;}
+.pre-sub{color:var(--gold); font-size:.7rem; letter-spacing:.4em; text-transform:uppercase; margin-top:16px; opacity:0; animation:preFade 1.2s var(--ease) forwards 1.8s;}
+@keyframes preFade{to{opacity:1;}}
+@keyframes preLine{to{width:180px;}}
+
+/* ---------------- NAVBAR ---------------- */
+.lux-nav{
+  position:fixed; top:22px; left:50%; transform:translateX(-50%); z-index:1000;
+  width:min(94%,1300px); background:var(--nav-bg); backdrop-filter:blur(18px) saturate(160%);
+  -webkit-backdrop-filter:blur(18px) saturate(160%);
+  border:1px solid var(--card-border); border-radius:60px;
+  padding:.55rem .6rem .55rem 1.6rem; display:flex; align-items:center; justify-content:space-between;
+  transition:all .6s var(--ease);
+}
+.lux-nav .brand{font-family:var(--serif); font-size:1.15rem; letter-spacing:.04em; color:var(--text);}
+.lux-nav .brand span{color:var(--gold);}
+.lux-nav-links{display:flex; gap:2rem; list-style:none; margin:0; padding:0;}
+.lux-nav-links a{
+  font-size:.85rem; font-weight:500; color:var(--text); position:relative; padding-bottom:3px;
+}
+.lux-nav-links a::after{content:'';position:absolute;left:0;bottom:0;width:0;height:1px;background:var(--gold);transition:width .35s var(--ease);}
+.lux-nav-links a:hover::after{width:100%;}
+.nav-actions{display:flex; align-items:center; gap:.6rem;}
+.icon-btn{
+  width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  background:rgba(0,0,0,.05); color:var(--text); border:none; transition:.3s;
+}
+.icon-btn:hover{background:var(--gold); color:#fff;}
+.nav-book{border-radius:40px !important; padding:.7rem 1.6rem !important;}
+#mobileToggle{display:none;}
+
+/* mobile menu */
+.mobile-panel{
+  position:fixed; inset:0; background:var(--black); z-index:1050; display:flex; flex-direction:column;
+  align-items:center; justify-content:center; gap:1.6rem; transform:translateY(-100%); transition:transform .6s var(--ease);
+}
+.mobile-panel.open{transform:translateY(0);}
+.mobile-panel a{color:var(--ivory); font-family:var(--serif); font-size:1.6rem;}
+.mobile-close{position:absolute; top:26px; right:26px; color:#fff; font-size:1.6rem; background:none; border:none;}
+
+/* ---------------- HERO ---------------- */
+.hero{
+  position:relative; height:100vh; min-height:680px; overflow:hidden; display:flex; align-items:center;
+}
+.hero-bg{
+  position:absolute; inset:0; background-size:cover; background-position:center;
+  background-image:linear-gradient(180deg, rgba(10,10,8,.15), rgba(10,10,8,.55)), url('https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=2000&q=80');
+  transform:scale(1.08);
+  transition:filter 1.2s var(--ease);
+}
+.hero-sky{position:absolute; inset:0; mix-blend-mode:soft-light; transition:background 1.2s var(--ease); background:linear-gradient(180deg, var(--sky-a), transparent 55%);}
+.hero-sun{
+  position:absolute; width:120px; height:120px; border-radius:50%;
+  background:radial-gradient(circle at 35% 35%, #fff, var(--gold-soft) 60%, transparent 75%);
+  filter:blur(2px); top:14%; left:18%; box-shadow:0 0 90px 40px var(--glow);
+  transition:top 1.2s var(--ease), left 1.2s var(--ease), opacity 1.2s var(--ease), box-shadow 1.2s var(--ease);
+}
+.hero-stars{position:absolute; inset:0; opacity:0; transition:opacity 1.2s var(--ease); background-image:radial-gradient(1px 1px at 20% 30%, #fff, transparent),radial-gradient(1px 1px at 60% 10%, #fff, transparent),radial-gradient(1.5px 1.5px at 80% 40%, #fff, transparent),radial-gradient(1px 1px at 40% 60%, #fff, transparent),radial-gradient(1px 1px at 90% 70%, #fff, transparent),radial-gradient(1.5px 1.5px at 10% 80%, #fff, transparent),radial-gradient(1px 1px at 70% 85%, #fff, transparent);}
+.hero-cloud{position:absolute; opacity:.55; filter:blur(1px); background:#fff; border-radius:50%;}
+.hero-fog{position:absolute; bottom:0; left:0; right:0; height:38%; background:linear-gradient(180deg, transparent, rgba(255,255,255,.18)); pointer-events:none;}
+.particle{position:absolute; width:3px; height:3px; border-radius:50%; background:var(--gold-soft); opacity:.7; pointer-events:none;}
+
+.hero-content{position:relative; z-index:3; color:#fff;}
+.hero-content .eyebrow{color:var(--gold-soft);}
+.hero-content .eyebrow::before{background:var(--gold-soft);}
+.hero-title{font-size:clamp(2.6rem,6.4vw,5.2rem); line-height:1.02; margin:1.2rem 0 1.4rem; color:#fff;}
+.hero-title em{font-style:italic; color:var(--gold-soft);}
+.hero-sub{font-size:1.08rem; color:rgba(255,255,255,.82); max-width:520px; margin-bottom:2.2rem;}
+
+/* hour dial */
+.hour-dial-wrap{position:absolute; right:6%; bottom:14%; z-index:4; color:#fff; text-align:right; display:flex; flex-direction:column; align-items:flex-end; gap:.6rem;}
+.hour-dial-label{font-size:.7rem; letter-spacing:.3em; text-transform:uppercase; color:rgba(255,255,255,.75);}
+.hour-dial{position:relative; width:220px; height:110px;}
+.hour-dial svg{width:100%; height:100%; overflow:visible;}
+.hour-dial-handle{cursor:grab; filter:drop-shadow(0 2px 6px rgba(0,0,0,.4));}
+.hour-dial-handle:active{cursor:grabbing;}
+.hour-readout{font-family:var(--serif); font-size:1.4rem; color:var(--gold-soft);}
+
+/* floating booking card */
+.booking-card{
+  position:relative; z-index:5; margin-top:-70px;
+  background:var(--card-bg); backdrop-filter:blur(20px) saturate(160%); -webkit-backdrop-filter:blur(20px) saturate(160%);
+  border:1px solid var(--card-border); border-radius:18px; padding:1.6rem 1.8rem;
+  box-shadow:0 30px 80px -20px rgba(0,0,0,.35);
+  transform-style:preserve-3d;
+}
+.booking-card label{font-size:.68rem; text-transform:uppercase; letter-spacing:.14em; color:var(--text-soft); margin-bottom:.3rem; display:block;}
+.booking-card .form-control, .booking-card .form-select{
+  border:none; border-bottom:1px solid var(--line); border-radius:0; background:transparent; color:var(--text);
+  padding:.3rem .2rem; font-size:.95rem;
+}
+.booking-card .form-control:focus, .booking-card .form-select:focus{box-shadow:none; border-color:var(--gold);}
+
+/* ---------------- SECTION HEAD ---------------- */
+.head-block{max-width:640px;}
+.head-block h2{font-size:clamp(2rem,3.6vw,3rem); margin:1rem 0 1.2rem;}
+
+/* ---------------- ROOMS (editorial) ---------------- */
+.room-row{padding:clamp(50px,7vw,110px) 0; border-top:1px solid var(--line);}
+.room-row:last-child{border-bottom:1px solid var(--line);}
+.room-img-wrap{overflow:hidden; border-radius:6px; position:relative; perspective:1200px;}
+.room-img-wrap img{width:100%; height:100%; object-fit:cover; transition:transform 1.2s var(--ease); display:block;}
+.room-row:hover .room-img-wrap img{transform:scale(1.06);}
+.room-tilt{transition:transform .3s var(--ease);}
+.room-index{font-family:var(--serif); font-size:.95rem; color:var(--gold); letter-spacing:.1em;}
+.room-name{font-size:clamp(1.7rem,2.6vw,2.4rem); margin:.6rem 0 1rem;}
+.amenity-pill{
+  display:inline-flex; align-items:center; gap:.4rem; font-size:.78rem; color:var(--text-soft);
+  border:1px solid var(--line); padding:.4rem .9rem; border-radius:30px; margin:.2rem .3rem .2rem 0;
+}
+.room-price{font-family:var(--serif); font-size:1.5rem; color:var(--emerald); margin-top:1rem;}
+.room-price small{font-family:var(--sans); font-size:.7rem; color:var(--text-soft); letter-spacing:.1em;}
+
+/* ---------------- EXPERIENCES (asymmetric) ---------------- */
+.exp-grid{display:grid; grid-template-columns:repeat(6,1fr); gap:20px;}
+.exp-card{
+  position:relative; overflow:hidden; border-radius:8px; min-height:260px;
+  background-size:cover; background-position:center; display:flex; align-items:flex-end; padding:1.6rem;
+}
+.exp-card::after{content:''; position:absolute; inset:0; background:linear-gradient(180deg, transparent 40%, rgba(0,0,0,.72)); transition:opacity .4s;}
+.exp-card:hover::after{opacity:.9;}
+.exp-card .exp-body{position:relative; z-index:2; color:#fff;}
+.exp-card .exp-body h5{color:#fff; margin-bottom:.2rem; font-size:1.2rem;}
+.exp-card .exp-body span{font-size:.78rem; letter-spacing:.1em; color:var(--gold-soft); text-transform:uppercase;}
+.exp-card img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; transform:scale(1.02); transition:transform 1s var(--ease);}
+.exp-card:hover img{transform:scale(1.12);}
+.exp-1{grid-column:span 3; grid-row:span 2; min-height:420px;}
+.exp-2{grid-column:span 3;}
+.exp-3{grid-column:span 2;}
+.exp-4{grid-column:span 2; min-height:420px;}
+.exp-5{grid-column:span 2;}
+.exp-6{grid-column:span 6;}
+
+/* ---------------- RESTAURANT / SPA (split) ---------------- */
+.split-section{display:grid; grid-template-columns:1fr 1fr; align-items:stretch; gap:0;}
+.split-media{position:relative; min-height:460px; overflow:hidden;}
+.split-media img{width:100%; height:100%; object-fit:cover; position:absolute; inset:0;}
+.split-text{display:flex; align-items:center; padding:clamp(30px,5vw,90px);}
+.split-media.grid2{display:grid; grid-template-columns:1fr 1fr; gap:8px;}
+.split-media.grid2 img{position:static; height:100%;}
+
+/* ---------------- GALLERY (masonry) ---------------- */
+.masonry{column-count:3; column-gap:14px;}
+.masonry .m-item{break-inside:avoid; margin-bottom:14px; overflow:hidden; border-radius:6px; position:relative; cursor:pointer;}
+.masonry .m-item img{width:100%; display:block; transition:transform .7s var(--ease); filter:saturate(1);}
+.masonry .m-item:hover img{transform:scale(1.08);}
+.m-item .m-zoom{position:absolute; inset:0; background:rgba(15,60,51,.0); display:flex; align-items:center; justify-content:center; opacity:0; transition:.4s;}
+.m-item:hover .m-zoom{opacity:1; background:rgba(15,60,51,.25);}
+.m-zoom i{color:#fff; font-size:1.4rem;}
+@media(max-width:900px){.masonry{column-count:2;}}
+@media(max-width:560px){.masonry{column-count:1;}}
+
+/* lightbox */
+.lightbox{position:fixed; inset:0; background:rgba(10,10,8,.94); z-index:2000; display:none; align-items:center; justify-content:center;}
+.lightbox.open{display:flex;}
+.lightbox img{max-width:88%; max-height:82%; border-radius:6px;}
+.lightbox .lb-close{position:absolute; top:26px; right:34px; color:#fff; font-size:1.8rem; background:none; border:none;}
+
+/* ---------------- REVIEWS ---------------- */
+.review-card{
+  background:var(--card-bg); backdrop-filter:blur(14px); border:1px solid var(--card-border); border-radius:14px;
+  padding:2rem; height:100%;
+}
+.review-card img{width:52px; height:52px; border-radius:50%; object-fit:cover;}
+.stars i{color:var(--gold); font-size:.85rem;}
+
+/* ---------------- STATS ---------------- */
+.stat-num{font-family:var(--serif); font-size:clamp(2.4rem,4vw,3.6rem); color:var(--gold);}
+.stat-label{font-size:.8rem; text-transform:uppercase; letter-spacing:.15em; color:var(--text-soft);}
+
+/* ---------------- DESTINATION ---------------- */
+.map-frame{border-radius:10px; overflow:hidden; border:1px solid var(--line); filter:grayscale(.15);}
+
+/* ---------------- FAQ ---------------- */
+.faq-item{border-top:1px solid var(--line); padding:1.4rem 0;}
+.faq-item:last-child{border-bottom:1px solid var(--line);}
+.faq-q{display:flex; justify-content:space-between; align-items:center; cursor:pointer; font-family:var(--serif); font-size:1.15rem;}
+.faq-a{max-height:0; overflow:hidden; transition:max-height .5s var(--ease); font-size:.95rem;}
+.faq-item.open .faq-a{max-height:200px; padding-top:.8rem;}
+.faq-item.open .faq-q i{transform:rotate(45deg);}
+.faq-q i{transition:transform .3s var(--ease);}
+
+/* ---------------- FOOTER ---------------- */
+footer{background:var(--emerald); color:var(--ivory); padding:80px 0 30px;}
+footer h5{color:#fff; font-family:var(--serif);}
+footer a.flink{color:rgba(255,255,255,.7); display:block; margin-bottom:.6rem; font-size:.92rem;}
+footer a.flink:hover{color:var(--gold-soft);}
+.footer-social a{
+  width:38px; height:38px; border-radius:50%; border:1px solid rgba(255,255,255,.25);
+  display:inline-flex; align-items:center; justify-content:center; margin-right:.5rem; color:#fff; transition:.3s;
+}
+.footer-social a:hover{background:var(--gold); border-color:var(--gold);}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.15); margin-top:50px; padding-top:24px; font-size:.8rem; color:rgba(255,255,255,.55);}
+.newsletter-input{background:transparent; border:none; border-bottom:1px solid rgba(255,255,255,.35); color:#fff; padding:.6rem 0; width:100%;}
+.newsletter-input:focus{outline:none; border-color:var(--gold);}
+.newsletter-input::placeholder{color:rgba(255,255,255,.5);}
+
+/* ---------------- FLOATING / STICKY ---------------- */
+.whatsapp-float{
+  position:fixed; bottom:26px; left:26px; z-index:900; width:56px; height:56px; border-radius:50%;
+  background:#25D366; color:#fff; display:flex; align-items:center; justify-content:center; font-size:1.5rem;
+  box-shadow:0 10px 30px rgba(0,0,0,.25);
+}
+.sticky-book{
+  position:fixed; bottom:26px; right:26px; z-index:900;
+}
+.sticky-book .btn-gold{border-radius:40px; box-shadow:0 10px 30px rgba(0,0,0,.25);}
+
+/* cookie consent */
+.cookie-bar{
+  position:fixed; bottom:0; left:0; right:0; z-index:1500; background:var(--black); color:var(--ivory);
+  padding:1.2rem 1.6rem; transform:translateY(120%); transition:transform .6s var(--ease);
+  display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:1rem;
+}
+.cookie-bar.show{transform:translateY(0);}
+.cookie-bar p{color:rgba(255,255,255,.75); margin:0; font-size:.85rem; max-width:640px;}
+
+/* weather widget */
+.weather-chip{
+  display:inline-flex; align-items:center; gap:.6rem; background:var(--card-bg); backdrop-filter:blur(14px);
+  border:1px solid var(--card-border); padding:.5rem 1rem; border-radius:30px; font-size:.85rem;
+}
+
+/* booking confirmation modal tweak */
+.modal-content.lux-modal{border-radius:12px; border:none; background:var(--bg-elevated); color:var(--text);}
+
+/* dark mode manual override toggle icon state handled by JS classes */
+
+/* scrollbar */
+::-webkit-scrollbar{width:8px;}
+::-webkit-scrollbar-thumb{background:var(--gold); border-radius:10px;}
+
+/* fade-up utility (used with AOS fallback) */
+.reveal{opacity:0; transform:translateY(40px); transition:opacity 1s var(--ease), transform 1s var(--ease);}
+.reveal.in{opacity:1; transform:translateY(0);}
+
+@media(max-width:991px){
+  .lux-nav-links{display:none;}
+  #mobileToggle{display:flex;}
+  .exp-1,.exp-4{grid-column:span 6; min-height:300px;}
+  .exp-2,.exp-3,.exp-5{grid-column:span 6;}
+  .split-section{grid-template-columns:1fr;}
+  .hour-dial-wrap{right:4%; bottom:8%;}
+  .hour-dial{width:170px; height:90px;}
+}
+</style>
+</head>
+<body>
+
+<!-- ============ PRELOADER ============ -->
+<div id="preloader">
+  <div class="pre-logo">AURELIO&nbsp;BAY</div>
+  <div class="pre-line"></div>
+  <div class="pre-sub">Boutique Hotel &middot; Est. 2028</div>
+</div>
+
+<!-- ============ COOKIE CONSENT ============ -->
+<div class="cookie-bar" id="cookieBar">
+  <p>We use cookies to remember your preferred hour of day, currency and language. See our privacy approach for details.</p>
+  <div class="d-flex gap-2">
+    <button class="btn btn-outline-lux btn-sm" id="cookieDecline">Decline</button>
+    <button class="btn btn-gold btn-sm" id="cookieAccept">Accept</button>
+  </div>
+</div>
+
+<!-- ============ NAVBAR ============ -->
+<nav class="lux-nav">
+  <a href="#home" class="brand">Aurelio <span>Bay</span></a>
+  <ul class="lux-nav-links">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#rooms">Rooms</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#dining">Dining</a></li>
+    <li><a href="#spa">Spa</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="nav-actions">
+    <select class="form-select form-select-sm d-none d-lg-block" id="langSelect" style="width:auto;border:none;background:transparent;font-size:.8rem;">
+      <option value="en">EN</option>
+      <option value="it">IT</option>
+      <option value="fr">FR</option>
+      <option value="de">DE</option>
+    </select>
+    <select class="form-select form-select-sm d-none d-lg-block" id="currSelect" style="width:auto;border:none;background:transparent;font-size:.8rem;">
+      <option value="EUR">€ EUR</option>
+      <option value="USD">$ USD</option>
+      <option value="GBP">£ GBP</option>
+    </select>
+    <button class="icon-btn" id="themeToggle" title="Toggle light/dark"><i class="bi bi-moon-stars"></i></button>
+    <a href="#booking" class="btn btn-gold nav-book d-none d-md-inline-block">Book Now</a>
+    <button class="icon-btn" id="mobileToggle"><i class="bi bi-list"></i></button>
+  </div>
+</nav>
+
+<div class="mobile-panel" id="mobilePanel">
+  <button class="mobile-close" id="mobileClose"><i class="bi bi-x-lg"></i></button>
+  <a href="#home">Home</a>
+  <a href="#rooms">Rooms</a>
+  <a href="#experience">Experience</a>
+  <a href="#dining">Dining</a>
+  <a href="#spa">Spa</a>
+  <a href="#gallery">Gallery</a>
+  <a href="#contact">Contact</a>
+  <a href="#booking" class="btn btn-gold mt-3">Book Now</a>
+</div>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="home">
+  <div class="hero-bg" id="heroBg"></div>
+  <div class="hero-sky" id="heroSky"></div>
+  <div class="hero-stars" id="heroStars"></div>
+  <div id="cloudLayer"></div>
+  <div id="particleLayer"></div>
+  <div class="hero-sun" id="heroSun"></div>
+  <div class="hero-fog"></div>
+
+  <div class="container-xl hero-content">
+    <div class="row">
+      <div class="col-lg-8">
+        <span class="eyebrow">Praiano, Amalfi Coast</span>
+        <h1 class="hero-title">Where Luxury<br>Meets <em>Serenity</em></h1>
+        <p class="hero-sub">An unforgettable boutique hotel experience, eighteen rooms above the sea, tuned to the hour — drag the dial and watch the coast change with you.</p>
+        <div class="d-flex gap-3 flex-wrap">
+          <a href="#booking" class="btn btn-gold">Reserve Your Stay</a>
+          <a href="#rooms" class="btn btn-ghost-light">Explore Rooms</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hour-dial-wrap d-none d-md-flex">
+    <span class="hour-dial-label">The Hour Dial</span>
+    <div class="hour-dial">
+      <svg viewBox="0 0 220 120">
+        <path d="M 10 105 A 100 100 0 0 1 210 105" stroke="rgba(255,255,255,.35)" stroke-width="1" fill="none"/>
+        <circle id="dialHandle" class="hour-dial-handle" cx="10" cy="105" r="9" fill="#C9A24B" stroke="#fff" stroke-width="2"/>
+      </svg>
+    </div>
+    <span class="hour-readout" id="hourReadout">6:00 AM</span>
+  </div>
+
+  <div class="container-xl">
+    <div class="booking-card" data-tilt>
+      <div class="row g-3 align-items-end">
+        <div class="col-6 col-md-2">
+          <label>Check In</label>
+          <input type="date" class="form-control">
+        </div>
+        <div class="col-6 col-md-2">
+          <label>Check Out</label>
+          <input type="date" class="form-control">
+        </div>
+        <div class="col-6 col-md-2">
+          <label>Guests</label>
+          <select class="form-select"><option>1 Guest</option><option selected>2 Guests</option><option>3 Guests</option><option>4+ Guests</option></select>
+        </div>
+        <div class="col-6 col-md-2">
+          <label>Rooms</label>
+          <select class="form-select"><option selected>1 Room</option><option>2 Rooms</option><option>3 Rooms</option></select>
+        </div>
+        <div class="col-12 col-md-4">
+          <button class="btn btn-gold w-100"><i class="bi bi-search me-2"></i>Search Availability</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ INTRO / STATS ============ -->
+<section class="section pt-5">
+  <div class="container-xl">
+    <div class="row align-items-center g-5">
+      <div class="col-lg-6" data-aos="fade-right">
+        <span class="eyebrow">The Philosophy</span>
+        <h2 class="head-block">A hotel that keeps time with the light, not the clock</h2>
+        <p>Eighteen rooms are carved into a single cliff face above the Tyrrhenian Sea. There is no rush here — mornings arrive slowly through linen curtains, afternoons are for the pool and the page of a book, and by night the terraces glow like lanterns strung along the rock.</p>
+      </div>
+      <div class="col-lg-6">
+        <div class="row text-center g-4">
+          <div class="col-6" data-aos="fade-up">
+            <div class="stat-num" data-count="25">0</div><div class="stat-label">Luxury Rooms</div>
+          </div>
+          <div class="col-6" data-aos="fade-up" data-aos-delay="100">
+            <div class="stat-num" data-count="50" data-suffix="K">0</div><div class="stat-label">Happy Guests</div>
+          </div>
+          <div class="col-6" data-aos="fade-up" data-aos-delay="200">
+            <div class="stat-num" data-count="15">0</div><div class="stat-label">Years Experience</div>
+          </div>
+          <div class="col-6" data-aos="fade-up" data-aos-delay="300">
+            <div class="stat-num" data-count="98" data-suffix="%">0</div><div class="stat-label">Guest Satisfaction</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ROOMS ============ -->
+<section class="section" id="rooms" style="background:var(--bg-elevated);">
+  <div class="container-xl">
+    <div class="head-block" data-aos="fade-up">
+      <span class="eyebrow">Accommodation</span>
+      <h2>Four ways to wake up above the sea</h2>
+    </div>
+
+    <div class="room-row">
+      <div class="row g-5 align-items-center">
+        <div class="col-lg-6" data-aos="fade-right">
+          <div class="room-img-wrap room-tilt" data-tilt>
+            <img loading="lazy" src="https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=1200&q=80" alt="Presidential Suite interior with sea view" style="height:460px;">
+          </div>
+        </div>
+        <div class="col-lg-6" data-aos="fade-left">
+          <span class="room-index">01 — Presidential Suite</span>
+          <h3 class="room-name">The Sirena Suite</h3>
+          <p>Ninety square metres of hand-troweled plaster, a private plunge terrace, and a bath cut into the stone itself. Two bedrooms, a study, and a view that does not end.</p>
+          <div class="mb-3">
+            <span class="amenity-pill"><i class="bi bi-water"></i> Private Terrace</span>
+            <span class="amenity-pill"><i class="bi bi-cup-hot"></i> Butler Service</span>
+            <span class="amenity-pill"><i class="bi bi-droplet-half"></i> Soaking Tub</span>
+          </div>
+          <div class="room-price">€1,450 <small>/ NIGHT</small></div>
+          <a href="#booking" class="btn btn-outline-lux mt-3">Book This Room</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="room-row">
+      <div class="row g-5 align-items-center flex-lg-row-reverse">
+        <div class="col-lg-6" data-aos="fade-left">
+          <div class="room-img-wrap room-tilt" data-tilt>
+            <img loading="lazy" src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=1200&q=80" alt="Ocean View Villa with infinity edge" style="height:460px;">
+          </div>
+        </div>
+        <div class="col-lg-6" data-aos="fade-right">
+          <span class="room-index">02 — Ocean Villa</span>
+          <h3 class="room-name">The Ocean Villa</h3>
+          <p>A standalone villa with its own infinity edge, a shaded loggia for long lunches, and steps that lead directly to the private cove below.</p>
+          <div class="mb-3">
+            <span class="amenity-pill"><i class="bi bi-water"></i> Infinity Pool</span>
+            <span class="amenity-pill"><i class="bi bi-sun"></i> Private Cove Access</span>
+            <span class="amenity-pill"><i class="bi bi-cup"></i> In-Villa Dining</span>
+          </div>
+          <div class="room-price">€1,980 <small>/ NIGHT</small></div>
+          <a href="#booking" class="btn btn-outline-lux mt-3">Book This Room</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="room-row">
+      <div class="row g-5 align-items-center">
+        <div class="col-lg-6" data-aos="fade-right">
+          <div class="room-img-wrap room-tilt" data-tilt>
+            <img loading="lazy" src="https://images.unsplash.com/photo-1595576508898-0ad5c879a061?auto=format&fit=crop&w=1200&q=80" alt="Garden Suite surrounded by lemon trees" style="height:460px;">
+          </div>
+        </div>
+        <div class="col-lg-6" data-aos="fade-left">
+          <span class="room-index">03 — Garden Suite</span>
+          <h3 class="room-name">The Lemon Garden Suite</h3>
+          <p>Set among terraced citrus groves, this suite trades sea view for scent — the whole room smells faintly of lemon blossom by afternoon.</p>
+          <div class="mb-3">
+            <span class="amenity-pill"><i class="bi bi-flower1"></i> Private Garden</span>
+            <span class="amenity-pill"><i class="bi bi-cup-straw"></i> Breakfast Nook</span>
+            <span class="amenity-pill"><i class="bi bi-moon"></i> Blackout Linen</span>
+          </div>
+          <div class="room-price">€890 <small>/ NIGHT</small></div>
+          <a href="#booking" class="btn btn-outline-lux mt-3">Book This Room</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="room-row">
+      <div class="row g-5 align-items-center flex-lg-row-reverse">
+        <div class="col-lg-6" data-aos="fade-left">
+          <div class="room-img-wrap room-tilt" data-tilt>
+            <img loading="lazy" src="https://images.unsplash.com/photo-1519821172141-b5d8342acc7d?auto=format&fit=crop&w=1200&q=80" alt="Mountain Residence with panoramic ridge view" style="height:460px;">
+          </div>
+        </div>
+        <div class="col-lg-6" data-aos="fade-right">
+          <span class="room-index">04 — Mountain Residence</span>
+          <h3 class="room-name">The Ridge Residence</h3>
+          <p>Perched highest on the property, this residence looks inland to the Lattari mountains — a quieter counterpoint to the sea-facing rooms.</p>
+          <div class="mb-3">
+            <span class="amenity-pill"><i class="bi bi-tree"></i> Mountain View</span>
+            <span class="amenity-pill"><i class="bi bi-fire"></i> Fireplace</span>
+            <span class="amenity-pill"><i class="bi bi-cup-hot"></i> Private Terrace</span>
+          </div>
+          <div class="room-price">€760 <small>/ NIGHT</small></div>
+          <a href="#booking" class="btn btn-outline-lux mt-3">Book This Room</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ EXPERIENCES ============ -->
+<section class="section" id="experience">
+  <div class="container-xl">
+    <div class="head-block" data-aos="fade-up">
+      <span class="eyebrow">Hotel Experience</span>
+      <h2>Six rituals, one coastline</h2>
+    </div>
+    <div class="exp-grid mt-4">
+      <div class="exp-card exp-1" data-aos="fade-up">
+        <img loading="lazy" src="https://images.unsplash.com/photo-1602002418082-a4443e081dd1?auto=format&fit=crop&w=900&q=80" alt="Infinity pool overlooking the sea">
+        <div class="exp-body"><span>01</span><h5>Infinity Pool</h5></div>
+      </div>
+      <div class="exp-card exp-2" data-aos="fade-up" data-aos-delay="100">
+        <img loading="lazy" src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&w=900&q=80" alt="Private beach cove">
+        <div class="exp-body"><span>02</span><h5>Private Beach</h5></div>
+      </div>
+      <div class="exp-card exp-3" data-aos="fade-up" data-aos-delay="150">
+        <img loading="lazy" src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=900&q=80" alt="Spa treatment room">
+        <div class="exp-body"><span>03</span><h5>Spa Wellness</h5></div>
+      </div>
+      <div class="exp-card exp-4" data-aos="fade-up">
+        <img loading="lazy" src="https://images.unsplash.com/photo-1510972527921-ce03766a1cf1?auto=format&fit=crop&w=900&q=80" alt="Wine cellar carved into stone">
+        <div class="exp-body"><span>04</span><h5>Wine Experience</h5></div>
+      </div>
+      <div class="exp-card exp-5" data-aos="fade-up" data-aos-delay="100">
+        <img loading="lazy" src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=900&q=80" alt="Fine dining table setting">
+        <div class="exp-body"><span>05</span><h5>Fine Dining</h5></div>
+      </div>
+      <div class="exp-card exp-6" data-aos="fade-up" data-aos-delay="150">
+        <img loading="lazy" src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=1800&q=80" alt="Coastal nature trail">
+        <div class="exp-body"><span>06</span><h5>Nature Tours &amp; Boat Trips</h5></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ DINING ============ -->
+<section id="dining" style="background:var(--bg-elevated);">
+  <div class="split-section">
+    <div class="split-media" data-aos="fade-right">
+      <img loading="lazy" src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?auto=format&fit=crop&w=1200&q=80" alt="Executive chef plating a dish">
+    </div>
+    <div class="split-text" data-aos="fade-left">
+      <div>
+        <span class="eyebrow">Restaurant</span>
+        <h2 class="head-block">Ristorante Sirena</h2>
+        <p>Chef Elena Moretti draws from the terraced gardens and the morning catch to build a menu that changes with the season, never the standard.</p>
+        <div class="row g-3 my-3">
+          <div class="col-6"><div class="border-top pt-2"><strong>Tasting Menu</strong><br><small class="text-muted">7 courses, wine pairing available</small></div></div>
+          <div class="col-6"><div class="border-top pt-2"><strong>Cellar</strong><br><small class="text-muted">1,200 labels, cut into the cliff</small></div></div>
+        </div>
+        <a href="#" class="btn btn-outline-lux">View Menu Preview</a>
+      </div>
+    </div>
+  </div>
+  <div class="split-section">
+    <div class="split-text order-2 order-lg-1" data-aos="fade-right">
+      <div>
+        <span class="eyebrow">Wine Room</span>
+        <h2 class="head-block">A cellar carved into the rock</h2>
+        <p>Below the restaurant, a stone room holds a private collection open for tastings and long, unhurried dinners for up to ten guests.</p>
+        <a href="#" class="btn btn-outline-lux">Reserve the Cellar</a>
+      </div>
+    </div>
+    <div class="split-media order-1 order-lg-2" data-aos="fade-left">
+      <img loading="lazy" src="https://images.unsplash.com/photo-1510972527921-ce03766a1cf1?auto=format&fit=crop&w=1200&q=80" alt="Wine cellar with bottle racks">
+    </div>
+  </div>
+</section>
+
+<!-- ============ SPA ============ -->
+<section class="section" id="spa">
+  <div class="container-xl">
+    <div class="row g-5 align-items-center">
+      <div class="col-lg-5" data-aos="fade-right">
+        <span class="eyebrow">Wellness</span>
+        <h2 class="head-block">Acqua Spa</h2>
+        <p>A cliffside wellness house with a sea-water pool, sauna suite, and treatment rooms that open onto private gardens. Ritual, not routine.</p>
+        <div class="row g-3 mt-2">
+          <div class="col-6"><i class="bi bi-hand-index-thumb text-warning me-2"></i>Massage</div>
+          <div class="col-6"><i class="bi bi-thermometer-sun text-warning me-2"></i>Sauna</div>
+          <div class="col-6"><i class="bi bi-water text-warning me-2"></i>Sea-water Pool</div>
+          <div class="col-6"><i class="bi bi-flower2 text-warning me-2"></i>Yoga at Dawn</div>
+          <div class="col-6"><i class="bi bi-gem text-warning me-2"></i>Beauty Treatments</div>
+        </div>
+        <a href="#" class="btn btn-gold mt-4">Book a Ritual</a>
+      </div>
+      <div class="col-lg-7" data-aos="fade-left">
+        <div class="row g-3">
+          <div class="col-7"><img loading="lazy" class="w-100 rounded" style="height:380px;object-fit:cover;" src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=900&q=80" alt="Spa treatment room with candles"></div>
+          <div class="col-5 d-flex flex-column gap-3">
+            <img loading="lazy" class="w-100 rounded flex-fill" style="object-fit:cover;height:180px;" src="https://images.unsplash.com/photo-1600334129128-685c5582fd35?auto=format&fit=crop&w=700&q=80" alt="Sauna interior">
+            <img loading="lazy" class="w-100 rounded flex-fill" style="object-fit:cover;height:180px;" src="https://images.unsplash.com/photo-1571902943202-507ec2618e8f?auto=format&fit=crop&w=700&q=80" alt="Sea-water pool at the spa">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ DESTINATION ============ -->
+<section class="section" style="background:var(--bg-elevated);">
+  <div class="container-xl">
+    <div class="row g-5 align-items-center">
+      <div class="col-lg-6" data-aos="fade-right">
+        <span class="eyebrow">Destination</span>
+        <h2 class="head-block">Praiano, between Positano and Amalfi</h2>
+        <p>Quieter than its famous neighbours, Praiano is a fifteen-minute drive from Positano and twenty from Amalfi town — close enough for a day trip, far enough to keep its own rhythm.</p>
+        <ul class="list-unstyled">
+          <li class="mb-2"><i class="bi bi-geo-alt text-warning me-2"></i>Path of the Gods hiking trail — 20 min walk</li>
+          <li class="mb-2"><i class="bi bi-geo-alt text-warning me-2"></i>Positano centre — 15 min by boat</li>
+          <li class="mb-2"><i class="bi bi-geo-alt text-warning me-2"></i>Amalfi Cathedral — 25 min by car</li>
+          <li class="mb-2"><i class="bi bi-geo-alt text-warning me-2"></i>Capri day trip — private boat available</li>
+        </ul>
+        <div class="weather-chip">
+          <i class="bi bi-sun text-warning"></i>
+          <span id="weatherText">Praiano · 24°C · Clear skies</span>
+        </div>
+      </div>
+      <div class="col-lg-6" data-aos="fade-left">
+        <div class="map-frame">
+          <iframe src="https://www.google.com/maps?q=Praiano,Italy&output=embed" width="100%" height="420" style="border:0;" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Map of Praiano, Amalfi Coast"></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ GALLERY ============ -->
+<section class="section" id="gallery">
+  <div class="container-xl">
+    <div class="head-block mx-auto text-center" data-aos="fade-up">
+      <span class="eyebrow">Gallery</span>
+      <h2>Moments along the cliff</h2>
+    </div>
+    <div class="masonry mt-5">
+      <div class="m-item" data-aos="fade-up"><img loading="lazy" src="https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=700&q=80" alt="Suite bedroom"><div class="m-zoom"><i class="bi bi-arrows-angle-expand"></i></div></div>
+      <div class="m-item" data-aos="fade-up" data-aos-delay="80"><img loading="lazy" src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=700&q=80" alt="Dining table"><div class="m-zoom"><i class="bi bi-arrows-angle-expand"></i></div></div>
+      <div class="m-item" data-aos="fade-up" data-aos-delay="160"><img loading="lazy" src="https://images.unsplash.com/photo-1602002418082-a4443e081dd1?auto=format&fit=crop&w=700&q=80" alt="Pool at dusk"><div class="m-zoom"><i class="bi bi-arrows-angle-expand"></i></div></div>
+      <div class="m-item" data-aos="fade-up"><img loading="lazy" src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=700&q=80" alt="Coastal nature"><div class="m-zoom"><i class="bi bi-arrows-angle-expand"></i></div></div>
+      <div class="m-item" data-aos="fade-up" data-aos-delay="80"><img loading="lazy" src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?auto=format&fit=crop&w=700&q=80" alt="Marble bathroom"><div class="m-zoom"><i class="bi bi-arrows-angle-expand"></i></div></div>
+      <div class="m-item" data-aos="fade-up" data-aos-delay="160"><img loading="lazy" src="https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=700&q=80" alt="Hotel exterior on the cliff"><div class="m-zoom"><i class="bi bi-arrows-angle-expand"></i></div></div>
+      <div class="m-item" data-aos="fade-up"><img loading="lazy" src="https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?auto=format&fit=crop&w=700&q=80" alt="Guests relaxing at the terrace"><div class="m-zoom"><i class="bi bi-arrows-angle-expand"></i></div></div>
+      <div class="m-item" data-aos="fade-up" data-aos-delay="80"><img loading="lazy" src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=700&q=80" alt="Ocean view villa"><div class="m-zoom"><i class="bi bi-arrows-angle-expand"></i></div></div>
+      <div class="m-item" data-aos="fade-up" data-aos-delay="160"><img loading="lazy" src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=700&q=80" alt="Spa treatment room"><div class="m-zoom"><i class="bi bi-arrows-angle-expand"></i></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- lightbox markup -->
+<div class="lightbox" id="lightbox">
+  <button class="lb-close" id="lbClose"><i class="bi bi-x-lg"></i></button>
+  <img src="" alt="Enlarged gallery image" id="lbImg">
+</div>
+
+<!-- ============ REVIEWS ============ -->
+<section class="section" style="background:var(--bg-elevated);">
+  <div class="container-xl">
+    <div class="head-block mx-auto text-center" data-aos="fade-up">
+      <span class="eyebrow">Guest Reviews</span>
+      <h2>Told in their own hours</h2>
+    </div>
+    <div class="swiper reviewSwiper mt-5">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide">
+          <div class="review-card">
+            <div class="d-flex align-items-center gap-3 mb-3">
+              <img loading="lazy" src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?auto=format&fit=crop&w=200&q=80" alt="Guest portrait, Camille">
+              <div><strong>Camille D.</strong><br><small class="text-muted">France</small></div>
+            </div>
+            <div class="stars mb-2"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></div>
+            <p>We arrived for the sea and stayed for the silence. The Hour Dial on their website was not a gimmick — the property really does feel different at 6pm than at 9am.</p>
+          </div>
+        </div>
+        <div class="swiper-slide">
+          <div class="review-card">
+            <div class="d-flex align-items-center gap-3 mb-3">
+              <img loading="lazy" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=200&q=80" alt="Guest portrait, Marcus">
+              <div><strong>Marcus H.</strong><br><small class="text-muted">United Kingdom</small></div>
+            </div>
+            <div class="stars mb-2"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></div>
+            <p>The wine cellar dinner was the highlight of our trip to Italy, full stop. Staff remembered our names from the first morning.</p>
+          </div>
+        </div>
+        <div class="swiper-slide">
+          <div class="review-card">
+            <div class="d-flex align-items-center gap-3 mb-3">
+              <img loading="lazy" src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=200&q=80" alt="Guest portrait, Aiko">
+              <div><strong>Aiko T.</strong><br><small class="text-muted">Japan</small></div>
+            </div>
+            <div class="stars mb-2"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star"></i></div>
+            <p>Quiet, precise, beautiful. The spa's sea-water pool at sunrise is worth the entire trip on its own.</p>
+          </div>
+        </div>
+      </div>
+      <div class="swiper-pagination mt-4"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BOOKING FORM ============ -->
+<section class="section" id="booking">
+  <div class="container-xl">
+    <div class="row g-5">
+      <div class="col-lg-5" data-aos="fade-right">
+        <span class="eyebrow">Reservation</span>
+        <h2 class="head-block">Plan your hours here</h2>
+        <p>Tell us the dates and the room that calls to you — our concierge team confirms within a day and can arrange transfers from Naples.</p>
+        <img loading="lazy" src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&w=900&q=80" class="w-100 rounded mt-3" style="height:280px;object-fit:cover;" alt="Cliffside terrace overlooking the coast">
+      </div>
+      <div class="col-lg-7" data-aos="fade-left">
+        <form id="bookingForm" class="row g-3 p-4 p-md-5 rounded" style="background:var(--card-bg); backdrop-filter:blur(14px); border:1px solid var(--card-border);">
+          <div class="col-md-6"><label class="form-label small text-uppercase">Name</label><input required type="text" class="form-control" placeholder="Full name"></div>
+          <div class="col-md-6"><label class="form-label small text-uppercase">Email</label><input required type="email" class="form-control" placeholder="you@email.com"></div>
+          <div class="col-md-6"><label class="form-label small text-uppercase">Phone</label><input required type="tel" class="form-control" placeholder="+1 234 567 8901"></div>
+          <div class="col-md-6"><label class="form-label small text-uppercase">Room Type</label>
+            <select class="form-select">
+              <option>Sirena Suite</option>
+              <option>Ocean Villa</option>
+              <option>Garden Suite</option>
+              <option>Ridge Residence</option>
+            </select>
+          </div>
+          <div class="col-md-6"><label class="form-label small text-uppercase">Check-in</label><input required type="date" class="form-control"></div>
+          <div class="col-md-6"><label class="form-label small text-uppercase">Check-out</label><input required type="date" class="form-control"></div>
+          <div class="col-md-6"><label class="form-label small text-uppercase">Guests</label><input type="number" min="1" max="8" value="2" class="form-control"></div>
+          <div class="col-12 mt-4"><button type="submit" class="btn btn-gold w-100">Confirm Reservation</button></div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- booking confirmation modal -->
+<div class="modal fade" id="confirmModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content lux-modal text-center p-4">
+      <div class="modal-body">
+        <i class="bi bi-check-circle text-warning" style="font-size:2.6rem;"></i>
+        <h3 class="mt-3">Reservation Received</h3>
+        <p>Thank you — our concierge will confirm your stay by email within 24 hours.</p>
+        <button class="btn btn-gold mt-2" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ FAQ ============ -->
+<section class="section" style="background:var(--bg-elevated);">
+  <div class="container-xl" style="max-width:900px;">
+    <div class="head-block mx-auto text-center" data-aos="fade-up">
+      <span class="eyebrow">Good to Know</span>
+      <h2>Frequently Asked</h2>
+    </div>
+    <div class="mt-5">
+      <div class="faq-item open">
+        <div class="faq-q">What time is check-in and check-out?<i class="bi bi-plus"></i></div>
+        <div class="faq-a"><p class="mb-0">Check-in from 3pm, check-out by 11am. Early check-in and late check-out are arranged when the calendar allows.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Is the property suitable for children?<i class="bi bi-plus"></i></div>
+        <div class="faq-a"><p class="mb-0">We welcome children over 12 in the main house and all ages in the Ocean Villa, which has its own gated pool.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Do you arrange transfers from Naples airport?<i class="bi bi-plus"></i></div>
+        <div class="faq-a"><p class="mb-0">Yes — private car or boat transfers can be arranged by our concierge at the time of booking.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Is the hotel open year-round?<i class="bi bi-plus"></i></div>
+        <div class="faq-a"><p class="mb-0">We open from April through late October, when the coast and the sea are at their best.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ INSTAGRAM STRIP ============ -->
+<section class="pb-5">
+  <div class="container-xl">
+    <div class="text-center mb-4"><span class="eyebrow">@aureliobay</span></div>
+    <div class="row g-2">
+      <div class="col-6 col-md-2"><img loading="lazy" class="w-100" style="height:140px;object-fit:cover;border-radius:6px;" src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=400&q=80" alt="Instagram: ocean villa"></div>
+      <div class="col-6 col-md-2"><img loading="lazy" class="w-100" style="height:140px;object-fit:cover;border-radius:6px;" src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=400&q=80" alt="Instagram: dining table"></div>
+      <div class="col-6 col-md-2"><img loading="lazy" class="w-100" style="height:140px;object-fit:cover;border-radius:6px;" src="https://images.unsplash.com/photo-1602002418082-a4443e081dd1?auto=format&fit=crop&w=400&q=80" alt="Instagram: pool"></div>
+      <div class="col-6 col-md-2"><img loading="lazy" class="w-100" style="height:140px;object-fit:cover;border-radius:6px;" src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=400&q=80" alt="Instagram: spa"></div>
+      <div class="col-6 col-md-2"><img loading="lazy" class="w-100" style="height:140px;object-fit:cover;border-radius:6px;" src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=400&q=80" alt="Instagram: nature"></div>
+      <div class="col-6 col-md-2"><img loading="lazy" class="w-100" style="height:140px;object-fit:cover;border-radius:6px;" src="https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=400&q=80" alt="Instagram: hotel exterior"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer id="contact">
+  <div class="container-xl">
+    <div class="row g-4">
+      <div class="col-lg-4">
+        <h5 class="mb-3">Aurelio Bay</h5>
+        <p style="color:rgba(255,255,255,.7);">Via delle Sirene 12, Praiano, Amalfi Coast, Italy. A boutique hotel tuned to the hour.</p>
+        <div class="footer-social mt-3">
+          <a href="#"><i class="bi bi-instagram"></i></a>
+          <a href="#"><i class="bi bi-facebook"></i></a>
+          <a href="#"><i class="bi bi-pinterest"></i></a>
+        </div>
+      </div>
+      <div class="col-lg-2 col-6">
+        <h5 class="mb-3">Explore</h5>
+        <a href="#rooms" class="flink">Rooms</a>
+        <a href="#experience" class="flink">Experience</a>
+        <a href="#dining" class="flink">Dining</a>
+        <a href="#spa" class="flink">Spa</a>
+        <a href="#gallery" class="flink">Gallery</a>
+      </div>
+      <div class="col-lg-2 col-6">
+        <h5 class="mb-3">Contact</h5>
+        <a href="#" class="flink"><i class="bi bi-telephone me-2"></i>+39 089 000 000</a>
+        <a href="#" class="flink"><i class="bi bi-envelope me-2"></i>stay@aureliobay.com</a>
+        <a href="#" class="flink"><i class="bi bi-geo-alt me-2"></i>Praiano, Italy</a>
+      </div>
+      <div class="col-lg-4">
+        <h5 class="mb-3">Opening Hours</h5>
+        <p style="color:rgba(255,255,255,.7);" class="mb-1">Reception: 24 hours</p>
+        <p style="color:rgba(255,255,255,.7);" class="mb-3">Restaurant: 7:30am – 11pm</p>
+        <h5 class="mb-2">Newsletter</h5>
+        <div class="d-flex gap-2">
+          <input type="email" class="newsletter-input" placeholder="Your email">
+          <button class="btn btn-gold btn-sm"><i class="bi bi-send"></i></button>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom d-flex flex-wrap justify-content-between">
+      <span>© 2028 Aurelio Bay. All rights reserved.</span>
+      <span>Privacy Policy &middot; Terms &middot; Sitemap</span>
+    </div>
+  </div>
+</footer>
+
+<!-- floating whatsapp -->
+<a href="https://wa.me/390890000000" target="_blank" class="whatsapp-float"><i class="bi bi-whatsapp"></i></a>
+<!-- sticky book -->
+<div class="sticky-book d-none d-md-block"><a href="#booking" class="btn btn-gold">Book Now</a></div>
+
+<!-- ============ SCRIPTS ============ -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+
+<script>
+/* ---------- Preloader ---------- */
+window.addEventListener('load', () => {
+  setTimeout(()=>{ document.getElementById('preloader').classList.add('hide'); }, 2200);
+});
+
+/* ---------- AOS ---------- */
+AOS.init({ duration: 900, once: true, offset: 60 });
+
+/* ---------- Lenis smooth scroll ---------- */
+try{
+  const lenis = new Lenis({ lerp: 0.1, smoothWheel: true });
+  function raf(time){ lenis.raf(time); requestAnimationFrame(raf); }
+  requestAnimationFrame(raf);
+}catch(e){ console.warn('Lenis not available', e); }
+
+/* ---------- Swiper reviews ---------- */
+new Swiper('.reviewSwiper', {
+  slidesPerView: 1,
+  spaceBetween: 24,
+  loop: true,
+  autoplay: { delay: 4500 },
+  pagination: { el: '.swiper-pagination', clickable: true },
+  breakpoints: { 768: { slidesPerView: 2 }, 1100: { slidesPerView: 3 } }
+});
+
+/* ---------- Mobile menu ---------- */
+const mobileToggle = document.getElementById('mobileToggle');
+const mobilePanel = document.getElementById('mobilePanel');
+const mobileClose = document.getElementById('mobileClose');
+mobileToggle.addEventListener('click', ()=> mobilePanel.classList.add('open'));
+mobileClose.addEventListener('click', ()=> mobilePanel.classList.remove('open'));
+mobilePanel.querySelectorAll('a').forEach(a=> a.addEventListener('click', ()=> mobilePanel.classList.remove('open')));
+
+/* ---------- Navbar shrink on scroll ---------- */
+const navEl = document.querySelector('.lux-nav');
+window.addEventListener('scroll', ()=>{
+  if(window.scrollY > 60){ navEl.style.padding = '.4rem .5rem .4rem 1.2rem'; navEl.style.top='12px'; }
+  else{ navEl.style.padding = '.55rem .6rem .55rem 1.6rem'; navEl.style.top='22px'; }
+});
+
+/* ---------- THE HOUR DIAL: day-to-night theme engine ---------- */
+const themes = {
+  // t: 0 morning -> 1 golden hour -> 2 sunset -> 3 night, interpolated by hour fraction
+};
+function hourToTheme(h){
+  // h in [0,24)
+  const c = {};
+  if(h < 8){ // morning 5-8
+    c.bg='#F7F1E6'; c.bgEl='#FFFFFF'; c.text='#1B1B18'; c.textSoft='rgba(27,27,24,.62)';
+    c.line='rgba(27,27,24,.12)'; c.skyA='#FDEFD9'; c.skyB='#F7DFC0'; c.glow='rgba(201,162,75,.35)';
+    c.navBg='rgba(255,255,255,.55)'; c.cardBg='rgba(255,255,255,.6)'; c.cardBorder='rgba(255,255,255,.5)';
+    c.sunTop='18%'; c.sunLeft='14%'; c.stars=0; c.filter='none';
+  } else if(h < 15){ // midday / golden approach
+    c.bg='#F5EEDF'; c.bgEl='#FFFFFF'; c.text='#1B1B18'; c.textSoft='rgba(27,27,24,.6)';
+    c.line='rgba(27,27,24,.12)'; c.skyA='#FFEFCB'; c.skyB='#F3D9A6'; c.glow='rgba(201,162,75,.45)';
+    c.navBg='rgba(255,255,255,.5)'; c.cardBg='rgba(255,255,255,.58)'; c.cardBorder='rgba(255,255,255,.5)';
+    c.sunTop='8%'; c.sunLeft='45%'; c.stars=0; c.filter='none';
+  } else if(h < 18){ // golden hour
+    c.bg='#F2E4CE'; c.bgEl='#FFFBF3'; c.text='#241B10'; c.textSoft='rgba(36,27,16,.65)';
+    c.line='rgba(36,27,16,.14)'; c.skyA='#FFD9A0'; c.skyB='#F2A65A'; c.glow='rgba(232,150,58,.55)';
+    c.navBg='rgba(255,246,232,.55)'; c.cardBg='rgba(255,246,232,.6)'; c.cardBorder='rgba(255,255,255,.45)';
+    c.sunTop='20%'; c.sunLeft='70%'; c.stars=0; c.filter='saturate(1.15) contrast(1.02)';
+  } else if(h < 20){ // sunset
+    c.bg='#2E2018'; c.bgEl='#3A281E'; c.text='#F7EFE3'; c.textSoft='rgba(247,239,227,.68)';
+    c.line='rgba(247,239,227,.16)'; c.skyA='#FF9D6C'; c.skyB='#6B2E4B'; c.glow='rgba(255,140,90,.5)';
+    c.navBg='rgba(40,26,20,.55)'; c.cardBg='rgba(60,40,30,.5)'; c.cardBorder='rgba(255,255,255,.15)';
+    c.sunTop='48%'; c.sunLeft='84%'; c.stars=0.4; c.filter='saturate(1.1) brightness(.92)';
+  } else { // night
+    c.bg='#10100E'; c.bgEl='#181815'; c.text='#F1EEE6'; c.textSoft='rgba(241,238,230,.62)';
+    c.line='rgba(241,238,230,.14)'; c.skyA='rgba(20,25,45,.4)'; c.skyB='transparent'; c.glow='rgba(180,190,255,.25)';
+    c.navBg='rgba(16,16,14,.55)'; c.cardBg='rgba(30,30,26,.55)'; c.cardBorder='rgba(255,255,255,.12)';
+    c.sunTop='70%'; c.sunLeft='90%'; c.stars=1; c.filter='brightness(.55) saturate(.9)';
+  }
+  return c;
+}
+
+const root = document.documentElement;
+const heroSun = document.getElementById('heroSun');
+const heroSky = document.getElementById('heroSky');
+const heroStars = document.getElementById('heroStars');
+const heroBg = document.getElementById('heroBg');
+let manualDark = null; // null = follow dial, true/false = user override
+
+function applyHour(h){
+  const c = hourToTheme(h);
+  root.style.setProperty('--bg', c.bg);
+  root.style.setProperty('--bg-elevated', c.bgEl);
+  root.style.setProperty('--text', c.text);
+  root.style.setProperty('--text-soft', c.textSoft);
+  root.style.setProperty('--line', c.line);
+  root.style.setProperty('--sky-a', c.skyA);
+  root.style.setProperty('--sky-b', c.skyB);
+  root.style.setProperty('--glow', c.glow);
+  root.style.setProperty('--nav-bg', c.navBg);
+  root.style.setProperty('--card-bg', c.cardBg);
+  root.style.setProperty('--card-border', c.cardBorder);
+  heroSun.style.top = c.sunTop;
+  heroSun.style.left = c.sunLeft;
+  heroStars.style.opacity = c.stars;
+  heroBg.style.filter = c.filter;
+
+  const readout = document.getElementById('hourReadout');
+  let hh = Math.floor(h), mm = Math.round((h-hh)*60);
+  let period = hh>=12 ? 'PM':'AM';
+  let hr12 = hh%12===0?12:hh%12;
+  readout.textContent = `${hr12}:${mm.toString().padStart(2,'0')} ${period}`;
+  document.getElementById('themeToggle').innerHTML = (h>=18.5 || h<6) ? '<i class="bi bi-sun"></i>' : '<i class="bi bi-moon-stars"></i>';
+}
+
+/* Drag interaction on the arc */
+const dialHandle = document.getElementById('dialHandle');
+const dialSvg = dialHandle.closest('svg');
+let dragging = false;
+const arcCenter = {x:110, y:105}, arcR = 100;
+
+function angleToHour(angleDeg){
+  // angle 180 (left) = 5am, angle 0 (right) = 9pm-ish; map 180->0deg to 5->23 hour range
+  const t = 1 - (angleDeg/180); // 0 at left(180deg) -> 1 at right(0deg)
+  return 5 + t*18; // 5am to 23:00
+}
+function setHandleFromHour(h){
+  const t = (h-5)/18;
+  const angle = 180 - t*180; // degrees, 180 = left
+  const rad = angle * Math.PI/180;
+  const x = arcCenter.x - arcR*Math.cos(rad);
+  const y = arcCenter.y - arcR*Math.sin(rad);
+  dialHandle.setAttribute('cx', x);
+  dialHandle.setAttribute('cy', y);
+}
+function pointerToAngle(clientX, clientY){
+  const rect = dialSvg.getBoundingClientRect();
+  const scaleX = 220/rect.width, scaleY = 120/rect.height;
+  const x = (clientX-rect.left)*scaleX - arcCenter.x;
+  const y = (clientY-rect.top)*scaleY - arcCenter.y;
+  let angle = Math.atan2(-y, -x) * 180/Math.PI; // 0 at left going down... adjust
+  angle = 180 - (Math.atan2(-y, x)*180/Math.PI);
+  let a = Math.atan2(-y, x) * 180/Math.PI; // standard: right=0, up=90(negative y), left=180
+  if(a<0) a+=360;
+  a = Math.max(0, Math.min(180, a));
+  return a;
+}
+dialHandle.addEventListener('pointerdown', (e)=>{ dragging=true; e.target.setPointerCapture(e.pointerId); });
+window.addEventListener('pointerup', ()=> dragging=false);
+window.addEventListener('pointermove', (e)=>{
+  if(!dragging) return;
+  const a = pointerToAngle(e.clientX, e.clientY);
+  const h = angleToHour(a);
+  setHandleFromHour(h);
+  applyHour(h);
+});
+
+/* init: use real local time, clamped to dial range */
+let startHour = new Date().getHours() + new Date().getMinutes()/60;
+if(startHour < 5) startHour = 5;
+if(startHour > 23) startHour = 23;
+setHandleFromHour(startHour);
+applyHour(startHour);
+
+/* manual theme toggle button jumps to opposite end of the day */
+document.getElementById('themeToggle').addEventListener('click', ()=>{
+  const readout = document.getElementById('hourReadout').textContent;
+  const isNightNow = readout.includes('PM') && !readout.startsWith('12');
+  const target = isNightNow ? 7 : 21;
+  setHandleFromHour(target);
+  applyHour(target);
+});
+
+/* ---------- Clouds & particles (lightweight, generated) ---------- */
+const cloudLayer = document.getElementById('cloudLayer');
+for(let i=0;i<5;i++){
+  const cloud = document.createElement('div');
+  cloud.className='hero-cloud';
+  const w = 120+Math.random()*160, h = w*0.35;
+  cloud.style.width=w+'px'; cloud.style.height=h+'px';
+  cloud.style.top = (8+Math.random()*30)+'%';
+  cloud.style.left = (-20+i*25)+'%';
+  cloudLayer.appendChild(cloud);
+  gsap.to(cloud, { x: window.innerWidth*1.4, duration: 60+Math.random()*40, repeat:-1, ease:'none', delay:i*3 });
+}
+const particleLayer = document.getElementById('particleLayer');
+for(let i=0;i<24;i++){
+  const p = document.createElement('div');
+  p.className='particle';
+  p.style.top = Math.random()*100+'%';
+  p.style.left = Math.random()*100+'%';
+  particleLayer.appendChild(p);
+  gsap.to(p,{ y:-40-Math.random()*60, opacity:0, duration:4+Math.random()*4, repeat:-1, delay:Math.random()*5, ease:'sine.inOut'});
+}
+
+/* ---------- GSAP hero entrance ---------- */
+gsap.from('.hero-content .eyebrow, .hero-title, .hero-sub, .hero-content .btn', {
+  y: 40, opacity:0, duration:1.1, stagger:.12, delay:2.3, ease:'power3.out'
+});
+gsap.from('.booking-card', { y:60, opacity:0, duration:1, delay:2.6, ease:'power3.out' });
+
+/* ---------- 3D tilt on cards ---------- */
+document.querySelectorAll('[data-tilt]').forEach(el=>{
+  el.addEventListener('mousemove', (e)=>{
+    const r = el.getBoundingClientRect();
+    const x = (e.clientX - r.left)/r.width - 0.5;
+    const y = (e.clientY - r.top)/r.height - 0.5;
+    el.style.transform = `perspective(900px) rotateY(${x*6}deg) rotateX(${-y*6}deg)`;
+  });
+  el.addEventListener('mouseleave', ()=> el.style.transform = 'perspective(900px) rotateY(0) rotateX(0)');
+});
+
+/* ---------- Animated stat counters ---------- */
+const counters = document.querySelectorAll('.stat-num');
+const counterObserver = new IntersectionObserver((entries)=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      const el = entry.target;
+      const target = +el.dataset.count;
+      const suffix = el.dataset.suffix || '+';
+      let cur = 0;
+      const step = Math.max(1, Math.round(target/60));
+      const timer = setInterval(()=>{
+        cur += step;
+        if(cur >= target){ cur = target; clearInterval(timer); }
+        el.textContent = cur + suffix;
+      }, 25);
+      counterObserver.unobserve(el);
+    }
+  });
+}, {threshold:.5});
+counters.forEach(c=> counterObserver.observe(c));
+
+/* ---------- Lightbox ---------- */
+const lightbox = document.getElementById('lightbox');
+const lbImg = document.getElementById('lbImg');
+document.querySelectorAll('.m-item img').forEach(img=>{
+  img.addEventListener('click', ()=>{
+    lbImg.src = img.src;
+    lbImg.alt = img.alt;
+    lightbox.classList.add('open');
+  });
+});
+document.getElementById('lbClose').addEventListener('click', ()=> lightbox.classList.remove('open'));
+lightbox.addEventListener('click', (e)=>{ if(e.target===lightbox) lightbox.classList.remove('open'); });
+
+/* ---------- FAQ accordion ---------- */
+document.querySelectorAll('.faq-item').forEach(item=>{
+  item.querySelector('.faq-q').addEventListener('click', ()=>{
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i=> i.classList.remove('open'));
+    if(!isOpen) item.classList.add('open');
+  });
+});
+
+/* ---------- Booking form submit ---------- */
+document.getElementById('bookingForm').addEventListener('submit', (e)=>{
+  e.preventDefault();
+  new bootstrap.Modal(document.getElementById('confirmModal')).show();
+});
+
+/* ---------- Cookie consent ---------- */
+const cookieBar = document.getElementById('cookieBar');
+setTimeout(()=>{ if(!localStorage.getItem('cookieChoice')) cookieBar.classList.add('show'); }, 1500);
+document.getElementById('cookieAccept').addEventListener('click', ()=>{ localStorage.setItem('cookieChoice','accepted'); cookieBar.classList.remove('show'); });
+document.getElementById('cookieDecline').addEventListener('click', ()=>{ localStorage.setItem('cookieChoice','declined'); cookieBar.classList.remove('show'); });
+
+/* ---------- Currency selector (illustrative conversion) ---------- */
+const rates = { EUR:1, USD:1.08, GBP:0.86 };
+const symbols = { EUR:'€', USD:'$', GBP:'£' };
+document.getElementById('currSelect').addEventListener('change', (e)=>{
+  const curr = e.target.value;
+  document.querySelectorAll('.room-price').forEach(el=>{
+    const base = +el.dataset.base || (function(){
+      const n = parseFloat(el.textContent.replace(/[^0-9.]/g,''));
+      el.dataset.base = n; return n;
+    })();
+    const converted = Math.round(base*rates[curr]);
+    el.innerHTML = `${symbols[curr]}${converted.toLocaleString()} <small>/ NIGHT</small>`;
+  });
+});
+
+/* ---------- Language selector (label swap, illustrative) ---------- */
+document.getElementById('langSelect').addEventListener('change', (e)=>{
+  document.documentElement.setAttribute('lang', e.target.value);
+});
+
+/* ---------- Weather widget (illustrative static reading) ---------- */
+const weatherReadings = [
+  'Praiano · 24°C · Clear skies',
+  'Praiano · 26°C · Light sea breeze',
+  'Praiano · 22°C · Golden haze'
+];
+document.getElementById('weatherText').textContent = weatherReadings[Math.floor(Math.random()*weatherReadings.length)];
+</script>
+</body>
+</html>

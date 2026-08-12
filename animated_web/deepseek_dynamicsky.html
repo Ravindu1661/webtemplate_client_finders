@@ -1,0 +1,2096 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dynamic Sky · Living World</title>
+
+    <!-- Bootstrap 5 + Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" />
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap"
+        rel="stylesheet" />
+
+    <!-- Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js">
+    </script>
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js">
+    </script>
+    <!-- Lenis Smooth Scroll -->
+    <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js">
+    </script>
+
+    <style>
+        /* ============================================================
+                   ROOT — CSS Variables (dynamically updated)
+                   ============================================================ */
+        :root {
+            --sky-top: #1a1a2e;
+            --sky-bottom: #16213e;
+            --sun-color: #fdb813;
+            --moon-color: #e8e8e8;
+            --light-intensity: 1;
+            --shadow-opacity: 0.3;
+            --ui-bg: rgba(255, 255, 255, 0.04);
+            --ui-border: rgba(255, 255, 255, 0.06);
+            --ui-text: #f0ece4;
+            --ui-text-muted: rgba(240, 236, 228, 0.4);
+            --ui-glow: 0 0 40px rgba(253, 184, 19, 0.0);
+            --card-bg: rgba(255, 255, 255, 0.02);
+            --nav-bg: rgba(10, 10, 20, 0.35);
+            --btn-bg: rgba(255, 255, 255, 0.04);
+            --btn-border: rgba(255, 255, 255, 0.06);
+            --btn-hover: rgba(253, 184, 19, 0.08);
+            --glass-blur: 20px;
+            --time-label: 'Sunrise';
+            --sun-position: 0;
+            --moon-position: 0;
+            --weather: 'clear';
+            --rain-opacity: 0;
+            --snow-opacity: 0;
+            --fog-opacity: 0;
+        }
+
+        /* ============================================================
+                   RESET & BASE
+                   ============================================================ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: #0a0a14;
+            color: var(--ui-text);
+            overflow-x: hidden;
+            transition: background 2s ease, color 2s ease;
+            min-height: 100vh;
+        }
+
+        /* ============================================================
+                   THREE.JS CANVAS — Full screen background
+                   ============================================================ */
+        #three-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* ============================================================
+                   LENIS — Smooth scroll container
+                   ============================================================ */
+        .scroll-container {
+            position: relative;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .scroll-container>* {
+            pointer-events: auto;
+        }
+
+        /* ============================================================
+                   OVERLAY UI — sits on top of 3D
+                   ============================================================ */
+        .ui-overlay {
+            position: relative;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .ui-overlay>* {
+            pointer-events: auto;
+        }
+
+        /* ============================================================
+                   TIME INDICATOR
+                   ============================================================ */
+        .time-indicator {
+            position: fixed;
+            top: 80px;
+            right: 30px;
+            z-index: 100;
+            background: var(--nav-bg);
+            backdrop-filter: blur(var(--glass-blur));
+            -webkit-backdrop-filter: blur(var(--glass-blur));
+            border: 1px solid var(--ui-border);
+            border-radius: 60px;
+            padding: 10px 22px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--ui-text-muted);
+            transition: all 1.5s ease;
+            pointer-events: auto;
+            box-shadow: var(--ui-glow);
+        }
+
+        .time-indicator .time-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--sun-color);
+            transition: background 1.5s ease, box-shadow 1.5s ease;
+            box-shadow: 0 0 20px var(--sun-color);
+        }
+
+        .time-indicator .time-label {
+            font-weight: 300;
+            color: var(--ui-text);
+            transition: color 1.5s ease;
+        }
+
+        .time-indicator .time-speed {
+            display: flex;
+            gap: 6px;
+            align-items: center;
+            margin-left: 8px;
+        }
+
+        .time-indicator .time-speed button {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--ui-border);
+            color: var(--ui-text-muted);
+            border-radius: 30px;
+            padding: 2px 10px;
+            font-size: 0.6rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .time-indicator .time-speed button:hover {
+            background: rgba(253, 184, 19, 0.06);
+            border-color: rgba(253, 184, 19, 0.1);
+            color: var(--ui-text);
+        }
+
+        .time-indicator .time-speed button.active {
+            background: rgba(253, 184, 19, 0.08);
+            border-color: rgba(253, 184, 19, 0.15);
+            color: var(--sun-color);
+        }
+
+        /* ============================================================
+                   WEATHER INDICATOR
+                   ============================================================ */
+        .weather-indicator {
+            position: fixed;
+            top: 80px;
+            left: 30px;
+            z-index: 100;
+            background: var(--nav-bg);
+            backdrop-filter: blur(var(--glass-blur));
+            -webkit-backdrop-filter: blur(var(--glass-blur));
+            border: 1px solid var(--ui-border);
+            border-radius: 60px;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.7rem;
+            letter-spacing: 1px;
+            color: var(--ui-text-muted);
+            transition: all 1.5s ease;
+            pointer-events: auto;
+            box-shadow: var(--ui-glow);
+        }
+
+        .weather-indicator .weather-icon {
+            font-size: 1.2rem;
+            transition: all 1.5s ease;
+        }
+
+        .weather-indicator .weather-label {
+            font-weight: 300;
+            text-transform: uppercase;
+            font-size: 0.6rem;
+            letter-spacing: 2px;
+        }
+
+        /* ============================================================
+                   NAVIGATION — Glassmorphism
+                   ============================================================ */
+        .navbar-main {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 90;
+            width: 92%;
+            max-width: 1300px;
+            padding: 12px 28px;
+            border-radius: 80px;
+            background: var(--nav-bg);
+            backdrop-filter: blur(var(--glass-blur));
+            -webkit-backdrop-filter: blur(var(--glass-blur));
+            border: 1px solid var(--ui-border);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2), var(--ui-glow);
+            transition: all 1.5s ease;
+            pointer-events: auto;
+        }
+
+        .navbar-main .nav-brand {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--ui-text);
+            text-decoration: none;
+            letter-spacing: 1px;
+            transition: color 1.5s ease;
+        }
+
+        .navbar-main .nav-brand span {
+            color: var(--sun-color);
+            transition: color 1.5s ease;
+        }
+
+        .navbar-main .nav-link {
+            font-size: 0.75rem;
+            font-weight: 400;
+            color: var(--ui-text-muted);
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            padding: 6px 16px !important;
+            transition: color 0.4s ease;
+            text-decoration: none;
+            position: relative;
+        }
+
+        .navbar-main .nav-link:hover {
+            color: var(--ui-text);
+        }
+
+        .navbar-main .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 2px;
+            left: 50%;
+            width: 0;
+            height: 1.5px;
+            background: var(--sun-color);
+            transform: translateX(-50%);
+            transition: width 0.4s ease, background 1.5s ease;
+        }
+
+        .navbar-main .nav-link:hover::after {
+            width: 50%;
+        }
+
+        .navbar-main .nav-btn {
+            font-size: 0.7rem;
+            font-weight: 500;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            padding: 8px 24px;
+            border-radius: 60px;
+            border: 1px solid var(--btn-border);
+            background: var(--btn-bg);
+            color: var(--ui-text);
+            transition: all 0.4s ease;
+            text-decoration: none;
+        }
+
+        .navbar-main .nav-btn:hover {
+            background: var(--btn-hover);
+            border-color: var(--sun-color);
+            color: var(--ui-text);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(253, 184, 19, 0.04);
+        }
+
+        .navbar-main .nav-btn-primary {
+            background: var(--sun-color);
+            color: #0a0a14;
+            border-color: var(--sun-color);
+        }
+
+        .navbar-main .nav-btn-primary:hover {
+            background: var(--sun-color);
+            opacity: 0.85;
+            color: #0a0a14;
+        }
+
+        .navbar-main .navbar-toggler {
+            border: 1px solid var(--ui-border);
+            padding: 6px 10px;
+            border-radius: 40px;
+            color: var(--ui-text);
+        }
+
+        .navbar-main .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255,255,255,0.5)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+        }
+
+        @media (max-width: 991px) {
+            .navbar-main {
+                top: 12px;
+                width: 95%;
+                padding: 10px 20px;
+                border-radius: 60px;
+            }
+
+            .navbar-main .navbar-collapse {
+                background: rgba(10, 10, 20, 0.92);
+                backdrop-filter: blur(32px);
+                border-radius: 24px;
+                padding: 20px 16px;
+                margin-top: 12px;
+                border: 1px solid var(--ui-border);
+            }
+
+            .time-indicator {
+                top: 74px;
+                right: 16px;
+                padding: 6px 14px;
+                font-size: 0.55rem;
+            }
+
+            .weather-indicator {
+                top: 74px;
+                left: 16px;
+                padding: 6px 14px;
+                font-size: 0.55rem;
+            }
+
+            .time-indicator .time-speed button {
+                font-size: 0.5rem;
+                padding: 1px 8px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .navbar-main .nav-brand {
+                font-size: 1.1rem;
+            }
+
+            .time-indicator {
+                top: 70px;
+                right: 10px;
+                padding: 4px 12px;
+                gap: 8px;
+            }
+
+            .weather-indicator {
+                top: 70px;
+                left: 10px;
+                padding: 4px 12px;
+                gap: 8px;
+            }
+
+            .time-indicator .time-dot {
+                width: 6px;
+                height: 6px;
+            }
+
+            .time-indicator .time-label {
+                font-size: 0.5rem;
+            }
+
+            .weather-indicator .weather-label {
+                font-size: 0.5rem;
+            }
+        }
+
+        /* ============================================================
+                   HERO SECTION
+                   ============================================================ */
+        .hero-section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 120px 20px 80px;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-content .hero-badge {
+            font-size: 0.6rem;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            color: var(--ui-text-muted);
+            font-weight: 300;
+            margin-bottom: 20px;
+            transition: color 1.5s ease;
+        }
+
+        .hero-content .hero-badge::before,
+        .hero-content .hero-badge::after {
+            content: '•';
+            margin: 0 12px;
+            color: var(--sun-color);
+            opacity: 0.3;
+            transition: color 1.5s ease;
+        }
+
+        .hero-content .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3rem, 10vw, 7rem);
+            font-weight: 700;
+            line-height: 1.05;
+            color: var(--ui-text);
+            letter-spacing: -0.02em;
+            margin-bottom: 20px;
+            transition: color 1.5s ease;
+        }
+
+        .hero-content .hero-title .gold {
+            color: var(--sun-color);
+            transition: color 1.5s ease;
+        }
+
+        .hero-content .hero-sub {
+            font-size: clamp(1rem, 1.6vw, 1.4rem);
+            font-weight: 300;
+            color: var(--ui-text-muted);
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-bottom: 40px;
+            transition: color 1.5s ease;
+        }
+
+        .hero-content .hero-cta {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .hero-content .hero-cta .btn-hero {
+            padding: 14px 42px;
+            border-radius: 60px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            border: none;
+            transition: all 0.5s ease;
+            text-decoration: none;
+        }
+
+        .hero-content .hero-cta .btn-hero-primary {
+            background: var(--sun-color);
+            color: #0a0a14;
+            box-shadow: 0 8px 40px rgba(253, 184, 19, 0.08);
+        }
+
+        .hero-content .hero-cta .btn-hero-primary:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 16px 60px rgba(253, 184, 19, 0.12);
+        }
+
+        .hero-content .hero-cta .btn-hero-outline {
+            background: var(--btn-bg);
+            color: var(--ui-text);
+            border: 1px solid var(--btn-border);
+        }
+
+        .hero-content .hero-cta .btn-hero-outline:hover {
+            background: var(--btn-hover);
+            border-color: var(--sun-color);
+            transform: translateY(-4px);
+        }
+
+        /* ============================================================
+                   SCROLL INDICATOR
+                   ============================================================ */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            opacity: 0.5;
+            transition: opacity 1.5s ease;
+        }
+
+        .scroll-indicator .scroll-line {
+            width: 1px;
+            height: 50px;
+            background: linear-gradient(to bottom, var(--ui-text), transparent);
+            opacity: 0.2;
+            position: relative;
+            overflow: hidden;
+            transition: background 1.5s ease;
+        }
+
+        .scroll-indicator .scroll-line::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 40%;
+            background: var(--sun-color);
+            animation: scrollLineMove 2.4s ease-in-out infinite;
+            transition: background 1.5s ease;
+        }
+
+        @keyframes scrollLineMove {
+            0% {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+
+            50% {
+                transform: translateY(100%);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(200%);
+                opacity: 0;
+            }
+        }
+
+        .scroll-indicator .scroll-label {
+            font-size: 0.5rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--ui-text-muted);
+            transition: color 1.5s ease;
+        }
+
+        /* ============================================================
+                   SECTION COMMON
+                   ============================================================ */
+        .section-padding {
+            padding: 100px 0;
+        }
+
+        .section-padding-sm {
+            padding: 60px 0;
+        }
+
+        .section-label {
+            font-size: 0.6rem;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            color: var(--ui-text-muted);
+            font-weight: 300;
+            margin-bottom: 12px;
+            transition: color 1.5s ease;
+        }
+
+        .section-label .gold {
+            color: var(--sun-color);
+            transition: color 1.5s ease;
+        }
+
+        .section-headline {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 4.5vw, 3.6rem);
+            font-weight: 700;
+            line-height: 1.1;
+            color: var(--ui-text);
+            letter-spacing: -0.02em;
+            transition: color 1.5s ease;
+        }
+
+        .section-headline .gold {
+            color: var(--sun-color);
+            transition: color 1.5s ease;
+        }
+
+        .section-sub {
+            font-size: 1rem;
+            font-weight: 300;
+            color: var(--ui-text-muted);
+            max-width: 520px;
+            line-height: 1.8;
+            transition: color 1.5s ease;
+        }
+
+        .gold-divider {
+            width: 50px;
+            height: 1.5px;
+            background: linear-gradient(90deg, var(--sun-color), transparent);
+            margin: 20px 0;
+            transition: background 1.5s ease;
+        }
+
+        /* ============================================================
+                   GLASS CARDS
+                   ============================================================ */
+        .glass-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(var(--glass-blur));
+            -webkit-backdrop-filter: blur(var(--glass-blur));
+            border: 1px solid var(--ui-border);
+            border-radius: 20px;
+            padding: 32px 28px;
+            transition: all 1.5s ease;
+            box-shadow: var(--ui-glow);
+        }
+
+        .glass-card:hover {
+            transform: translateY(-6px);
+            border-color: var(--sun-color);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2), var(--ui-glow);
+        }
+
+        .glass-card .card-icon {
+            font-size: 2.4rem;
+            color: var(--sun-color);
+            margin-bottom: 16px;
+            transition: color 1.5s ease;
+        }
+
+        .glass-card .card-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--ui-text);
+            transition: color 1.5s ease;
+        }
+
+        .glass-card .card-text {
+            font-size: 0.85rem;
+            color: var(--ui-text-muted);
+            line-height: 1.7;
+            transition: color 1.5s ease;
+        }
+
+        /* ============================================================
+                   GALLERY GRID
+                   ============================================================ */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+        }
+
+        .gallery-grid .g-item {
+            border-radius: 16px;
+            overflow: hidden;
+            aspect-ratio: 1;
+            background: var(--card-bg);
+            border: 1px solid var(--ui-border);
+            transition: all 1.5s ease;
+            position: relative;
+        }
+
+        .gallery-grid .g-item .g-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: var(--ui-text-muted);
+            transition: color 1.5s ease;
+            background: radial-gradient(circle at 30% 40%, rgba(253, 184, 19, 0.02), transparent 60%);
+        }
+
+        .gallery-grid .g-item:hover {
+            border-color: var(--sun-color);
+            transform: scale(1.02);
+        }
+
+        .gallery-grid .g-item:nth-child(1) {
+            grid-column: 1 / 3;
+            grid-row: 1 / 3;
+        }
+
+        .gallery-grid .g-item:nth-child(2) {
+            grid-column: 3 / 4;
+            grid-row: 1 / 2;
+        }
+
+        .gallery-grid .g-item:nth-child(3) {
+            grid-column: 4 / 5;
+            grid-row: 1 / 2;
+        }
+
+        .gallery-grid .g-item:nth-child(4) {
+            grid-column: 3 / 5;
+            grid-row: 2 / 3;
+        }
+
+        @media (max-width: 768px) {
+            .gallery-grid {
+                grid-template-columns: 1fr 1fr;
+                grid-template-rows: 160px 160px 160px;
+            }
+
+            .gallery-grid .g-item:nth-child(1) {
+                grid-column: 1 / 3;
+                grid-row: 1 / 2;
+            }
+
+            .gallery-grid .g-item:nth-child(2) {
+                grid-column: 1 / 2;
+                grid-row: 2 / 3;
+            }
+
+            .gallery-grid .g-item:nth-child(3) {
+                grid-column: 2 / 3;
+                grid-row: 2 / 3;
+            }
+
+            .gallery-grid .g-item:nth-child(4) {
+                grid-column: 1 / 3;
+                grid-row: 3 / 4;
+            }
+        }
+
+        /* ============================================================
+                   STATS
+                   ============================================================ */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+        }
+
+        .stats-grid .stat-item {
+            text-align: center;
+            padding: 20px;
+            border-radius: 16px;
+            background: var(--card-bg);
+            border: 1px solid var(--ui-border);
+            transition: all 1.5s ease;
+        }
+
+        .stats-grid .stat-item:hover {
+            border-color: var(--sun-color);
+        }
+
+        .stats-grid .stat-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--ui-text);
+            transition: color 1.5s ease;
+        }
+
+        .stats-grid .stat-number .gold {
+            color: var(--sun-color);
+            transition: color 1.5s ease;
+        }
+
+        .stats-grid .stat-label {
+            font-size: 0.7rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--ui-text-muted);
+            font-weight: 300;
+            margin-top: 4px;
+            transition: color 1.5s ease;
+        }
+
+        @media (max-width: 768px) {
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 16px;
+            }
+
+            .stats-grid .stat-number {
+                font-size: 2rem;
+            }
+        }
+
+        /* ============================================================
+                   CONTACT / FOOTER
+                   ============================================================ */
+        .footer-main {
+            background: var(--card-bg);
+            backdrop-filter: blur(var(--glass-blur));
+            border-top: 1px solid var(--ui-border);
+            padding: 60px 0 30px;
+            transition: all 1.5s ease;
+        }
+
+        .footer-main .footer-brand {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--ui-text);
+            transition: color 1.5s ease;
+        }
+
+        .footer-main .footer-brand span {
+            color: var(--sun-color);
+            transition: color 1.5s ease;
+        }
+
+        .footer-main .footer-desc {
+            font-size: 0.8rem;
+            color: var(--ui-text-muted);
+            line-height: 1.8;
+            max-width: 300px;
+            margin-top: 12px;
+            transition: color 1.5s ease;
+        }
+
+        .footer-main .footer-link {
+            display: block;
+            color: var(--ui-text-muted);
+            text-decoration: none;
+            font-size: 0.8rem;
+            padding: 4px 0;
+            transition: all 0.3s ease;
+        }
+
+        .footer-main .footer-link:hover {
+            color: var(--ui-text);
+            padding-left: 6px;
+        }
+
+        .footer-main .footer-heading {
+            font-size: 0.6rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--ui-text-muted);
+            margin-bottom: 16px;
+            font-weight: 300;
+            transition: color 1.5s ease;
+        }
+
+        .footer-main .footer-bottom {
+            border-top: 1px solid var(--ui-border);
+            padding-top: 30px;
+            margin-top: 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .footer-main .footer-bottom .copy {
+            font-size: 0.65rem;
+            color: var(--ui-text-muted);
+            letter-spacing: 1px;
+            transition: color 1.5s ease;
+        }
+
+        .footer-main .footer-social {
+            display: flex;
+            gap: 16px;
+        }
+
+        .footer-main .footer-social a {
+            color: var(--ui-text-muted);
+            text-decoration: none;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .footer-main .footer-social a:hover {
+            color: var(--sun-color);
+        }
+
+        /* ============================================================
+                   RAIN / SNOW / PARTICLES CANVAS (overlay)
+                   ============================================================ */
+        #weather-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 1;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 3s ease;
+        }
+
+        #weather-canvas.active {
+            opacity: 1;
+        }
+
+        /* ============================================================
+                   AUDIO TOGGLE
+                   ============================================================ */
+        .audio-toggle {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 100;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: var(--nav-bg);
+            backdrop-filter: blur(var(--glass-blur));
+            border: 1px solid var(--ui-border);
+            color: var(--ui-text-muted);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: all 0.4s ease;
+            cursor: pointer;
+            pointer-events: auto;
+        }
+
+        .audio-toggle:hover {
+            border-color: var(--sun-color);
+            color: var(--ui-text);
+            transform: scale(1.05);
+        }
+
+        @media (max-width: 768px) {
+            .audio-toggle {
+                bottom: 20px;
+                right: 20px;
+                width: 38px;
+                height: 38px;
+                font-size: 1rem;
+            }
+        }
+
+        /* ============================================================
+                   RESPONSIVE HELPERS
+                   ============================================================ */
+        @media (max-width: 768px) {
+            .section-padding {
+                padding: 60px 0;
+            }
+
+            .section-padding-sm {
+                padding: 40px 0;
+            }
+
+            .hero-section {
+                min-height: 80vh;
+                padding: 100px 16px 60px;
+            }
+        }
+
+        /* ============================================================
+                   UTILITY
+                   ============================================================ */
+        .text-gold {
+            color: var(--sun-color);
+            transition: color 1.5s ease;
+        }
+
+        .border-gold {
+            border-color: var(--sun-color) !important;
+            transition: border-color 1.5s ease;
+        }
+
+        .bg-glass {
+            background: var(--card-bg);
+            backdrop-filter: blur(var(--glass-blur));
+            border: 1px solid var(--ui-border);
+            transition: all 1.5s ease;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ============================================================
+    THREE.JS CANVAS (Background)
+    ============================================================ -->
+    <div id="three-canvas"></div>
+
+    <!-- ============================================================
+    WEATHER CANVAS (Rain/Snow overlay)
+    ============================================================ -->
+    <canvas id="weather-canvas"></canvas>
+
+    <!-- ============================================================
+    TIME INDICATOR
+    ============================================================ -->
+    <div class="time-indicator" id="timeIndicator">
+        <div class="time-dot" id="timeDot"></div>
+        <span class="time-label" id="timeLabel">Sunrise</span>
+        <div class="time-speed">
+            <button data-speed="0.25" class="active">0.25×</button>
+            <button data-speed="1">1×</button>
+            <button data-speed="3">3×</button>
+            <button data-speed="8">8×</button>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    WEATHER INDICATOR
+    ============================================================ -->
+    <div class="weather-indicator" id="weatherIndicator">
+        <span class="weather-icon" id="weatherIcon">☀️</span>
+        <span class="weather-label" id="weatherLabel">Clear</span>
+    </div>
+
+    <!-- ============================================================
+    AUDIO TOGGLE
+    ============================================================ -->
+    <button class="audio-toggle" id="audioToggle" title="Toggle ambient sound">
+        <i class="bi bi-volume-up"></i>
+    </button>
+
+    <!-- ============================================================
+    NAVIGATION
+    ============================================================ -->
+    <nav class="navbar-main navbar navbar-expand-lg" id="mainNav">
+        <div class="container-fluid px-0">
+            <a class="nav-brand" href="#">Sky<span>.</span></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navMenu">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item"><a class="nav-link" href="#hero">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#gallery">Gallery</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#features">Features</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#stats">Stats</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                </ul>
+                <div class="d-flex gap-2">
+                    <a href="#" class="nav-btn nav-btn-primary">Explore</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ============================================================
+    SCROLL CONTAINER (Lenis)
+    ============================================================ -->
+    <div class="scroll-container" id="scrollContainer">
+
+        <!-- ============================================================
+        HERO
+        ============================================================ -->
+        <section class="hero-section" id="hero">
+            <div class="hero-content">
+                <div class="hero-badge">Living World · 24h Cycle</div>
+                <h1 class="hero-title">
+                    Experience <br /><span class="gold">Time</span> Unfold
+                </h1>
+                <p class="hero-sub">A dynamic journey from dawn to dusk and beyond</p>
+                <div class="hero-cta">
+                    <a href="#about" class="btn-hero btn-hero-primary">Discover</a>
+                    <a href="#gallery" class="btn-hero btn-hero-outline">Explore</a>
+                </div>
+            </div>
+            <div class="scroll-indicator">
+                <div class="scroll-line"></div>
+                <span class="scroll-label">Scroll</span>
+            </div>
+        </section>
+
+        <!-- ============================================================
+        ABOUT
+        ============================================================ -->
+        <section class="section-padding" id="about">
+            <div class="container">
+                <div class="row g-5 align-items-center">
+                    <div class="col-lg-6">
+                        <span class="section-label">About the <span class="gold">World</span></span>
+                        <h2 class="section-headline">A Living <span class="gold">Digital</span> Ecosystem</h2>
+                        <div class="gold-divider"></div>
+                        <p class="section-sub" style="max-width:100%;">
+                            This is not a static website. It's a living world that breathes with the rhythm of a
+                            full day. From the golden glow of sunrise to the deep silence of midnight, every
+                            element adapts — the sky, the light, the shadows, and the very soul of the interface.
+                        </p>
+                        <p class="section-sub" style="max-width:100%;margin-top:12px;">
+                            Watch as the sun arcs across the sky, clouds drift, stars emerge, and the world
+                            transforms around you. A continuous, poetic journey through time.
+                        </p>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="glass-card" style="padding:40px;">
+                            <div class="d-flex gap-4 flex-wrap">
+                                <div style="flex:1;min-width:120px;">
+                                    <div style="font-size:2rem;color:var(--sun-color);">🌅</div>
+                                    <div style="font-weight:600;color:var(--ui-text);margin-top:6px;">Sunrise</div>
+                                    <div style="font-size:0.7rem;color:var(--ui-text-muted);">Warm awakening</div>
+                                </div>
+                                <div style="flex:1;min-width:120px;">
+                                    <div style="font-size:2rem;color:var(--sun-color);">☀️</div>
+                                    <div style="font-weight:600;color:var(--ui-text);margin-top:6px;">Noon</div>
+                                    <div style="font-size:0.7rem;color:var(--ui-text-muted);">Bright clarity</div>
+                                </div>
+                                <div style="flex:1;min-width:120px;">
+                                    <div style="font-size:2rem;color:var(--sun-color);">🌅</div>
+                                    <div style="font-weight:600;color:var(--ui-text);margin-top:6px;">Sunset</div>
+                                    <div style="font-size:0.7rem;color:var(--ui-text-muted);">Golden hour</div>
+                                </div>
+                                <div style="flex:1;min-width:120px;">
+                                    <div style="font-size:2rem;color:var(--moon-color);">🌙</div>
+                                    <div style="font-weight:600;color:var(--ui-text);margin-top:6px;">Night</div>
+                                    <div style="font-size:0.7rem;color:var(--ui-text-muted);">Starlit calm</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================
+        GALLERY
+        ============================================================ -->
+        <section class="section-padding-sm" id="gallery">
+            <div class="container">
+                <div class="text-center mb-5">
+                    <span class="section-label">Visual <span class="gold">Moments</span></span>
+                    <h2 class="section-headline">Scenes of <span class="gold">Time</span></h2>
+                    <p class="section-sub mx-auto">Each moment captured in the ever-changing light of the day.</p>
+                </div>
+                <div class="gallery-grid">
+                    <div class="g-item">
+                        <div class="g-placeholder">🌅</div>
+                    </div>
+                    <div class="g-item">
+                        <div class="g-placeholder">☀️</div>
+                    </div>
+                    <div class="g-item">
+                        <div class="g-placeholder">🌄</div>
+                    </div>
+                    <div class="g-item">
+                        <div class="g-placeholder">🌙</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================
+        FEATURES
+        ============================================================ -->
+        <section class="section-padding" id="features">
+            <div class="container">
+                <div class="text-center mb-5">
+                    <span class="section-label">Dynamic <span class="gold">Systems</span></span>
+                    <h2 class="section-headline">Living <span class="gold">Environment</span></h2>
+                    <p class="section-sub mx-auto">Every element responds to the time of day, creating a cohesive,
+                        breathing world.</p>
+                </div>
+                <div class="row g-4">
+                    <div class="col-md-6 col-lg-3">
+                        <div class="glass-card text-center">
+                            <div class="card-icon">🌞</div>
+                            <div class="card-title">Solar Cycle</div>
+                            <p class="card-text">The sun rises, arcs, and sets, casting dynamic shadows and golden light
+                                across the world.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <div class="glass-card text-center">
+                            <div class="card-icon">🌙</div>
+                            <div class="card-title">Lunar Phases</div>
+                            <p class="card-text">The moon rises with the night, casting a gentle, silvery glow and
+                                revealing the stars.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <div class="glass-card text-center">
+                            <div class="card-icon">☁️</div>
+                            <div class="card-title">Weather Events</div>
+                            <p class="card-text">Rain, snow, mist, and wind sweep through, each with its own mood and
+                                visual poetry.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <div class="glass-card text-center">
+                            <div class="card-icon">✨</div>
+                            <div class="card-title">Living Particles</div>
+                            <p class="card-text">Fireflies at night, pollen by day, birds, butterflies — a world that
+                                feels truly alive.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================
+        STATS
+        ============================================================ -->
+        <section class="section-padding-sm" id="stats">
+            <div class="container">
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-number">24<span class="gold">h</span></div>
+                        <div class="stat-label">Full Cycle</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">360<span class="gold">°</span></div>
+                        <div class="stat-label">Immersive View</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">7<span class="gold">+</span></div>
+                        <div class="stat-label">Weather States</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">60<span class="gold">fps</span></div>
+                        <div class="stat-label">Smooth Performance</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================
+        CONTACT
+        ============================================================ -->
+        <section class="section-padding" id="contact">
+            <div class="container">
+                <div class="text-center mb-5">
+                    <span class="section-label">Get in <span class="gold">Touch</span></span>
+                    <h2 class="section-headline">Connect with <span class="gold">Us</span></h2>
+                    <p class="section-sub mx-auto">We'd love to hear from you. Reach out anytime, day or night.</p>
+                </div>
+                <div class="row g-4 justify-content-center">
+                    <div class="col-lg-8">
+                        <div class="glass-card" style="padding:40px;">
+                            <div class="row g-4">
+                                <div class="col-md-6">
+                                    <label
+                                        style="font-size:0.6rem;letter-spacing:2px;text-transform:uppercase;color:var(--ui-text-muted);">Name</label>
+                                    <input type="text" class="form-control"
+                                        style="background:rgba(255,255,255,0.02);border:1px solid var(--ui-border);border-radius:12px;padding:12px 16px;color:var(--ui-text);"
+                                        placeholder="Your name" />
+                                </div>
+                                <div class="col-md-6">
+                                    <label
+                                        style="font-size:0.6rem;letter-spacing:2px;text-transform:uppercase;color:var(--ui-text-muted);">Email</label>
+                                    <input type="email" class="form-control"
+                                        style="background:rgba(255,255,255,0.02);border:1px solid var(--ui-border);border-radius:12px;padding:12px 16px;color:var(--ui-text);"
+                                        placeholder="you@example.com" />
+                                </div>
+                                <div class="col-12">
+                                    <label
+                                        style="font-size:0.6rem;letter-spacing:2px;text-transform:uppercase;color:var(--ui-text-muted);">Message</label>
+                                    <textarea class="form-control" rows="4"
+                                        style="background:rgba(255,255,255,0.02);border:1px solid var(--ui-border);border-radius:12px;padding:12px 16px;color:var(--ui-text);"
+                                        placeholder="Your message..."></textarea>
+                                </div>
+                                <div class="col-12">
+                                    <button class="btn"
+                                        style="background:var(--sun-color);color:#0a0a14;border:none;border-radius:60px;padding:12px 40px;font-weight:500;letter-spacing:1px;transition:all 0.3s ease;">Send
+                                        Message</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================
+        FOOTER
+        ============================================================ -->
+        <footer class="footer-main">
+            <div class="container">
+                <div class="row g-5">
+                    <div class="col-lg-4 col-md-6">
+                        <div class="footer-brand">Sky<span>.</span></div>
+                        <p class="footer-desc">A living digital world where time flows continuously. Experience the
+                            beauty of a full day in minutes.</p>
+                        <div style="margin-top:16px;display:flex;gap:12px;">
+                            <a href="#" class="footer-link" style="display:inline-block;padding:0;">Instagram</a>
+                            <a href="#" class="footer-link" style="display:inline-block;padding:0;">Twitter</a>
+                            <a href="#" class="footer-link" style="display:inline-block;padding:0;">YouTube</a>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-6">
+                        <div class="footer-heading">Explore</div>
+                        <a href="#hero" class="footer-link">Home</a>
+                        <a href="#about" class="footer-link">About</a>
+                        <a href="#gallery" class="footer-link">Gallery</a>
+                        <a href="#features" class="footer-link">Features</a>
+                    </div>
+                    <div class="col-lg-2 col-md-6">
+                        <div class="footer-heading">Legal</div>
+                        <a href="#" class="footer-link">Privacy</a>
+                        <a href="#" class="footer-link">Terms</a>
+                        <a href="#" class="footer-link">Cookies</a>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="footer-heading">Experience</div>
+                        <p style="font-size:0.75rem;color:var(--ui-text-muted);">Watch the world transform. Every second
+                            brings a new hue, a new mood, a new moment.</p>
+                        <div style="display:flex;gap:8px;margin-top:8px;">
+                            <span style="font-size:1.6rem;opacity:0.2;">🌅</span>
+                            <span style="font-size:1.6rem;opacity:0.2;">☀️</span>
+                            <span style="font-size:1.6rem;opacity:0.2;">🌄</span>
+                            <span style="font-size:1.6rem;opacity:0.2;">🌙</span>
+                            <span style="font-size:1.6rem;opacity:0.2;">✨</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <span class="copy">&copy; 2028 Sky · Living World</span>
+                    <div class="footer-social">
+                        <a href="#"><i class="bi bi-instagram"></i></a>
+                        <a href="#"><i class="bi bi-twitter-x"></i></a>
+                        <a href="#"><i class="bi bi-youtube"></i></a>
+                        <a href="#"><i class="bi bi-github"></i></a>
+                    </div>
+                    <span style="font-size:0.6rem;color:var(--ui-text-muted);letter-spacing:1px;"
+                        id="footerTime">--:--</span>
+                </div>
+            </div>
+        </footer>
+
+    </div><!-- /scroll-container -->
+
+    <!-- ============================================================
+    BOOTSTRAP JS
+    ============================================================ -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js">
+    </script>
+
+    <!-- ============================================================
+    MAIN APPLICATION
+    ============================================================ -->
+    <script>
+        (function () {
+            'use strict';
+
+            // ============================================================
+            // 1. THREE.JS — Sky Dome, Sun, Moon, Stars, Clouds
+            // ============================================================
+            const container = document.getElementById('three-canvas');
+            const scene = new THREE.Scene();
+
+            const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera.position.set(0, 8, 18);
+            camera.lookAt(0, 0, 0);
+
+            const renderer = new THREE.WebGLRenderer({
+                antialias: true,
+                alpha: false
+            });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            renderer.shadowMap.enabled = true;
+            renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+            renderer.toneMapping = THREE.ACESFilmicToneMapping;
+            renderer.toneMappingExposure = 1.2;
+            container.appendChild(renderer.domElement);
+
+            // ---- Sky Dome ----
+            const skyGeo = new THREE.SphereGeometry(80, 64, 64);
+            const skyMat = new THREE.ShaderMaterial({
+                side: THREE.BackSide,
+                uniforms: {
+                    uTopColor: { value: new THREE.Color(0x0a0a2e) },
+                    uBottomColor: { value: new THREE.Color(0x16213e) },
+                    uSunDirection: { value: new THREE.Vector3(0.5, 0.5, 0.5) },
+                    uSunColor: { value: new THREE.Color(0xfdb813) },
+                    uTime: { value: 0 }
+                },
+                vertexShader: `
+                    varying vec3 vWorldPos;
+                    void main() {
+                        vec4 worldPos = modelMatrix * vec4(position, 1.0);
+                        vWorldPos = worldPos.xyz;
+                        gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+                    }
+                `,
+                fragmentShader: `
+                    uniform vec3 uTopColor;
+                    uniform vec3 uBottomColor;
+                    uniform vec3 uSunDirection;
+                    uniform vec3 uSunColor;
+                    uniform float uTime;
+                    varying vec3 vWorldPos;
+
+                    void main() {
+                        vec3 dir = normalize(vWorldPos);
+                        float y = dir.y * 0.5 + 0.5;
+                        vec3 sky = mix(uBottomColor, uTopColor, y);
+
+                        float sunDot = max(0.0, dot(dir, normalize(uSunDirection)));
+                        float sunGlow = pow(sunDot, 120.0) * 2.0;
+                        float sunHalo = pow(sunDot, 6.0) * 0.3;
+                        vec3 sunEffect = uSunColor * (sunGlow + sunHalo);
+
+                        float horizonGlow = exp(-abs(dir.y) * 6.0) * 0.15;
+                        vec3 horizon = uSunColor * horizonGlow;
+
+                        gl_FragColor = vec4(sky + sunEffect + horizon, 1.0);
+                    }
+                `
+            });
+            const skyMesh = new THREE.Mesh(skyGeo, skyMat);
+            scene.add(skyMesh);
+
+            // ---- Sun ----
+            const sunGeo = new THREE.SphereGeometry(1.2, 32, 32);
+            const sunMat = new THREE.MeshBasicMaterial({ color: 0xfdb813 });
+            const sunMesh = new THREE.Mesh(sunGeo, sunMat);
+            scene.add(sunMesh);
+
+            // Sun glow
+            const glowGeo = new THREE.SphereGeometry(2.8, 32, 32);
+            const glowMat = new THREE.ShaderMaterial({
+                transparent: true,
+                blending: THREE.AdditiveBlending,
+                depthWrite: false,
+                uniforms: {
+                    uColor: { value: new THREE.Color(0xfdb813) },
+                    uIntensity: { value: 0.6 }
+                },
+                vertexShader: `
+                    varying vec3 vNormal;
+                    void main() {
+                        vNormal = normalize(normalMatrix * normal);
+                        gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+                    }
+                `,
+                fragmentShader: `
+                    uniform vec3 uColor;
+                    uniform float uIntensity;
+                    varying vec3 vNormal;
+                    void main() {
+                        float glow = pow(abs(vNormal.z), 2.0) * uIntensity;
+                        gl_FragColor = vec4(uColor, glow * 0.6);
+                    }
+                `
+            });
+            const glowMesh = new THREE.Mesh(glowGeo, glowMat);
+            sunMesh.add(glowMesh);
+
+            // Sun light
+            const sunLight = new THREE.DirectionalLight(0xfdb813, 1.2);
+            sunLight.castShadow = true;
+            sunLight.shadow.mapSize.width = 2048;
+            sunLight.shadow.mapSize.height = 2048;
+            sunLight.shadow.camera.near = 0.5;
+            sunLight.shadow.camera.far = 50;
+            sunLight.shadow.camera.left = -20;
+            sunLight.shadow.camera.right = 20;
+            sunLight.shadow.camera.top = 20;
+            sunLight.shadow.camera.bottom = -20;
+            scene.add(sunLight);
+
+            const ambientLight = new THREE.AmbientLight(0x222244, 0.2);
+            scene.add(ambientLight);
+
+            // ---- Moon ----
+            const moonGeo = new THREE.SphereGeometry(0.8, 32, 32);
+            const moonMat = new THREE.MeshStandardMaterial({
+                color: 0xe8e8e8,
+                roughness: 0.8,
+                metalness: 0.0,
+                emissive: 0x222244,
+                emissiveIntensity: 0.1
+            });
+            const moonMesh = new THREE.Mesh(moonGeo, moonMat);
+            scene.add(moonMesh);
+
+            const moonLight = new THREE.DirectionalLight(0x8888cc, 0.15);
+            scene.add(moonLight);
+
+            // ---- Stars ----
+            const starsGeo = new THREE.BufferGeometry();
+            const starCount = 4000;
+            const starPos = new Float32Array(starCount * 3);
+            const starSizes = new Float32Array(starCount);
+            for (let i = 0; i < starCount; i++) {
+                const theta = Math.random() * Math.PI * 2;
+                const phi = Math.acos(Math.random() * 2 - 1);
+                const r = 75 + Math.random() * 5;
+                starPos[i * 3] = r * Math.sin(phi) * Math.cos(theta);
+                starPos[i * 3 + 1] = Math.abs(r * Math.cos(phi));
+                starPos[i * 3 + 2] = r * Math.sin(phi) * Math.sin(theta);
+                starSizes[i] = 0.1 + Math.random() * 0.4;
+            }
+            starsGeo.setAttribute('position', new THREE.BufferAttribute(starPos, 3));
+            starsGeo.setAttribute('size', new THREE.BufferAttribute(starSizes, 1));
+
+            const starsMat = new THREE.PointsMaterial({
+                color: 0xffffff,
+                size: 0.15,
+                transparent: true,
+                opacity: 0.8,
+                blending: THREE.AdditiveBlending,
+                depthWrite: false,
+                sizeAttenuation: true
+            });
+            const starsMesh = new THREE.Points(starsGeo, starsMat);
+            scene.add(starsMesh);
+
+            // ---- Clouds (simple translucent spheres) ----
+            const clouds = [];
+            const cloudMat = new THREE.MeshBasicMaterial({
+                color: 0xffffff,
+                transparent: true,
+                opacity: 0.08,
+                depthWrite: false,
+                blending: THREE.AdditiveBlending
+            });
+            for (let i = 0; i < 30; i++) {
+                const cGeo = new THREE.SphereGeometry(0.8 + Math.random() * 2, 8, 8);
+                const cMesh = new THREE.Mesh(cGeo, cloudMat.clone());
+                const theta = Math.random() * Math.PI * 2;
+                const phi = Math.random() * 1.2 - 0.6;
+                const r = 20 + Math.random() * 15;
+                cMesh.position.set(
+                    r * Math.cos(theta) * Math.cos(phi),
+                    5 + Math.random() * 10 + Math.sin(phi) * 3,
+                    r * Math.sin(theta) * Math.cos(phi)
+                );
+                cMesh.scale.set(1, 0.3 + Math.random() * 0.3, 1);
+                cMesh.userData = {
+                    speed: 0.0002 + Math.random() * 0.0004,
+                    angle: theta,
+                    radius: r,
+                    heightOffset: 5 + Math.random() * 10,
+                    phase: Math.random() * 100
+                };
+                scene.add(cMesh);
+                clouds.push(cMesh);
+            }
+
+            // ---- Ground plane (invisible for shadows) ----
+            const groundGeo = new THREE.PlaneGeometry(60, 60);
+            const groundMat = new THREE.ShadowMaterial({ opacity: 0.3, color: 0x000000 });
+            const ground = new THREE.Mesh(groundGeo, groundMat);
+            ground.rotation.x = -Math.PI / 2;
+            ground.position.y = -2;
+            ground.receiveShadow = true;
+            scene.add(ground);
+
+            // ---- Simple terrain mountains (for visual depth) ----
+            const mountMat = new THREE.MeshStandardMaterial({
+                color: 0x1a1a2e,
+                roughness: 0.8,
+                metalness: 0.0,
+                transparent: true,
+                opacity: 0.3
+            });
+            for (let i = 0; i < 12; i++) {
+                const mGeo = new THREE.ConeGeometry(1.5 + Math.random() * 3, 2 + Math.random() * 4, 6);
+                const mMesh = new THREE.Mesh(mGeo, mountMat);
+                const angle = Math.random() * Math.PI * 2;
+                const dist = 12 + Math.random() * 10;
+                mMesh.position.set(
+                    dist * Math.cos(angle),
+                    -2 + (Math.random() * 0.5),
+                    dist * Math.sin(angle)
+                );
+                mMesh.rotation.y = Math.random() * Math.PI;
+                mMesh.castShadow = false;
+                mMesh.receiveShadow = false;
+                scene.add(mMesh);
+            }
+
+            // ============================================================
+            // 2. TIME ENGINE
+            // ============================================================
+            const TIME_PALETTES = {
+                sunrise: {
+                    skyTop: [0.15, 0.05, 0.2],
+                    skyBottom: [0.8, 0.4, 0.1],
+                    sunColor: [1, 0.72, 0.08],
+                    ambient: [0.3, 0.2, 0.15],
+                    lightIntensity: 0.6,
+                    uiBg: 'rgba(255,255,255,0.02)',
+                    uiText: '#f0ece4',
+                    uiTextMuted: 'rgba(240,236,228,0.4)',
+                    sunPos: [0, 0.1, 0.8],
+                    label: 'Sunrise'
+                },
+                morning: {
+                    skyTop: [0.2, 0.4, 0.7],
+                    skyBottom: [0.7, 0.8, 0.9],
+                    sunColor: [1, 0.9, 0.6],
+                    ambient: [0.4, 0.4, 0.5],
+                    lightIntensity: 1.0,
+                    uiBg: 'rgba(255,255,255,0.03)',
+                    uiText: '#f0ece4',
+                    uiTextMuted: 'rgba(240,236,228,0.4)',
+                    sunPos: [0.4, 0.5, 0.6],
+                    label: 'Morning'
+                },
+                noon: {
+                    skyTop: [0.1, 0.3, 0.6],
+                    skyBottom: [0.5, 0.7, 0.9],
+                    sunColor: [1, 0.95, 0.8],
+                    ambient: [0.5, 0.5, 0.6],
+                    lightIntensity: 1.4,
+                    uiBg: 'rgba(255,255,255,0.04)',
+                    uiText: '#f0ece4',
+                    uiTextMuted: 'rgba(240,236,228,0.35)',
+                    sunPos: [0.5, 0.9, 0.0],
+                    label: 'Noon'
+                },
+                golden: {
+                    skyTop: [0.2, 0.1, 0.3],
+                    skyBottom: [0.9, 0.6, 0.1],
+                    sunColor: [1, 0.7, 0.1],
+                    ambient: [0.5, 0.3, 0.1],
+                    lightIntensity: 0.9,
+                    uiBg: 'rgba(255,255,255,0.025)',
+                    uiText: '#f0ece4',
+                    uiTextMuted: 'rgba(240,236,228,0.4)',
+                    sunPos: [0.7, 0.5, -0.6],
+                    label: 'Golden Hour'
+                },
+                sunset: {
+                    skyTop: [0.3, 0.05, 0.15],
+                    skyBottom: [0.8, 0.2, 0.1],
+                    sunColor: [1, 0.4, 0.05],
+                    ambient: [0.3, 0.1, 0.1],
+                    lightIntensity: 0.5,
+                    uiBg: 'rgba(255,255,255,0.015)',
+                    uiText: '#f0ece4',
+                    uiTextMuted: 'rgba(240,236,228,0.35)',
+                    sunPos: [0.8, 0.15, -0.8],
+                    label: 'Sunset'
+                },
+                blue: {
+                    skyTop: [0.05, 0.05, 0.2],
+                    skyBottom: [0.2, 0.2, 0.5],
+                    sunColor: [0.4, 0.4, 0.8],
+                    ambient: [0.1, 0.1, 0.3],
+                    lightIntensity: 0.2,
+                    uiBg: 'rgba(255,255,255,0.01)',
+                    uiText: '#d0d0e0',
+                    uiTextMuted: 'rgba(200,200,220,0.3)',
+                    sunPos: [0.9, -0.1, -0.9],
+                    label: 'Blue Hour'
+                },
+                night: {
+                    skyTop: [0.02, 0.02, 0.08],
+                    skyBottom: [0.05, 0.05, 0.15],
+                    sunColor: [0.1, 0.1, 0.2],
+                    ambient: [0.05, 0.05, 0.15],
+                    lightIntensity: 0.05,
+                    uiBg: 'rgba(255,255,255,0.005)',
+                    uiText: '#c0c0d0',
+                    uiTextMuted: 'rgba(180,180,200,0.2)',
+                    sunPos: [1.0, -0.3, -1.0],
+                    label: 'Night'
+                },
+                midnight: {
+                    skyTop: [0.0, 0.0, 0.04],
+                    skyBottom: [0.02, 0.02, 0.08],
+                    sunColor: [0.05, 0.05, 0.1],
+                    ambient: [0.02, 0.02, 0.08],
+                    lightIntensity: 0.02,
+                    uiBg: 'rgba(255,255,255,0.003)',
+                    uiText: '#a0a0b0',
+                    uiTextMuted: 'rgba(150,150,170,0.15)',
+                    sunPos: [1.0, -0.5, -1.0],
+                    label: 'Midnight'
+                }
+            };
+
+            const TIME_ORDER = [
+                'sunrise', 'morning', 'noon', 'golden', 'sunset', 'blue', 'night', 'midnight'
+            ];
+
+            let currentTime = 0.0; // 0..1
+            let timeSpeed = 1.0;
+            let isPaused = false;
+            let weatherState = 'clear';
+            let weatherTimer = 0;
+            let weatherDuration = 300 + Math.random() * 600;
+
+            // DOM refs
+            const timeLabel = document.getElementById('timeLabel');
+            const timeDot = document.getElementById('timeDot');
+            const weatherIcon = document.getElementById('weatherIcon');
+            const weatherLabel = document.getElementById('weatherLabel');
+            const footerTime = document.getElementById('footerTime');
+            const root = document.documentElement;
+
+            function getTimeOfDay(t) {
+                // 0..1 maps to 24h
+                const hour = t * 24;
+                if (hour < 5.5) return 'midnight';
+                if (hour < 7) return 'sunrise';
+                if (hour < 11) return 'morning';
+                if (hour < 13) return 'noon';
+                if (hour < 15.5) return 'golden';
+                if (hour < 17.5) return 'sunset';
+                if (hour < 19.5) return 'blue';
+                return 'night';
+            }
+
+            function lerpColor(c1, c2, t) {
+                return [
+                    c1[0] + (c2[0] - c1[0]) * t,
+                    c1[1] + (c2[1] - c1[1]) * t,
+                    c1[2] + (c2[2] - c1[2]) * t
+                ];
+            }
+
+            function lerpVal(a, b, t) { return a + (b - a) * t; }
+
+            function getPalette(t) {
+                const hour = t * 24;
+                const palettes = TIME_ORDER;
+                const times = [5.5, 7, 11, 13, 15.5, 17.5, 19.5, 22];
+                let i = 0;
+                for (let j = 0; j < times.length; j++) {
+                    if (hour >= times[j]) i = j;
+                }
+                const next = (i + 1) % times.length;
+                const tStart = times[i] / 24;
+                const tEnd = (times[next] + (next === 0 ? 24 : 0)) / 24;
+                let progress = (t - tStart) / (tEnd - tStart + 0.0001);
+                progress = Math.max(0, Math.min(1, progress));
+
+                const p1 = TIME_PALETTES[palettes[i]];
+                const p2 = TIME_PALETTES[palettes[next]];
+
+                return {
+                    skyTop: lerpColor(p1.skyTop, p2.skyTop, progress),
+                    skyBottom: lerpColor(p1.skyBottom, p2.skyBottom, progress),
+                    sunColor: lerpColor(p1.sunColor, p2.sunColor, progress),
+                    ambient: lerpColor(p1.ambient, p2.ambient, progress),
+                    lightIntensity: lerpVal(p1.lightIntensity, p2.lightIntensity, progress),
+                    sunPos: lerpColor(p1.sunPos, p2.sunPos, progress),
+                    label: progress < 0.5 ? p1.label : p2.label,
+                    uiBg: progress < 0.5 ? p1.uiBg : p2.uiBg,
+                    uiText: progress < 0.5 ? p1.uiText : p2.uiText,
+                    uiTextMuted: progress < 0.5 ? p1.uiTextMuted : p2.uiTextMuted
+                };
+            }
+
+            function updateScene(t) {
+                const pal = getPalette(t);
+                const sky = skyMat.uniforms;
+                sky.uTopColor.value.setRGB(pal.skyTop[0], pal.skyTop[1], pal.skyTop[2]);
+                sky.uBottomColor.value.setRGB(pal.skyBottom[0], pal.skyBottom[1], pal.skyBottom[2]);
+                sky.uSunColor.value.setRGB(pal.sunColor[0], pal.sunColor[1], pal.sunColor[2]);
+
+                const sunPos = pal.sunPos;
+                const sunDir = new THREE.Vector3(sunPos[0], sunPos[1], sunPos[2]).normalize();
+                sky.uSunDirection.value.copy(sunDir);
+
+                // Sun position
+                const sunDist = 30;
+                sunMesh.position.copy(sunDir.clone().multiplyScalar(sunDist));
+                sunMesh.position.y = Math.max(sunMesh.position.y, -5);
+                sunMesh.visible = pal.lightIntensity > 0.05;
+
+                // Sun light
+                sunLight.position.copy(sunMesh.position);
+                sunLight.intensity = pal.lightIntensity * 1.2;
+                sunLight.color.setRGB(pal.sunColor[0], pal.sunColor[1], pal.sunColor[2]);
+
+                // Ambient
+                ambientLight.intensity = 0.08 + pal.lightIntensity * 0.15;
+                ambientLight.color.setRGB(pal.ambient[0], pal.ambient[1], pal.ambient[2]);
+
+                // Moon
+                const moonAngle = (t * Math.PI * 2 + Math.PI);
+                const moonDist = 28;
+                const moonX = Math.cos(moonAngle) * moonDist * 0.6;
+                const moonZ = Math.sin(moonAngle) * moonDist * 0.6;
+                const moonY = Math.sin(moonAngle * 0.5 + 0.5) * 10 + 2;
+                moonMesh.position.set(moonX, moonY, moonZ);
+                moonMesh.visible = pal.lightIntensity < 0.6;
+
+                // Moon light
+                moonLight.position.copy(moonMesh.position);
+                moonLight.intensity = pal.lightIntensity < 0.4 ? 0.08 + (0.4 - pal.lightIntensity) * 0.3 : 0;
+
+                // Stars visibility
+                starsMesh.visible = pal.lightIntensity < 0.5;
+
+                // Clouds opacity
+                clouds.forEach((c, idx) => {
+                    const baseOp = 0.04 + Math.sin(t * 50 + idx) * 0.02;
+                    c.material.opacity = Math.max(0, baseOp * (0.5 + pal.lightIntensity * 0.5));
+                    c.position.x += Math.sin(t * 100 + idx * 1.7) * 0.001;
+                    c.position.z += Math.cos(t * 100 + idx * 1.3) * 0.001;
+                });
+
+                // Update UI
+                const label = pal.label;
+                timeLabel.textContent = label;
+                const color = new THREE.Color().setRGB(pal.sunColor[0], pal.sunColor[1], pal.sunColor[2]);
+                timeDot.style.background = '#' + color.getHexString();
+                timeDot.style.boxShadow = `0 0 30px #${color.getHexString()}`;
+
+                // CSS Variables
+                root.style.setProperty('--sun-color', `#${color.getHexString()}`);
+                root.style.setProperty('--sky-top', `rgb(${pal.skyTop[0] * 255 | 0},${pal.skyTop[1] * 255 | 0},${pal.skyTop[2] * 255 | 0})`);
+                root.style.setProperty('--sky-bottom',
+                    `rgb(${pal.skyBottom[0] * 255 | 0},${pal.skyBottom[1] * 255 | 0},${pal.skyBottom[2] * 255 | 0})`);
+                root.style.setProperty('--ui-text', pal.uiText);
+                root.style.setProperty('--ui-text-muted', pal.uiTextMuted);
+                root.style.setProperty('--ui-bg', pal.uiBg);
+
+                const glowIntensity = pal.lightIntensity * 0.3;
+                root.style.setProperty('--ui-glow',
+                    `0 0 60px rgba(${pal.sunColor[0] * 255 | 0},${pal.sunColor[1] * 255 | 0},${pal.sunColor[2] * 255 | 0},${glowIntensity * 0.04})`
+                );
+
+                // Footer time
+                const hrs = Math.floor(t * 24);
+                const mins = Math.floor((t * 24 - hrs) * 60);
+                footerTime.textContent = `${String(hrs).padStart(2, '0')}:${String(mins).padStart(2, '0')}`;
+
+                // Weather check
+                weatherTimer++;
+                if (weatherTimer > weatherDuration) {
+                    weatherTimer = 0;
+                    weatherDuration = 200 + Math.random() * 500;
+                    const states = ['clear', 'clear', 'clear', 'cloudy', 'rain', 'rain', 'snow', 'mist'];
+                    if (pal.lightIntensity < 0.3) {
+                        // More night weather variety
+                        states.push('clear', 'clear', 'mist');
+                    }
+                    weatherState = states[Math.floor(Math.random() * states.length)];
+                    updateWeatherUI();
+                }
+            }
+
+            function updateWeatherUI() {
+                const icons = {
+                    clear: '☀️',
+                    cloudy: '☁️',
+                    rain: '🌧️',
+                    snow: '❄️',
+                    mist: '🌫️'
+                };
+                const labels = {
+                    clear: 'Clear',
+                    cloudy: 'Cloudy',
+                    rain: 'Rain',
+                    snow: 'Snow',
+                    mist: 'Mist'
+                };
+                weatherIcon.textContent = icons[weatherState] || '☀️';
+                weatherLabel.textContent = labels[weatherState] || 'Clear';
+
+                const canvas = document.getElementById('weather-canvas');
+                if (weatherState === 'rain' || weatherState === 'snow') {
+                    canvas.classList.add('active');
+                } else {
+                    canvas.classList.remove('active');
+                }
+            }
+
+            // ============================================================
+            // 3. WEATHER PARTICLES (Canvas 2D)
+            // ============================================================
+            const wCanvas = document.getElementById('weather-canvas');
+            const wCtx = wCanvas.getContext('2d');
+            let wParticles = [];
+            let wWidth = 0,
+                wHeight = 0;
+
+            function resizeWeather() {
+                wWidth = window.innerWidth;
+                wHeight = window.innerHeight;
+                wCanvas.width = wWidth;
+                wCanvas.height = wHeight;
+            }
+            resizeWeather();
+            window.addEventListener('resize', resizeWeather);
+
+            class WeatherParticle {
+                constructor() {
+                    this.reset();
+                }
+                reset() {
+                    this.x = Math.random() * wWidth;
+                    this.y = Math.random() * wHeight - wHeight;
+                    this.size = 1 + Math.random() * 2;
+                    this.speed = 2 + Math.random() * 4;
+                    this.wind = 0.5 + Math.random() * 1.5;
+                    this.opacity = 0.3 + Math.random() * 0.4;
+                    this.isSnow = weatherState === 'snow';
+                    this.angle = Math.random() * Math.PI * 2;
+                    this.wobble = Math.random() * 0.02;
+                }
+                update() {
+                    this.y += this.speed * (this.isSnow ? 0.8 : 1.2);
+                    this.x += this.wind * (this.isSnow ? 0.3 : 0.8);
+                    this.x += Math.sin(this.angle) * 0.3;
+                    this.angle += this.wobble;
+                    if (this.y > wHeight + 20) {
+                        this.reset();
+                        this.y = -10 - Math.random() * 20;
+                    }
+                    if (this.x > wWidth + 20) this.x = -20;
+                    if (this.x < -20) this.x = wWidth + 20;
+                }
+                draw(ctx) {
+                    ctx.beginPath();
+                    if (this.isSnow) {
+                        ctx.arc(this.x, this.y, this.size * 0.6, 0, Math.PI * 2);
+                        ctx.fillStyle = `rgba(255,255,255,${this.opacity * 0.5})`;
+                        ctx.fill();
+                        ctx.shadowColor = 'rgba(255,255,255,0.1)';
+                        ctx.shadowBlur = 6;
+                    } else {
+                        ctx.moveTo(this.x, this.y);
+                        ctx.lineTo(this.x - 2, this.y + 6);
+                        ctx.lineTo(this.x + 2, this.y + 6);
+                        ctx.closePath();
+                        ctx.fillStyle = `rgba(180,200,255,${this.opacity * 0.3})`;
+                        ctx.fill();
+                    }
+                    ctx.shadowBlur = 0;
+                }
+            }
+
+            function initWeatherParticles(count) {
+                wParticles = [];
+                for (let i = 0; i < count; i++) {
+                    const p = new WeatherParticle();
+                    p.y = Math.random() * wHeight;
+                    wParticles.push(p);
+                }
+            }
+            initWeatherParticles(300);
+
+            function animateWeather() {
+                wCtx.clearRect(0, 0, wWidth, wHeight);
+                const isActive = weatherState === 'rain' || weatherState === 'snow';
+                if (!isActive) {
+                    wParticles.forEach(p => { p.y -= 2; });
+                    requestAnimationFrame(animateWeather);
+                    return;
+                }
+                const isSnow = weatherState === 'snow';
+                wParticles.forEach(p => {
+                    p.isSnow = isSnow;
+                    p.update();
+                    p.draw(wCtx);
+                });
+                requestAnimationFrame(animateWeather);
+            }
+            animateWeather();
+
+            // ============================================================
+            // 4. LENIS SMOOTH SCROLL
+            // ============================================================
+            const lenis = new Lenis({
+                duration: 1.4,
+                easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+                orientation: 'vertical',
+                smoothWheel: true,
+                wheelMultiplier: 0.8,
+                touchMultiplier: 1.2,
+            });
+
+            lenis.on('scroll', (e) => { });
+            const scrollContainer = document.getElementById('scrollContainer');
+            lenis.setScrollContainer(scrollContainer);
+
+            function raf(time) {
+                lenis.raf(time);
+                requestAnimationFrame(raf);
+            }
+            requestAnimationFrame(raf);
+
+            // ============================================================
+            // 5. ANIMATION LOOP
+            // ============================================================
+            let lastTime = 0;
+
+            function animate(time) {
+                const delta = lastTime ? (time - lastTime) / 1000 : 0.016;
+                lastTime = time;
+
+                // Update time
+                if (!isPaused) {
+                    currentTime += delta * 0.004 * timeSpeed;
+                    if (currentTime > 1) currentTime -= 1;
+                    if (currentTime < 0) currentTime += 1;
+                }
+
+                updateScene(currentTime);
+
+                // Rotate stars
+                starsMesh.rotation.y += delta * 0.001;
+
+                // Render Three.js
+                renderer.render(scene, camera);
+                requestAnimationFrame(animate);
+            }
+
+            // ============================================================
+            // 6. TIME SPEED CONTROLS
+            // ============================================================
+            document.querySelectorAll('.time-speed button').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.querySelectorAll('.time-speed button').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    timeSpeed = parseFloat(btn.dataset.speed);
+                });
+            });
+
+            // ============================================================
+            // 7. AUDIO TOGGLE (placeholder)
+            // ============================================================
+            let audioEnabled = false;
+            const audioToggle = document.getElementById('audioToggle');
+            audioToggle.addEventListener('click', () => {
+                audioEnabled = !audioEnabled;
+                audioToggle.innerHTML = audioEnabled ?
+                    '<i class="bi bi-volume-mute"></i>' :
+                    '<i class="bi bi-volume-up"></i>';
+                // In a real implementation, we'd play/pause audio here
+            });
+
+            // ============================================================
+            // 8. RESIZE HANDLER
+            // ============================================================
+            window.addEventListener('resize', () => {
+                const w = window.innerWidth;
+                const h = window.innerHeight;
+                camera.aspect = w / h;
+                camera.updateProjectionMatrix();
+                renderer.setSize(w, h);
+                resizeWeather();
+            });
+
+            // ============================================================
+            // 9. START
+            // ============================================================
+            // Set initial time to sunrise
+            currentTime = 5.5 / 24;
+            updateScene(currentTime);
+            updateWeatherUI();
+            animate(0);
+
+            // Expose some controls to console for debugging
+            window.__sky = {
+                setTime: (t) => { currentTime = Math.max(0, Math.min(1, t)); },
+                setSpeed: (s) => { timeSpeed = s; },
+                togglePause: () => { isPaused = !isPaused; },
+                getTime: () => currentTime,
+                getLabel: () => timeLabel.textContent
+            };
+
+            console.log('🌅 Sky Living World loaded.');
+            console.log('💡 Controls: __sky.setTime(0.5), __sky.setSpeed(2), __sky.togglePause()');
+
+        })();
+    </script>
+
+</body>
+
+</html>

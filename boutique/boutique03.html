@@ -1,0 +1,3291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Étoile Royale | Luxury Boutique Hotel 2028</title>
+    <meta name="description" content="Étoile Royale – a world-class luxury boutique hotel where elegance meets serenity. Experience cinematic hospitality, private villas, and curated wellness." />
+    <meta name="theme-color" content="#f5efe6" />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Étoile Royale | Luxury Boutique Hotel 2028" />
+    <meta property="og:description" content="Where luxury meets serenity. An unforgettable boutique hotel experience." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://etoileroyale.com" />
+    <meta property="og:image" content="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1200" />
+
+    <!-- Schema.org Hotel Markup -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "Hotel",
+            "name": "Étoile Royale",
+            "description": "Where luxury meets serenity. An unforgettable boutique hotel experience.",
+            "address": {
+                "@type": "PostalAddress",
+                "addressLocality": "Saint-Tropez",
+                "addressCountry": "France"
+            },
+            "starRating": {
+                "@type": "StarRating",
+                "ratingValue": "5",
+                "bestRating": "5"
+            },
+            "priceRange": "€€€€"
+        }
+    </script>
+
+    <!-- Bootstrap 5 CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Bootstrap Icons CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <!-- AOS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <!-- Swiper.js -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+    <style>
+        /* ========== CSS VARIABLES (Day/Night) ========== */
+        :root {
+            --bg-primary: #f5efe6;
+            --bg-secondary: #ffffff;
+            --bg-glass: rgba(255, 248, 240, 0.55);
+            --bg-glass-border: rgba(255, 248, 240, 0.3);
+            --text-primary: #1a1410;
+            --text-secondary: #4a3f38;
+            --text-muted: #7a6e64;
+            --gold: #c9a87c;
+            --gold-light: #e8d5b8;
+            --gold-dark: #a8895e;
+            --emerald: #1e4d42;
+            --emerald-light: #2d6b5c;
+            --sand: #e8ddd0;
+            --ivory: #fdf8f2;
+            --shadow: rgba(26, 20, 16, 0.08);
+            --shadow-glow: rgba(201, 168, 124, 0.25);
+            --hero-overlay: rgba(26, 20, 16, 0.30);
+            --card-bg: rgba(255, 248, 240, 0.70);
+            --sun-color: #f5d742;
+            --moon-color: #e8e0d8;
+            --stars-opacity: 0;
+            --transition-speed: 1.2s;
+        }
+
+        /* Night Theme */
+        [data-theme="night"] {
+            --bg-primary: #0d0a08;
+            --bg-secondary: #1a1410;
+            --bg-glass: rgba(26, 20, 16, 0.70);
+            --bg-glass-border: rgba(201, 168, 124, 0.15);
+            --text-primary: #f5efe6;
+            --text-secondary: #d5cdc4;
+            --text-muted: #a89c90;
+            --sand: #2a221c;
+            --ivory: #1a1410;
+            --shadow: rgba(0, 0, 0, 0.4);
+            --shadow-glow: rgba(201, 168, 124, 0.10);
+            --hero-overlay: rgba(0, 0, 0, 0.55);
+            --card-bg: rgba(26, 20, 16, 0.75);
+            --sun-color: #f5d742;
+            --moon-color: #f0ece6;
+            --stars-opacity: 1;
+        }
+
+        /* Sunset Theme (intermediate) */
+        [data-theme="sunset"] {
+            --bg-primary: #f0e0d0;
+            --bg-secondary: #faf0e6;
+            --bg-glass: rgba(250, 240, 230, 0.60);
+            --bg-glass-border: rgba(201, 168, 124, 0.25);
+            --text-primary: #2a1a0e;
+            --text-secondary: #5a4030;
+            --text-muted: #8a7060;
+            --sand: #e8d5c0;
+            --ivory: #fdf5ec;
+            --shadow: rgba(42, 26, 14, 0.12);
+            --shadow-glow: rgba(201, 168, 124, 0.35);
+            --hero-overlay: rgba(42, 26, 14, 0.25);
+            --card-bg: rgba(250, 240, 230, 0.70);
+            --stars-opacity: 0;
+        }
+
+        /* ========== RESET & BASE ========== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .section-padding {
+            padding: 100px 0;
+        }
+
+        .section-title {
+            font-size: 3.2rem;
+            letter-spacing: -0.02em;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            font-weight: 300;
+            color: var(--text-secondary);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+
+        .gold-text {
+            color: var(--gold);
+        }
+
+        .emerald-text {
+            color: var(--emerald);
+        }
+
+        .btn-gold {
+            background: var(--gold);
+            color: #fff;
+            border: none;
+            padding: 14px 40px;
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            border-radius: 0;
+            transition: all 0.4s ease;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-gold:hover {
+            background: var(--gold-dark);
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(201, 168, 124, 0.35);
+        }
+
+        .btn-outline-gold {
+            background: transparent;
+            color: var(--text-primary);
+            border: 1px solid var(--gold);
+            padding: 14px 40px;
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            border-radius: 0;
+            transition: all 0.4s ease;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+        }
+
+        .btn-outline-gold:hover {
+            background: var(--gold);
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(201, 168, 124, 0.25);
+        }
+
+        /* ========== PRELOADER ========== */
+        #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg-primary);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 99999;
+            transition: opacity 1s ease, visibility 1s ease;
+        }
+
+        #preloader.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .preloader-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: 0.12em;
+            margin-bottom: 2rem;
+        }
+
+        .preloader-logo span {
+            color: var(--gold);
+        }
+
+        .preloader-line {
+            width: 120px;
+            height: 2px;
+            background: var(--gold);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .preloader-line::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--gold-light);
+            animation: goldLine 1.8s ease-in-out infinite;
+        }
+
+        @keyframes goldLine {
+            0% {
+                left: -100%;
+            }
+            100% {
+                left: 200%;
+            }
+        }
+
+        .preloader-sub {
+            margin-top: 1.5rem;
+            font-size: 0.8rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            font-weight: 300;
+        }
+
+        /* ========== GLASS NAVBAR ========== */
+        .navbar-glass {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 92%;
+            max-width: 1400px;
+            z-index: 999;
+            padding: 8px 28px;
+            background: var(--bg-glass);
+            backdrop-filter: blur(20px) saturate(1.4);
+            -webkit-backdrop-filter: blur(20px) saturate(1.4);
+            border: 1px solid var(--bg-glass-border);
+            border-radius: 60px;
+            box-shadow: 0 8px 40px var(--shadow);
+            transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .navbar-glass.scrolled {
+            top: 12px;
+            width: 94%;
+            background: var(--bg-glass);
+            backdrop-filter: blur(30px) saturate(1.6);
+            -webkit-backdrop-filter: blur(30px) saturate(1.6);
+            box-shadow: 0 12px 50px var(--shadow);
+            border-color: var(--bg-glass-border);
+        }
+
+        .navbar-glass .navbar-brand {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            color: var(--text-primary);
+            padding: 0;
+        }
+
+        .navbar-glass .navbar-brand span {
+            color: var(--gold);
+        }
+
+        .navbar-glass .nav-link {
+            color: var(--text-secondary);
+            font-weight: 400;
+            font-size: 0.85rem;
+            letter-spacing: 0.06em;
+            padding: 8px 18px;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .navbar-glass .nav-link:hover {
+            color: var(--gold);
+        }
+
+        .navbar-glass .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 4px;
+            left: 18px;
+            right: 18px;
+            height: 1px;
+            background: var(--gold);
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .navbar-glass .nav-link:hover::after {
+            transform: scaleX(1);
+        }
+
+        .navbar-glass .btn-book-nav {
+            background: var(--gold);
+            color: #fff;
+            border: none;
+            padding: 10px 28px;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            transition: all 0.4s ease;
+            text-transform: uppercase;
+        }
+
+        .navbar-glass .btn-book-nav:hover {
+            background: var(--gold-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(201, 168, 124, 0.3);
+        }
+
+        .navbar-glass .navbar-toggler {
+            border: none;
+            padding: 8px;
+            color: var(--text-primary);
+        }
+
+        .navbar-glass .navbar-toggler:focus {
+            box-shadow: none;
+        }
+
+        /* Mobile menu glass */
+        @media (max-width: 991px) {
+            .navbar-glass {
+                top: 12px;
+                width: 96%;
+                border-radius: 30px;
+                padding: 8px 18px;
+            }
+            .navbar-glass .navbar-collapse {
+                background: var(--bg-glass);
+                backdrop-filter: blur(30px);
+                -webkit-backdrop-filter: blur(30px);
+                border-radius: 24px;
+                padding: 20px;
+                margin-top: 12px;
+                border: 1px solid var(--bg-glass-border);
+            }
+            .navbar-glass .nav-link {
+                padding: 12px 18px;
+                text-align: center;
+            }
+            .navbar-glass .nav-link::after {
+                display: none;
+            }
+            .navbar-glass .btn-book-nav {
+                width: 100%;
+                text-align: center;
+                margin-top: 8px;
+            }
+        }
+
+        /* ========== HERO ========== */
+        .hero {
+            min-height: 100vh;
+            height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background: var(--bg-primary);
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 0;
+            filter: brightness(0.85) saturate(1.1);
+            transition: filter 1.2s ease;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--hero-overlay);
+            z-index: 1;
+            transition: background var(--transition-speed) ease;
+        }
+
+        /* Sun & Moon */
+        .hero-sun {
+            position: absolute;
+            top: 15%;
+            right: 10%;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--sun-color), rgba(245, 215, 66, 0.2));
+            box-shadow: 0 0 120px rgba(245, 215, 66, 0.3);
+            z-index: 1;
+            transition: all 1.5s ease;
+            pointer-events: none;
+        }
+
+        [data-theme="night"] .hero-sun {
+            opacity: 0;
+            transform: scale(0.5);
+        }
+
+        .hero-moon {
+            position: absolute;
+            top: 15%;
+            right: 10%;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--moon-color), rgba(232, 224, 216, 0.1));
+            box-shadow: 0 0 100px rgba(232, 224, 216, 0.15);
+            z-index: 1;
+            pointer-events: none;
+            opacity: 0;
+            transform: scale(0.5);
+            transition: all 1.5s ease;
+        }
+
+        [data-theme="night"] .hero-moon {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* Stars */
+        .stars-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+            opacity: var(--stars-opacity);
+            transition: opacity 1.5s ease;
+        }
+
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: #fff;
+            border-radius: 50%;
+            animation: twinkle 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes twinkle {
+            0% {
+                opacity: 0.2;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        /* Clouds */
+        .cloud {
+            position: absolute;
+            z-index: 1;
+            opacity: 0.4;
+            pointer-events: none;
+            transition: opacity 1.5s ease;
+        }
+
+        [data-theme="night"] .cloud {
+            opacity: 0.08;
+        }
+
+        .cloud-1 {
+            top: 20%;
+            left: -10%;
+            animation: cloudDrift 60s linear infinite;
+        }
+        .cloud-2 {
+            top: 40%;
+            right: -15%;
+            animation: cloudDrift 80s linear infinite reverse;
+        }
+        .cloud-3 {
+            top: 55%;
+            left: 5%;
+            animation: cloudDrift 70s linear infinite;
+        }
+
+        @keyframes cloudDrift {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(120vw);
+            }
+        }
+
+        /* Hero Content */
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 900px;
+            padding: 0 20px;
+        }
+
+        .hero-content .badge {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 300;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            color: var(--gold-light);
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            padding: 8px 24px;
+            border-radius: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: inline-block;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-content h1 {
+            font-size: 5.5rem;
+            font-weight: 700;
+            color: #fff;
+            text-shadow: 0 4px 60px rgba(0, 0, 0, 0.3);
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-content h1 span {
+            color: var(--gold-light);
+        }
+
+        .hero-content p {
+            font-size: 1.25rem;
+            color: rgba(255, 255, 255, 0.85);
+            font-weight: 300;
+            letter-spacing: 0.06em;
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .hero-buttons .btn-hero-primary {
+            background: var(--gold);
+            color: #fff;
+            border: none;
+            padding: 16px 44px;
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            border-radius: 0;
+            transition: all 0.4s ease;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+        }
+
+        .hero-buttons .btn-hero-primary:hover {
+            background: var(--gold-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 16px 40px rgba(201, 168, 124, 0.35);
+        }
+
+        .hero-buttons .btn-hero-secondary {
+            background: rgba(255, 255, 255, 0.12);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            padding: 16px 44px;
+            font-weight: 400;
+            letter-spacing: 0.08em;
+            border-radius: 0;
+            transition: all 0.4s ease;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .hero-buttons .btn-hero-secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+
+        /* Floating Booking Card */
+        .booking-float {
+            position: absolute;
+            bottom: -60px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+            width: 92%;
+            max-width: 1100px;
+            background: var(--bg-glass);
+            backdrop-filter: blur(30px) saturate(1.4);
+            -webkit-backdrop-filter: blur(30px) saturate(1.4);
+            border: 1px solid var(--bg-glass-border);
+            border-radius: 20px;
+            padding: 28px 32px;
+            box-shadow: 0 20px 60px var(--shadow);
+            transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+            animation: floatBooking 6s ease-in-out infinite;
+        }
+
+        @keyframes floatBooking {
+            0%,
+            100% {
+                transform: translateX(-50%) translateY(0);
+            }
+            50% {
+                transform: translateX(-50%) translateY(-8px);
+            }
+        }
+
+        .booking-float .row {
+            align-items: center;
+        }
+
+        .booking-float .form-group {
+            margin-bottom: 0;
+        }
+
+        .booking-float label {
+            font-size: 0.7rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+        }
+
+        .booking-float .form-control,
+        .booking-float .form-select {
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid var(--bg-glass-border);
+            border-radius: 0;
+            padding: 8px 0 6px;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+            transition: border-color 0.3s ease;
+            font-weight: 400;
+        }
+
+        .booking-float .form-control:focus,
+        .booking-float .form-select:focus {
+            box-shadow: none;
+            border-color: var(--gold);
+            background: transparent;
+        }
+
+        .booking-float .form-control::placeholder {
+            color: var(--text-muted);
+            font-weight: 300;
+        }
+
+        .booking-float .btn-search {
+            background: var(--gold);
+            color: #fff;
+            border: none;
+            padding: 12px 32px;
+            border-radius: 40px;
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            transition: all 0.4s ease;
+            width: 100%;
+        }
+
+        .booking-float .btn-search:hover {
+            background: var(--gold-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(201, 168, 124, 0.3);
+        }
+
+        @media (max-width: 991px) {
+            .hero-content h1 {
+                font-size: 3.5rem;
+            }
+            .booking-float {
+                position: relative;
+                bottom: 0;
+                transform: translateX(0);
+                margin-top: 40px;
+                animation: none;
+                border-radius: 16px;
+                padding: 24px 20px;
+                width: 100%;
+            }
+            .booking-float .form-group {
+                margin-bottom: 16px;
+            }
+            .hero {
+                height: auto;
+                min-height: 100vh;
+                padding-bottom: 40px;
+            }
+            .hero-sun,
+            .hero-moon {
+                width: 60px;
+                height: 60px;
+                top: 8%;
+                right: 6%;
+            }
+            .hero-content h1 {
+                font-size: 2.8rem;
+            }
+            .section-title {
+                font-size: 2.4rem;
+            }
+            .cloud {
+                display: none;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero-content h1 {
+                font-size: 2.2rem;
+            }
+            .hero-content p {
+                font-size: 1rem;
+            }
+            .hero-buttons .btn-hero-primary,
+            .hero-buttons .btn-hero-secondary {
+                padding: 14px 28px;
+                font-size: 0.75rem;
+                width: 100%;
+            }
+            .booking-float {
+                padding: 18px 14px;
+            }
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+
+        /* ========== ROOM EXPERIENCE ========== */
+        .room-editorial {
+            padding: 80px 0;
+        }
+
+        .room-card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 0;
+            transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+            background: var(--bg-secondary);
+            box-shadow: 0 4px 30px var(--shadow);
+            margin-bottom: 40px;
+        }
+
+        .room-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 60px var(--shadow);
+        }
+
+        .room-card .room-image {
+            position: relative;
+            overflow: hidden;
+            height: 380px;
+        }
+
+        .room-card .room-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .room-card:hover .room-image img {
+            transform: scale(1.04);
+        }
+
+        .room-card .room-image .room-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--gold);
+            color: #fff;
+            padding: 6px 18px;
+            font-size: 0.7rem;
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .room-card .room-body {
+            padding: 32px 36px 36px;
+        }
+
+        .room-card .room-body .room-name {
+            font-size: 1.8rem;
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 0.25rem;
+        }
+
+        .room-card .room-body .room-price {
+            font-size: 1.1rem;
+            color: var(--gold);
+            font-weight: 500;
+            margin-bottom: 0.75rem;
+        }
+
+        .room-card .room-body .room-price span {
+            font-weight: 300;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        .room-card .room-body .room-desc {
+            color: var(--text-secondary);
+            font-weight: 300;
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+        }
+
+        .room-card .room-body .room-amenities {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 1.5rem;
+        }
+
+        .room-card .room-body .room-amenities span {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            background: var(--bg-glass);
+            padding: 4px 14px;
+            border-radius: 20px;
+            border: 1px solid var(--bg-glass-border);
+        }
+
+        .room-card .room-body .btn-room {
+            background: transparent;
+            color: var(--text-primary);
+            border: 1px solid var(--gold);
+            padding: 10px 28px;
+            font-size: 0.75rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            transition: all 0.4s ease;
+            border-radius: 0;
+        }
+
+        .room-card .room-body .btn-room:hover {
+            background: var(--gold);
+            color: #fff;
+        }
+
+        @media (max-width: 768px) {
+            .room-card .room-image {
+                height: 250px;
+            }
+            .room-card .room-body {
+                padding: 24px 20px 28px;
+            }
+            .room-card .room-body .room-name {
+                font-size: 1.4rem;
+            }
+        }
+
+        /* ========== EXPERIENCE ========== */
+        .experience-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 0;
+            margin-bottom: 30px;
+            background: var(--bg-secondary);
+            box-shadow: 0 4px 30px var(--shadow);
+            transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .experience-item:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 16px 50px var(--shadow);
+        }
+
+        .experience-item .exp-image {
+            height: 300px;
+            overflow: hidden;
+        }
+
+        .experience-item .exp-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s ease;
+        }
+
+        .experience-item:hover .exp-image img {
+            transform: scale(1.04);
+        }
+
+        .experience-item .exp-body {
+            padding: 28px 30px 32px;
+        }
+
+        .experience-item .exp-body .exp-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .experience-item .exp-body .exp-desc {
+            color: var(--text-secondary);
+            font-weight: 300;
+            font-size: 0.95rem;
+        }
+
+        /* ========== RESTAURANT ========== */
+        .restaurant-section {
+            background: var(--bg-secondary);
+            padding: 100px 0;
+            transition: background var(--transition-speed) ease;
+        }
+
+        .restaurant-section .chef-image {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+            box-shadow: 0 20px 60px var(--shadow);
+        }
+
+        .restaurant-section .menu-preview {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .restaurant-section .menu-item {
+            border-bottom: 1px solid var(--bg-glass-border);
+            padding: 12px 0;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .restaurant-section .menu-item .item-name {
+            font-weight: 400;
+        }
+
+        .restaurant-section .menu-item .item-price {
+            color: var(--gold);
+            font-weight: 500;
+        }
+
+        @media (max-width: 768px) {
+            .restaurant-section .chef-image {
+                height: 300px;
+            }
+            .restaurant-section .menu-preview {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ========== SPA ========== */
+        .spa-section {
+            padding: 100px 0;
+            background: var(--bg-primary);
+            transition: background var(--transition-speed) ease;
+        }
+
+        .spa-card {
+            background: var(--bg-secondary);
+            padding: 32px 28px;
+            text-align: center;
+            border-radius: 0;
+            box-shadow: 0 4px 30px var(--shadow);
+            transition: all 0.5s ease;
+            height: 100%;
+        }
+
+        .spa-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 16px 50px var(--shadow);
+        }
+
+        .spa-card .spa-icon {
+            font-size: 2.8rem;
+            color: var(--gold);
+            margin-bottom: 1rem;
+        }
+
+        .spa-card h5 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+        }
+
+        /* ========== GALLERY ========== */
+        .gallery-masonry {
+            column-count: 3;
+            column-gap: 20px;
+            padding: 0;
+        }
+
+        .gallery-masonry .gallery-item {
+            break-inside: avoid;
+            margin-bottom: 20px;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.5s ease;
+        }
+
+        .gallery-masonry .gallery-item img {
+            width: 100%;
+            display: block;
+            transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .gallery-masonry .gallery-item:hover img {
+            transform: scale(1.04);
+        }
+
+        .gallery-masonry .gallery-item .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .gallery-masonry .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        .gallery-masonry .gallery-item .gallery-overlay i {
+            color: #fff;
+            font-size: 2.5rem;
+            opacity: 0.8;
+        }
+
+        @media (max-width: 992px) {
+            .gallery-masonry {
+                column-count: 2;
+            }
+        }
+        @media (max-width: 576px) {
+            .gallery-masonry {
+                column-count: 1;
+            }
+        }
+
+        /* ========== REVIEWS ========== */
+        .reviews-section {
+            padding: 100px 0;
+            background: var(--bg-secondary);
+            transition: background var(--transition-speed) ease;
+        }
+
+        .review-card {
+            background: var(--bg-glass);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--bg-glass-border);
+            border-radius: 16px;
+            padding: 32px 28px;
+            box-shadow: 0 8px 40px var(--shadow);
+            transition: all 0.4s ease;
+            height: 100%;
+        }
+
+        .review-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 50px var(--shadow);
+        }
+
+        .review-card .review-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--gold);
+        }
+
+        .review-card .review-stars {
+            color: var(--gold);
+            letter-spacing: 2px;
+            font-size: 0.9rem;
+        }
+
+        .review-card .review-text {
+            font-weight: 300;
+            font-style: italic;
+            color: var(--text-secondary);
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+
+        .review-card .review-name {
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .review-card .review-country {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        /* ========== STATISTICS ========== */
+        .stats-section {
+            padding: 80px 0;
+            background: var(--bg-primary);
+            transition: background var(--transition-speed) ease;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .stat-item .stat-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            font-weight: 700;
+            color: var(--gold);
+            line-height: 1;
+        }
+
+        .stat-item .stat-label {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            font-weight: 300;
+            letter-spacing: 0.06em;
+            margin-top: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .stat-item .stat-number {
+                font-size: 2.8rem;
+            }
+        }
+
+        /* ========== FOOTER ========== */
+        .footer {
+            background: var(--bg-secondary);
+            padding: 80px 0 40px;
+            border-top: 1px solid var(--bg-glass-border);
+            transition: background var(--transition-speed) ease;
+        }
+
+        .footer .footer-brand {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            color: var(--text-primary);
+        }
+
+        .footer .footer-brand span {
+            color: var(--gold);
+        }
+
+        .footer .footer-text {
+            color: var(--text-muted);
+            font-weight: 300;
+            font-size: 0.95rem;
+            max-width: 320px;
+        }
+
+        .footer h6 {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+            font-size: 0.85rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--text-primary);
+            margin-bottom: 1.2rem;
+        }
+
+        .footer .footer-link {
+            color: var(--text-muted);
+            font-weight: 300;
+            font-size: 0.9rem;
+            display: block;
+            padding: 4px 0;
+            transition: color 0.3s ease;
+        }
+
+        .footer .footer-link:hover {
+            color: var(--gold);
+        }
+
+        .footer .social-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: 1px solid var(--bg-glass-border);
+            color: var(--text-muted);
+            transition: all 0.4s ease;
+            margin-right: 8px;
+            font-size: 1.1rem;
+        }
+
+        .footer .social-icon:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px var(--shadow-glow);
+        }
+
+        .footer .newsletter-input {
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid var(--bg-glass-border);
+            border-radius: 0;
+            padding: 10px 0;
+            color: var(--text-primary);
+            font-weight: 300;
+            width: 100%;
+        }
+
+        .footer .newsletter-input:focus {
+            box-shadow: none;
+            border-color: var(--gold);
+            background: transparent;
+        }
+
+        .footer .newsletter-input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .footer .btn-newsletter {
+            background: var(--gold);
+            color: #fff;
+            border: none;
+            padding: 10px 24px;
+            font-weight: 500;
+            font-size: 0.75rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            border-radius: 0;
+            transition: all 0.4s ease;
+            margin-top: 12px;
+        }
+
+        .footer .btn-newsletter:hover {
+            background: var(--gold-dark);
+            transform: translateY(-2px);
+        }
+
+        .footer .footer-bottom {
+            border-top: 1px solid var(--bg-glass-border);
+            padding-top: 30px;
+            margin-top: 50px;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        @media (max-width: 768px) {
+            .footer {
+                padding: 50px 0 30px;
+            }
+            .footer .footer-bottom {
+                flex-direction: column;
+                gap: 8px;
+                text-align: center;
+            }
+        }
+
+        /* ========== FLOATING WHATSAPP ========== */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 999;
+            background: #25d366;
+            color: #fff;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            box-shadow: 0 8px 30px rgba(37, 211, 102, 0.4);
+            transition: all 0.4s ease;
+            animation: pulseWhatsApp 2.5s ease-in-out infinite;
+            text-decoration: none;
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.08);
+            color: #fff;
+            box-shadow: 0 12px 40px rgba(37, 211, 102, 0.5);
+        }
+
+        @keyframes pulseWhatsApp {
+            0%,
+            100% {
+                box-shadow: 0 8px 30px rgba(37, 211, 102, 0.4);
+            }
+            50% {
+                box-shadow: 0 8px 50px rgba(37, 211, 102, 0.6);
+            }
+        }
+
+        /* ========== STICKY BOOKING ========== */
+        .sticky-book {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            z-index: 999;
+            background: var(--gold);
+            color: #fff;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 40px;
+            font-weight: 500;
+            font-size: 0.8rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            box-shadow: 0 8px 30px rgba(201, 168, 124, 0.35);
+            transition: all 0.4s ease;
+            display: none;
+        }
+
+        .sticky-book.visible {
+            display: block;
+            animation: fadeUp 0.6s ease;
+        }
+
+        .sticky-book:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 12px 40px rgba(201, 168, 124, 0.45);
+            color: #fff;
+        }
+
+        @keyframes fadeUp {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 576px) {
+            .whatsapp-float {
+                width: 50px;
+                height: 50px;
+                font-size: 1.5rem;
+                bottom: 20px;
+                right: 20px;
+            }
+            .sticky-book {
+                bottom: 20px;
+                left: 20px;
+                padding: 10px 18px;
+                font-size: 0.7rem;
+            }
+        }
+
+        /* ========== COOKIE CONSENT ========== */
+        .cookie-consent {
+            position: fixed;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 9998;
+            background: var(--bg-glass);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border: 1px solid var(--bg-glass-border);
+            border-radius: 16px;
+            padding: 24px 32px;
+            max-width: 560px;
+            width: 92%;
+            box-shadow: 0 20px 60px var(--shadow);
+            display: none;
+            transition: all 0.6s ease;
+        }
+
+        .cookie-consent.show {
+            display: block;
+            animation: fadeUp 0.6s ease;
+        }
+
+        .cookie-consent p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            font-weight: 300;
+            margin-bottom: 1rem;
+        }
+
+        .cookie-consent .btn-cookie {
+            background: var(--gold);
+            color: #fff;
+            border: none;
+            padding: 8px 28px;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .cookie-consent .btn-cookie:hover {
+            background: var(--gold-dark);
+            transform: translateY(-2px);
+        }
+
+        .cookie-consent .btn-cookie-outline {
+            background: transparent;
+            color: var(--text-primary);
+            border: 1px solid var(--bg-glass-border);
+            padding: 8px 28px;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            font-weight: 400;
+            transition: all 0.3s ease;
+            margin-right: 8px;
+        }
+
+        .cookie-consent .btn-cookie-outline:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+
+        @media (max-width: 576px) {
+            .cookie-consent {
+                padding: 18px 20px;
+                bottom: 80px;
+            }
+            .cookie-consent .btn-cookie-outline {
+                margin-right: 0;
+                margin-bottom: 8px;
+                width: 100%;
+            }
+            .cookie-consent .btn-cookie {
+                width: 100%;
+            }
+        }
+
+        /* ========== WEATHER WIDGET ========== */
+        .weather-widget {
+            position: fixed;
+            top: 100px;
+            right: 24px;
+            z-index: 100;
+            background: var(--bg-glass);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--bg-glass-border);
+            border-radius: 16px;
+            padding: 14px 20px;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            box-shadow: 0 8px 30px var(--shadow);
+            transition: all 0.4s ease;
+            min-width: 120px;
+            text-align: center;
+            display: none;
+        }
+
+        .weather-widget .weather-temp {
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .weather-widget .weather-desc {
+            font-weight: 300;
+            text-transform: capitalize;
+        }
+
+        @media (max-width: 768px) {
+            .weather-widget {
+                top: 80px;
+                right: 12px;
+                padding: 10px 14px;
+                min-width: 80px;
+                font-size: 0.7rem;
+            }
+            .weather-widget .weather-temp {
+                font-size: 1.2rem;
+            }
+        }
+
+        /* ========== FAQ ========== */
+        .faq-section {
+            padding: 80px 0;
+            background: var(--bg-primary);
+            transition: background var(--transition-speed) ease;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid var(--bg-glass-border);
+            padding: 20px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .faq-item .faq-question {
+            font-weight: 500;
+            font-size: 1.1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--text-primary);
+        }
+
+        .faq-item .faq-question i {
+            transition: transform 0.4s ease;
+            color: var(--gold);
+        }
+
+        .faq-item.active .faq-question i {
+            transform: rotate(180deg);
+        }
+
+        .faq-item .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease, padding 0.3s ease;
+            color: var(--text-secondary);
+            font-weight: 300;
+            padding-right: 40px;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 200px;
+            padding-top: 12px;
+        }
+
+        /* ========== LIGHTBOX ========== */
+        .lightbox {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.92);
+            z-index: 99999;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            padding: 40px;
+        }
+
+        .lightbox.show {
+            display: flex;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .lightbox img {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+            border-radius: 4px;
+            box-shadow: 0 20px 80px rgba(0, 0, 0, 0.6);
+        }
+
+        .lightbox .close-lightbox {
+            position: absolute;
+            top: 30px;
+            right: 40px;
+            color: #fff;
+            font-size: 2.5rem;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .lightbox .close-lightbox:hover {
+            transform: rotate(90deg);
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        /* ========== MISC ========== */
+        .bg-soft-gold {
+            background: linear-gradient(135deg, var(--ivory), var(--sand));
+        }
+
+        .text-gold {
+            color: var(--gold);
+        }
+
+        .border-gold {
+            border-color: var(--gold) !important;
+        }
+
+        .img-cover {
+            object-fit: cover;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-primary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--gold);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--gold-dark);
+        }
+
+        /* AOS overrides */
+        [data-aos] {
+            pointer-events: none;
+        }
+        [data-aos].aos-animate {
+            pointer-events: auto;
+        }
+
+        /* Swiper overrides */
+        .swiper-pagination-bullet {
+            background: var(--gold) !important;
+        }
+        .swiper-pagination-bullet-active {
+            background: var(--gold-dark) !important;
+        }
+
+        /* ========== DARK MODE TOGGLE ========== */
+        .theme-toggle {
+            position: fixed;
+            top: 100px;
+            left: 24px;
+            z-index: 100;
+            background: var(--bg-glass);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--bg-glass-border);
+            border-radius: 40px;
+            padding: 10px 16px;
+            color: var(--text-primary);
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            box-shadow: 0 8px 30px var(--shadow);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.04);
+            box-shadow: 0 12px 40px var(--shadow);
+        }
+
+        .theme-toggle .toggle-label {
+            font-size: 0.7rem;
+            font-weight: 400;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+        }
+
+        @media (max-width: 768px) {
+            .theme-toggle {
+                top: 80px;
+                left: 12px;
+                padding: 8px 12px;
+                font-size: 1rem;
+            }
+            .theme-toggle .toggle-label {
+                display: none;
+            }
+        }
+
+        /* ========== LANGUAGE & CURRENCY ========== */
+        .lang-currency {
+            position: fixed;
+            top: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 100;
+            display: flex;
+            gap: 6px;
+            background: var(--bg-glass);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--bg-glass-border);
+            border-radius: 40px;
+            padding: 6px 12px;
+            box-shadow: 0 8px 30px var(--shadow);
+            transition: all 0.4s ease;
+        }
+
+        .lang-currency select {
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 0.75rem;
+            font-weight: 400;
+            padding: 4px 8px;
+            cursor: pointer;
+            outline: none;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .lang-currency select option {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+        }
+
+        @media (max-width: 768px) {
+            .lang-currency {
+                top: 80px;
+                padding: 4px 10px;
+                gap: 4px;
+            }
+            .lang-currency select {
+                font-size: 0.65rem;
+                padding: 2px 4px;
+            }
+        }
+
+        /* ========== GOOGLE MAP PLACEHOLDER ========== */
+        .map-section {
+            padding: 60px 0;
+            background: var(--bg-secondary);
+            transition: background var(--transition-speed) ease;
+        }
+
+        .map-placeholder {
+            width: 100%;
+            height: 400px;
+            background: var(--sand);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            font-weight: 300;
+            border-radius: 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .map-placeholder iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        /* ========== INSTAGRAM GALLERY ========== */
+        .instagram-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 6px;
+        }
+
+        .instagram-grid .insta-item {
+            aspect-ratio: 1;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .instagram-grid .insta-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .instagram-grid .insta-item:hover img {
+            transform: scale(1.06);
+        }
+
+        .instagram-grid .insta-item .insta-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 1.8rem;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .instagram-grid .insta-item:hover .insta-overlay {
+            opacity: 1;
+        }
+
+        @media (max-width: 768px) {
+            .instagram-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        @media (max-width: 480px) {
+            .instagram-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* ========== RESPONSIVE TWEAKS ========== */
+        @media (max-width: 576px) {
+            .section-padding {
+                padding: 60px 0;
+            }
+            .spa-section,
+            .reviews-section,
+            .restaurant-section,
+            .faq-section {
+                padding: 60px 0;
+            }
+            .stats-section {
+                padding: 50px 0;
+            }
+            .map-placeholder {
+                height: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ========== PRELOADER ========== -->
+    <div id="preloader">
+        <div class="preloader-logo">Étoile<span>Royale</span></div>
+        <div class="preloader-line"></div>
+        <div class="preloader-sub">Luxury awaits</div>
+    </div>
+
+    <!-- ========== LIGHTBOX ========== -->
+    <div class="lightbox" id="lightbox">
+        <span class="close-lightbox" id="closeLightbox">&times;</span>
+        <img id="lightboxImg" src="" alt="Gallery" />
+    </div>
+
+    <!-- ========== NAVBAR ========== -->
+    <nav class="navbar navbar-expand-lg navbar-glass" id="navbar">
+        <div class="container-fluid px-0">
+            <a class="navbar-brand" href="#">Étoile<span>Royale</span></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+                <i class="bi bi-list" style="font-size: 1.5rem;"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="mainNav">
+                <ul class="navbar-nav ms-auto align-items-lg-center">
+                    <li class="nav-item"><a class="nav-link" href="#hero">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#rooms">Rooms</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#experiences">Experience</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#dining">Dining</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#spa">Spa</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#gallery">Gallery</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                    <li class="nav-item ms-lg-3">
+                        <a href="#booking" class="btn btn-book-nav">Book Now</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ========== THEME TOGGLE ========== -->
+    <div class="theme-toggle" id="themeToggle" title="Toggle Day/Night">
+        <i class="bi bi-moon-fill" id="themeIcon"></i>
+        <span class="toggle-label" id="themeLabel">Night</span>
+    </div>
+
+    <!-- ========== LANGUAGE & CURRENCY ========== -->
+    <div class="lang-currency">
+        <select id="langSelect">
+            <option value="en">EN</option>
+            <option value="fr">FR</option>
+            <option value="de">DE</option>
+            <option value="it">IT</option>
+        </select>
+        <span style="color:var(--text-muted);">|</span>
+        <select id="currencySelect">
+            <option value="eur">€ EUR</option>
+            <option value="usd">$ USD</option>
+            <option value="gbp">£ GBP</option>
+            <option value="chf">CHF</option>
+        </select>
+    </div>
+
+    <!-- ========== WEATHER WIDGET ========== -->
+    <div class="weather-widget" id="weatherWidget">
+        <div class="weather-temp" id="weatherTemp">22°</div>
+        <div class="weather-desc" id="weatherDesc">Sunny</div>
+    </div>
+
+    <!-- ========== HERO ========== -->
+    <section class="hero" id="hero">
+        <!-- Background Image -->
+        <img class="hero-bg" id="heroBg" src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1600&q=80" alt="Étoile Royale Luxury Hotel" loading="lazy" />
+        <div class="hero-overlay" id="heroOverlay"></div>
+
+        <!-- Sun -->
+        <div class="hero-sun" id="heroSun"></div>
+        <!-- Moon -->
+        <div class="hero-moon" id="heroMoon"></div>
+
+        <!-- Stars -->
+        <div class="stars-container" id="starsContainer"></div>
+
+        <!-- Clouds -->
+        <svg class="cloud cloud-1" width="200" height="60" viewBox="0 0 200 60" fill="none">
+            <ellipse cx="40" cy="30" rx="50" ry="25" fill="rgba(255,255,255,0.25)" />
+            <ellipse cx="80" cy="20" rx="60" ry="28" fill="rgba(255,255,255,0.2)" />
+            <ellipse cx="120" cy="30" rx="50" ry="24" fill="rgba(255,255,255,0.25)" />
+            <ellipse cx="160" cy="25" rx="40" ry="20" fill="rgba(255,255,255,0.15)" />
+        </svg>
+        <svg class="cloud cloud-2" width="240" height="70" viewBox="0 0 240 70" fill="none">
+            <ellipse cx="50" cy="35" rx="60" ry="28" fill="rgba(255,255,255,0.2)" />
+            <ellipse cx="100" cy="25" rx="70" ry="32" fill="rgba(255,255,255,0.18)" />
+            <ellipse cx="150" cy="35" rx="55" ry="26" fill="rgba(255,255,255,0.2)" />
+            <ellipse cx="200" cy="30" rx="45" ry="22" fill="rgba(255,255,255,0.15)" />
+        </svg>
+        <svg class="cloud cloud-3" width="180" height="50" viewBox="0 0 180 50" fill="none">
+            <ellipse cx="35" cy="25" rx="45" ry="20" fill="rgba(255,255,255,0.2)" />
+            <ellipse cx="70" cy="15" rx="50" ry="22" fill="rgba(255,255,255,0.15)" />
+            <ellipse cx="110" cy="25" rx="40" ry="18" fill="rgba(255,255,255,0.2)" />
+            <ellipse cx="145" cy="20" rx="35" ry="16" fill="rgba(255,255,255,0.12)" />
+        </svg>
+
+        <!-- Hero Content -->
+        <div class="hero-content">
+            <div class="badge">&#9733; World's Best Boutique Hotel 2028</div>
+            <h1>Where Luxury <br /><span>Meets Serenity</span></h1>
+            <p>An unforgettable boutique hotel experience.</p>
+            <div class="hero-buttons">
+                <a href="#booking" class="btn btn-hero-primary">Reserve Your Stay</a>
+                <a href="#rooms" class="btn btn-hero-secondary">Explore Rooms</a>
+            </div>
+        </div>
+
+        <!-- Floating Booking Card -->
+        <div class="booking-float" id="heroBooking">
+            <div class="row g-3 align-items-end">
+                <div class="col-md-3 col-6">
+                    <div class="form-group">
+                        <label>Check In</label>
+                        <input type="date" class="form-control" id="checkIn" value="2026-07-27" />
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="form-group">
+                        <label>Check Out</label>
+                        <input type="date" class="form-control" id="checkOut" value="2026-07-30" />
+                    </div>
+                </div>
+                <div class="col-md-2 col-6">
+                    <div class="form-group">
+                        <label>Guests</label>
+                        <select class="form-select" id="guestsSelect">
+                            <option value="1">1</option>
+                            <option value="2" selected>2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5+</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-2 col-6">
+                    <div class="form-group">
+                        <label>Rooms</label>
+                        <select class="form-select" id="roomsSelect">
+                            <option value="1" selected>1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4+</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-2 col-12">
+                    <button class="btn btn-search" id="heroSearchBtn">Search</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== ROOMS ========== -->
+    <section class="room-editorial section-padding" id="rooms">
+        <div class="container">
+            <div class="text-center mb-5" data-aos="fade-up">
+                <p class="section-subtitle">Luxury Accommodations</p>
+                <h2 class="section-title">Our <span class="gold-text">Rooms</span></h2>
+                <p class="text-muted" style="max-width:600px;margin:0 auto;font-weight:300;">Each space is a sanctuary of elegance, designed for the discerning traveler.</p>
+            </div>
+
+            <div class="row g-4">
+                <!-- Room 1 -->
+                <div class="col-lg-6" data-aos="fade-right">
+                    <div class="room-card">
+                        <div class="room-image">
+                            <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=800&q=80" alt="Presidential Suite" loading="lazy" />
+                            <span class="room-badge">Signature</span>
+                        </div>
+                        <div class="room-body">
+                            <h3 class="room-name">Presidential Suite</h3>
+                            <div class="room-price">€2,800 <span>/ night</span></div>
+                            <p class="room-desc">Panoramic ocean views, private terrace, and butler service.</p>
+                            <div class="room-amenities">
+                                <span>Ocean View</span>
+                                <span>Butler</span>
+                                <span>Jacuzzi</span>
+                                <span>King Bed</span>
+                            </div>
+                            <a href="#booking" class="btn btn-room">Book Now</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Room 2 -->
+                <div class="col-lg-6" data-aos="fade-left">
+                    <div class="room-card">
+                        <div class="room-image">
+                            <img src="https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=800&q=80" alt="Ocean Villa" loading="lazy" />
+                            <span class="room-badge">Exclusive</span>
+                        </div>
+                        <div class="room-body">
+                            <h3 class="room-name">Ocean Villa</h3>
+                            <div class="room-price">€1,900 <span>/ night</span></div>
+                            <p class="room-desc">Private beachfront villa with infinity pool and personal chef.</p>
+                            <div class="room-amenities">
+                                <span>Beachfront</span>
+                                <span>Pool</span>
+                                <span>Chef</span>
+                                <span>King Bed</span>
+                            </div>
+                            <a href="#booking" class="btn btn-room">Book Now</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Room 3 -->
+                <div class="col-lg-6" data-aos="fade-right" data-aos-delay="100">
+                    <div class="room-card">
+                        <div class="room-image">
+                            <img src="https://images.unsplash.com/photo-1566665797739-1674de7a421a?w=800&q=80" alt="Garden Suite" loading="lazy" />
+                            <span class="room-badge">Serene</span>
+                        </div>
+                        <div class="room-body">
+                            <h3 class="room-name">Garden Suite</h3>
+                            <div class="room-price">€1,200 <span>/ night</span></div>
+                            <p class="room-desc">Nestled in lush gardens with private courtyard and outdoor shower.</p>
+                            <div class="room-amenities">
+                                <span>Garden View</span>
+                                <span>Courtyard</span>
+                                <span>Outdoor Shower</span>
+                                <span>Queen Bed</span>
+                            </div>
+                            <a href="#booking" class="btn btn-room">Book Now</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Room 4 -->
+                <div class="col-lg-6" data-aos="fade-left" data-aos-delay="100">
+                    <div class="room-card">
+                        <div class="room-image">
+                            <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&q=80" alt="Mountain Residence" loading="lazy" />
+                            <span class="room-badge">Alpine</span>
+                        </div>
+                        <div class="room-body">
+                            <h3 class="room-name">Mountain Residence</h3>
+                            <div class="room-price">€1,600 <span>/ night</span></div>
+                            <p class="room-desc">Alpine-style residence with fireplace, sauna, and mountain vistas.</p>
+                            <div class="room-amenities">
+                                <span>Mountain View</span>
+                                <span>Fireplace</span>
+                                <span>Sauna</span>
+                                <span>King Bed</span>
+                            </div>
+                            <a href="#booking" class="btn btn-room">Book Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== EXPERIENCES ========== -->
+    <section class="section-padding bg-soft-gold" id="experiences" style="background:var(--bg-secondary);transition:background var(--transition-speed) ease;">
+        <div class="container">
+            <div class="text-center mb-5" data-aos="fade-up">
+                <p class="section-subtitle">Curated Experiences</p>
+                <h2 class="section-title">Beyond <span class="gold-text">Expectations</span></h2>
+                <p class="text-muted" style="max-width:600px;margin:0 auto;font-weight:300;">Exclusive journeys designed to awaken your senses.</p>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="0">
+                    <div class="experience-item">
+                        <div class="exp-image">
+                            <img src="https://images.unsplash.com/photo-1535478045132-8475b7f4a8fe?w=600&q=80" alt="Private Beach" loading="lazy" />
+                        </div>
+                        <div class="exp-body">
+                            <h4 class="exp-title">Private Beach</h4>
+                            <p class="exp-desc">Secluded sands with personalized cabana service and sunset champagne.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="experience-item">
+                        <div class="exp-image">
+                            <img src="https://images.unsplash.com/photo-1575429198097-0414ec08e8cd?w=600&q=80" alt="Infinity Pool" loading="lazy" />
+                        </div>
+                        <div class="exp-body">
+                            <h4 class="exp-title">Infinity Pool</h4>
+                            <p class="exp-desc">Edge-of-the-world pool overlooking the Mediterranean coastline.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="experience-item">
+                        <div class="exp-image">
+                            <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=600&q=80" alt="Spa Wellness" loading="lazy" />
+                        </div>
+                        <div class="exp-body">
+                            <h4 class="exp-title">Spa Wellness</h4>
+                            <p class="exp-desc">Holistic treatments using organic local ingredients and ancient rituals.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="300">
+                    <div class="experience-item">
+                        <div class="exp-image">
+                            <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600&q=80" alt="Fine Dining" loading="lazy" />
+                        </div>
+                        <div class="exp-body">
+                            <h4 class="exp-title">Fine Dining</h4>
+                            <p class="exp-desc">Michelin-starred cuisine crafted by our celebrated executive chef.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="400">
+                    <div class="experience-item">
+                        <div class="exp-image">
+                            <img src="https://images.unsplash.com/photo-1506377247377-2a5b3b417ebb?w=600&q=80" alt="Wine Experience" loading="lazy" />
+                        </div>
+                        <div class="exp-body">
+                            <h4 class="exp-title">Wine Experience</h4>
+                            <p class="exp-desc">Curated cellar tours and exclusive tastings with our sommelier.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="500">
+                    <div class="experience-item">
+                        <div class="exp-image">
+                            <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=600&q=80" alt="Nature Tours" loading="lazy" />
+                        </div>
+                        <div class="exp-body">
+                            <h4 class="exp-title">Nature Tours</h4>
+                            <p class="exp-desc">Guided explorations through pristine landscapes and hidden coves.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== RESTAURANT ========== -->
+    <section class="restaurant-section" id="dining">
+        <div class="container">
+            <div class="row g-5 align-items-center">
+                <div class="col-lg-6" data-aos="fade-right">
+                    <p class="section-subtitle">Gastronomy</p>
+                    <h2 class="section-title">Art of <span class="gold-text">Dining</span></h2>
+                    <p style="color:var(--text-secondary);font-weight:300;font-size:1.05rem;max-width:500px;">
+                        Our restaurant celebrates the finest local produce, transformed into edible art by our Michelin-trained chef.
+                    </p>
+                    <div class="menu-preview">
+                        <div class="menu-item">
+                            <span class="item-name">Grilled Lobster</span>
+                            <span class="item-price">€48</span>
+                        </div>
+                        <div class="menu-item">
+                            <span class="item-name">Beef Tenderloin</span>
+                            <span class="item-price">€42</span>
+                        </div>
+                        <div class="menu-item">
+                            <span class="item-name">Truffle Risotto</span>
+                            <span class="item-price">€36</span>
+                        </div>
+                        <div class="menu-item">
+                            <span class="item-name">Chocolate Fondant</span>
+                            <span class="item-price">€18</span>
+                        </div>
+                    </div>
+                    <a href="#booking" class="btn btn-gold mt-4">Reserve a Table</a>
+                </div>
+                <div class="col-lg-6" data-aos="fade-left">
+                    <img class="chef-image" src="https://images.unsplash.com/photo-1559314809-0d155014e29e?w=800&q=80" alt="Executive Chef" loading="lazy" />
+                    <div style="margin-top:16px;display:flex;gap:20px;flex-wrap:wrap;justify-content:center;">
+                        <span style="font-weight:300;color:var(--text-muted);"><i class="bi bi-wine" style="color:var(--gold);"></i> 500+ Wine Labels</span>
+                        <span style="font-weight:300;color:var(--text-muted);"><i class="bi bi-star-fill" style="color:var(--gold);"></i> Michelin Star</span>
+                        <span style="font-weight:300;color:var(--text-muted);"><i class="bi bi-clock" style="color:var(--gold);"></i> Open 7 Days</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== SPA ========== -->
+    <section class="spa-section" id="spa">
+        <div class="container">
+            <div class="text-center mb-5" data-aos="fade-up">
+                <p class="section-subtitle">Wellness</p>
+                <h2 class="section-title">Sanctuary of <span class="gold-text">Serenity</span></h2>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="0">
+                    <div class="spa-card">
+                        <div class="spa-icon"><i class="bi bi-droplet"></i></div>
+                        <h5>Massage Therapy</h5>
+                        <p style="color:var(--text-secondary);font-weight:300;font-size:0.95rem;">Customized treatments using aromatic oils and ancient techniques.</p>
+                    </div>
+                </div>
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="spa-card">
+                        <div class="spa-icon"><i class="bi bi-fire"></i></div>
+                        <h5>Sauna &amp; Steam</h5>
+                        <p style="color:var(--text-secondary);font-weight:300;font-size:0.95rem;">Detoxify and rejuvenate in our traditional Finnish sauna.</p>
+                    </div>
+                </div>
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="spa-card">
+                        <div class="spa-icon"><i class="bi bi-water"></i></div>
+                        <h5>Infinity Pool</h5>
+                        <p style="color:var(--text-secondary);font-weight:300;font-size:0.95rem;">Heated pool with panoramic views for ultimate relaxation.</p>
+                    </div>
+                </div>
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+                    <div class="spa-card">
+                        <div class="spa-icon"><i class="bi bi-brightness-high"></i></div>
+                        <h5>Yoga &amp; Meditation</h5>
+                        <p style="color:var(--text-secondary);font-weight:300;font-size:0.95rem;">Daily sunrise and sunset sessions with expert instructors.</p>
+                    </div>
+                </div>
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="400">
+                    <div class="spa-card">
+                        <div class="spa-icon"><i class="bi bi-flower1"></i></div>
+                        <h5>Beauty Treatments</h5>
+                        <p style="color:var(--text-secondary);font-weight:300;font-size:0.95rem;">Organic facials and body rituals using natural ingredients.</p>
+                    </div>
+                </div>
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="500">
+                    <div class="spa-card">
+                        <div class="spa-icon"><i class="bi bi-moon-stars"></i></div>
+                        <h5>Night Spa Ritual</h5>
+                        <p style="color:var(--text-secondary);font-weight:300;font-size:0.95rem;">Exclusive evening treatments under the stars.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== DESTINATION ========== -->
+    <section class="section-padding" id="destination" style="background:var(--bg-secondary);transition:background var(--transition-speed) ease;">
+        <div class="container">
+            <div class="row g-5 align-items-center">
+                <div class="col-lg-6" data-aos="fade-right">
+                    <p class="section-subtitle">Destination</p>
+                    <h2 class="section-title">Discover <span class="gold-text">Saint-Tropez</span></h2>
+                    <p style="color:var(--text-secondary);font-weight:300;font-size:1.05rem;max-width:500px;">
+                        Nestled on the French Riviera, our hotel is a gateway to culture, adventure, and timeless elegance.
+                    </p>
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:24px;">
+                        <div style="padding:16px;background:var(--bg-glass);border:1px solid var(--bg-glass-border);">
+                            <i class="bi bi-compass" style="color:var(--gold);font-size:1.4rem;"></i>
+                            <h6 style="font-family:'Outfit',sans-serif;font-weight:600;margin-top:6px;">Nearby Attractions</h6>
+                            <p style="font-size:0.85rem;color:var(--text-muted);font-weight:300;">Pampelonne Beach, Citadel, Port</p>
+                        </div>
+                        <div style="padding:16px;background:var(--bg-glass);border:1px solid var(--bg-glass-border);">
+                            <i class="bi bi-tree" style="color:var(--gold);font-size:1.4rem;"></i>
+                            <h6 style="font-family:'Outfit',sans-serif;font-weight:600;margin-top:6px;">Adventure</h6>
+                            <p style="font-size:0.85rem;color:var(--text-muted);font-weight:300;">Sailing, Hiking, Helicopter Tours</p>
+                        </div>
+                        <div style="padding:16px;background:var(--bg-glass);border:1px solid var(--bg-glass-border);">
+                            <i class="bi bi-palette" style="color:var(--gold);font-size:1.4rem;"></i>
+                            <h6 style="font-family:'Outfit',sans-serif;font-weight:600;margin-top:6px;">Culture</h6>
+                            <p style="font-size:0.85rem;color:var(--text-muted);font-weight:300;">Art Galleries, Music Festivals</p>
+                        </div>
+                        <div style="padding:16px;background:var(--bg-glass);border:1px solid var(--bg-glass-border);">
+                            <i class="bi bi-map" style="color:var(--gold);font-size:1.4rem;"></i>
+                            <h6 style="font-family:'Outfit',sans-serif;font-weight:600;margin-top:6px;">Interactive Map</h6>
+                            <p style="font-size:0.85rem;color:var(--text-muted);font-weight:300;">Explore our curated guides</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6" data-aos="fade-left">
+                    <img src="https://images.unsplash.com/photo-1533105079780-92b9be482077?w=800&q=80" alt="Saint-Tropez" loading="lazy" style="width:100%;height:450px;object-fit:cover;box-shadow:0 20px 60px var(--shadow);" />
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== GALLERY ========== -->
+    <section class="section-padding" id="gallery" style="background:var(--bg-primary);transition:background var(--transition-speed) ease;">
+        <div class="container">
+            <div class="text-center mb-5" data-aos="fade-up">
+                <p class="section-subtitle">Visual Journey</p>
+                <h2 class="section-title">Our <span class="gold-text">Gallery</span></h2>
+            </div>
+            <div class="gallery-masonry" id="galleryMasonry">
+                <div class="gallery-item" data-aos="fade-up" data-aos-delay="0">
+                    <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=600&q=80" alt="Luxury Room" loading="lazy" />
+                    <div class="gallery-overlay"><i class="bi bi-arrows-fullscreen"></i></div>
+                </div>
+                <div class="gallery-item" data-aos="fade-up" data-aos-delay="50">
+                    <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600&q=80" alt="Fine Dining" loading="lazy" />
+                    <div class="gallery-overlay"><i class="bi bi-arrows-fullscreen"></i></div>
+                </div>
+                <div class="gallery-item" data-aos="fade-up" data-aos-delay="100">
+                    <img src="https://images.unsplash.com/photo-1575429198097-0414ec08e8cd?w=600&q=80" alt="Infinity Pool" loading="lazy" />
+                    <div class="gallery-overlay"><i class="bi bi-arrows-fullscreen"></i></div>
+                </div>
+                <div class="gallery-item" data-aos="fade-up" data-aos-delay="150">
+                    <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=600&q=80" alt="Spa" loading="lazy" />
+                    <div class="gallery-overlay"><i class="bi bi-arrows-fullscreen"></i></div>
+                </div>
+                <div class="gallery-item" data-aos="fade-up" data-aos-delay="200">
+                    <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600&q=80" alt="Hotel Exterior" loading="lazy" />
+                    <div class="gallery-overlay"><i class="bi bi-arrows-fullscreen"></i></div>
+                </div>
+                <div class="gallery-item" data-aos="fade-up" data-aos-delay="250">
+                    <img src="https://images.unsplash.com/photo-1559314809-0d155014e29e?w=600&q=80" alt="Chef" loading="lazy" />
+                    <div class="gallery-overlay"><i class="bi bi-arrows-fullscreen"></i></div>
+                </div>
+                <div class="gallery-item" data-aos="fade-up" data-aos-delay="300">
+                    <img src="https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=600&q=80" alt="Ocean View" loading="lazy" />
+                    <div class="gallery-overlay"><i class="bi bi-arrows-fullscreen"></i></div>
+                </div>
+                <div class="gallery-item" data-aos="fade-up" data-aos-delay="350">
+                    <img src="https://images.unsplash.com/photo-1506377247377-2a5b3b417ebb?w=600&q=80" alt="Wine Room" loading="lazy" />
+                    <div class="gallery-overlay"><i class="bi bi-arrows-fullscreen"></i></div>
+                </div>
+                <div class="gallery-item" data-aos="fade-up" data-aos-delay="400">
+                    <img src="https://images.unsplash.com/photo-1535478045132-8475b7f4a8fe?w=600&q=80" alt="Beach" loading="lazy" />
+                    <div class="gallery-overlay"><i class="bi bi-arrows-fullscreen"></i></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== REVIEWS ========== -->
+    <section class="reviews-section" id="reviews">
+        <div class="container">
+            <div class="text-center mb-5" data-aos="fade-up">
+                <p class="section-subtitle">Testimonials</p>
+                <h2 class="section-title">Guest <span class="gold-text">Stories</span></h2>
+            </div>
+            <div class="swiper reviewsSwiper" data-aos="fade-up">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <div class="review-card">
+                            <div style="display:flex;align-items:center;gap:16px;margin-bottom:16px;">
+                                <img class="review-avatar" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&q=80" alt="Guest" loading="lazy" />
+                                <div>
+                                    <div class="review-name">Isabella Rossi</div>
+                                    <div class="review-country">Italy</div>
+                                </div>
+                            </div>
+                            <div class="review-stars">★★★★★</div>
+                            <p class="review-text">"An absolute dream. The attention to detail, the service, the views — everything was perfection. We will return every year."</p>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="review-card">
+                            <div style="display:flex;align-items:center;gap:16px;margin-bottom:16px;">
+                                <img class="review-avatar" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&q=80" alt="Guest" loading="lazy" />
+                                <div>
+                                    <div class="review-name">James Anderson</div>
+                                    <div class="review-country">United Kingdom</div>
+                                </div>
+                            </div>
+                            <div class="review-stars">★★★★★</div>
+                            <p class="review-text">"The finest boutique hotel I have ever experienced. The spa and dining are world-class. A true sanctuary."</p>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="review-card">
+                            <div style="display:flex;align-items:center;gap:16px;margin-bottom:16px;">
+                                <img class="review-avatar" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&q=80" alt="Guest" loading="lazy" />
+                                <div>
+                                    <div class="review-name">Sophie Müller</div>
+                                    <div class="review-country">Germany</div>
+                                </div>
+                            </div>
+                            <div class="review-stars">★★★★★</div>
+                            <p class="review-text">"From the moment we arrived, we felt like royalty. The sunset views from the infinity pool are unforgettable."</p>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="review-card">
+                            <div style="display:flex;align-items:center;gap:16px;margin-bottom:16px;">
+                                <img class="review-avatar" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&q=80" alt="Guest" loading="lazy" />
+                                <div>
+                                    <div class="review-name">Carlos Rivera</div>
+                                    <div class="review-country">Mexico</div>
+                                </div>
+                            </div>
+                            <div class="review-stars">★★★★★</div>
+                            <p class="review-text">"A masterpiece of hospitality. The wine experience was exceptional, and the staff anticipated our every need."</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-pagination" style="position:relative;margin-top:24px;"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== STATISTICS ========== -->
+    <section class="stats-section" id="stats">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-6 col-md-3" data-aos="fade-up" data-aos-delay="0">
+                    <div class="stat-item">
+                        <div class="stat-number" data-count="25">0</div>
+                        <div class="stat-label">Luxury Rooms</div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3" data-aos="fade-up" data-aos-delay="100">
+                    <div class="stat-item">
+                        <div class="stat-number" data-count="50000">0</div>
+                        <div class="stat-label">Happy Guests</div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3" data-aos="fade-up" data-aos-delay="200">
+                    <div class="stat-item">
+                        <div class="stat-number" data-count="15">0</div>
+                        <div class="stat-label">Years Experience</div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3" data-aos="fade-up" data-aos-delay="300">
+                    <div class="stat-item">
+                        <div class="stat-number" data-count="98">0</div>
+                        <div class="stat-label">Guest Satisfaction %</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== BOOKING SYSTEM UI ========== -->
+    <section class="section-padding" id="booking" style="background:var(--bg-secondary);transition:background var(--transition-speed) ease;">
+        <div class="container">
+            <div class="row g-5 align-items-center">
+                <div class="col-lg-6" data-aos="fade-right">
+                    <p class="section-subtitle">Reserve Your Stay</p>
+                    <h2 class="section-title">Plan Your <span class="gold-text">Escape</span></h2>
+                    <p style="color:var(--text-secondary);font-weight:300;font-size:1.05rem;">Complete the form and our concierge will curate your perfect stay.</p>
+                    <img src="https://images.unsplash.com/photo-1566665797739-1674de7a421a?w=600&q=80" alt="Luxury Booking" loading="lazy" style="width:100%;height:280px;object-fit:cover;margin-top:24px;box-shadow:0 12px 40px var(--shadow);" />
+                </div>
+                <div class="col-lg-6" data-aos="fade-left">
+                    <div style="background:var(--bg-glass);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid var(--bg-glass-border);border-radius:20px;padding:40px 36px;box-shadow:0 20px 60px var(--shadow);">
+                        <form id="bookingForm">
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label class="form-label" style="font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);">Full Name</label>
+                                    <input type="text" class="form-control" style="background:transparent;border:none;border-bottom:1px solid var(--bg-glass-border);border-radius:0;padding:8px 0;color:var(--text-primary);" placeholder="Your Name" required />
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label" style="font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);">Email</label>
+                                    <input type="email" class="form-control" style="background:transparent;border:none;border-bottom:1px solid var(--bg-glass-border);border-radius:0;padding:8px 0;color:var(--text-primary);" placeholder="you@example.com" required />
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label" style="font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);">Phone</label>
+                                    <input type="tel" class="form-control" style="background:transparent;border:none;border-bottom:1px solid var(--bg-glass-border);border-radius:0;padding:8px 0;color:var(--text-primary);" placeholder="+1 234 567 890" />
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label" style="font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);">Room Type</label>
+                                    <select class="form-select" style="background:transparent;border:none;border-bottom:1px solid var(--bg-glass-border);border-radius:0;padding:8px 0;color:var(--text-primary);">
+                                        <option value="presidential">Presidential Suite</option>
+                                        <option value="ocean">Ocean Villa</option>
+                                        <option value="garden">Garden Suite</option>
+                                        <option value="mountain">Mountain Residence</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label" style="font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);">Check In</label>
+                                    <input type="date" class="form-control" style="background:transparent;border:none;border-bottom:1px solid var(--bg-glass-border);border-radius:0;padding:8px 0;color:var(--text-primary);" value="2026-07-27" />
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label" style="font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);">Check Out</label>
+                                    <input type="date" class="form-control" style="background:transparent;border:none;border-bottom:1px solid var(--bg-glass-border);border-radius:0;padding:8px 0;color:var(--text-primary);" value="2026-07-30" />
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label" style="font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);">Guests</label>
+                                    <select class="form-select" style="background:transparent;border:none;border-bottom:1px solid var(--bg-glass-border);border-radius:0;padding:8px 0;color:var(--text-primary);">
+                                        <option value="1">1</option>
+                                        <option value="2" selected>2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5+</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label" style="font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);">Special Requests</label>
+                                    <input type="text" class="form-control" style="background:transparent;border:none;border-bottom:1px solid var(--bg-glass-border);border-radius:0;padding:8px 0;color:var(--text-primary);" placeholder="Any preferences..." />
+                                </div>
+                                <div class="col-12 mt-4">
+                                    <button type="submit" class="btn btn-gold w-100" style="padding:16px;">Confirm Reservation</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== FAQ ========== -->
+    <section class="faq-section" id="faq">
+        <div class="container">
+            <div class="text-center mb-5" data-aos="fade-up">
+                <p class="section-subtitle">Questions</p>
+                <h2 class="section-title">Frequently <span class="gold-text">Asked</span></h2>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-8" data-aos="fade-up">
+                    <div class="faq-item active">
+                        <div class="faq-question">
+                            <span>What are the check-in and check-out times?</span>
+                            <i class="bi bi-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">Check-in is from 3:00 PM and check-out is at 12:00 PM. Early check-in and late check-out can be arranged upon request.</div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>Does the hotel offer airport transfers?</span>
+                            <i class="bi bi-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">Yes, we offer private luxury transfers from Nice Airport. Please contact our concierge to arrange your transportation.</div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>Is the hotel pet-friendly?</span>
+                            <i class="bi bi-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">We welcome small pets in select suites. A pet concierge service is available upon request.</div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>What dining options are available?</span>
+                            <i class="bi bi-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">Our Michelin-starred restaurant, a casual terrace bistro, and 24-hour in-room dining are all available.</div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>Can I host a private event at the hotel?</span>
+                            <i class="bi bi-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">Absolutely. We offer exclusive event spaces for weddings, corporate retreats, and private celebrations.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== INSTAGRAM GALLERY ========== -->
+    <section class="section-padding" style="background:var(--bg-secondary);padding-bottom:60px;transition:background var(--transition-speed) ease;">
+        <div class="container">
+            <div class="text-center mb-4" data-aos="fade-up">
+                <p class="section-subtitle">Follow Us</p>
+                <h2 class="section-title" style="font-size:2.4rem;">@Étoile<span class="gold-text">Royale</span></h2>
+            </div>
+            <div class="instagram-grid" data-aos="fade-up">
+                <div class="insta-item"><img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=300&q=80" alt="Insta" loading="lazy" /><div class="insta-overlay"><i class="bi bi-instagram"></i></div></div>
+                <div class="insta-item"><img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=300&q=80" alt="Insta" loading="lazy" /><div class="insta-overlay"><i class="bi bi-instagram"></i></div></div>
+                <div class="insta-item"><img src="https://images.unsplash.com/photo-1575429198097-0414ec08e8cd?w=300&q=80" alt="Insta" loading="lazy" /><div class="insta-overlay"><i class="bi bi-instagram"></i></div></div>
+                <div class="insta-item"><img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=300&q=80" alt="Insta" loading="lazy" /><div class="insta-overlay"><i class="bi bi-instagram"></i></div></div>
+                <div class="insta-item"><img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=300&q=80" alt="Insta" loading="lazy" /><div class="insta-overlay"><i class="bi bi-instagram"></i></div></div>
+                <div class="insta-item"><img src="https://images.unsplash.com/photo-1559314809-0d155014e29e?w=300&q=80" alt="Insta" loading="lazy" /><div class="insta-overlay"><i class="bi bi-instagram"></i></div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== GOOGLE MAP ========== -->
+    <section class="map-section" id="contact">
+        <div class="container">
+            <div class="text-center mb-4" data-aos="fade-up">
+                <p class="section-subtitle">Find Us</p>
+                <h2 class="section-title" style="font-size:2.4rem;">Our <span class="gold-text">Location</span></h2>
+            </div>
+            <div class="map-placeholder" data-aos="fade-up">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2889.971663425892!2d6.6333!3d43.2695!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12c9b4c4b4c4b4c3%3A0x4b4c4b4c4b4c4b4c!2sSaint-Tropez%2C%20France!5e0!3m2!1sen!2sus!4v1700000000000" allowfullscreen loading="lazy"></iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== FOOTER ========== -->
+    <footer class="footer" id="footer">
+        <div class="container">
+            <div class="row g-5">
+                <div class="col-lg-4">
+                    <div class="footer-brand">Étoile<span>Royale</span></div>
+                    <p class="footer-text mt-3">Where luxury meets serenity. A boutique hotel experience crafted for the discerning traveler.</p>
+                    <div class="mt-3">
+                        <a href="#" class="social-icon"><i class="bi bi-instagram"></i></a>
+                        <a href="#" class="social-icon"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="social-icon"><i class="bi bi-twitter-x"></i></a>
+                        <a href="#" class="social-icon"><i class="bi bi-pinterest"></i></a>
+                        <a href="#" class="social-icon"><i class="bi bi-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-3 col-lg-2">
+                    <h6>Quick Links</h6>
+                    <a href="#rooms" class="footer-link">Rooms</a>
+                    <a href="#experiences" class="footer-link">Experiences</a>
+                    <a href="#dining" class="footer-link">Dining</a>
+                    <a href="#spa" class="footer-link">Spa</a>
+                    <a href="#gallery" class="footer-link">Gallery</a>
+                </div>
+                <div class="col-md-3 col-lg-2">
+                    <h6>Contact</h6>
+                    <a href="#" class="footer-link">+33 4 94 12 34 56</a>
+                    <a href="#" class="footer-link">reservations@etoileroyale.com</a>
+                    <a href="#" class="footer-link">Saint-Tropez, France</a>
+                    <a href="#" class="footer-link">Open 24/7</a>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <h6>Newsletter</h6>
+                    <p style="color:var(--text-muted);font-weight:300;font-size:0.9rem;">Subscribe for exclusive offers and news.</p>
+                    <div class="d-flex flex-column">
+                        <input type="email" class="newsletter-input" placeholder="Your Email" />
+                        <button class="btn-newsletter">Subscribe</button>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <span>&copy; 2028 Étoile Royale. All rights reserved.</span>
+                <span>
+                    <a href="#" style="color:var(--text-muted);text-decoration:none;margin-right:16px;">Privacy</a>
+                    <a href="#" style="color:var(--text-muted);text-decoration:none;margin-right:16px;">Terms</a>
+                    <a href="#" style="color:var(--text-muted);text-decoration:none;">Cookies</a>
+                </span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ========== FLOATING WHATSAPP ========== -->
+    <a href="https://wa.me/33494123456" target="_blank" class="whatsapp-float" aria-label="Chat on WhatsApp">
+        <i class="bi bi-whatsapp"></i>
+    </a>
+
+    <!-- ========== STICKY BOOKING BUTTON ========== -->
+    <button class="sticky-book" id="stickyBook">Book Now</button>
+
+    <!-- ========== COOKIE CONSENT ========== -->
+    <div class="cookie-consent" id="cookieConsent">
+        <p style="font-weight:300;">We use cookies to enhance your experience. By continuing, you agree to our <a href="#" style="color:var(--gold);">Privacy Policy</a>.</p>
+        <div>
+            <button class="btn btn-cookie-outline" id="cookieDecline">Decline</button>
+            <button class="btn btn-cookie" id="cookieAccept">Accept</button>
+        </div>
+    </div>
+
+    <!-- ========== SCRIPTS ========== -->
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js">
+    </script>
+
+    <!-- AOS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js">
+    </script>
+
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js">
+    </script>
+
+    <!-- Swiper.js -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js">
+    </script>
+
+    <!-- Lenis Smooth Scroll -->
+    <script src="https://unpkg.com/lenis@1.0.45/dist/lenis.min.js">
+    </script>
+
+    <script>
+        // ============================================================
+        // PRELOADER
+        // ============================================================
+        window.addEventListener('load', () => {
+            const preloader = document.getElementById('preloader');
+            setTimeout(() => {
+                preloader.classList.add('hidden');
+            }, 1200);
+        });
+
+        // ============================================================
+        // LENIS SMOOTH SCROLL
+        // ============================================================
+        const lenis = new Lenis({
+            duration: 1.2,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            orientation: 'vertical',
+            smoothWheel: true,
+        });
+
+        function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+
+        // ============================================================
+        // AOS
+        // ============================================================
+        AOS.init({
+            duration: 1000,
+            once: false,
+            mirror: false,
+            offset: 60,
+            easing: 'ease-out-cubic',
+        });
+
+        // ============================================================
+        // GSAP SCROLL TRIGGER
+        // ============================================================
+        gsap.registerPlugin(ScrollTrigger);
+
+        // ============================================================
+        // DAY / NIGHT THEME
+        // ============================================================
+        let currentTheme = 'morning'; // morning | sunset | night
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+        const themeLabel = document.getElementById('themeLabel');
+        const heroBg = document.getElementById('heroBg');
+
+        const themes = {
+            morning: {
+                bg: '#f5efe6',
+                text: '#1a1410',
+                heroBg: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1600&q=80',
+                icon: 'bi-brightness-high-fill',
+                label: 'Day',
+            },
+            sunset: {
+                bg: '#f0e0d0',
+                text: '#2a1a0e',
+                heroBg: 'https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=1600&q=80',
+                icon: 'bi-sunset-fill',
+                label: 'Sunset',
+            },
+            night: {
+                bg: '#0d0a08',
+                text: '#f5efe6',
+                heroBg: 'https://images.unsplash.com/photo-1519681393784-d120267933ba?w=1600&q=80',
+                icon: 'bi-moon-fill',
+                label: 'Night',
+            }
+        };
+
+        const themeOrder = ['morning', 'sunset', 'night'];
+
+        function setTheme(theme) {
+            currentTheme = theme;
+            const t = themes[theme];
+            document.documentElement.setAttribute('data-theme', theme === 'night' ? 'night' : (theme === 'sunset' ? 'sunset' : ''));
+            // Update CSS variables via data-theme attribute already handles most
+            // But we also update hero bg
+            heroBg.src = t.heroBg;
+            themeIcon.className = `bi ${t.icon}`;
+            themeLabel.textContent = t.label;
+
+            // Update stars
+            const starsContainer = document.getElementById('starsContainer');
+            if (theme === 'night') {
+                starsContainer.style.opacity = '1';
+                generateStars();
+            } else {
+                starsContainer.style.opacity = '0';
+            }
+
+            // Update sun/moon
+            const sun = document.getElementById('heroSun');
+            const moon = document.getElementById('heroMoon');
+            if (theme === 'night') {
+                sun.style.opacity = '0';
+                sun.style.transform = 'scale(0.5)';
+                moon.style.opacity = '1';
+                moon.style.transform = 'scale(1)';
+            } else if (theme === 'sunset') {
+                sun.style.opacity = '0.6';
+                sun.style.transform = 'scale(0.9)';
+                moon.style.opacity = '0';
+                moon.style.transform = 'scale(0.5)';
+            } else {
+                sun.style.opacity = '1';
+                sun.style.transform = 'scale(1)';
+                moon.style.opacity = '0';
+                moon.style.transform = 'scale(0.5)';
+            }
+
+            // Update overlay
+            const overlay = document.getElementById('heroOverlay');
+            if (theme === 'night') {
+                overlay.style.background = 'rgba(0,0,0,0.55)';
+            } else if (theme === 'sunset') {
+                overlay.style.background = 'rgba(42,26,14,0.25)';
+            } else {
+                overlay.style.background = 'rgba(26,20,16,0.30)';
+            }
+        }
+
+        function generateStars() {
+            const container = document.getElementById('starsContainer');
+            if (container.children.length > 0) return;
+            for (let i = 0; i < 120; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.width = (Math.random() * 2 + 1) + 'px';
+                star.style.height = star.style.width;
+                star.style.animationDelay = (Math.random() * 4) + 's';
+                star.style.animationDuration = (2 + Math.random() * 3) + 's';
+                container.appendChild(star);
+            }
+        }
+
+        themeToggle.addEventListener('click', () => {
+            const idx = themeOrder.indexOf(currentTheme);
+            const next = (idx + 1) % themeOrder.length;
+            setTheme(themeOrder[next]);
+        });
+
+        // Start with morning
+        setTheme('morning');
+
+        // Auto cycle every 12 seconds (simulate day progression)
+        let autoCycle = setInterval(() => {
+            const idx = themeOrder.indexOf(currentTheme);
+            const next = (idx + 1) % themeOrder.length;
+            setTheme(themeOrder[next]);
+        }, 14000);
+
+        // ============================================================
+        // NAVBAR SCROLL EFFECT
+        // ============================================================
+        const navbar = document.getElementById('navbar');
+        let lastScroll = 0;
+
+        window.addEventListener('scroll', () => {
+            const scrollY = window.scrollY || window.pageYOffset;
+            if (scrollY > 80) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+            lastScroll = scrollY;
+
+            // Sticky book button
+            const sticky = document.getElementById('stickyBook');
+            if (scrollY > 600) {
+                sticky.classList.add('visible');
+            } else {
+                sticky.classList.remove('visible');
+            }
+        });
+
+        // Sticky book click
+        document.getElementById('stickyBook').addEventListener('click', () => {
+            document.getElementById('booking').scrollIntoView({ behavior: 'smooth' });
+        });
+
+        // ============================================================
+        // SWIPER REVIEWS
+        // ============================================================
+        new Swiper('.reviewsSwiper', {
+            slidesPerView: 1,
+            spaceBetween: 24,
+            loop: true,
+            autoplay: {
+                delay: 4500,
+                disableOnInteraction: false,
+            },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            breakpoints: {
+                640: {
+                    slidesPerView: 1,
+                },
+                768: {
+                    slidesPerView: 2,
+                },
+                1024: {
+                    slidesPerView: 3,
+                },
+            },
+        });
+
+        // ============================================================
+        // STATISTICS COUNTERS
+        // ============================================================
+        const counters = document.querySelectorAll('.stat-number');
+        let countersAnimated = false;
+
+        function animateCounters() {
+            if (countersAnimated) return;
+            countersAnimated = true;
+
+            counters.forEach(counter => {
+                const target = parseInt(counter.getAttribute('data-count'));
+                let current = 0;
+                const increment = Math.ceil(target / 60);
+                const duration = 2000;
+                const stepTime = Math.floor(duration / 60);
+
+                const updateCounter = () => {
+                    current += increment;
+                    if (current >= target) {
+                        counter.textContent = target + (target === 98 ? '%' : '+');
+                        return;
+                    }
+                    counter.textContent = current + (target === 98 ? '%' : '+');
+                    setTimeout(updateCounter, stepTime);
+                };
+                updateCounter();
+            });
+        }
+
+        // Trigger counters on scroll
+        const statsSection = document.getElementById('stats');
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCounters();
+                    statsObserver.disconnect();
+                }
+            });
+        }, { threshold: 0.3 });
+        statsObserver.observe(statsSection);
+
+        // ============================================================
+        // GALLERY LIGHTBOX
+        // ============================================================
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightboxImg');
+        const closeLightbox = document.getElementById('closeLightbox');
+
+        document.querySelectorAll('.gallery-item').forEach(item => {
+            item.addEventListener('click', () => {
+                const img = item.querySelector('img');
+                if (img) {
+                    lightboxImg.src = img.src;
+                    lightbox.classList.add('show');
+                    document.body.style.overflow = 'hidden';
+                }
+            });
+        });
+
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox || e.target === closeLightbox) {
+                lightbox.classList.remove('show');
+                document.body.style.overflow = '';
+            }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && lightbox.classList.contains('show')) {
+                lightbox.classList.remove('show');
+                document.body.style.overflow = '';
+            }
+        });
+
+        // ============================================================
+        // FAQ ACCORDION
+        // ============================================================
+        document.querySelectorAll('.faq-item').forEach(item => {
+            item.addEventListener('click', () => {
+                const isActive = item.classList.contains('active');
+                document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('active'));
+                if (!isActive) {
+                    item.classList.add('active');
+                }
+            });
+        });
+
+        // ============================================================
+        // BOOKING FORM
+        // ============================================================
+        document.getElementById('bookingForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            // Simple confirmation modal simulation
+            if (confirm('Thank you! Your reservation request has been received. Our concierge will contact you shortly.')) {
+                // Reset form
+                e.target.reset();
+            }
+        });
+
+        // Hero search button
+        document.getElementById('heroSearchBtn').addEventListener('click', () => {
+            document.getElementById('booking').scrollIntoView({ behavior: 'smooth' });
+        });
+
+        // ============================================================
+        // COOKIE CONSENT
+        // ============================================================
+        const cookieConsent = document.getElementById('cookieConsent');
+
+        if (!localStorage.getItem('cookieConsent')) {
+            setTimeout(() => {
+                cookieConsent.classList.add('show');
+            }, 2000);
+        }
+
+        document.getElementById('cookieAccept').addEventListener('click', () => {
+            localStorage.setItem('cookieConsent', 'accepted');
+            cookieConsent.classList.remove('show');
+        });
+
+        document.getElementById('cookieDecline').addEventListener('click', () => {
+            localStorage.setItem('cookieConsent', 'declined');
+            cookieConsent.classList.remove('show');
+        });
+
+        // ============================================================
+        // WEATHER WIDGET (simulated)
+        // ============================================================
+        const weatherWidget = document.getElementById('weatherWidget');
+        const weatherTemp = document.getElementById('weatherTemp');
+        const weatherDesc = document.getElementById('weatherDesc');
+
+        const weatherData = [
+            { temp: 22, desc: 'Sunny' },
+            { temp: 24, desc: 'Clear' },
+            { temp: 20, desc: 'Partly Cloudy' },
+            { temp: 26, desc: 'Sunny' },
+            { temp: 19, desc: 'Light Breeze' },
+        ];
+
+        let weatherIdx = 0;
+
+        function updateWeather() {
+            const data = weatherData[weatherIdx % weatherData.length];
+            weatherTemp.textContent = data.temp + '°';
+            weatherDesc.textContent = data.desc;
+            weatherIdx++;
+        }
+
+        // Show weather after a moment
+        setTimeout(() => {
+            weatherWidget.style.display = 'block';
+            updateWeather();
+            setInterval(updateWeather, 8000);
+        }, 3000);
+
+        // ============================================================
+        // LANGUAGE & CURRENCY (simulated)
+        // ============================================================
+        document.getElementById('langSelect').addEventListener('change', function() {
+            // Simple simulation - just show a toast-like alert
+            console.log('Language changed to:', this.value);
+        });
+
+        document.getElementById('currencySelect').addEventListener('change', function() {
+            console.log('Currency changed to:', this.value);
+        });
+
+        // ============================================================
+        // 3D TILT ON ROOM CARDS (GSAP)
+        // ============================================================
+        document.querySelectorAll('.room-card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = (e.clientX - rect.left) / rect.width - 0.5;
+                const y = (e.clientY - rect.top) / rect.height - 0.5;
+                gsap.to(card, {
+                    rotationY: x * 6,
+                    rotationX: -y * 6,
+                    duration: 0.6,
+                    ease: 'power2.out',
+                    overwrite: 'auto',
+                });
+            });
+            card.addEventListener('mouseleave', () => {
+                gsap.to(card, {
+                    rotationY: 0,
+                    rotationX: 0,
+                    duration: 0.8,
+                    ease: 'power2.out',
+                });
+            });
+        });
+
+        // ============================================================
+        // PARALLAX ON HERO (GSAP)
+        // ============================================================
+        gsap.to('.hero-bg', {
+            scale: 1.08,
+            ease: 'none',
+            scrollTrigger: {
+                trigger: '.hero',
+                start: 'top top',
+                end: 'bottom top',
+                scrub: 1.5,
+            },
+        });
+
+        // ============================================================
+        // FLOATING ANIMATION ON BOOKING CARD (GSAP)
+        // ============================================================
+        gsap.to('.booking-float', {
+            y: -12,
+            duration: 3,
+            repeat: -1,
+            yoyo: true,
+            ease: 'sine.inOut',
+        });
+
+        // ============================================================
+        // INSTAGRAM HOVER EFFECT
+        // ============================================================
+        document.querySelectorAll('.insta-item').forEach(item => {
+            item.addEventListener('mouseenter', () => {
+                gsap.to(item.querySelector('.insta-overlay'), {
+                    opacity: 1,
+                    duration: 0.3,
+                });
+            });
+            item.addEventListener('mouseleave', () => {
+                gsap.to(item.querySelector('.insta-overlay'), {
+                    opacity: 0,
+                    duration: 0.3,
+                });
+            });
+        });
+
+        // ============================================================
+        // SMOOTH REVEAL FOR SECTIONS (GSAP)
+        // ============================================================
+        gsap.utils.toArray('.section-title').forEach(title => {
+            gsap.from(title, {
+                y: 40,
+                opacity: 0,
+                duration: 1,
+                scrollTrigger: {
+                    trigger: title,
+                    start: 'top 85%',
+                    toggleActions: 'play none none none',
+                },
+            });
+        });
+
+        gsap.utils.toArray('.section-subtitle').forEach(sub => {
+            gsap.from(sub, {
+                y: 20,
+                opacity: 0,
+                duration: 0.8,
+                delay: 0.2,
+                scrollTrigger: {
+                    trigger: sub,
+                    start: 'top 85%',
+                    toggleActions: 'play none none none',
+                },
+            });
+        });
+
+        // ============================================================
+        // CONSOLE WELCOME
+        // ============================================================
+        console.log('%c Étoile Royale ', 'font-size:28px; font-weight:bold; color:#c9a87c;');
+        console.log('%c Where Luxury Meets Serenity ', 'font-size:16px; color:#4a3f38;');
+        console.log('%c ✦ 2028 Boutique Hotel ✦ ', 'font-size:14px; color:#7a6e64;');
+
+        // ============================================================
+        // KEYBOARD SHORTCUT: T for theme toggle
+        // ============================================================
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 't' || e.key === 'T') {
+                themeToggle.click();
+            }
+        });
+
+        console.log('Press "T" to toggle Day/Night theme.');
+    </script>
+
+</body>
+</html>

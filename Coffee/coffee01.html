@@ -1,0 +1,1457 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Experience Coffee Beyond Ordinary. A luxury digital coffee experience featuring signature roasts, expert baristas, and a premium atmosphere.">
+    <meta name="theme-color" content="#0B0B0B">
+    <title>L'AURA | Luxury Coffee Experience</title>
+
+    <!-- Open Graph / SEO -->
+    <meta property="og:title" content="L'AURA | Luxury Coffee">
+    <meta property="og:description" content="Experience Coffee Beyond Ordinary. Artisanal roasts & specialty coffee culture.">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1554118811-1e0d58224f24?q=80&w=2047&auto=format&fit=crop">
+    <meta property="og:type" content="website">
+    
+    <!-- Schema.org -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "CafeOrCoffeeShop",
+      "name": "L'AURA Coffee",
+      "image": "https://images.unsplash.com/photo-1554118811-1e0d58224f24?q=80&w=2047&auto=format&fit=crop",
+      "url": "https://www.lauracoffee.com",
+      "telephone": "+1234567890",
+      "priceRange": "$$$",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "123 Luxury Avenue",
+        "addressLocality": "Metropolis",
+        "postalCode": "10001",
+        "addressCountry": "US"
+      }
+    }
+    </script>
+
+    <!-- CDNs -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <script src="https://unpkg.com/lenis@1.0.45/dist/lenis.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <style>
+        /* ==========================================
+           CSS VARIABLES & THEME SYSTEM
+           ========================================== */
+        :root {
+            /* Light Theme Defaults */
+            --bg-color: #FFF8F0;
+            --surface-color: #F5E6D3;
+            --text-main: #2C1E16;
+            --text-muted: #5A4A42;
+            --accent-primary: #6F4E37;
+            --accent-gold: #C89B3C;
+            --glass-bg: rgba(255, 248, 240, 0.75);
+            --glass-border: rgba(111, 78, 55, 0.15);
+            --card-bg: rgba(245, 230, 211, 0.7);
+            --nav-bg: rgba(255, 248, 240, 0.85);
+            --btn-text: #FFF8F0;
+            --shadow-subtle: 0 15px 35px rgba(111, 78, 55, 0.1);
+        }
+
+        [data-theme="dark"] {
+            --bg-color: #0B0B0B;
+            --surface-color: #161616;
+            --text-main: #FFFFFF;
+            --text-muted: #A0A0A0;
+            --accent-primary: #D4A373;
+            --accent-gold: #C89B3C;
+            --glass-bg: rgba(11, 11, 11, 0.75);
+            --glass-border: rgba(212, 163, 115, 0.18);
+            --card-bg: rgba(22, 22, 22, 0.7);
+            --nav-bg: rgba(11, 11, 11, 0.85);
+            --btn-text: #0B0B0B;
+            --shadow-subtle: 0 15px 35px rgba(0, 0, 0, 0.4);
+        }
+
+        /* ==========================================
+           GLOBAL STYLES & TYPOGRAPHY
+           ========================================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            cursor: none; /* Custom cursor */
+        }
+
+        html.lenis, html.lenis body {
+            height: auto;
+        }
+
+        .lenis.lenis-smooth {
+            scroll-behavior: auto !important;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            transition: background-color 0.8s ease, color 0.8s ease;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1, h2, h3, h4, h5, h6, .display-font {
+            font-family: 'Playfair Display', serif;
+            font-weight: 500;
+        }
+
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; padding: 0; margin: 0; }
+
+        ::selection {
+            background: var(--accent-gold);
+            color: #fff;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg-color); }
+        ::-webkit-scrollbar-thumb { background: var(--accent-primary); border-radius: 10px; }
+
+        /* ==========================================
+           UTILITIES & COMPONENTS
+           ========================================== */
+        .glass {
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            transition: all 0.8s ease;
+        }
+
+        .text-gold { color: var(--accent-gold) !important; }
+        .text-primary-custom { color: var(--accent-primary) !important; }
+        
+        .btn-luxury {
+            background: var(--accent-primary);
+            color: var(--btn-text);
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 500;
+            letter-spacing: 1px;
+            border: 1px solid transparent;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            display: inline-block;
+        }
+
+        .btn-luxury::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 0; height: 100%;
+            background: var(--accent-gold);
+            transition: all 0.4s ease;
+            z-index: -1;
+        }
+
+        .btn-luxury:hover::before { width: 100%; }
+        .btn-luxury:hover { color: #fff; transform: translateY(-2px); box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
+
+        .btn-outline-luxury {
+            background: transparent;
+            color: var(--text-main);
+            border: 1px solid var(--accent-primary);
+            padding: 12px 30px;
+            border-radius: 30px;
+            transition: all 0.4s ease;
+            display: inline-block;
+        }
+        .btn-outline-luxury:hover {
+            background: var(--accent-primary);
+            color: var(--btn-text);
+        }
+
+        .section-padding { padding: 120px 0; }
+        .subtitle {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--accent-gold);
+            display: block;
+            margin-bottom: 15px;
+        }
+
+        /* ==========================================
+           CUSTOM CURSOR
+           ========================================== */
+        .cursor-dot, .cursor-outline {
+            position: fixed;
+            top: 0; left: 0;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            z-index: 99999;
+            pointer-events: none;
+        }
+        .cursor-dot {
+            width: 8px; height: 8px;
+            background-color: var(--accent-gold);
+        }
+        .cursor-outline {
+            width: 40px; height: 40px;
+            border: 1px solid var(--accent-primary);
+            transition: width 0.2s, height 0.2s, background-color 0.2s, border-color 0.8s ease;
+        }
+        .cursor-hover .cursor-outline {
+            width: 60px; height: 60px;
+            background-color: rgba(200, 155, 60, 0.15);
+            border-color: var(--accent-gold);
+        }
+        @media (max-width: 991px) {
+            .cursor-dot, .cursor-outline { display: none; }
+            * { cursor: auto !important; }
+        }
+
+        /* ==========================================
+           PRELOADER
+           ========================================== */
+        #preloader {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100vh;
+            background: var(--bg-color);
+            z-index: 10000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 1s ease, visibility 1s ease;
+        }
+        .loader-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            color: var(--text-main);
+            margin-bottom: 20px;
+            letter-spacing: 5px;
+            opacity: 0;
+            animation: fadeInLogo 1s forwards 0.3s;
+        }
+        .loader-cup {
+            width: 60px; height: 60px;
+            border: 3px solid var(--accent-gold);
+            border-radius: 0 0 30px 30px;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 25px;
+        }
+        .loader-cup::after {
+            content: ''; position: absolute;
+            bottom: 0; left: 0; width: 100%; height: 0%;
+            background: var(--accent-primary);
+            animation: fillCup 2s ease-in-out forwards;
+        }
+        .loader-steam {
+            position: absolute; top: -30px; left: 50%;
+            transform: translateX(-50%);
+            display: flex; gap: 5px;
+        }
+        .loader-steam span {
+            width: 4px; height: 15px; background: var(--text-muted);
+            border-radius: 50%; opacity: 0;
+            animation: steamAnim 1.5s infinite;
+        }
+        .loader-steam span:nth-child(2) { animation-delay: 0.3s; }
+        .loader-steam span:nth-child(3) { animation-delay: 0.6s; }
+        
+        .loading-line {
+            width: 200px; height: 2px;
+            background: var(--glass-border);
+            position: relative; overflow: hidden;
+        }
+        .loading-line::after {
+            content: ''; position: absolute;
+            top: 0; left: 0; height: 100%; width: 0%;
+            background: var(--accent-gold);
+            animation: loadingProgress 2.2s ease forwards;
+        }
+
+        @keyframes fillCup { to { height: 85%; } }
+        @keyframes fadeInLogo { to { opacity: 1; } }
+        @keyframes steamAnim { 0% { transform: translateY(0) scale(1); opacity: 0; } 50% { opacity: 0.6; } 100% { transform: translateY(-20px) scale(2); opacity: 0; } }
+        @keyframes loadingProgress { to { width: 100%; } }
+
+        /* ==========================================
+           NAVBAR
+           ========================================== */
+        .navbar-custom {
+            position: fixed; top: 0; left: 0; width: 100%;
+            padding: 20px 0; z-index: 1000;
+            transition: all 0.4s ease;
+            background: transparent;
+        }
+        .navbar-custom.scrolled {
+            padding: 12px 0;
+            background: var(--nav-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        .navbar-brand {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: var(--text-main) !important;
+            letter-spacing: 2px;
+        }
+        .nav-link {
+            color: var(--text-main) !important;
+            font-weight: 400;
+            font-size: 0.95rem;
+            margin: 0 10px;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        .nav-link::after {
+            content: ''; position: absolute;
+            bottom: 0; left: 50%; width: 0; height: 1px;
+            background: var(--accent-gold);
+            transition: all 0.3s ease; transform: translateX(-50%);
+        }
+        .nav-link:hover::after { width: 100%; }
+        
+        /* Theme Switcher */
+        .theme-switch {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            width: 60px; height: 30px;
+            border-radius: 30px; position: relative;
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 6px; cursor: pointer;
+        }
+        .theme-switch i { color: var(--text-main); font-size: 14px; z-index: 2; transition: all 0.5s ease;}
+        .theme-switch .toggler {
+            position: absolute; top: 2px; left: 2px;
+            width: 24px; height: 24px; border-radius: 50%;
+            background: var(--accent-primary);
+            transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            z-index: 1;
+        }
+        [data-theme="dark"] .theme-switch .toggler { transform: translateX(30px); }
+        [data-theme="dark"] .theme-switch .bi-moon-fill { color: #000; }
+        [data-theme="light"] .theme-switch .bi-sun-fill { color: #fff; }
+
+        /* ==========================================
+           HERO SECTION
+           ========================================== */
+        .hero {
+            height: 100vh;
+            position: relative;
+            display: flex; align-items: center;
+            overflow: hidden;
+        }
+        .hero-bg {
+            position: absolute; top: 0; left: 0; width: 100%; height: 110%;
+            background: url('https://images.unsplash.com/photo-1509042239860-f550ce710b93?q=80&w=2147&auto=format&fit=crop') center/cover;
+            z-index: 0;
+            filter: brightness(0.65);
+        }
+        .hero-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to right, rgba(11,11,11,0.85) 0%, rgba(11,11,11,0.2) 100%);
+            z-index: 1; transition: background 0.8s ease;
+        }
+        [data-theme="light"] .hero-overlay {
+            background: linear-gradient(to right, rgba(255,248,240,0.85) 0%, rgba(255,248,240,0.2) 100%);
+        }
+        #hero-canvas {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 2; pointer-events: none;
+        }
+        .hero-content {
+            position: relative; z-index: 3;
+            max-width: 750px;
+        }
+        .hero h1 {
+            font-size: clamp(3rem, 6vw, 5.5rem);
+            line-height: 1.1; margin-bottom: 20px;
+            color: var(--text-main);
+        }
+        .hero p { font-size: 1.15rem; margin-bottom: 40px; color: var(--text-muted); max-width: 520px;}
+        
+        /* 3D Floating Cup Card */
+        .hero-card-wrapper {
+            perspective: 1000px;
+            position: absolute; right: 10%; top: 50%; transform: translateY(-50%);
+            z-index: 3;
+            display: none;
+        }
+        @media (min-width: 992px) { .hero-card-wrapper { display: block; } }
+        .hero-floating-card {
+            width: 300px; height: 380px;
+            border-radius: 20px;
+            padding: 24px;
+            display: flex; flex-direction: column; justify-content: flex-end;
+            background: url('https://images.unsplash.com/photo-1541167760496-1628856ab772?q=80&w=1937&auto=format&fit=crop') center/cover;
+            position: relative;
+            transform-style: preserve-3d;
+            box-shadow: 0 30px 50px rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.15);
+        }
+        .hero-floating-card::before {
+            content: ''; position: absolute; inset: 0; border-radius: 20px;
+            background: linear-gradient(to top, rgba(0,0,0,0.85), transparent);
+        }
+        .card-content-3d {
+            transform: translateZ(40px);
+            position: relative; color: #fff;
+        }
+        
+        /* CSS Steam Effect */
+        .steam-container { position: absolute; top: -100px; left: 50%; transform: translateX(-50%); width: 100px; height: 100px; z-index: 10;}
+        .steam {
+            position: absolute; width: 20px; height: 20px; background: #FFF; border-radius: 50%;
+            filter: blur(8px); opacity: 0;
+            animation: rise 4s infinite ease-in;
+        }
+        .steam:nth-child(1) { left: 10px; animation-delay: 0s; }
+        .steam:nth-child(2) { left: 40px; animation-delay: 1s; width: 30px; height: 30px; }
+        .steam:nth-child(3) { left: 70px; animation-delay: 2s; }
+        @keyframes rise {
+            0% { transform: translateY(0) scale(1); opacity: 0; }
+            50% { opacity: 0.3; }
+            100% { transform: translateY(-150px) scale(3); opacity: 0; }
+        }
+
+        /* ==========================================
+           BEAN EXPERIENCE / STORY
+           ========================================== */
+        .timeline-section { background-color: var(--surface-color); transition: background-color 0.8s ease; overflow: hidden;}
+        .timeline-container {
+            display: flex; gap: 30px; padding: 30px 0;
+            overflow-x: auto; scroll-snap-type: x mandatory;
+            scrollbar-width: none;
+        }
+        .timeline-container::-webkit-scrollbar { display: none; }
+        .timeline-item {
+            min-width: 280px; flex: 1 0 280px;
+            scroll-snap-align: center;
+            padding: 30px; border-radius: 20px;
+            background: var(--card-bg);
+            border: 1px solid var(--glass-border);
+            position: relative;
+            transition: transform 0.4s ease, border-color 0.4s ease;
+        }
+        .timeline-item:hover {
+            transform: translateY(-8px);
+            border-color: var(--accent-gold);
+        }
+        .timeline-icon {
+            width: 55px; height: 55px; border-radius: 50%; background: var(--accent-primary);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 22px; color: var(--btn-text); margin-bottom: 20px;
+        }
+        
+        /* ==========================================
+           SIGNATURE MENU
+           ========================================== */
+        .menu-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        .menu-card {
+            background: var(--card-bg);
+            border-radius: 24px; overflow: hidden;
+            border: 1px solid var(--glass-border);
+            transition: all 0.8s ease;
+            position: relative;
+            transform-style: preserve-3d;
+        }
+        .menu-img-wrap {
+            height: 240px; overflow: hidden; position: relative;
+        }
+        .menu-img-wrap img {
+            width: 100%; height: 100%; object-fit: cover;
+            transition: transform 0.8s ease;
+        }
+        .menu-card:hover .menu-img-wrap img { transform: scale(1.08); }
+        .menu-content { padding: 25px; transform: translateZ(30px); }
+        .menu-price {
+            position: absolute; top: 20px; right: 20px;
+            background: var(--glass-bg); backdrop-filter: blur(10px);
+            padding: 8px 15px; border-radius: 20px; font-weight: 600;
+            color: var(--accent-gold); border: 1px solid var(--glass-border);
+            z-index: 2;
+        }
+
+        /* ==========================================
+           BARISTA & EXPERIENCE
+           ========================================== */
+        .editorial-grid {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center;
+        }
+        @media (max-width: 768px) { .editorial-grid { grid-template-columns: 1fr; } }
+        .img-mask {
+            border-radius: 30px 150px 30px 30px; overflow: hidden;
+            position: relative; height: 500px;
+        }
+        .img-mask img { width: 100%; height: 100%; object-fit: cover; }
+        
+        .experience-tabs {
+            display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; margin-bottom: 40px;
+        }
+        .exp-tab {
+            background: var(--card-bg); border: 1px solid var(--glass-border);
+            padding: 10px 25px; border-radius: 30px; color: var(--text-main);
+            transition: all 0.3s ease; cursor: pointer;
+        }
+        .exp-tab.active, .exp-tab:hover { background: var(--accent-primary); color: var(--btn-text); }
+        
+        /* ==========================================
+           ONLINE ORDER UI
+           ========================================== */
+        .order-ui-section { background-color: var(--surface-color); transition: background-color 0.8s ease;}
+        .filter-btn {
+            background: transparent; border: none; color: var(--text-muted);
+            font-size: 1.05rem; padding: 5px 15px; position: relative; transition: color 0.3s;
+        }
+        .filter-btn.active { color: var(--accent-gold); font-weight: 600; }
+        .filter-btn::after {
+            content: ''; position: absolute; bottom: 0; left: 50%; width: 0; height: 2px;
+            background: var(--accent-gold); transition: all 0.3s ease; transform: translateX(-50%);
+        }
+        .filter-btn.active::after { width: 100%; }
+        
+        .product-card {
+            background: var(--bg-color); border: 1px solid var(--glass-border);
+            border-radius: 20px; padding: 25px; text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            height: 100%; display: flex; flex-direction: column; justify-content: space-between;
+        }
+        .product-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-subtle); }
+        .product-img { width: 140px; height: 140px; border-radius: 50%; object-fit: cover; margin: 0 auto 20px; border: 4px solid var(--surface-color);}
+
+        /* ==========================================
+           RESERVATION SYSTEM
+           ========================================== */
+        .reservation-box {
+            padding: 50px; border-radius: 30px;
+            position: relative; overflow: hidden;
+        }
+        .form-control-custom {
+            background: var(--bg-color); border: 1px solid var(--glass-border);
+            color: var(--text-main); padding: 14px 20px; border-radius: 15px;
+            width: 100%; transition: all 0.3s; margin-bottom: 20px;
+        }
+        .form-control-custom:focus { outline: none; border-color: var(--accent-gold); box-shadow: 0 0 0 3px rgba(200,155,60,0.2); }
+
+        /* ==========================================
+           GALLERY MASONRY
+           ========================================== */
+        .gallery-masonry {
+            column-count: 3; column-gap: 20px;
+        }
+        @media (max-width: 991px) { .gallery-masonry { column-count: 2; } }
+        @media (max-width: 575px) { .gallery-masonry { column-count: 1; } }
+        .gallery-item {
+            break-inside: avoid; margin-bottom: 20px; border-radius: 15px;
+            overflow: hidden; position: relative; cursor: pointer;
+        }
+        .gallery-item img { width: 100%; display: block; transition: transform 0.5s; }
+        .gallery-overlay {
+            position: absolute; inset: 0; background: rgba(0,0,0,0.5);
+            display: flex; align-items: center; justify-content: center;
+            opacity: 0; transition: opacity 0.3s;
+        }
+        .gallery-item:hover img { transform: scale(1.05); }
+        .gallery-item:hover .gallery-overlay { opacity: 1; }
+        .gallery-overlay i { color: #fff; font-size: 2rem; transform: translateY(20px); transition: transform 0.3s; }
+        .gallery-item:hover .gallery-overlay i { transform: translateY(0); }
+
+        /* ==========================================
+           TESTIMONIALS & STATS
+           ========================================== */
+        .testimonial-card {
+            background: var(--glass-bg); border: 1px solid var(--glass-border);
+            padding: 40px; border-radius: 20px; text-align: center;
+        }
+        .client-img { width: 75px; height: 75px; border-radius: 50%; object-fit: cover; margin-bottom: 20px; border: 3px solid var(--accent-gold);}
+        
+        .stat-item { text-align: center; padding: 30px; border-right: 1px solid var(--glass-border); }
+        .stat-item:last-child { border: none; }
+        @media (max-width: 768px) { .stat-item { border-right: none; border-bottom: 1px solid var(--glass-border); } }
+        .stat-num { font-size: 3.5rem; color: var(--accent-gold); font-family: 'Playfair Display', serif; }
+
+        /* ==========================================
+           FOOTER & EXTRAS
+           ========================================== */
+        footer {
+            background: var(--surface-color); padding: 80px 0 40px; border-top: 1px solid var(--glass-border);
+            transition: background-color 0.8s ease;
+        }
+        .footer-social a {
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 40px; height: 40px; border-radius: 50%;
+            background: var(--card-bg); color: var(--text-main); margin-right: 10px;
+            transition: all 0.3s; border: 1px solid var(--glass-border);
+        }
+        .footer-social a:hover { background: var(--accent-gold); color: #fff; transform: translateY(-3px); }
+        
+        .floating-btns { position: fixed; bottom: 30px; right: 30px; z-index: 999; display: flex; flex-direction: column; gap: 15px; }
+        .f-btn {
+            width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            color: #fff; font-size: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); transition: transform 0.3s, opacity 0.3s;
+        }
+        .f-btn:hover { transform: scale(1.1); }
+        .whatsapp-btn { background: #25D366; }
+        .top-btn { background: var(--accent-primary); opacity: 0; pointer-events: none; }
+        .top-btn.visible { opacity: 1; pointer-events: auto; }
+
+        /* Modal Styles */
+        .modal-content { background: var(--bg-color); border: 1px solid var(--glass-border); color: var(--text-main); border-radius: 20px;}
+        .modal-header { border-bottom-color: var(--glass-border); }
+        .modal-footer { border-top-color: var(--glass-border); }
+        .btn-close-custom { background: none; border: none; font-size: 1.5rem; color: var(--text-main); }
+
+        /* Cookie Popup */
+        #cookie-popup {
+            position: fixed; bottom: -100px; left: 20px; z-index: 10000;
+            padding: 20px 25px; border-radius: 16px; max-width: 380px;
+            transition: bottom 0.5s ease;
+        }
+        #cookie-popup.show { bottom: 20px; }
+    </style>
+</head>
+<body>
+
+    <!-- CUSTOM CURSOR -->
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
+
+    <!-- PRELOADER -->
+    <div id="preloader">
+        <div class="loader-cup">
+            <div class="loader-steam">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="loading-line"></div>
+        <div class="loader-logo">L'AURA</div>
+    </div>
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-custom">
+        <div class="container">
+            <a class="navbar-brand hover-target" href="#">L'AURA</a>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <i class="bi bi-list fs-1" style="color: var(--text-main);"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item"><a class="nav-link hover-target" href="#home">Home</a></li>
+                    <li class="nav-item"><a class="nav-link hover-target" href="#story">Story</a></li>
+                    <li class="nav-item"><a class="nav-link hover-target" href="#menu">Menu</a></li>
+                    <li class="nav-item"><a class="nav-link hover-target" href="#experience">Experience</a></li>
+                    <li class="nav-item"><a class="nav-link hover-target" href="#gallery">Gallery</a></li>
+                    <li class="nav-item"><a class="nav-link hover-target" href="#reservation">Reservation</a></li>
+                </ul>
+                <div class="d-flex align-items-center gap-4 mt-3 mt-lg-0">
+                    <!-- Theme Switcher -->
+                    <div class="theme-switch hover-target" id="themeToggle" title="Toggle Light/Dark Theme">
+                        <i class="bi bi-sun-fill"></i>
+                        <div class="toggler"></div>
+                        <i class="bi bi-moon-fill"></i>
+                    </div>
+                    <a href="#order" class="btn-outline-luxury hover-target" style="padding: 8px 20px; font-size: 0.9rem;">Order Online</a>
+                    <a href="#reservation" class="btn-luxury hover-target" style="padding: 8px 20px; font-size: 0.9rem;">Book Table</a>
+                    <a href="#" class="text-main hover-target" data-bs-toggle="modal" data-bs-target="#cartModal"><i class="bi bi-bag fs-5"></i> <span id="cartCountBadge" class="badge bg-warning text-dark rounded-circle ms-1">0</span></a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- FLOATING BUTTONS -->
+    <div class="floating-btns">
+        <a href="https://wa.me/1234567890" target="_blank" class="f-btn whatsapp-btn hover-target" title="Chat on WhatsApp"><i class="bi bi-whatsapp"></i></a>
+        <a href="#" class="f-btn top-btn hover-target" id="backToTop" title="Back to Top"><i class="bi bi-arrow-up"></i></a>
+    </div>
+
+    <!-- COOKIE CONSENT POPUP -->
+    <div id="cookie-popup" class="glass shadow-lg">
+        <p class="small mb-2" style="color: var(--text-main);">We use artisanal cookies to enhance your online coffee browsing experience.</p>
+        <div class="d-flex gap-2">
+            <button class="btn-luxury py-1 px-3 fs-6 hover-target" onclick="acceptCookies()">Accept</button>
+            <button class="btn-outline-luxury py-1 px-3 fs-6 hover-target" onclick="acceptCookies()">Decline</button>
+        </div>
+    </div>
+
+    <main>
+        <!-- HERO SECTION -->
+        <section id="home" class="hero">
+            <div class="hero-bg" id="heroBg"></div>
+            <div class="hero-overlay"></div>
+            <canvas id="hero-canvas"></canvas>
+            
+            <div class="container h-100 position-relative">
+                <div class="row h-100 align-items-center">
+                    <div class="col-lg-8 hero-content" data-aos="fade-up" data-aos-duration="1500">
+                        <span class="subtitle">Welcome to 2028</span>
+                        <h1>Experience Coffee<br>Beyond Ordinary.</h1>
+                        <p>A cinematic journey through taste. Crafted moments, roasted perfection, served in a universe of luxury minimalism.</p>
+                        <div class="d-flex gap-3">
+                            <a href="#menu" class="btn-luxury hover-target">Explore Collection</a>
+                            <a href="#reservation" class="btn-outline-luxury hover-target d-none d-sm-inline-block">Reserve Table</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 3D Floating Cup Card -->
+                <div class="hero-card-wrapper" id="hero3DCard">
+                    <div class="hero-floating-card hover-target">
+                        <div class="steam-container">
+                            <div class="steam"></div><div class="steam"></div><div class="steam"></div>
+                        </div>
+                        <div class="card-content-3d">
+                            <h4 class="mb-1">Signature Reserve</h4>
+                            <p class="text-gold mb-0 small">Ethiopian Yirgacheffe Pour-Over</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- STORY / BEAN EXPERIENCE -->
+        <section id="story" class="section-padding timeline-section">
+            <div class="container">
+                <div class="text-center mb-5" data-aos="fade-up">
+                    <span class="subtitle">The Journey</span>
+                    <h2 class="display-font fs-1">Seed to Cup Alchemy</h2>
+                </div>
+                
+                <div class="timeline-container" id="timelineScroll">
+                    <div class="timeline-item hover-target" data-aos="fade-right" data-aos-delay="100">
+                        <div class="timeline-icon"><i class="bi bi-geo-alt"></i></div>
+                        <h4 class="display-font">1. Origin</h4>
+                        <p class="text-muted small">Sourced from high-altitude volcanic soils, hand-picked at peak ripeness by generational farmers.</p>
+                    </div>
+                    <div class="timeline-item hover-target" data-aos="fade-right" data-aos-delay="200">
+                        <div class="timeline-icon"><i class="bi bi-fire"></i></div>
+                        <h4 class="display-font">2. Roasting</h4>
+                        <p class="text-muted small">Our master roaster uses infrared technology to pull precise flavor profiles, highlighting natural sweetness.</p>
+                    </div>
+                    <div class="timeline-item hover-target" data-aos="fade-right" data-aos-delay="300">
+                        <div class="timeline-icon"><i class="bi bi-sliders"></i></div>
+                        <h4 class="display-font">3. Grinding</h4>
+                        <p class="text-muted small">Precision burr grinders measure particle size to the micron, ensuring perfectly even extraction.</p>
+                    </div>
+                    <div class="timeline-item hover-target" data-aos="fade-right" data-aos-delay="400">
+                        <div class="timeline-icon"><i class="bi bi-cup-hot"></i></div>
+                        <h4 class="display-font">4. Brewing</h4>
+                        <p class="text-muted small">Extracted using pressure profiling and water mineral balancing for the ultimate sensory experience.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- BARISTA EDITORIAL -->
+        <section class="section-padding">
+            <div class="container">
+                <div class="editorial-grid">
+                    <div class="img-mask" data-aos="zoom-in-right">
+                        <img src="https://images.unsplash.com/photo-1600093463592-8e36ae95ef56?q=80&w=2070&auto=format&fit=crop" alt="Master Barista Kenji" loading="lazy">
+                    </div>
+                    <div data-aos="fade-left">
+                        <span class="subtitle">The Craftsman</span>
+                        <h2 class="display-font fs-1 mb-4">Meet Kenji,<br>Our Master Brewer</h2>
+                        <p class="text-muted mb-4">"Coffee is not just a beverage; it's a fluid narrative of geography, climate, and human dedication. My goal is to translate that story into your cup."</p>
+                        <ul class="mb-4 text-muted small">
+                            <li class="mb-2"><i class="bi bi-award text-gold me-2"></i> World Barista Champion 2026</li>
+                            <li class="mb-2"><i class="bi bi-star text-gold me-2"></i> Certified Q-Grader</li>
+                        </ul>
+                        <div class="font-heading fs-3 text-gold">Kenji Takahashi</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SIGNATURE MENU -->
+        <section id="menu" class="section-padding timeline-section">
+            <div class="container">
+                <div class="d-flex justify-content-between align-items-end mb-5" data-aos="fade-up">
+                    <div>
+                        <span class="subtitle">Curated Selection</span>
+                        <h2 class="display-font fs-1 mb-0">Signature Menu</h2>
+                    </div>
+                    <a href="#order" class="btn-outline-luxury d-none d-md-block hover-target">Full Menu</a>
+                </div>
+
+                <div class="menu-grid">
+                    <!-- Item 1 -->
+                    <div class="menu-card tilt-card hover-target" data-aos="fade-up" data-aos-delay="100">
+                        <div class="menu-price">$8.00</div>
+                        <div class="menu-img-wrap">
+                            <img src="https://images.unsplash.com/photo-1572442388796-11668a67e53d?q=80&w=2135&auto=format&fit=crop" alt="Espresso" loading="lazy">
+                        </div>
+                        <div class="menu-content">
+                            <h4 class="display-font">Gold Reserve Espresso</h4>
+                            <p class="text-muted small mb-3">Notes of dark chocolate, black cherry, and a hint of truffle.</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="text-gold"><i class="bi bi-star-fill"></i> 4.9</span>
+                                <button class="btn btn-sm btn-outline-warning rounded-circle" onclick="addToCart('Gold Reserve Espresso', 8.00)"><i class="bi bi-plus"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Item 2 -->
+                    <div class="menu-card tilt-card hover-target" data-aos="fade-up" data-aos-delay="200">
+                        <div class="menu-price">$12.00</div>
+                        <div class="menu-img-wrap">
+                            <img src="https://images.unsplash.com/photo-1497935586351-b67a49e012bf?q=80&w=1975&auto=format&fit=crop" alt="Latte" loading="lazy">
+                        </div>
+                        <div class="menu-content">
+                            <h4 class="display-font">Smoked Vanilla Latte</h4>
+                            <p class="text-muted small mb-3">Madagascar vanilla infused with oak smoke, silky oat milk.</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="text-gold"><i class="bi bi-star-fill"></i> 4.8</span>
+                                <button class="btn btn-sm btn-outline-warning rounded-circle" onclick="addToCart('Smoked Vanilla Latte', 12.00)"><i class="bi bi-plus"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Item 3 -->
+                    <div class="menu-card tilt-card hover-target" data-aos="fade-up" data-aos-delay="300">
+                        <div class="menu-price">$14.00</div>
+                        <div class="menu-img-wrap">
+                            <img src="https://images.unsplash.com/photo-1517701550927-30cfcb64c5d5?q=80&w=1975&auto=format&fit=crop" alt="Cold Brew" loading="lazy">
+                        </div>
+                        <div class="menu-content">
+                            <h4 class="display-font">Kyoto Drip Cold Brew</h4>
+                            <p class="text-muted small mb-3">12-hour slow drip over ice. Notes of jasmine and peach.</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="text-gold"><i class="bi bi-star-fill"></i> 5.0</span>
+                                <button class="btn btn-sm btn-outline-warning rounded-circle" onclick="addToCart('Kyoto Drip Cold Brew', 14.00)"><i class="bi bi-plus"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CAFE EXPERIENCE & DESSERTS -->
+        <section id="experience" class="section-padding">
+            <div class="container">
+                <div class="text-center mb-5" data-aos="fade-up">
+                    <span class="subtitle">Atmosphere</span>
+                    <h2 class="display-font fs-1">Your Space, Your Time</h2>
+                </div>
+
+                <div class="experience-tabs" data-aos="fade-up">
+                    <button class="exp-tab active hover-target" onclick="changeExp('morning', this)">Morning Focus</button>
+                    <button class="exp-tab hover-target" onclick="changeExp('lounge', this)">Evening Lounge</button>
+                    <button class="exp-tab hover-target" onclick="changeExp('dessert', this)">Dessert Pairing</button>
+                </div>
+
+                <!-- Exp Content -->
+                <div id="exp-content" class="row align-items-center" data-aos="fade-in">
+                    <div class="col-lg-6 mb-4 mb-lg-0">
+                        <div class="img-mask" style="border-radius: 20px;">
+                            <img id="exp-img" src="https://images.unsplash.com/photo-1525610553991-2bede1a236e2?q=80&w=2070&auto=format&fit=crop" alt="Morning" loading="lazy" style="height: 480px;">
+                        </div>
+                    </div>
+                    <div class="col-lg-5 offset-lg-1">
+                        <h3 id="exp-title" class="display-font mb-4 fs-2">The Quiet Dawn</h3>
+                        <p id="exp-text" class="text-muted mb-4">Start your day in our serene glass atrium. High-speed Wi-Fi, individual lighting controls, and the perfect flat white to fuel your deep work sessions.</p>
+                        <a href="#reservation" class="btn-luxury hover-target">Book Workspace</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ONLINE ORDER UI -->
+        <section id="order" class="section-padding timeline-section">
+            <div class="container">
+                <div class="text-center mb-5" data-aos="fade-up">
+                    <span class="subtitle">Order Online</span>
+                    <h2 class="display-font fs-1">Digital Coffee Atelier</h2>
+                </div>
+
+                <div class="d-flex justify-content-center gap-4 mb-5 flex-wrap" data-aos="fade-up">
+                    <button class="filter-btn active hover-target" onclick="filterProducts('all', this)">All</button>
+                    <button class="filter-btn hover-target" onclick="filterProducts('coffee', this)">Coffee</button>
+                    <button class="filter-btn hover-target" onclick="filterProducts('pastry', this)">Pastries</button>
+                    <button class="filter-btn hover-target" onclick="filterProducts('beans', this)">Whole Beans</button>
+                </div>
+
+                <div class="row g-4" id="productGrid">
+                    <!-- Products generated dynamically via JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- RESERVATION -->
+        <section id="reservation" class="section-padding" style="position: relative; overflow: hidden;">
+            <div class="hero-bg" style="background: url('https://images.unsplash.com/photo-1554118811-1e0d58224f24?q=80&w=2047&auto=format&fit=crop') center/cover; filter: brightness(0.4);"></div>
+            <div class="container position-relative z-index-3">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <div class="glass reservation-box" data-aos="zoom-in">
+                            <div class="text-center mb-4">
+                                <span class="subtitle">Secure Your Spot</span>
+                                <h2 class="display-font fs-1">Reserve a Table</h2>
+                            </div>
+                            <form id="bookingForm" onsubmit="handleReservation(event)">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control-custom hover-target" placeholder="Full Name" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="email" class="form-control-custom hover-target" placeholder="Email Address" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="date" class="form-control-custom hover-target" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="time" class="form-control-custom hover-target" required>
+                                    </div>
+                                    <div class="col-12">
+                                        <select class="form-control-custom hover-target" required>
+                                            <option value="" disabled selected>Number of Guests</option>
+                                            <option value="1">1 Person (Quiet Bar)</option>
+                                            <option value="2">2 People (Lounge Table)</option>
+                                            <option value="4">4 People (VIP Atrium)</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-12 text-center mt-3">
+                                        <button type="submit" class="btn-luxury w-100 hover-target">Confirm Reservation</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- GALLERY -->
+        <section id="gallery" class="section-padding timeline-section">
+            <div class="container">
+                <div class="text-center mb-5" data-aos="fade-up">
+                    <span class="subtitle">Visuals</span>
+                    <h2 class="display-font fs-1">The Art of Coffee</h2>
+                </div>
+                
+                <div class="gallery-masonry">
+                    <div class="gallery-item hover-target" data-aos="fade-up">
+                        <img src="https://images.unsplash.com/photo-1498804103079-a6351b050096?q=80&w=1974&auto=format&fit=crop" alt="Latte Art" loading="lazy">
+                        <div class="gallery-overlay"><i class="bi bi-search"></i></div>
+                    </div>
+                    <div class="gallery-item hover-target" data-aos="fade-up" data-aos-delay="100">
+                        <img src="https://images.unsplash.com/photo-1559525839-b184a4d698c7?q=80&w=1974&auto=format&fit=crop" alt="Interior" loading="lazy">
+                        <div class="gallery-overlay"><i class="bi bi-search"></i></div>
+                    </div>
+                    <div class="gallery-item hover-target" data-aos="fade-up" data-aos-delay="200">
+                        <img src="https://images.unsplash.com/photo-1611162458324-aae1eb4129a4?q=80&w=1974&auto=format&fit=crop" alt="Pour Over" loading="lazy">
+                        <div class="gallery-overlay"><i class="bi bi-search"></i></div>
+                    </div>
+                    <div class="gallery-item hover-target" data-aos="fade-up">
+                        <img src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?q=80&w=1974&auto=format&fit=crop" alt="Beans" loading="lazy">
+                        <div class="gallery-overlay"><i class="bi bi-search"></i></div>
+                    </div>
+                    <div class="gallery-item hover-target" data-aos="fade-up" data-aos-delay="100">
+                        <img src="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?q=80&w=1974&auto=format&fit=crop" alt="Dessert" loading="lazy">
+                        <div class="gallery-overlay"><i class="bi bi-search"></i></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- REVIEWS & STATS -->
+        <section class="section-padding">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-5 mb-5 mb-lg-0" data-aos="fade-right">
+                        <span class="subtitle">Global Recognition</span>
+                        <h2 class="display-font fs-1 mb-4">What Our Patrons Say</h2>
+                        
+                        <!-- Swiper Testimonials -->
+                        <div class="swiper reviewSwiper">
+                            <div class="swiper-wrapper">
+                                <div class="swiper-slide">
+                                    <div class="testimonial-card">
+                                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=1964&auto=format&fit=crop" class="client-img" alt="Client">
+                                        <p class="fst-italic text-muted mb-3">"L'AURA isn't just a coffee shop. It's an elevated sensory ritual. The smoked vanilla latte is unmatched."</p>
+                                        <h5 class="display-font mb-0">Sophia Alva</h5>
+                                        <small class="text-gold">Architect, Milan</small>
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="testimonial-card">
+                                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1974&auto=format&fit=crop" class="client-img" alt="Client">
+                                        <p class="fst-italic text-muted mb-3">"The attention to temperature profiling and bean provenance blew my mind. Worth every single penny."</p>
+                                        <h5 class="display-font mb-0">David Chen</h5>
+                                        <small class="text-gold">Food Critic, NY</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="swiper-pagination mt-4"></div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6 offset-lg-1" data-aos="fade-left">
+                        <div class="row g-0 glass rounded-4 overflow-hidden">
+                            <div class="col-6 stat-item">
+                                <div class="stat-num" data-target="100">0</div>
+                                <div class="text-muted small">K+ Cups Served</div>
+                            </div>
+                            <div class="col-6 stat-item">
+                                <div class="stat-num" data-target="25">0</div>
+                                <div class="text-muted small">Single Origins</div>
+                            </div>
+                            <div class="col-6 stat-item">
+                                <div class="stat-num" data-target="15">0</div>
+                                <div class="text-muted small">Master Baristas</div>
+                            </div>
+                            <div class="col-6 stat-item">
+                                <div class="stat-num" data-target="10">0</div>
+                                <div class="text-muted small">Years Experience</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- LOCATION & MAP -->
+        <section class="section-padding timeline-section">
+            <div class="container">
+                <div class="row align-items-center g-5">
+                    <div class="col-lg-5" data-aos="fade-right">
+                        <span class="subtitle">Visit Atelier</span>
+                        <h2 class="display-font fs-1 mb-4">Find Sanctuary</h2>
+                        <p class="text-muted mb-4"><i class="bi bi-geo-alt text-gold me-2"></i> 74 Rue de Saint-Germain, Paris, France</p>
+                        <p class="text-muted mb-4"><i class="bi bi-clock text-gold me-2"></i> Mon-Sun: 07:00 AM – 10:00 PM</p>
+                        <p class="text-muted mb-4"><i class="bi bi-telephone text-gold me-2"></i> +33 1 42 68 55 00</p>
+                        <a href="https://maps.google.com" target="_blank" class="btn-luxury hover-target">Get Directions</a>
+                    </div>
+                    <div class="col-lg-7" data-aos="fade-left">
+                        <div class="glass p-3 rounded-4 overflow-hidden">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2624.9916256937595!2d2.3522219!3d48.856614!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e66e1f06e2b70f%3A0x40b82c3688c9460!2sParis%2C%20France!5e0!3m2!1sen!2s!4v1680000000000!5m2!1sen!2s" width="100%" height="380" style="border:0; border-radius: 15px;" allowfullscreen="" loading="lazy"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="row g-4 mb-5">
+                <div class="col-lg-4">
+                    <a class="navbar-brand mb-3 d-block" href="#">L'AURA</a>
+                    <p class="text-muted small mb-4">Crafted moments, roasted perfection. A luxury coffee universe built for the discerning palate.</p>
+                    <div class="footer-social">
+                        <a href="#" class="hover-target"><i class="bi bi-instagram"></i></a>
+                        <a href="#" class="hover-target"><i class="bi bi-twitter"></i></a>
+                        <a href="#" class="hover-target"><i class="bi bi-facebook"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 offset-lg-1 col-6">
+                    <h5 class="display-font mb-3">Links</h5>
+                    <a href="#home" class="footer-link hover-target">Home</a>
+                    <a href="#story" class="footer-link hover-target">Story</a>
+                    <a href="#menu" class="footer-link hover-target">Menu</a>
+                    <a href="#order" class="footer-link hover-target">Order</a>
+                </div>
+                <div class="col-lg-2 col-6">
+                    <h5 class="display-font mb-3">Legal</h5>
+                    <a href="#" class="footer-link hover-target">Privacy Policy</a>
+                    <a href="#" class="footer-link hover-target">Terms of Service</a>
+                    <a href="#" class="footer-link hover-target">Cookie Policy</a>
+                </div>
+                <div class="col-lg-3">
+                    <h5 class="display-font mb-3">Newsletter</h5>
+                    <p class="text-muted small mb-3">Join our private list for micro-lot roast releases.</p>
+                    <form onsubmit="handleNewsletter(event)">
+                        <input type="email" class="form-control-custom hover-target mb-2" placeholder="Your Email" required>
+                        <button type="submit" class="btn-luxury w-100 py-2 hover-target">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            <div class="text-center pt-4 border-top border-secondary opacity-50 small text-muted">
+                &copy; 2028 L'AURA Coffee Atelier. All Rights Reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- CART MODAL -->
+    <div class="modal fade" id="cartModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content glass">
+                <div class="modal-header">
+                    <h5 class="modal-title display-font">Your Order Tray</h5>
+                    <button type="button" class="btn-close-custom hover-target" data-bs-dismiss="modal"><i class="bi bi-x"></i></button>
+                </div>
+                <div class="modal-body">
+                    <div id="cartItemsList">
+                        <p class="text-muted text-center py-4">Your order tray is currently empty.</p>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center mt-3 pt-3 border-top border-secondary">
+                        <span class="fw-bold">Total:</span>
+                        <span class="fs-4 text-gold fw-bold" id="cartTotalAmount">$0.00</span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-luxury w-100 hover-target" onclick="checkoutOrder()">Proceed to Checkout</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        /* ==========================================
+           PRELOADER
+           ========================================== */
+        window.addEventListener('load', () => {
+            const preloader = document.getElementById('preloader');
+            setTimeout(() => {
+                preloader.style.opacity = '0';
+                preloader.style.visibility = 'hidden';
+            }, 2000);
+            
+            // Show cookie popup after preloader
+            setTimeout(() => {
+                document.getElementById('cookie-popup').classList.add('show');
+            }, 3500);
+        });
+
+        /* ==========================================
+           THEME SWITCHER
+           ========================================== */
+        const themeToggle = document.getElementById('themeToggle');
+        const currentTheme = localStorage.getItem('theme') || 'dark';
+        document.documentElement.setAttribute('data-theme', currentTheme);
+
+        themeToggle.addEventListener('click', () => {
+            let theme = document.documentElement.getAttribute('data-theme');
+            let newTheme = theme === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+        });
+
+        /* ==========================================
+           CUSTOM CURSOR
+           ========================================== */
+        const cursorDot = document.querySelector('.cursor-dot');
+        const cursorOutline = document.querySelector('.cursor-outline');
+
+        window.addEventListener('mousemove', (e) => {
+            const posX = e.clientX;
+            const posY = e.clientY;
+
+            cursorDot.style.left = `${posX}px`;
+            cursorDot.style.top = `${posY}px`;
+
+            cursorOutline.animate({
+                left: `${posX}px`,
+                top: `${posY}px`
+            }, { duration: 500, fill: "forwards" });
+        });
+
+        document.querySelectorAll('.hover-target, a, button').forEach(target => {
+            target.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
+            target.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
+        });
+
+        /* ==========================================
+           SMOOTH SCROLL (LENIS)
+           ========================================== */
+        const lenis = new Lenis({
+            duration: 1.2,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            direction: 'vertical',
+            smooth: true
+        });
+
+        function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+
+        // Navbar Scroll & Back To Top
+        const navbar = document.querySelector('.navbar-custom');
+        const backToTop = document.getElementById('backToTop');
+        
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+                backToTop.classList.add('visible');
+            } else {
+                navbar.classList.remove('scrolled');
+                backToTop.classList.remove('visible');
+            }
+        });
+
+        /* ==========================================
+           CANVAS PARTICLES (HERO STEAM/RAYS)
+           ========================================== */
+        const canvas = document.getElementById('hero-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 1;
+                this.speedY = Math.random() * -0.8 - 0.2;
+                this.opacity = Math.random() * 0.5 + 0.2;
+            }
+            update() {
+                this.y += this.speedY;
+                if (this.y < 0) {
+                    this.y = canvas.height;
+                    this.x = Math.random() * canvas.width;
+                }
+            }
+            draw() {
+                ctx.fillStyle = `rgba(200, 155, 60, ${this.opacity})`;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        for (let i = 0; i < 50; i++) particles.push(new Particle());
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(animateParticles);
+        }
+        animateParticles();
+
+        /* ==========================================
+           3D CARD TILT EFFECT
+           ========================================== */
+        const heroCard = document.getElementById('hero3DCard');
+        if(heroCard) {
+            document.addEventListener('mousemove', (e) => {
+                const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
+                const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
+                heroCard.style.transform = `translateY(-50%) rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+            });
+        }
+
+        /* ==========================================
+           EXPERIENCE TAB SWITCHER
+           ========================================== */
+        const expData = {
+            morning: {
+                img: "https://images.unsplash.com/photo-1525610553991-2bede1a236e2?q=80&w=2070&auto=format&fit=crop",
+                title: "The Quiet Dawn",
+                text: "Start your day in our serene glass atrium. High-speed Wi-Fi, individual lighting controls, and the perfect flat white to fuel your deep work sessions."
+            },
+            lounge: {
+                img: "https://images.unsplash.com/photo-1554118811-1e0d58224f24?q=80&w=2047&auto=format&fit=crop",
+                title: "Twilight Infusions",
+                text: "As dusk falls, our space transitions into an intimate espresso lounge. Featuring cold brew mocktails, jazz acoustics, and ambient ambient amber glow."
+            },
+            dessert: {
+                img: "https://images.unsplash.com/photo-1559525839-b184a4d698c7?q=80&w=1974&auto=format&fit=crop",
+                title: "Sweet Symphony",
+                text: "Handcrafted French pastries designed specifically to complement the floral acidity of our single-origin pour-overs. Made fresh twice daily."
+            }
+        };
+
+        function changeExp(key, btn) {
+            document.querySelectorAll('.exp-tab').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            const content = document.getElementById('exp-content');
+            content.style.opacity = 0;
+            setTimeout(() => {
+                document.getElementById('exp-img').src = expData[key].img;
+                document.getElementById('exp-title').textContent = expData[key].title;
+                document.getElementById('exp-text').textContent = expData[key].text;
+                content.style.opacity = 1;
+            }, 300);
+        }
+
+        /* ==========================================
+           PRODUCTS & DYNAMIC FILTERING
+           ========================================== */
+        const products = [
+            { id: 1, category: 'coffee', name: 'Ethiopian Geisha Pour-Over', price: 10.00, img: 'https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?q=80&w=500&auto=format&fit=crop' },
+            { id: 2, category: 'coffee', name: 'Velvet Flat White', price: 7.50, img: 'https://images.unsplash.com/photo-1577968897966-3d4325b36b61?q=80&w=500&auto=format&fit=crop' },
+            { id: 3, category: 'pastry', name: 'Almond Croissant', price: 6.00, img: 'https://images.unsplash.com/photo-1555507036-ab1f4038808a?q=80&w=500&auto=format&fit=crop' },
+            { id: 4, category: 'pastry', name: 'Pistachio Macaron Box', price: 15.00, img: 'https://images.unsplash.com/photo-1569864358642-9d1684040f43?q=80&w=500&auto=format&fit=crop' },
+            { id: 5, category: 'beans', name: 'Yirgacheffe Roast (250g)', price: 24.00, img: 'https://images.unsplash.com/photo-1559056199-641a0ac8b55e?q=80&w=500&auto=format&fit=crop' },
+            { id: 6, category: 'beans', name: 'Reserve Espresso Blend', price: 28.00, img: 'https://images.unsplash.com/photo-1587734195503-904fca47e0e9?q=80&w=500&auto=format&fit=crop' }
+        ];
+
+        function renderProducts(items) {
+            const grid = document.getElementById('productGrid');
+            grid.innerHTML = items.map(p => `
+                <div class="col-lg-4 col-md-6">
+                    <div class="product-card hover-target">
+                        <img src="${p.img}" class="product-img" alt="${p.name}">
+                        <h4 class="display-font mb-2">${p.name}</h4>
+                        <div class="text-gold fw-bold fs-5 mb-3">$${p.price.toFixed(2)}</div>
+                        <button class="btn-luxury py-2 hover-target" onclick="addToCart('${p.name}', ${p.price})">Add to Order</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        renderProducts(products);
+
+        function filterProducts(cat, btn) {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            if (cat === 'all') renderProducts(products);
+            else renderProducts(products.filter(p => p.category === cat));
+        }
+
+        /* ==========================================
+           CART SYSTEM
+           ========================================== */
+        let cart = [];
+
+        function addToCart(name, price) {
+            const existing = cart.find(item => item.name === name);
+            if (existing) existing.qty += 1;
+            else cart.push({ name, price, qty: 1 });
+            updateCart();
+        }
+
+        function updateCart() {
+            const count = cart.reduce((sum, item) => sum + item.qty, 0);
+            document.getElementById('cartCountBadge').textContent = count;
+
+            const list = document.getElementById('cartItemsList');
+            if (cart.length === 0) {
+                list.innerHTML = '<p class="text-muted text-center py-4">Your order tray is currently empty.</p>';
+                document.getElementById('cartTotalAmount').textContent = '$0.00';
+                return;
+            }
+
+            let total = 0;
+            list.innerHTML = cart.map(item => {
+                total += item.price * item.qty;
+                return `
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <div>
+                            <h6 class="mb-0">${item.name}</h6>
+                            <small class="text-gold">$${item.price.toFixed(2)} x ${item.qty}</small>
+                        </div>
+                        <div class="d-flex align-items-center gap-2">
+                            <button class="btn btn-sm btn-outline-secondary py-0" onclick="changeQty('${item.name}', -1)">-</button>
+                            <span>${item.qty}</span>
+                            <button class="btn btn-sm btn-outline-secondary py-0" onclick="changeQty('${item.name}', 1)">+</button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            document.getElementById('cartTotalAmount').textContent = `$${total.toFixed(2)}`;
+        }
+
+        function changeQty(name, delta) {
+            const item = cart.find(i => i.name === name);
+            if (item) {
+                item.qty += delta;
+                if (item.qty <= 0) cart = cart.filter(i => i.name !== name);
+            }
+            updateCart();
+        }
+
+        function checkoutOrder() {
+            if (cart.length === 0) {
+                alert('Please add items to your cart first.');
+                return;
+            }
+            alert('Thank you for your order! Your digital ticket has been sent to our barista counter.');
+            cart = [];
+            updateCart();
+            bootstrap.Modal.getInstance(document.getElementById('cartModal')).hide();
+        }
+
+        /* ==========================================
+           RESERVATION & FORMS
+           ========================================== */
+        function handleReservation(e) {
+            e.preventDefault();
+            alert('Reservation Confirmed! We look forward to welcoming you at L\'AURA.');
+            e.target.reset();
+        }
+
+        function handleNewsletter(e) {
+            e.preventDefault();
+            alert('Welcome to our private list! Check your inbox for roast invitations.');
+            e.target.reset();
+        }
+
+        function acceptCookies() {
+            document.getElementById('cookie-popup').classList.remove('show');
+        }
+
+        /* ==========================================
+           SWIPER & AOS INITIALIZATION
+           ========================================== */
+        AOS.init({ duration: 1000, once: true });
+
+        new Swiper(".reviewSwiper", {
+            loop: true,
+            autoplay: { delay: 4000, disableOnInteraction: false },
+            pagination: { el: ".swiper-pagination", clickable: true }
+        });
+
+        /* ==========================================
+           COUNTER ANIMATION ON SCROLL
+           ========================================== */
+        let statsTriggered = false;
+        window.addEventListener('scroll', () => {
+            const statsSection = document.querySelector('.stat-num');
+            if (statsSection && !statsTriggered) {
+                const rect = statsSection.getBoundingClientRect();
+                if (rect.top < window.innerHeight) {
+                    statsTriggered = true;
+                    document.querySelectorAll('.stat-num').forEach(counter => {
+                        const target = +counter.getAttribute('data-target');
+                        let count = 0;
+                        const inc = target / 50;
+                        const updateCount = () => {
+                            count += inc;
+                            if (count < target) {
+                                counter.innerText = Math.ceil(count);
+                                setTimeout(updateCount, 40);
+                            } else {
+                                counter.innerText = target;
+                            }
+                        };
+                        updateCount();
+                    });
+                }
+            }
+        });
+    </script>
+</body>
+</html>

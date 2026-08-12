@@ -1,0 +1,4633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>Solara Private Escapes — Live Beautifully, Somewhere Else</title>
+    <meta name="description" content="A curated collection of exceptional villas, coastal homes, island retreats and private residences designed for guests seeking privacy, beauty and meaningful travel." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <!-- Font Awesome 6 (Free) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <style>
+        /* ============================================================
+           CSS VARIABLES — Premium Warm Hospitality Palette
+           ============================================================ */
+        :root {
+            /* Light Theme (default) */
+            --background: #F5F0E8;
+            --background-secondary: #E7DCCF;
+            --surface: #FFFDF9;
+            --surface-soft: rgba(255, 253, 249, 0.75);
+            --surface-glass: rgba(255, 253, 249, 0.45);
+            --primary: #164A4D;
+            --primary-dark: #0E3537;
+            --secondary: #78958B;
+            --accent: #D87C62;
+            --accent-soft: rgba(216, 124, 98, 0.18);
+            --luxury-accent: #AE8658;
+            --text: #273331;
+            --text-muted: #777A74;
+            --border: #D8CDC0;
+            --shadow: rgba(39, 51, 49, 0.08);
+            --glow: rgba(216, 124, 98, 0.15);
+            --success: #4A8C6F;
+            --warning: #C9A86C;
+            --danger: #B55A4A;
+            --gradient-one: linear-gradient(145deg, #F5F0E8 0%, #E7DCCF 100%);
+            --gradient-two: linear-gradient(135deg, #164A4D 0%, #0E3537 100%);
+            --radius-sm: 8px;
+            --radius-md: 16px;
+            --radius-lg: 28px;
+            --radius-xl: 40px;
+            --transition: 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+            --transition-fast: 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+            --font-serif: 'Fraunces', 'Instrument Serif', serif;
+            --font-sans: 'Manrope', 'Inter', sans-serif;
+            --nav-height: 72px;
+            --bottom-nav-height: 72px;
+        }
+
+        /* Dark Theme */
+        [data-theme="dark"] {
+            --background: #081D20;
+            --background-secondary: #122D2F;
+            --surface: #1A3839;
+            --surface-soft: rgba(26, 56, 57, 0.85);
+            --surface-glass: rgba(26, 56, 57, 0.5);
+            --primary: #95C1B8;
+            --primary-dark: #6DA89D;
+            --secondary: #D6C2A8;
+            --accent: #DE8A70;
+            --accent-soft: rgba(222, 138, 112, 0.2);
+            --luxury-accent: #C5A06D;
+            --text: #F7F1E8;
+            --text-muted: #AAB4AF;
+            --border: #315052;
+            --shadow: rgba(0, 0, 0, 0.35);
+            --glow: rgba(222, 138, 112, 0.12);
+            --gradient-one: linear-gradient(145deg, #081D20 0%, #122D2F 100%);
+            --gradient-two: linear-gradient(135deg, #1A3839 0%, #081D20 100%);
+        }
+
+        /* ============================================================
+           RESET & BASE
+           ============================================================ */
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background: var(--background);
+            color: var(--text);
+            line-height: 1.6;
+            transition: background var(--transition), color var(--transition);
+            overflow-x: hidden;
+            padding-bottom: calc(var(--bottom-nav-height) + 24px);
+            min-height: 100vh;
+            min-height: 100dvh;
+        }
+
+        @media (min-width: 992px) {
+            body {
+                padding-bottom: 0;
+            }
+        }
+
+        img {
+            display: block;
+            max-width: 100%;
+            height: auto;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        button {
+            font: inherit;
+            cursor: pointer;
+            border: none;
+            background: none;
+            color: inherit;
+            touch-action: manipulation;
+        }
+
+        input,
+        select,
+        textarea {
+            font: inherit;
+            color: inherit;
+        }
+
+        ::selection {
+            background: var(--accent);
+            color: #fff;
+        }
+
+        /* ============================================================
+           SCROLLBAR
+           ============================================================ */
+        ::-webkit-scrollbar {
+            width: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--background);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 4px;
+        }
+
+        /* ============================================================
+           UTILITY
+           ============================================================ */
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        @media (min-width: 768px) {
+            .container {
+                padding: 0 40px;
+            }
+        }
+
+        @media (min-width: 1200px) {
+            .container {
+                padding: 0 60px;
+            }
+        }
+
+        .section-label {
+            font-size: 11px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            font-weight: 500;
+            margin-bottom: 10px;
+            display: inline-block;
+        }
+
+        .section-title {
+            font-family: var(--font-serif);
+            font-size: clamp(2rem, 5vw, 4rem);
+            line-height: 1.08;
+            font-weight: 400;
+            letter-spacing: -0.02em;
+            color: var(--text);
+        }
+
+        .section-title em {
+            font-style: italic;
+            color: var(--accent);
+        }
+
+        .section-title .highlight {
+            color: var(--primary);
+        }
+
+        .text-narrow {
+            max-width: 560px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .text-muted {
+            color: var(--text-muted);
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 14px 32px;
+            background: var(--primary);
+            color: #fff;
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            border-radius: var(--radius-lg);
+            transition: all var(--transition-fast);
+            position: relative;
+            overflow: hidden;
+            min-height: 52px;
+            touch-action: manipulation;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 32px var(--glow);
+            background: var(--primary-dark);
+        }
+
+        .btn-primary:active {
+            transform: scale(0.97);
+        }
+
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 12px 28px;
+            background: var(--surface);
+            color: var(--text);
+            font-size: 14px;
+            font-weight: 500;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            transition: all var(--transition-fast);
+            min-height: 48px;
+            touch-action: manipulation;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            box-shadow: 0 8px 24px var(--shadow);
+        }
+
+        .btn-accent {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 14px 32px;
+            background: var(--accent);
+            color: #fff;
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            border-radius: var(--radius-lg);
+            transition: all var(--transition-fast);
+            min-height: 52px;
+            touch-action: manipulation;
+        }
+
+        .btn-accent:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 32px var(--glow);
+            filter: brightness(1.05);
+        }
+
+        .btn-outline {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 10px 24px;
+            background: transparent;
+            color: var(--text);
+            font-size: 13px;
+            font-weight: 500;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            transition: all var(--transition-fast);
+            min-height: 44px;
+            touch-action: manipulation;
+        }
+
+        .btn-outline:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-glass {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 24px;
+            background: var(--surface-glass);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            color: var(--text);
+            font-size: 13px;
+            font-weight: 500;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            transition: all var(--transition-fast);
+            min-height: 48px;
+            touch-action: manipulation;
+        }
+
+        .btn-glass:hover {
+            background: var(--surface-soft);
+            border-color: var(--primary);
+        }
+
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            border: 0;
+        }
+
+        .skip-link {
+            position: fixed;
+            top: -100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--primary);
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: var(--radius-sm);
+            z-index: 10000;
+            font-weight: 500;
+            transition: top 0.3s;
+        }
+
+        .skip-link:focus {
+            top: 16px;
+        }
+
+        /* ============================================================
+           REDUCED MOTION
+           ============================================================ */
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+            .opening,
+            .opening * {
+                animation: none !important;
+                transition: none !important;
+            }
+        }
+
+        /* ============================================================
+           OPENING EXPERIENCE
+           ============================================================ */
+        .opening {
+            position: fixed;
+            inset: 0;
+            z-index: 10000;
+            background: var(--gradient-one);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            transition: opacity 1.2s ease, visibility 1.2s ease;
+            pointer-events: all;
+        }
+
+        .opening.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .opening .coastline {
+            width: 200px;
+            height: 60px;
+            position: relative;
+            opacity: 0;
+            transition: opacity 0.8s ease 0.3s;
+        }
+
+        .opening .coastline.show {
+            opacity: 1;
+        }
+
+        .opening .coastline svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .opening .coastline .line-path {
+            stroke-dasharray: 400;
+            stroke-dashoffset: 400;
+            animation: drawLine 1.8s ease forwards 0.4s;
+        }
+
+        @keyframes drawLine {
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
+
+        .opening .pin {
+            position: absolute;
+            top: 50%;
+            left: 30%;
+            transform: translate(-50%, -50%) scale(0);
+            transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.9s;
+            font-size: 28px;
+            color: var(--accent);
+        }
+
+        .opening .pin.show {
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .opening .wordmark {
+            font-family: var(--font-serif);
+            font-size: clamp(1.8rem, 4.5vw, 3.8rem);
+            letter-spacing: 4px;
+            font-weight: 400;
+            color: var(--primary);
+            margin-top: 24px;
+            opacity: 0;
+            transition: opacity 0.8s ease 0.6s;
+        }
+
+        .opening .wordmark.show {
+            opacity: 1;
+        }
+
+        .opening .sun {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--luxury-accent);
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 1.2s ease 0.8s;
+            box-shadow: 0 0 60px rgba(174, 134, 88, 0.3);
+            position: absolute;
+            bottom: 120px;
+            right: 10%;
+        }
+
+        .opening .sun.show {
+            opacity: 0.5;
+            transform: translateY(0);
+        }
+
+        .opening .progress-text {
+            position: absolute;
+            bottom: 48px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 12px;
+            letter-spacing: 2px;
+            color: var(--text-muted);
+            font-weight: 300;
+        }
+
+        .opening .skip-btn {
+            position: absolute;
+            bottom: 48px;
+            right: 32px;
+            font-size: 11px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            padding: 8px 16px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            background: var(--surface-glass);
+            backdrop-filter: blur(8px);
+            transition: all var(--transition-fast);
+        }
+
+        .opening .skip-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        @media (max-width: 576px) {
+            .opening .sun {
+                width: 40px;
+                height: 40px;
+                bottom: 100px;
+                right: 8%;
+            }
+            .opening .coastline {
+                width: 140px;
+                height: 44px;
+            }
+        }
+
+        /* ============================================================
+           TOP NAVIGATION — Desktop
+           ============================================================ */
+        .nav-top {
+            position: fixed;
+            top: 16px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            width: calc(100% - 32px);
+            max-width: 1280px;
+            padding: 10px 20px;
+            background: var(--surface-glass);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-xl);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: all var(--transition);
+            box-shadow: 0 4px 24px var(--shadow);
+        }
+
+        @media (max-width: 991px) {
+            .nav-top {
+                display: none;
+            }
+        }
+
+        .nav-top .logo {
+            font-family: var(--font-serif);
+            font-size: 18px;
+            font-weight: 400;
+            letter-spacing: 2px;
+            color: var(--primary);
+        }
+
+        .nav-top .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            list-style: none;
+        }
+
+        .nav-top .nav-links a {
+            padding: 6px 14px;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-muted);
+            border-radius: var(--radius-lg);
+            transition: all var(--transition-fast);
+            position: relative;
+        }
+
+        .nav-top .nav-links a:hover,
+        .nav-top .nav-links a.active {
+            color: var(--text);
+            background: var(--surface-soft);
+        }
+
+        .nav-top .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .nav-top .nav-actions button {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--surface-soft);
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            transition: all var(--transition-fast);
+            font-size: 16px;
+            touch-action: manipulation;
+        }
+
+        .nav-top .nav-actions button:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            background: var(--surface);
+        }
+
+        .nav-top .nav-actions .booking-cta {
+            padding: 8px 20px;
+            background: var(--primary);
+            color: #fff;
+            border-radius: var(--radius-lg);
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            border: none;
+            transition: all var(--transition-fast);
+            height: 38px;
+        }
+
+        .nav-top .nav-actions .booking-cta:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px var(--glow);
+        }
+
+        /* ============================================================
+           BOTTOM NAVIGATION — Mobile
+           ============================================================ */
+        .nav-bottom {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: var(--surface-glass);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-top: 1px solid var(--border);
+            padding: 6px 0 env(safe-area-inset-bottom);
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            height: calc(var(--bottom-nav-height) + env(safe-area-inset-bottom, 0px));
+            transition: all var(--transition);
+        }
+
+        @media (min-width: 992px) {
+            .nav-bottom {
+                display: none;
+            }
+        }
+
+        .nav-bottom .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+            padding: 4px 12px;
+            font-size: 10px;
+            font-weight: 500;
+            color: var(--text-muted);
+            transition: all var(--transition-fast);
+            touch-action: manipulation;
+            min-height: 44px;
+            min-width: 44px;
+            justify-content: center;
+            border: none;
+            background: none;
+        }
+
+        .nav-bottom .nav-item .icon {
+            font-size: 20px;
+            line-height: 1;
+        }
+
+        .nav-bottom .nav-item.active {
+            color: var(--primary);
+        }
+
+        .nav-bottom .nav-item.active .icon {
+            transform: scale(1.1);
+        }
+
+        .nav-bottom .nav-item:active {
+            transform: scale(0.92);
+        }
+
+        .nav-bottom .floating-cta {
+            position: absolute;
+            top: -28px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 10px 28px;
+            background: var(--accent);
+            color: #fff;
+            border-radius: var(--radius-xl);
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            box-shadow: 0 8px 32px var(--glow);
+            transition: all var(--transition-fast);
+            white-space: nowrap;
+            touch-action: manipulation;
+            border: none;
+        }
+
+        .nav-bottom .floating-cta:active {
+            transform: translateX(-50%) scale(0.95);
+        }
+
+        .nav-bottom .floating-cta:hover {
+            box-shadow: 0 12px 40px var(--glow);
+            filter: brightness(1.05);
+        }
+
+        /* ============================================================
+           MOBILE MENU (Full-screen panel)
+           ============================================================ */
+        .mobile-menu {
+            position: fixed;
+            inset: 0;
+            z-index: 2000;
+            background: var(--background);
+            padding: 60px 24px 40px;
+            display: flex;
+            flex-direction: column;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+            overflow-y: auto;
+        }
+
+        .mobile-menu.open {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .mobile-menu .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 24px;
+            color: var(--text);
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: var(--surface-soft);
+            border: 1px solid var(--border);
+            touch-action: manipulation;
+        }
+
+        .mobile-menu .menu-links {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-top: 20px;
+            flex: 1;
+        }
+
+        .mobile-menu .menu-links a {
+            padding: 14px 0;
+            font-family: var(--font-serif);
+            font-size: clamp(1.4rem, 5vw, 2.2rem);
+            font-weight: 400;
+            color: var(--text);
+            border-bottom: 1px solid var(--border);
+            transition: all var(--transition-fast);
+            touch-action: manipulation;
+        }
+
+        .mobile-menu .menu-links a:active {
+            color: var(--accent);
+            padding-left: 8px;
+        }
+
+        .mobile-menu .menu-footer {
+            margin-top: 32px;
+            padding-top: 24px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .mobile-menu .menu-footer button {
+            padding: 8px 16px;
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--text-muted);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            background: var(--surface-soft);
+            transition: all var(--transition-fast);
+            touch-action: manipulation;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .mobile-menu .menu-footer button:active {
+            transform: scale(0.95);
+        }
+
+        /* ============================================================
+           HERO SECTION
+           ============================================================ */
+        .hero {
+            min-height: 100vh;
+            min-height: 100dvh;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            background: var(--background);
+            padding-top: 80px;
+        }
+
+        @media (min-width: 992px) {
+            .hero {
+                padding-top: 100px;
+                min-height: 90vh;
+                flex-direction: row;
+                align-items: stretch;
+            }
+        }
+
+        .hero .hero-image {
+            flex: 1;
+            position: relative;
+            min-height: 50vh;
+            overflow: hidden;
+            border-radius: 0 0 var(--radius-xl) var(--radius-xl);
+            background: var(--background-secondary);
+        }
+
+        @media (min-width: 992px) {
+            .hero .hero-image {
+                flex: 1.2;
+                border-radius: 0 var(--radius-xl) var(--radius-xl) 0;
+                min-height: auto;
+                margin: 16px 16px 16px 0;
+            }
+        }
+
+        .hero .hero-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 8s ease;
+        }
+
+        .hero .hero-image:hover img {
+            transform: scale(1.03);
+        }
+
+        .hero .hero-image .image-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, transparent 40%, rgba(8, 29, 32, 0.4) 100%);
+        }
+
+        .hero .hero-image .floating-card {
+            position: absolute;
+            bottom: 24px;
+            left: 24px;
+            right: 24px;
+            background: var(--surface-glass);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        @media (min-width: 768px) {
+            .hero .hero-image .floating-card {
+                bottom: 40px;
+                left: 40px;
+                right: auto;
+                width: 320px;
+                padding: 24px;
+            }
+        }
+
+        .hero .hero-image .floating-card .dest {
+            font-size: 12px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .hero .hero-image .floating-card .name {
+            font-family: var(--font-serif);
+            font-size: 1.4rem;
+            font-weight: 400;
+            color: var(--text);
+        }
+
+        .hero .hero-image .floating-card .meta {
+            display: flex;
+            gap: 16px;
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .hero .hero-image .floating-card .meta span {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .hero .hero-content {
+            padding: 32px 20px 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            flex: 0.8;
+        }
+
+        @media (min-width: 992px) {
+            .hero .hero-content {
+                padding: 40px 48px 40px 40px;
+                flex: 1;
+            }
+        }
+
+        .hero .hero-content .eyebrow {
+            font-size: 11px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+
+        .hero .hero-content h1 {
+            font-family: var(--font-serif);
+            font-size: clamp(2.2rem, 6vw, 4.6rem);
+            line-height: 1.05;
+            font-weight: 400;
+            letter-spacing: -0.02em;
+            color: var(--text);
+            margin-bottom: 12px;
+        }
+
+        .hero .hero-content h1 .accent {
+            color: var(--accent);
+            font-style: italic;
+        }
+
+        .hero .hero-content p {
+            font-size: clamp(0.95rem, 1.2vw, 1.15rem);
+            color: var(--text-muted);
+            max-width: 480px;
+            font-weight: 300;
+            line-height: 1.7;
+            margin-bottom: 24px;
+        }
+
+        .hero .hero-content .cta-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .hero .hero-content .hero-stats {
+            display: flex;
+            gap: 24px 40px;
+            flex-wrap: wrap;
+            border-top: 1px solid var(--border);
+            padding-top: 20px;
+        }
+
+        .hero .hero-content .hero-stats .stat {
+            font-size: 12px;
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+
+        .hero .hero-content .hero-stats .stat strong {
+            display: block;
+            font-size: 20px;
+            font-weight: 500;
+            color: var(--text);
+            font-family: var(--font-serif);
+        }
+
+        .hero .hero-content .hero-stats .stat strong .accent {
+            color: var(--accent);
+        }
+
+        /* Hero search widget */
+        .hero-search {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            background: var(--surface);
+            padding: 16px;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border);
+            box-shadow: 0 8px 32px var(--shadow);
+            margin-top: 8px;
+        }
+
+        @media (min-width: 768px) {
+            .hero-search {
+                flex-direction: row;
+                padding: 12px 16px;
+                align-items: center;
+                flex-wrap: wrap;
+            }
+        }
+
+        .hero-search .search-field {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex: 1;
+            min-width: 120px;
+            padding: 8px 12px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            background: var(--background);
+            transition: border var(--transition-fast);
+        }
+
+        .hero-search .search-field:focus-within {
+            border-color: var(--primary);
+        }
+
+        .hero-search .search-field input {
+            border: none;
+            background: none;
+            padding: 4px 0;
+            font-size: 13px;
+            width: 100%;
+            outline: none;
+            color: var(--text);
+        }
+
+        .hero-search .search-field input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .hero-search .search-field .icon {
+            font-size: 16px;
+            color: var(--text-muted);
+        }
+
+        .hero-search .search-btn {
+            padding: 10px 24px;
+            background: var(--accent);
+            color: #fff;
+            border-radius: var(--radius-lg);
+            font-size: 13px;
+            font-weight: 600;
+            border: none;
+            transition: all var(--transition-fast);
+            touch-action: manipulation;
+            min-height: 44px;
+        }
+
+        .hero-search .search-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* ============================================================
+           DESTINATION MAP
+           ============================================================ */
+        .map-section {
+            padding: 60px 0 80px;
+            background: var(--background-secondary);
+            position: relative;
+        }
+
+        .map-section .section-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .map-container {
+            position: relative;
+            width: 100%;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .map-wrapper {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16/10;
+            background: var(--surface);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            border: 1px solid var(--border);
+            box-shadow: 0 8px 40px var(--shadow);
+        }
+
+        @media (max-width: 768px) {
+            .map-wrapper {
+                aspect-ratio: 4/5;
+                border-radius: var(--radius-md);
+            }
+        }
+
+        .map-wrapper .map-bg {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.4;
+            filter: grayscale(0.3);
+        }
+
+        .map-wrapper .map-pins {
+            position: absolute;
+            inset: 0;
+        }
+
+        .map-pin {
+            position: absolute;
+            cursor: pointer;
+            touch-action: manipulation;
+            transition: all var(--transition-fast);
+        }
+
+        .map-pin .pin-dot {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: var(--accent);
+            border: 3px solid var(--surface);
+            box-shadow: 0 4px 16px var(--glow);
+            transition: all var(--transition-fast);
+            position: relative;
+            z-index: 2;
+        }
+
+        .map-pin .pin-dot::after {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border-radius: 50%;
+            border: 2px solid var(--accent);
+            opacity: 0.3;
+            animation: pinPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pinPulse {
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 0.3;
+            }
+            50% {
+                transform: scale(1.6);
+                opacity: 0;
+            }
+        }
+
+        .map-pin:hover .pin-dot {
+            transform: scale(1.3);
+            background: var(--primary);
+        }
+
+        .map-pin .pin-label {
+            position: absolute;
+            bottom: calc(100% + 8px);
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--surface);
+            padding: 4px 12px;
+            border-radius: var(--radius-sm);
+            font-size: 11px;
+            font-weight: 500;
+            white-space: nowrap;
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 12px var(--shadow);
+            opacity: 0;
+            transition: all var(--transition-fast);
+            pointer-events: none;
+        }
+
+        .map-pin:hover .pin-label {
+            opacity: 1;
+            transform: translateX(-50%) translateY(-4px);
+        }
+
+        .map-pin .pin-label .count {
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+
+        .map-pin .pin-card {
+            position: absolute;
+            bottom: calc(100% + 20px);
+            left: 50%;
+            transform: translateX(-50%) scale(0.9);
+            background: var(--surface);
+            border-radius: var(--radius-md);
+            padding: 16px 20px;
+            min-width: 200px;
+            border: 1px solid var(--border);
+            box-shadow: 0 16px 48px var(--shadow);
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .map-pin.active .pin-card {
+            opacity: 1;
+            transform: translateX(-50%) scale(1);
+            pointer-events: auto;
+        }
+
+        .map-pin .pin-card .dest-name {
+            font-family: var(--font-serif);
+            font-size: 1.1rem;
+            font-weight: 400;
+        }
+
+        .map-pin .pin-card .dest-meta {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        .map-pin .pin-card .dest-cta {
+            margin-top: 10px;
+            font-size: 12px;
+            color: var(--accent);
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            border: none;
+            background: none;
+            padding: 0;
+        }
+
+        /* Map region filters */
+        .map-filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .map-filters .filter-chip {
+            padding: 6px 16px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-xl);
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--text-muted);
+            background: var(--surface);
+            transition: all var(--transition-fast);
+            touch-action: manipulation;
+        }
+
+        .map-filters .filter-chip:active,
+        .map-filters .filter-chip.active {
+            background: var(--primary);
+            color: #fff;
+            border-color: var(--primary);
+        }
+
+        .map-filters .filter-chip:active {
+            transform: scale(0.95);
+        }
+
+        /* ============================================================
+           TRAVEL MOOD SELECTOR
+           ============================================================ */
+        .mood-section {
+            padding: 60px 0 80px;
+            background: var(--background);
+        }
+
+        .mood-section .section-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .mood-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 16px;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        @media (min-width: 768px) {
+            .mood-grid {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 20px;
+            }
+        }
+
+        .mood-card {
+            position: relative;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            aspect-ratio: 1/1.2;
+            cursor: pointer;
+            touch-action: manipulation;
+            transition: all var(--transition-fast);
+            border: 1px solid var(--border);
+            background: var(--surface);
+        }
+
+        .mood-card:active {
+            transform: scale(0.96);
+        }
+
+        .mood-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .mood-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .mood-card .mood-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, transparent 40%, rgba(8, 29, 32, 0.7) 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 16px;
+            color: #fff;
+        }
+
+        .mood-card .mood-overlay .mood-label {
+            font-family: var(--font-serif);
+            font-size: clamp(0.95rem, 1.2vw, 1.2rem);
+            font-weight: 400;
+            letter-spacing: -0.01em;
+        }
+
+        .mood-card .mood-overlay .mood-sub {
+            font-size: 11px;
+            opacity: 0.8;
+            font-weight: 300;
+            margin-top: 2px;
+        }
+
+        .mood-card .mood-overlay .explore-tag {
+            margin-top: 8px;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 500;
+            opacity: 0.7;
+            transition: opacity var(--transition-fast);
+        }
+
+        .mood-card:hover .mood-overlay .explore-tag {
+            opacity: 1;
+        }
+
+        /* ============================================================
+           SIGNATURE VILLA COLLECTION
+           ============================================================ */
+        .villas-section {
+            padding: 60px 0 80px;
+            background: var(--background-secondary);
+        }
+
+        .villas-section .section-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .villas-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 24px;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        @media (min-width: 640px) {
+            .villas-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .villas-grid {
+                grid-template-columns: 1fr 1fr 1fr;
+            }
+        }
+
+        .villa-card {
+            background: var(--surface);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            border: 1px solid var(--border);
+            transition: all var(--transition-fast);
+            box-shadow: 0 4px 16px var(--shadow);
+            touch-action: manipulation;
+            cursor: pointer;
+        }
+
+        .villa-card:active {
+            transform: scale(0.98);
+        }
+
+        .villa-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 16px 48px var(--shadow);
+        }
+
+        .villa-card .card-image {
+            position: relative;
+            aspect-ratio: 4/3;
+            overflow: hidden;
+            background: var(--background-secondary);
+        }
+
+        .villa-card .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s ease;
+        }
+
+        .villa-card:hover .card-image img {
+            transform: scale(1.04);
+        }
+
+        .villa-card .card-image .badge {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            padding: 4px 12px;
+            background: var(--accent);
+            color: #fff;
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            border-radius: var(--radius-sm);
+        }
+
+        .villa-card .card-image .badge.available {
+            background: var(--success);
+        }
+
+        .villa-card .card-image .wishlist-btn {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--surface-glass);
+            backdrop-filter: blur(8px);
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: var(--text-muted);
+            transition: all var(--transition-fast);
+            touch-action: manipulation;
+        }
+
+        .villa-card .card-image .wishlist-btn:active {
+            transform: scale(0.85);
+        }
+
+        .villa-card .card-image .wishlist-btn.active {
+            color: var(--accent);
+            background: var(--accent-soft);
+        }
+
+        .villa-card .card-body {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .villa-card .card-body .villa-name {
+            font-family: var(--font-serif);
+            font-size: 1.25rem;
+            font-weight: 400;
+            color: var(--text);
+        }
+
+        .villa-card .card-body .villa-dest {
+            font-size: 13px;
+            color: var(--text-muted);
+            font-weight: 300;
+        }
+
+        .villa-card .card-body .villa-story {
+            font-size: 13px;
+            color: var(--text-muted);
+            font-weight: 300;
+            line-height: 1.5;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .villa-card .card-body .villa-meta {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            font-size: 12px;
+            color: var(--text-muted);
+            padding-top: 8px;
+            border-top: 1px solid var(--border);
+        }
+
+        .villa-card .card-body .villa-meta span {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .villa-card .card-body .villa-price {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            margin-top: 4px;
+        }
+
+        .villa-card .card-body .villa-price .amount {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .villa-card .card-body .villa-price .per-night {
+            font-size: 12px;
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+
+        .villa-card .card-body .villa-price .rating {
+            font-size: 13px;
+            color: var(--luxury-accent);
+            font-weight: 500;
+        }
+
+        .villa-card .card-body .card-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .villa-card .card-body .card-actions .btn-sm {
+            padding: 6px 16px;
+            font-size: 12px;
+            border-radius: var(--radius-sm);
+            min-height: 36px;
+            flex: 1;
+        }
+
+        /* ============================================================
+           EXPERIENCE COLLECTION
+           ============================================================ */
+        .experiences-section {
+            padding: 60px 0 80px;
+            background: var(--background);
+        }
+
+        .experiences-section .section-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .exp-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        @media (min-width: 640px) {
+            .exp-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 16px;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .exp-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        .exp-card {
+            background: var(--surface);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            border: 1px solid var(--border);
+            transition: all var(--transition-fast);
+            touch-action: manipulation;
+            cursor: pointer;
+            text-align: center;
+            padding: 20px 16px;
+        }
+
+        .exp-card:active {
+            transform: scale(0.96);
+        }
+
+        .exp-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 32px var(--shadow);
+        }
+
+        .exp-card .exp-icon {
+            font-size: 32px;
+            margin-bottom: 8px;
+            display: block;
+            color: var(--primary);
+        }
+
+        .exp-card .exp-name {
+            font-family: var(--font-serif);
+            font-size: 1rem;
+            font-weight: 400;
+            color: var(--text);
+        }
+
+        .exp-card .exp-desc {
+            font-size: 12px;
+            color: var(--text-muted);
+            font-weight: 300;
+            margin-top: 4px;
+        }
+
+        /* ============================================================
+           WELLNESS SECTION
+           ============================================================ */
+        .wellness-section {
+            padding: 60px 0 80px;
+            background: var(--background-secondary);
+            text-align: center;
+        }
+
+        .wellness-section .section-header {
+            margin-bottom: 40px;
+        }
+
+        .wellness-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 12px;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .wellness-item {
+            padding: 16px 12px;
+            background: var(--surface);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border);
+            transition: all var(--transition-fast);
+            touch-action: manipulation;
+        }
+
+        .wellness-item:active {
+            transform: scale(0.95);
+        }
+
+        .wellness-item:hover {
+            border-color: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px var(--shadow);
+        }
+
+        .wellness-item .w-icon {
+            font-size: 24px;
+            display: block;
+            margin-bottom: 4px;
+            color: var(--primary);
+        }
+        .wellness-item .w-name {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text);
+        }
+
+        /* ============================================================
+           CELEBRATIONS
+           ============================================================ */
+        .celebrations-section {
+            padding: 60px 0 80px;
+            background: var(--background);
+        }
+
+        .celebrations-section .section-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .celeb-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        @media (min-width: 640px) {
+            .celeb-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 16px;
+            }
+        }
+
+        .celeb-card {
+            padding: 20px 16px;
+            background: var(--surface);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border);
+            text-align: center;
+            transition: all var(--transition-fast);
+            touch-action: manipulation;
+        }
+
+        .celeb-card:active {
+            transform: scale(0.96);
+        }
+        .celeb-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 32px var(--shadow);
+        }
+        .celeb-card .celeb-icon {
+            font-size: 28px;
+            display: block;
+            margin-bottom: 4px;
+            color: var(--accent);
+        }
+        .celeb-card .celeb-name {
+            font-family: var(--font-serif);
+            font-size: 1rem;
+            font-weight: 400;
+        }
+        .celeb-card .celeb-desc {
+            font-size: 12px;
+            color: var(--text-muted);
+            font-weight: 300;
+            margin-top: 2px;
+        }
+
+        /* ============================================================
+           CONCIERGE
+           ============================================================ */
+        .concierge-section {
+            padding: 60px 0 80px;
+            background: var(--background-secondary);
+        }
+
+        .concierge-section .section-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .concierge-layout {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 32px;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        @media (min-width: 768px) {
+            .concierge-layout {
+                grid-template-columns: 1fr 1fr;
+                gap: 48px;
+            }
+        }
+
+        .concierge-profile .avatar {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            overflow: hidden;
+            background: var(--border);
+            margin-bottom: 12px;
+        }
+
+        .concierge-profile .avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .concierge-profile .name {
+            font-family: var(--font-serif);
+            font-size: 1.4rem;
+            font-weight: 400;
+        }
+
+        .concierge-profile .title {
+            font-size: 13px;
+            color: var(--text-muted);
+            font-weight: 300;
+        }
+
+        .concierge-profile .bio {
+            font-size: 14px;
+            color: var(--text-muted);
+            font-weight: 300;
+            line-height: 1.7;
+            max-width: 420px;
+            margin-top: 8px;
+        }
+
+        .concierge-profile .contact-btns {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 12px;
+        }
+
+        .concierge-profile .contact-btns button {
+            padding: 6px 16px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            font-size: 12px;
+            font-weight: 500;
+            transition: all var(--transition-fast);
+            background: var(--surface);
+            touch-action: manipulation;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .concierge-profile .contact-btns button:active {
+            transform: scale(0.95);
+        }
+        .concierge-profile .contact-btns button:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .concierge-form {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .concierge-form .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .concierge-form .form-group label {
+            font-size: 11px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .concierge-form .form-group input,
+        .concierge-form .form-group select,
+        .concierge-form .form-group textarea {
+            padding: 10px 14px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            background: var(--surface);
+            color: var(--text);
+            font-size: 14px;
+            transition: border var(--transition-fast);
+            width: 100%;
+        }
+
+        .concierge-form .form-group input:focus,
+        .concierge-form .form-group select:focus,
+        .concierge-form .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .concierge-form .form-group textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+
+        /* ============================================================
+           GUEST STORIES
+           ============================================================ */
+        .stories-section {
+            padding: 60px 0 80px;
+            background: var(--background);
+        }
+
+        .stories-section .section-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .stories-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        @media (min-width: 640px) {
+            .stories-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .story-card {
+            background: var(--surface);
+            border-radius: var(--radius-md);
+            padding: 24px;
+            border: 1px solid var(--border);
+            transition: all var(--transition-fast);
+        }
+
+        .story-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 32px var(--shadow);
+        }
+
+        .story-card .quote {
+            font-size: 1rem;
+            font-style: italic;
+            color: var(--text);
+            line-height: 1.6;
+            font-weight: 300;
+        }
+
+        .story-card .quote::before {
+            content: '"';
+            font-family: var(--font-serif);
+            font-size: 2rem;
+            color: var(--accent);
+            opacity: 0.5;
+            margin-right: 4px;
+        }
+
+        .story-card .quote::after {
+            content: '"';
+            font-family: var(--font-serif);
+            font-size: 2rem;
+            color: var(--accent);
+            opacity: 0.5;
+            margin-left: 4px;
+        }
+
+        .story-card .story-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 16px;
+            padding-top: 12px;
+            border-top: 1px solid var(--border);
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .story-card .story-footer .initials {
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        /* ============================================================
+           TRAVEL STORIES (Journal)
+           ============================================================ */
+        .journal-section {
+            padding: 60px 0 80px;
+            background: var(--background-secondary);
+        }
+
+        .journal-section .section-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .journal-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        @media (min-width: 640px) {
+            .journal-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .journal-grid {
+                grid-template-columns: 1fr 1fr 1fr;
+            }
+        }
+
+        .journal-card {
+            background: var(--surface);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            border: 1px solid var(--border);
+            transition: all var(--transition-fast);
+        }
+
+        .journal-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 32px var(--shadow);
+        }
+
+        .journal-card .j-img {
+            aspect-ratio: 16/10;
+            overflow: hidden;
+            background: var(--background-secondary);
+        }
+
+        .journal-card .j-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .journal-card:hover .j-img img {
+            transform: scale(1.04);
+        }
+
+        .journal-card .j-body {
+            padding: 20px;
+        }
+
+        .journal-card .j-body .j-cat {
+            font-size: 10px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .journal-card .j-body h3 {
+            font-family: var(--font-serif);
+            font-size: 1.1rem;
+            font-weight: 400;
+            margin: 4px 0 8px;
+        }
+
+        .journal-card .j-body .j-excerpt {
+            font-size: 13px;
+            color: var(--text-muted);
+            font-weight: 300;
+            line-height: 1.6;
+        }
+
+        .journal-card .j-body .j-meta {
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-top: 12px;
+            display: flex;
+            gap: 16px;
+        }
+
+        /* ============================================================
+           RESPONSIBLE TRAVEL
+           ============================================================ */
+        .responsible-section {
+            padding: 60px 0 80px;
+            background: var(--background);
+        }
+
+        .responsible-section .section-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .resp-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        @media (min-width: 640px) {
+            .resp-grid {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 16px;
+            }
+        }
+
+        .resp-item {
+            text-align: center;
+            padding: 16px 12px;
+            background: var(--surface);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border);
+            transition: all var(--transition-fast);
+        }
+
+        .resp-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px var(--shadow);
+        }
+
+        .resp-item .resp-icon {
+            font-size: 28px;
+            display: block;
+            margin-bottom: 4px;
+            color: var(--primary);
+        }
+        .resp-item .resp-label {
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--text);
+        }
+        .resp-item .resp-desc {
+            font-size: 11px;
+            color: var(--text-muted);
+            font-weight: 300;
+        }
+
+        /* ============================================================
+           OWNER PARTNERSHIP
+           ============================================================ */
+        .owners-section {
+            padding: 60px 0 80px;
+            background: var(--background-secondary);
+        }
+
+        .owners-section .section-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .owners-layout {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 32px;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        @media (min-width: 768px) {
+            .owners-layout {
+                grid-template-columns: 1fr 1fr;
+                gap: 48px;
+            }
+        }
+
+        .owners-text .owners-list {
+            list-style: none;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px 16px;
+            margin-top: 12px;
+        }
+
+        .owners-text .owners-list li {
+            font-size: 13px;
+            color: var(--text-muted);
+            font-weight: 300;
+            padding: 4px 0;
+            position: relative;
+            padding-left: 16px;
+        }
+
+        .owners-text .owners-list li::before {
+            content: '—';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+        }
+
+        .owners-form {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .owners-form .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .owners-form .form-group label {
+            font-size: 11px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .owners-form .form-group input,
+        .owners-form .form-group select,
+        .owners-form .form-group textarea {
+            padding: 10px 14px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            background: var(--surface);
+            color: var(--text);
+            font-size: 14px;
+            transition: border var(--transition-fast);
+            width: 100%;
+        }
+
+        .owners-form .form-group input:focus,
+        .owners-form .form-group select:focus,
+        .owners-form .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .owners-form .form-group textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+
+        /* ============================================================
+           CONTACT
+           ============================================================ */
+        .contact-section {
+            padding: 60px 0 80px;
+            background: var(--background);
+        }
+
+        .contact-section .section-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .contact-form {
+            max-width: 640px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .contact-form .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+
+        @media (max-width: 576px) {
+            .contact-form .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .contact-form .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .contact-form .form-group label {
+            font-size: 11px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .contact-form .form-group input,
+        .contact-form .form-group select,
+        .contact-form .form-group textarea {
+            padding: 10px 14px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            background: var(--surface);
+            color: var(--text);
+            font-size: 14px;
+            transition: border var(--transition-fast);
+            width: 100%;
+        }
+
+        .contact-form .form-group input:focus,
+        .contact-form .form-group select:focus,
+        .contact-form .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .contact-form .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .contact-form .submit-row {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            align-items: center;
+            margin-top: 4px;
+        }
+
+        /* ============================================================
+           FOOTER
+           ============================================================ */
+        .footer {
+            padding: 48px 20px 100px;
+            background: var(--background-secondary);
+            border-top: 1px solid var(--border);
+            text-align: center;
+        }
+
+        @media (min-width: 992px) {
+            .footer {
+                padding: 60px 40px 48px;
+            }
+        }
+
+        .footer .wordmark {
+            font-family: var(--font-serif);
+            font-size: clamp(1.8rem, 4vw, 3.2rem);
+            font-weight: 400;
+            letter-spacing: 4px;
+            color: var(--primary);
+        }
+
+        .footer .tagline {
+            font-size: 14px;
+            color: var(--text-muted);
+            font-weight: 300;
+            letter-spacing: 2px;
+            margin: 4px 0 24px;
+        }
+
+        .footer .footer-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px 20px;
+            margin-bottom: 24px;
+        }
+
+        .footer .footer-links a {
+            font-size: 12px;
+            color: var(--text-muted);
+            font-weight: 400;
+            transition: color var(--transition-fast);
+        }
+
+        .footer .footer-links a:hover {
+            color: var(--primary);
+        }
+
+        .footer .footer-newsletter {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            max-width: 440px;
+            margin: 0 auto 24px;
+        }
+
+        .footer .footer-newsletter input {
+            flex: 1;
+            min-width: 180px;
+            padding: 10px 16px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            background: var(--surface);
+            color: var(--text);
+            font-size: 13px;
+            transition: border var(--transition-fast);
+        }
+
+        .footer .footer-newsletter input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .footer .footer-newsletter button {
+            padding: 10px 24px;
+            background: var(--primary);
+            color: #fff;
+            border-radius: var(--radius-sm);
+            font-size: 13px;
+            font-weight: 500;
+            border: none;
+            transition: all var(--transition-fast);
+            touch-action: manipulation;
+        }
+
+        .footer .footer-newsletter button:active {
+            transform: scale(0.95);
+        }
+
+        .footer .footer-bottom {
+            border-top: 1px solid var(--border);
+            padding-top: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px 24px;
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        .footer .footer-bottom .closing {
+            font-family: var(--font-serif);
+            font-size: 14px;
+            font-style: italic;
+            color: var(--text);
+            width: 100%;
+            margin-bottom: 4px;
+        }
+
+        .footer .footer-bottom .mood-display {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .footer .footer-bottom .mood-display .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--accent);
+        }
+
+        /* ============================================================
+           TOAST
+           ============================================================ */
+        .toast-container {
+            position: fixed;
+            bottom: calc(var(--bottom-nav-height) + 24px);
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            pointer-events: none;
+            width: 90%;
+            max-width: 420px;
+        }
+
+        @media (min-width: 992px) {
+            .toast-container {
+                bottom: 32px;
+            }
+        }
+
+        .toast {
+            padding: 14px 24px;
+            background: var(--text);
+            color: var(--background);
+            font-size: 13px;
+            font-weight: 400;
+            border-radius: var(--radius-md);
+            opacity: 0;
+            transform: translateY(20px) scale(0.96);
+            transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+            pointer-events: auto;
+            box-shadow: 0 8px 32px var(--shadow);
+            text-align: center;
+            width: 100%;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        /* ============================================================
+           BACK TO TOP
+           ============================================================ */
+        .back-top {
+            position: fixed;
+            bottom: calc(var(--bottom-nav-height) + 80px);
+            right: 16px;
+            z-index: 900;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: var(--surface-glass);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: var(--text);
+            transition: all var(--transition-fast);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(16px);
+            touch-action: manipulation;
+        }
+
+        .back-top.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .back-top:active {
+            transform: scale(0.9);
+        }
+
+        @media (min-width: 992px) {
+            .back-top {
+                bottom: 32px;
+                right: 32px;
+            }
+        }
+
+        /* ============================================================
+           COOKIE BANNER
+           ============================================================ */
+        .cookie-banner {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 8000;
+            background: var(--surface);
+            border-top: 1px solid var(--border);
+            padding: 16px 20px;
+            box-shadow: 0 -8px 32px var(--shadow);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .cookie-banner.hidden {
+            transform: translateY(100%);
+        }
+
+        @media (min-width: 768px) {
+            .cookie-banner {
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+                padding: 16px 40px;
+            }
+        }
+
+        .cookie-banner .cookie-text {
+            font-size: 13px;
+            color: var(--text-muted);
+            font-weight: 300;
+            max-width: 600px;
+        }
+
+        .cookie-banner .cookie-text a {
+            color: var(--primary);
+            text-decoration: underline;
+        }
+
+        .cookie-banner .cookie-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .cookie-banner .cookie-actions button {
+            padding: 8px 20px;
+            border-radius: var(--radius-sm);
+            font-size: 12px;
+            font-weight: 500;
+            transition: all var(--transition-fast);
+            touch-action: manipulation;
+            min-height: 40px;
+        }
+
+        .cookie-banner .cookie-actions .accept {
+            background: var(--primary);
+            color: #fff;
+            border: none;
+        }
+
+        .cookie-banner .cookie-actions .accept:active {
+            transform: scale(0.95);
+        }
+
+        .cookie-banner .cookie-actions .settings {
+            background: var(--surface);
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+
+        .cookie-banner .cookie-actions .settings:active {
+            transform: scale(0.95);
+        }
+
+        /* ============================================================
+           RESPONSIVE TWEAKS
+           ============================================================ */
+        @media (max-width: 576px) {
+            .hero .hero-content h1 {
+                font-size: clamp(1.8rem, 8vw, 2.4rem);
+            }
+            .hero .hero-content .cta-group .btn-primary,
+            .hero .hero-content .cta-group .btn-secondary {
+                width: 100%;
+                justify-content: center;
+            }
+            .hero-search {
+                flex-direction: column;
+            }
+            .hero-search .search-btn {
+                width: 100%;
+            }
+            .mood-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .villas-grid {
+                grid-template-columns: 1fr;
+            }
+            .exp-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .stories-grid {
+                grid-template-columns: 1fr;
+            }
+            .journal-grid {
+                grid-template-columns: 1fr;
+            }
+            .resp-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .celeb-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .wellness-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .owners-text .owners-list {
+                grid-template-columns: 1fr;
+            }
+            .concierge-layout {
+                grid-template-columns: 1fr;
+            }
+            .owners-layout {
+                grid-template-columns: 1fr;
+            }
+            .cookie-banner {
+                padding: 14px 16px;
+            }
+            .cookie-banner .cookie-actions {
+                width: 100%;
+            }
+            .cookie-banner .cookie-actions button {
+                flex: 1;
+                justify-content: center;
+            }
+            .footer .footer-newsletter {
+                flex-direction: column;
+            }
+            .footer .footer-newsletter input {
+                min-width: unset;
+            }
+            .footer .footer-newsletter button {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 420px) {
+            .mood-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 10px;
+            }
+            .mood-card .mood-overlay .mood-label {
+                font-size: 0.85rem;
+            }
+            .exp-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 10px;
+            }
+            .celeb-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 10px;
+            }
+            .wellness-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 10px;
+            }
+            .resp-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 10px;
+            }
+        }
+
+        /* ============================================================
+           KEYBOARD FOCUS
+           ============================================================ */
+        :focus-visible {
+            outline: 2px solid var(--primary);
+            outline-offset: 2px;
+            border-radius: 4px;
+        }
+
+        /* ============================================================
+           SCROLL PROGRESS
+           ============================================================ */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: var(--accent);
+            z-index: 1001;
+            transition: width 0.1s linear;
+        }
+
+        @media (min-width: 992px) {
+            .scroll-progress {
+                height: 3px;
+            }
+        }
+
+        /* ============================================================
+           FONT AWESOME HELPER
+           ============================================================ */
+        .fa-fw {
+            width: 1.25em;
+            text-align: center;
+        }
+        .icon-lg {
+            font-size: 1.5rem;
+        }
+        .icon-xl {
+            font-size: 2rem;
+        }
+        .icon-2xl {
+            font-size: 2.5rem;
+        }
+        .icon-3xl {
+            font-size: 3rem;
+        }
+        .icon-primary {
+            color: var(--primary);
+        }
+        .icon-accent {
+            color: var(--accent);
+        }
+        .icon-muted {
+            color: var(--text-muted);
+        }
+        .icon-white {
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ============================================================
+    SKIP LINK
+    ============================================================ -->
+    <a class="skip-link" href="#main">Skip to main content</a>
+
+    <!-- ============================================================
+    OPENING EXPERIENCE
+    ============================================================ -->
+    <div class="opening" id="opening" role="dialog" aria-label="Welcome to Solara Private Escapes">
+        <div class="coastline" id="coastline">
+            <svg viewBox="0 0 200 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path class="line-path" d="M10 30 L30 20 L50 35 L70 15 L90 30 L110 10 L130 28 L150 18 L170 32 L190 22" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" />
+            </svg>
+            <div class="pin" id="pin"><i class="fas fa-location-dot" style="color:var(--accent);font-size:28px;"></i></div>
+        </div>
+        <div class="wordmark" id="wordmark">Solara</div>
+        <div class="sun" id="sun"></div>
+        <div class="progress-text" id="progressText">Loading experience</div>
+        <button class="skip-btn" id="skipOpening">Skip</button>
+    </div>
+
+    <!-- ============================================================
+    SCROLL PROGRESS
+    ============================================================ -->
+    <div class="scroll-progress" id="scrollProgress" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+
+    <!-- ============================================================
+    TOP NAVIGATION (Desktop)
+    ============================================================ -->
+    <nav class="nav-top" id="navTop" role="navigation" aria-label="Main navigation">
+        <a href="#" class="logo">Solara</a>
+        <ul class="nav-links">
+            <li><a href="#villas" class="active">Villas</a></li>
+            <li><a href="#destinations">Destinations</a></li>
+            <li><a href="#experiences">Experiences</a></li>
+            <li><a href="#concierge">Concierge</a></li>
+            <li><a href="#stories">Stories</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <div class="nav-actions">
+            <button id="themeToggle" aria-label="Toggle theme" title="Toggle theme"><i class="fas fa-moon"></i></button>
+            <button id="langToggle" aria-label="Change language" title="Language">EN</button>
+            <button id="currencyToggle" aria-label="Change currency" title="Currency"><i class="fas fa-euro-sign"></i></button>
+            <button id="wishlistNav" aria-label="Wishlist" title="Wishlist"><i class="far fa-heart"></i></button>
+            <button class="booking-cta" id="navBookingCta">Find Villa</button>
+        </div>
+    </nav>
+
+    <!-- ============================================================
+    BOTTOM NAVIGATION (Mobile)
+    ============================================================ -->
+    <nav class="nav-bottom" id="navBottom" role="navigation" aria-label="Mobile navigation">
+        <button class="nav-item active" data-target="home" aria-label="Home">
+            <span class="icon"><i class="fas fa-home"></i></span>
+            <span>Home</span>
+        </button>
+        <button class="nav-item" data-target="explore" aria-label="Explore">
+            <span class="icon"><i class="fas fa-search"></i></span>
+            <span>Explore</span>
+        </button>
+        <button class="nav-item" data-target="saved" aria-label="Saved">
+            <span class="icon"><i class="far fa-heart"></i></span>
+            <span>Saved</span>
+        </button>
+        <button class="nav-item" data-target="trips" aria-label="Trips">
+            <span class="icon"><i class="fas fa-map"></i></span>
+            <span>Trips</span>
+        </button>
+        <button class="nav-item" id="menuOpenBtn" aria-label="Menu">
+            <span class="icon"><i class="fas fa-bars"></i></span>
+            <span>Menu</span>
+        </button>
+        <button class="floating-cta" id="bottomBookingCta">Find a Villa</button>
+    </nav>
+
+    <!-- ============================================================
+    MOBILE MENU (Full-screen panel)
+    ============================================================ -->
+    <div class="mobile-menu" id="mobileMenu" role="dialog" aria-label="Mobile menu">
+        <button class="close-btn" id="menuCloseBtn" aria-label="Close menu"><i class="fas fa-xmark"></i></button>
+        <div class="menu-links">
+            <a href="#villas">Villas</a>
+            <a href="#destinations">Destinations</a>
+            <a href="#experiences">Experiences</a>
+            <a href="#concierge">Concierge</a>
+            <a href="#stories">Stories</a>
+            <a href="#journal">Journal</a>
+            <a href="#contact">Contact</a>
+        </div>
+        <div class="menu-footer">
+            <button id="mobileThemeToggle"><i class="fas fa-moon"></i> Theme</button>
+            <button id="mobileLangToggle"><i class="fas fa-globe"></i> Language</button>
+            <button id="mobileCurrencyToggle"><i class="fas fa-coins"></i> Currency</button>
+            <button id="mobileWishlistToggle"><i class="far fa-heart"></i> Wishlist</button>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    TOAST
+    ============================================================ -->
+    <div class="toast-container" id="toastContainer" aria-live="polite"></div>
+
+    <!-- ============================================================
+    BACK TO TOP
+    ============================================================ -->
+    <button class="back-top" id="backTop" aria-label="Back to top"><i class="fas fa-arrow-up"></i></button>
+
+    <!-- ============================================================
+    COOKIE BANNER
+    ============================================================ -->
+    <div class="cookie-banner" id="cookieBanner" role="dialog" aria-label="Cookie preferences">
+        <div class="cookie-text">
+            We use cookies to enhance your experience. By continuing, you agree to our
+            <a href="#" onclick="event.preventDefault()">Privacy Policy</a> and
+            <a href="#" onclick="event.preventDefault()">Cookie Policy</a>.
+        </div>
+        <div class="cookie-actions">
+            <button class="settings" id="cookieSettings">Settings</button>
+            <button class="accept" id="cookieAccept">Accept All</button>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    MAIN CONTENT
+    ============================================================ -->
+    <main id="main">
+
+        <!-- ============================================================
+        HERO
+        ============================================================ -->
+        <section class="hero" id="home" aria-label="Hero">
+            <div class="hero-image">
+                <img src="https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=1400&q=80" alt="Luxury villa overlooking the Mediterranean Sea" loading="eager" />
+                <div class="image-overlay"></div>
+                <div class="floating-card">
+                    <div class="dest">Featured Villa</div>
+                    <div class="name">Casa Lumina</div>
+                    <div class="meta">
+                        <span><i class="fas fa-location-dot" style="font-size:12px;"></i> Santorini</span>
+                        <span><i class="fas fa-bed" style="font-size:12px;"></i> 4 beds</span>
+                        <span><i class="fas fa-user" style="font-size:12px;"></i> 8 guests</span>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-content">
+                <div class="eyebrow">Private Villas, Personally Curated</div>
+                <h1>Find A Place <br /><span class="accent">That Feels Like Yours.</span></h1>
+                <p>Exceptional villas, meaningful destinations and personalized stays designed around the way you want to travel.</p>
+                <div class="cta-group">
+                    <button class="btn-primary" id="heroExplore">Explore The Collection <i class="fas fa-arrow-right"></i></button>
+                    <button class="btn-secondary" id="heroBuild">Build My Escape</button>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat"><strong>120 <span class="accent">+</span></strong> Handpicked Villas</div>
+                    <div class="stat"><strong>24/7</strong> Concierge</div>
+                    <div class="stat"><strong>4.94</strong> Guest Rating</div>
+                </div>
+                <div class="hero-search" role="search">
+                    <div class="search-field">
+                        <span class="icon"><i class="fas fa-location-dot"></i></span>
+                        <input type="text" placeholder="Destination" id="heroSearchDest" />
+                    </div>
+                    <div class="search-field">
+                        <span class="icon"><i class="fas fa-calendar"></i></span>
+                        <input type="text" placeholder="Check-in — Check-out" id="heroSearchDates" />
+                    </div>
+                    <div class="search-field">
+                        <span class="icon"><i class="fas fa-user"></i></span>
+                        <input type="text" placeholder="Guests" id="heroSearchGuests" />
+                    </div>
+                    <button class="search-btn" id="heroSearchBtn">Search Villas</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================
+        DESTINATION MAP
+        ============================================================ -->
+        <section class="map-section" id="destinations" aria-label="Destination map">
+            <div class="section-header">
+                <span class="section-label">Explore</span>
+                <h2 class="section-title">Choose Your <em>Horizon</em></h2>
+            </div>
+            <div class="map-container">
+                <div class="map-wrapper" id="mapWrapper">
+                    <img class="map-bg" src="https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=1200&q=80" alt="Map background" loading="lazy" />
+                    <div class="map-pins" id="mapPins">
+                        <!-- Pins injected by JS -->
+                    </div>
+                </div>
+                <div class="map-filters" id="mapFilters">
+                    <button class="filter-chip active" data-region="all">All</button>
+                    <button class="filter-chip" data-region="mediterranean">Mediterranean</button>
+                    <button class="filter-chip" data-region="alps">Alps</button>
+                    <button class="filter-chip" data-region="indian">Indian Ocean</button>
+                    <button class="filter-chip" data-region="asia">Southeast Asia</button>
+                    <button class="filter-chip" data-region="caribbean">Caribbean</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================
+        TRAVEL MOOD
+        ============================================================ -->
+        <section class="mood-section" id="mood" aria-label="Travel mood selector">
+            <div class="section-header">
+                <span class="section-label">Discover</span>
+                <h2 class="section-title">What Kind Of Escape <br /><em>Do You Need?</em></h2>
+            </div>
+            <div class="mood-grid" id="moodGrid">
+                <div class="mood-card" data-mood="ocean">
+                    <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=400&q=80" alt="Ocean stillness" loading="lazy" />
+                    <div class="mood-overlay">
+                        <div class="mood-label">Ocean Stillness</div>
+                        <div class="mood-sub">Santorini · Maldives</div>
+                        <div class="explore-tag">Explore <i class="fas fa-arrow-right" style="font-size:10px;"></i></div>
+                    </div>
+                </div>
+                <div class="mood-card" data-mood="romantic">
+                    <img src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=400&q=80" alt="Romantic privacy" loading="lazy" />
+                    <div class="mood-overlay">
+                        <div class="mood-label">Romantic Privacy</div>
+                        <div class="mood-sub">Provence · Mykonos</div>
+                        <div class="explore-tag">Explore <i class="fas fa-arrow-right" style="font-size:10px;"></i></div>
+                    </div>
+                </div>
+                <div class="mood-card" data-mood="family">
+                    <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=400&q=80" alt="Family freedom" loading="lazy" />
+                    <div class="mood-overlay">
+                        <div class="mood-label">Family Freedom</div>
+                        <div class="mood-sub">Mallorca · Tuscany</div>
+                        <div class="explore-tag">Explore <i class="fas fa-arrow-right" style="font-size:10px;"></i></div>
+                    </div>
+                </div>
+                <div class="mood-card" data-mood="mountain">
+                    <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&q=80" alt="Mountain silence" loading="lazy" />
+                    <div class="mood-overlay">
+                        <div class="mood-label">Mountain Silence</div>
+                        <div class="mood-sub">Swiss Alps · Norway</div>
+                        <div class="explore-tag">Explore <i class="fas fa-arrow-right" style="font-size:10px;"></i></div>
+                    </div>
+                </div>
+                <div class="mood-card" data-mood="culture">
+                    <img src="https://images.unsplash.com/photo-1533105079780-92b9be482077?w=400&q=80" alt="Cultural immersion" loading="lazy" />
+                    <div class="mood-overlay">
+                        <div class="mood-label">Cultural Immersion</div>
+                        <div class="mood-sub">Tuscany · Provence</div>
+                        <div class="explore-tag">Explore <i class="fas fa-arrow-right" style="font-size:10px;"></i></div>
+                    </div>
+                </div>
+                <div class="mood-card" data-mood="wellness">
+                    <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=400&q=80" alt="Wellness renewal" loading="lazy" />
+                    <div class="mood-overlay">
+                        <div class="mood-label">Wellness Renewal</div>
+                        <div class="mood-sub">Bali · Sri Lanka</div>
+                        <div class="explore-tag">Explore <i class="fas fa-arrow-right" style="font-size:10px;"></i></div>
+                    </div>
+                </div>
+                <div class="mood-card" data-mood="celebration">
+                    <img src="https://images.unsplash.com/photo-1519167758481-83f550bb49b3?w=400&q=80" alt="Celebration energy" loading="lazy" />
+                    <div class="mood-overlay">
+                        <div class="mood-label">Celebration Energy</div>
+                        <div class="mood-sub">Ibiza · Mykonos</div>
+                        <div class="explore-tag">Explore <i class="fas fa-arrow-right" style="font-size:10px;"></i></div>
+                    </div>
+                </div>
+                <div class="mood-card" data-mood="longstay">
+                    <img src="https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=400&q=80" alt="Long-stay living" loading="lazy" />
+                    <div class="mood-overlay">
+                        <div class="mood-label">Long-Stay Living</div>
+                        <div class="mood-sub">Mallorca · Tuscany</div>
+                        <div class="explore-tag">Explore <i class="fas fa-arrow-right" style="font-size:10px;"></i></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================
+        SIGNATURE VILLAS
+        ============================================================ -->
+        <section class="villas-section" id="villas" aria-label="Signature villas">
+            <div class="section-header">
+                <span class="section-label">Collection</span>
+                <h2 class="section-title">Places Worth <em>Staying Longer</em></h2>
+            </div>
+            <div class="villas-grid" id="villasGrid">
+                <!-- Injected by JS -->
+            </div>
+        </section>
+
+        <!-- ============================================================
+        EXPERIENCES
+        ============================================================ -->
+        <section class="experiences-section" id="experiences" aria-label="Experiences">
+            <div class="section-header">
+                <span class="section-label">Experiences</span>
+                <h2 class="section-title">Days You Will <em>Remember</em></h2>
+            </div>
+            <div class="exp-grid" id="expGrid">
+                <div class="exp-card" data-exp="chef">
+                    <span class="exp-icon"><i class="fas fa-utensils"></i></span>
+                    <div class="exp-name">Private Chef</div>
+                    <div class="exp-desc">In-villa dining</div>
+                </div>
+                <div class="exp-card" data-exp="yacht">
+                    <span class="exp-icon"><i class="fas fa-ship"></i></span>
+                    <div class="exp-name">Yacht Journey</div>
+                    <div class="exp-desc">Sunset cruise</div>
+                </div>
+                <div class="exp-card" data-exp="vineyard">
+                    <span class="exp-icon"><i class="fas fa-wine-glass"></i></span>
+                    <div class="exp-name">Vineyard Tour</div>
+                    <div class="exp-desc">Wine tasting</div>
+                </div>
+                <div class="exp-card" data-exp="spa">
+                    <span class="exp-icon"><i class="fas fa-spa"></i></span>
+                    <div class="exp-name">In-Villa Spa</div>
+                    <div class="exp-desc">Wellness rituals</div>
+                </div>
+                <div class="exp-card" data-exp="yoga">
+                    <span class="exp-icon"><i class="fas fa-person-walking"></i></span>
+                    <div class="exp-name">Private Yoga</div>
+                    <div class="exp-desc">Sunrise sessions</div>
+                </div>
+                <div class="exp-card" data-exp="hiking">
+                    <span class="exp-icon"><i class="fas fa-mountain"></i></span>
+                    <div class="exp-name">Guided Hiking</div>
+                    <div class="exp-desc">Mountain trails</div>
+                </div>
+                <div class="exp-card" data-exp="culture">
+                    <span class="exp-icon"><i class="fas fa-landmark"></i></span>
+                    <div class="exp-name">Cultural Tour</div>
+                    <div class="exp-desc">Local heritage</div>
+                </div>
+                <div class="exp-card" data-exp="diving">
+                    <span class="exp-icon"><i class="fas fa-water"></i></span>
+                    <div class="exp-name">Diving</div>
+                    <div class="exp-desc">Underwater worlds</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================
+        WELLNESS
+        ============================================================ -->
+        <section class="wellness-section" id="wellness" aria-label="Wellness">
+            <div class="section-header">
+                <span class="section-label">Wellness</span>
+                <h2 class="section-title">Return <em>Rested</em></h2>
+            </div>
+            <div class="wellness-grid">
+                <div class="wellness-item"><span class="w-icon"><i class="fas fa-hand-sparkles"></i></span><div class="w-name">Massage</div></div>
+                <div class="wellness-item"><span class="w-icon"><i class="fas fa-person-walking"></i></span><div class="w-name">Yoga</div></div>
+                <div class="wellness-item"><span class="w-icon"><i class="fas fa-brain"></i></span><div class="w-name">Meditation</div></div>
+                <div class="wellness-item"><span class="w-icon"><i class="fas fa-dumbbell"></i></span><div class="w-name">Personal Training</div></div>
+                <div class="wellness-item"><span class="w-icon"><i class="fas fa-leaf"></i></span><div class="w-name">Nutrition</div></div>
+                <div class="wellness-item"><span class="w-icon"><i class="fas fa-tree"></i></span><div class="w-name">Nature Therapy</div></div>
+                <div class="wellness-item"><span class="w-icon"><i class="fas fa-moon"></i></span><div class="w-name">Sleep Support</div></div>
+                <div class="wellness-item"><span class="w-icon"><i class="fas fa-lungs"></i></span><div class="w-name">Breathwork</div></div>
+            </div>
+            <div style="margin-top:32px;display:flex;gap:12px;flex-wrap:wrap;justify-content:center;padding:0 20px;">
+                <button class="btn-secondary">Weekend Reset</button>
+                <button class="btn-secondary">Five-Day Restore</button>
+                <button class="btn-secondary">Seven-Day Renewal</button>
+                <button class="btn-secondary">Couples Wellness</button>
+            </div>
+        </section>
+
+        <!-- ============================================================
+        CELEBRATIONS
+        ============================================================ -->
+        <section class="celebrations-section" id="celebrations" aria-label="Celebrations">
+            <div class="section-header">
+                <span class="section-label">Celebrations</span>
+                <h2 class="section-title">Celebrate Somewhere <em>Extraordinary</em></h2>
+            </div>
+            <div class="celeb-grid">
+                <div class="celeb-card"><span class="celeb-icon"><i class="fas fa-ring"></i></span><div class="celeb-name">Destination Weddings</div><div class="celeb-desc">Up to 200 guests</div></div>
+                <div class="celeb-card"><span class="celeb-icon"><i class="fas fa-flower"></i></span><div class="celeb-name">Proposals</div><div class="celeb-desc">Intimate & private</div></div>
+                <div class="celeb-card"><span class="celeb-icon"><i class="fas fa-cake"></i></span><div class="celeb-name">Anniversaries</div><div class="celeb-desc">Celebrations of love</div></div>
+                <div class="celeb-card"><span class="celeb-icon"><i class="fas fa-champagne-glasses"></i></span><div class="celeb-name">Birthdays</div><div class="celeb-desc">Tailored to you</div></div>
+                <div class="celeb-card"><span class="celeb-icon"><i class="fas fa-users"></i></span><div class="celeb-name">Family Gatherings</div><div class="celeb-desc">Multi-generational</div></div>
+                <div class="celeb-card"><span class="celeb-icon"><i class="fas fa-building"></i></span><div class="celeb-name">Corporate Retreats</div><div class="celeb-desc">Board-level privacy</div></div>
+            </div>
+        </section>
+
+        <!-- ============================================================
+        CONCIERGE
+        ============================================================ -->
+        <section class="concierge-section" id="concierge" aria-label="Concierge">
+            <div class="section-header">
+                <span class="section-label">Concierge</span>
+                <h2 class="section-title">Consider It <em>Arranged</em></h2>
+            </div>
+            <div class="concierge-layout">
+                <div class="concierge-profile">
+                    <div class="avatar">
+                        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&q=80" alt="Concierge portrait" loading="lazy" />
+                    </div>
+                    <div class="name">Elena Marceau</div>
+                    <div class="title">Private Travel Curator</div>
+                    <p class="bio">Fluent in French, English, Italian and Spanish. Elena curates private journeys across the Mediterranean and beyond with warmth and precision.</p>
+                    <div class="contact-btns">
+                        <button data-contact="whatsapp"><i class="fab fa-whatsapp"></i> WhatsApp</button>
+                        <button data-contact="email"><i class="fas fa-envelope"></i> Email</button>
+                        <button data-contact="call"><i class="fas fa-phone"></i> Call Request</button>
+                    </div>
+                    <div style="font-size:12px;color:var(--text-muted);margin-top:8px;">— Available within 2 hours</div>
+                </div>
+                <form class="concierge-form" id="conciergeForm">
+                    <div class="form-group">
+                        <label for="conciergeName">Name</label>
+                        <input type="text" id="conciergeName" placeholder="Your full name" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="conciergeEmail">Email</label>
+                        <input type="email" id="conciergeEmail" placeholder="you@example.com" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="conciergePhone">Phone</label>
+                        <input type="tel" id="conciergePhone" placeholder="+41 79 123 4567" />
+                    </div>
+                    <div class="form-group">
+                        <label for="conciergeDest">Destination</label>
+                        <select id="conciergeDest">
+                            <option value="">Select a destination</option>
+                            <option>Santorini</option>
+                            <option>Mykonos</option>
+                            <option>Mallorca</option>
+                            <option>Provence</option>
+                            <option>Swiss Alps</option>
+                            <option>Tuscany</option>
+                            <option>Bali</option>
+                            <option>Maldives</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="conciergeMessage">What should be arranged?</label>
+                        <textarea id="conciergeMessage" placeholder="Tell us about your vision..."></textarea>
+                    </div>
+                    <button type="submit" class="btn-primary" style="align-self:flex-start;">Send Enquiry <i class="fas fa-arrow-right"></i></button>
+                </form>
+            </div>
+        </section>
+
+        <!-- ============================================================
+        GUEST STORIES
+        ============================================================ -->
+        <section class="stories-section" id="stories" aria-label="Guest stories">
+            <div class="section-header">
+                <span class="section-label">Testimonials</span>
+                <h2 class="section-title">Moments Guests <em>Took Home</em></h2>
+            </div>
+            <div class="stories-grid" id="storiesGrid">
+                <div class="story-card">
+                    <div class="quote">The light in the morning was unlike anything we've ever experienced. We didn't want to leave.</div>
+                    <div class="story-footer"><span class="initials">A.M.</span><span>Casa Lumina · Santorini</span></div>
+                </div>
+                <div class="story-card">
+                    <div class="quote">Every detail was considered. We felt completely taken care of, yet never interrupted.</div>
+                    <div class="story-footer"><span class="initials">J.R.</span><span>Villa Marea · Mallorca</span></div>
+                </div>
+                <div class="story-card">
+                    <div class="quote">The silence in the Alps was profound. We came back different people.</div>
+                    <div class="story-footer"><span class="initials">S.K.</span><span>The Glass Retreat · Swiss Alps</span></div>
+                </div>
+                <div class="story-card">
+                    <div class="quote">A wedding that felt like it belonged to us alone. The concierge made everything effortless.</div>
+                    <div class="story-footer"><span class="initials">L.M.</span><span>Isla Serena · Maldives</span></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================
+        JOURNAL
+        ============================================================ -->
+        <section class="journal-section" id="journal" aria-label="Travel journal">
+            <div class="section-header">
+                <span class="section-label">Journal</span>
+                <h2 class="section-title">Stories From <em>Elsewhere</em></h2>
+            </div>
+            <div class="journal-grid">
+                <div class="journal-card">
+                    <div class="j-img"><img src="https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=600&q=80" alt="Villa life" loading="lazy" /></div>
+                    <div class="j-body">
+                        <div class="j-cat">Villa Life</div>
+                        <h3>Finding Stillness on the Amalfi Coast</h3>
+                        <p class="j-excerpt">How a cliffside villa changed the rhythm of a busy life.</p>
+                        <div class="j-meta"><span>5 min read</span><span>Apr 2025</span></div>
+                    </div>
+                </div>
+                <div class="journal-card">
+                    <div class="j-img"><img src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=600&q=80" alt="Destinations" loading="lazy" /></div>
+                    <div class="j-body">
+                        <div class="j-cat">Destinations</div>
+                        <h3>Provence in the Off-Season</h3>
+                        <p class="j-excerpt">The lavender fields are quiet, and the light is even more beautiful.</p>
+                        <div class="j-meta"><span>7 min read</span><span>Mar 2025</span></div>
+                    </div>
+                </div>
+                <div class="journal-card">
+                    <div class="j-img"><img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=600&q=80" alt="Wellness" loading="lazy" /></div>
+                    <div class="j-body">
+                        <div class="j-cat">Wellness</div>
+                        <h3>The Art of the Alpine Reset</h3>
+                        <p class="j-excerpt">Mountain air, stillness and a return to self.</p>
+                        <div class="j-meta"><span>4 min read</span><span>Feb 2025</span></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================
+        RESPONSIBLE TRAVEL
+        ============================================================ -->
+        <section class="responsible-section" id="responsible" aria-label="Responsible travel">
+            <div class="section-header">
+                <span class="section-label">Responsible</span>
+                <h2 class="section-title">Beautiful Places, <em>Carefully Treated</em></h2>
+            </div>
+            <div class="resp-grid">
+                <div class="resp-item"><span class="resp-icon"><i class="fas fa-users"></i></span><div class="resp-label">Local Employment</div><div class="resp-desc">Supporting communities</div></div>
+                <div class="resp-item"><span class="resp-icon"><i class="fas fa-droplet"></i></span><div class="resp-label">Water Stewardship</div><div class="resp-desc">Responsible use</div></div>
+                <div class="resp-item"><span class="resp-icon"><i class="fas fa-sun"></i></span><div class="resp-label">Renewable Energy</div><div class="resp-desc">Solar & sustainable</div></div>
+                <div class="resp-item"><span class="resp-icon"><i class="fas fa-utensils"></i></span><div class="resp-label">Local Food</div><div class="resp-desc">Seasonal & regional</div></div>
+                <div class="resp-item"><span class="resp-icon"><i class="fas fa-recycle"></i></span><div class="resp-label">Plastic Reduction</div><div class="resp-desc">Minimal waste</div></div>
+                <div class="resp-item"><span class="resp-icon"><i class="fas fa-tree"></i></span><div class="resp-label">Natural Materials</div><div class="resp-desc">Sustainable sourcing</div></div>
+                <div class="resp-item"><span class="resp-icon"><i class="fas fa-handshake"></i></span><div class="resp-label">Community Support</div><div class="resp-desc">Local partnerships</div></div>
+                <div class="resp-item"><span class="resp-icon"><i class="fas fa-paw"></i></span><div class="resp-label">Wildlife Care</div><div class="resp-desc">Protecting nature</div></div>
+            </div>
+        </section>
+
+        <!-- ============================================================
+        OWNER PARTNERSHIP
+        ============================================================ -->
+        <section class="owners-section" id="owners" aria-label="Owner partnership">
+            <div class="section-header">
+                <span class="section-label">Owners</span>
+                <h2 class="section-title">Exceptional Homes Deserve <br /><em>Exceptional Guests</em></h2>
+            </div>
+            <div class="owners-layout">
+                <div class="owners-text">
+                    <p style="color:var(--text-muted);font-weight:300;line-height:1.7;max-width:480px;">We represent a select collection of private residences. Our approach combines global marketing, professional curation and a dedication to guest experience.</p>
+                    <ul class="owners-list">
+                        <li>Selective representation</li>
+                        <li>Global luxury marketing</li>
+                        <li>Professional photography</li>
+                        <li>Pricing strategy</li>
+                        <li>Guest screening</li>
+                        <li>Booking management</li>
+                        <li>Concierge coordination</li>
+                        <li>Owner reporting</li>
+                    </ul>
+                </div>
+                <form class="owners-form" id="ownersForm">
+                    <div class="form-group">
+                        <label for="ownerName">Owner Name</label>
+                        <input type="text" id="ownerName" placeholder="Full name" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="ownerEmail">Email</label>
+                        <input type="email" id="ownerEmail" placeholder="you@example.com" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="ownerPhone">Phone</label>
+                        <input type="tel" id="ownerPhone" placeholder="+41 79 123 4567" />
+                    </div>
+                    <div class="form-group">
+                        <label for="ownerLocation">Property Location</label>
+                        <input type="text" id="ownerLocation" placeholder="Region / City" />
+                    </div>
+                    <div class="form-group">
+                        <label for="ownerStory">Property Story</label>
+                        <textarea id="ownerStory" placeholder="Tell us about your home..." rows="3"></textarea>
+                    </div>
+                    <button type="submit" class="btn-primary" style="align-self:flex-start;">Submit Enquiry <i class="fas fa-arrow-right"></i></button>
+                </form>
+            </div>
+        </section>
+
+        <!-- ============================================================
+        CONTACT
+        ============================================================ -->
+        <section class="contact-section" id="contact" aria-label="Contact">
+            <div class="section-header">
+                <span class="section-label">Contact</span>
+                <h2 class="section-title">Start With A <em>Conversation</em></h2>
+            </div>
+            <form class="contact-form" id="contactForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="contactName">Full Name</label>
+                        <input type="text" id="contactName" placeholder="Your full name" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="contactEmail">Email</label>
+                        <input type="email" id="contactEmail" placeholder="you@example.com" required />
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="contactPhone">Phone</label>
+                        <input type="tel" id="contactPhone" placeholder="+41 79 123 4567" />
+                    </div>
+                    <div class="form-group">
+                        <label for="contactCountry">Country</label>
+                        <input type="text" id="contactCountry" placeholder="Switzerland" />
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="contactDest">Preferred Destination</label>
+                        <select id="contactDest">
+                            <option value="">Select a destination</option>
+                            <option>Santorini</option>
+                            <option>Mykonos</option>
+                            <option>Mallorca</option>
+                            <option>Provence</option>
+                            <option>Swiss Alps</option>
+                            <option>Tuscany</option>
+                            <option>Bali</option>
+                            <option>Maldives</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="contactReason">Contact Reason</label>
+                        <select id="contactReason">
+                            <option value="">Select a reason</option>
+                            <option>Villa Enquiry</option>
+                            <option>Booking Support</option>
+                            <option>Trip Planning</option>
+                            <option>Concierge</option>
+                            <option>Wedding</option>
+                            <option>Property Partnership</option>
+                            <option>Travel Agent</option>
+                            <option>General Enquiry</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="contactMessage">Message</label>
+                    <textarea id="contactMessage" placeholder="Tell us about your vision..." rows="4"></textarea>
+                </div>
+                <div class="submit-row">
+                    <button type="submit" class="btn-primary">Send Enquiry <i class="fas fa-arrow-right"></i></button>
+                    <span style="font-size:12px;color:var(--text-muted);">We respond within 4 hours</span>
+                </div>
+            </form>
+        </section>
+
+        <!-- ============================================================
+        FOOTER
+        ============================================================ -->
+        <footer class="footer" id="footer" role="contentinfo">
+            <div class="wordmark">Solara</div>
+            <div class="tagline">Live Beautifully, Somewhere Else.</div>
+            <div class="footer-links">
+                <a href="#villas">Villas</a>
+                <a href="#destinations">Destinations</a>
+                <a href="#experiences">Experiences</a>
+                <a href="#concierge">Concierge</a>
+                <a href="#stories">Stories</a>
+                <a href="#journal">Journal</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <div class="footer-newsletter">
+                <input type="email" placeholder="Subscribe to our journal" id="footerNewsletter" />
+                <button id="footerNewsletterBtn">Subscribe</button>
+            </div>
+            <div class="footer-bottom">
+                <div class="closing">“Go Somewhere Beautiful. Stay A Little Longer.”</div>
+                <div class="mood-display">
+                    <span class="dot" id="footerMoodDot"></span>
+                    <span id="footerMoodName">Warm</span>
+                </div>
+                <span>© 2026 Solara Private Escapes</span>
+                <span>Privacy</span>
+                <span>Terms</span>
+                <span>Cookies</span>
+                <span>Accessibility</span>
+            </div>
+        </footer>
+
+    </main>
+
+    <!-- ============================================================
+    SCRIPTS
+    ============================================================ -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js">
+    </script>
+
+    <script>
+        // ============================================================
+        // CONFIG
+        // ============================================================
+        const CONFIG = {
+            villas: [{
+                id: 1,
+                name: 'Casa Lumina',
+                dest: 'Santorini, Greece',
+                story: 'A cliffside sanctuary with infinite sunset views and minimalist design.',
+                beds: 4,
+                guests: 8,
+                bathrooms: 4,
+                pool: 'Infinity',
+                rate: 2150,
+                rating: 4.96,
+                available: true,
+                image: 'https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=600&q=80',
+                badge: 'Featured'
+            }, {
+                id: 2,
+                name: 'Villa Marea',
+                dest: 'Mallorca, Spain',
+                story: 'A sprawling estate with private beach access and rooftop dining.',
+                beds: 6,
+                guests: 12,
+                bathrooms: 5,
+                pool: 'Heated',
+                rate: 3400,
+                rating: 4.92,
+                available: true,
+                image: 'https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=600&q=80',
+                badge: 'Beachfront'
+            }, {
+                id: 3,
+                name: 'Maison Olive',
+                dest: 'Provence, France',
+                story: 'An olive estate surrounded by lavender fields and ancient stone.',
+                beds: 5,
+                guests: 10,
+                bathrooms: 4,
+                pool: 'Heated',
+                rate: 2750,
+                rating: 4.88,
+                available: true,
+                image: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=600&q=80',
+                badge: 'Estate'
+            }, {
+                id: 4,
+                name: 'The Glass Retreat',
+                dest: 'Swiss Alps',
+                story: 'A modernist chalet with panoramic mountain views and indoor spa.',
+                beds: 4,
+                guests: 8,
+                bathrooms: 3,
+                pool: 'Indoor',
+                rate: 3100,
+                rating: 4.94,
+                available: false,
+                image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80',
+                badge: 'Alpine'
+            }, {
+                id: 5,
+                name: 'Kai Private Residence',
+                dest: 'Sri Lanka',
+                story: 'A beachfront tropical sanctuary with a private chef and wellness pavilion.',
+                beds: 7,
+                guests: 14,
+                bathrooms: 6,
+                pool: 'Infinity',
+                rate: 2950,
+                rating: 4.90,
+                available: true,
+                image: 'https://images.unsplash.com/photo-1533105079780-92b9be482077?w=600&q=80',
+                badge: 'Beachfront'
+            }, {
+                id: 6,
+                name: 'Isla Serena',
+                dest: 'Maldives',
+                story: 'A private island residence with personal staff and a private boat.',
+                beds: 5,
+                guests: 10,
+                bathrooms: 5,
+                pool: 'Infinity',
+                rate: 5900,
+                rating: 4.98,
+                available: true,
+                image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&q=80',
+                badge: 'Private Island'
+            }],
+            destinations: [
+                { name: 'Santorini', region: 'mediterranean', x: 38, y: 42, villas: 6 },
+                { name: 'Mykonos', region: 'mediterranean', x: 45, y: 48, villas: 4 },
+                { name: 'Mallorca', region: 'mediterranean', x: 28, y: 52, villas: 5 },
+                { name: 'Provence', region: 'mediterranean', x: 32, y: 58, villas: 3 },
+                { name: 'Swiss Alps', region: 'alps', x: 42, y: 30, villas: 4 },
+                { name: 'Tuscany', region: 'mediterranean', x: 38, y: 56, villas: 3 },
+                { name: 'Maldives', region: 'indian', x: 78, y: 70, villas: 2 },
+                { name: 'Bali', region: 'asia', x: 85, y: 78, villas: 3 },
+                { name: 'Sri Lanka', region: 'indian', x: 80, y: 72, villas: 2 },
+            ],
+            currencies: [
+                { code: 'EUR', symbol: '€', rate: 1 },
+                { code: 'USD', symbol: '$', rate: 1.09 },
+                { code: 'GBP', symbol: '£', rate: 0.85 },
+                { code: 'CHF', symbol: 'CHF', rate: 0.94 }
+            ],
+            languages: [
+                { code: 'en', label: 'EN' },
+                { code: 'fr', label: 'FR' },
+                { code: 'de', label: 'DE' },
+                { code: 'it', label: 'IT' },
+                { code: 'es', label: 'ES' },
+                { code: 'nl', label: 'NL' }
+            ]
+        };
+
+        // ============================================================
+        // STATE
+        // ============================================================
+        const state = {
+            theme: 'light',
+            currencyIndex: 0,
+            lang: 'en',
+            wishlist: new Set(),
+            currentRegion: 'all',
+            currentMood: null
+        };
+
+        // ============================================================
+        // DOM REFS
+        // ============================================================
+        const $ = (sel) => document.querySelector(sel);
+        const $$ = (sel) => document.querySelectorAll(sel);
+
+        // ============================================================
+        // INIT
+        // ============================================================
+        document.addEventListener('DOMContentLoaded', () => {
+            loadState();
+            applyTheme(state.theme);
+            initOpening();
+            initNavigation();
+            initMap();
+            initMoods();
+            initVillas();
+            initExperiences();
+            initConcierge();
+            initForms();
+            initWishlist();
+            initCurrency();
+            initLanguage();
+            initCookieBanner();
+            initScrollAnimations();
+            initBackToTop();
+            initHeroSearch();
+            initFooterNewsletter();
+            updateWishlistUI();
+            updatePrices();
+        });
+
+        // ============================================================
+        // STATE PERSISTENCE
+        // ============================================================
+        function loadState() {
+            try {
+                const saved = localStorage.getItem('solara_state');
+                if (saved) {
+                    const data = JSON.parse(saved);
+                    if (data.theme) state.theme = data.theme;
+                    if (data.currencyIndex !== undefined) state.currencyIndex = data.currencyIndex;
+                    if (data.lang) state.lang = data.lang;
+                    if (data.wishlist) state.wishlist = new Set(data.wishlist);
+                }
+            } catch (_) {}
+        }
+
+        function saveState() {
+            try {
+                localStorage.setItem('solara_state', JSON.stringify({
+                    theme: state.theme,
+                    currencyIndex: state.currencyIndex,
+                    lang: state.lang,
+                    wishlist: Array.from(state.wishlist)
+                }));
+            } catch (_) {}
+        }
+
+        // ============================================================
+        // THEME
+        // ============================================================
+        function applyTheme(theme) {
+            state.theme = theme;
+            document.documentElement.setAttribute('data-theme', theme);
+            const icon = document.getElementById('themeToggle');
+            if (icon) icon.innerHTML = theme === 'dark' ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+            const mobileIcon = document.querySelector('#mobileThemeToggle i');
+            if (mobileIcon) {
+                mobileIcon.className = theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+            }
+            saveState();
+        }
+
+        function toggleTheme() {
+            applyTheme(state.theme === 'light' ? 'dark' : 'light');
+            showToast(state.theme === 'light' ? 'Light mode' : 'Dark mode');
+        }
+
+        // ============================================================
+        // TOAST
+        // ============================================================
+        function showToast(message, duration = 2600) {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.textContent = message;
+            container.appendChild(toast);
+            requestAnimationFrame(() => toast.classList.add('show'));
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => toast.remove(), 500);
+            }, duration);
+        }
+
+        // ============================================================
+        // OPENING
+        // ============================================================
+        function initOpening() {
+            const opening = document.getElementById('opening');
+            const coastline = document.getElementById('coastline');
+            const pin = document.getElementById('pin');
+            const wordmark = document.getElementById('wordmark');
+            const sun = document.getElementById('sun');
+            const progress = document.getElementById('progressText');
+            const skip = document.getElementById('skipOpening');
+
+            let pct = 0;
+            const interval = setInterval(() => {
+                pct += Math.random() * 6 + 2;
+                if (pct > 100) pct = 100;
+                progress.textContent = 'Loading experience ' + Math.floor(pct) + '%';
+                if (pct >= 100) {
+                    clearInterval(interval);
+                    completeOpening();
+                }
+            }, 150);
+
+            function completeOpening() {
+                clearInterval(interval);
+                coastline.classList.add('show');
+                setTimeout(() => pin.classList.add('show'), 600);
+                setTimeout(() => wordmark.classList.add('show'), 900);
+                setTimeout(() => sun.classList.add('show'), 1200);
+                setTimeout(() => {
+                    opening.classList.add('hidden');
+                    document.body.style.overflow = '';
+                    setTimeout(() => initLenis(), 300);
+                }, 2200);
+            }
+
+            skip.addEventListener('click', () => {
+                clearInterval(interval);
+                opening.classList.add('hidden');
+                document.body.style.overflow = '';
+                setTimeout(() => initLenis(), 300);
+            });
+
+            // Auto-start
+            setTimeout(() => {
+                coastline.classList.add('show');
+                setTimeout(() => pin.classList.add('show'), 600);
+                setTimeout(() => wordmark.classList.add('show'), 900);
+                setTimeout(() => sun.classList.add('show'), 1200);
+            }, 400);
+        }
+
+        // ============================================================
+        // LENIS
+        // ============================================================
+        let lenis = null;
+
+        function initLenis() {
+            if (lenis || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+            lenis = new Lenis({
+                duration: 1.2,
+                easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+                orientation: 'vertical',
+                smoothWheel: true,
+                wheelMultiplier: 0.8,
+                touchMultiplier: 1.2,
+            });
+            lenis.on('scroll', (e) => {
+                const scroll = e.animatedScroll || e.targetScroll || 0;
+                const max = document.documentElement.scrollHeight - window.innerHeight;
+                const pct = max > 0 ? (scroll / max) * 100 : 0;
+                document.getElementById('scrollProgress').style.width = Math.min(pct, 100) + '%';
+            });
+            lenis.on('scroll', ScrollTrigger.update);
+            gsap.ticker.add((time) => lenis.raf(time * 1000));
+            gsap.ticker.lagSmoothing(0);
+        }
+
+        // ============================================================
+        // NAVIGATION
+        // ============================================================
+        function initNavigation() {
+            // Mobile menu
+            const menu = document.getElementById('mobileMenu');
+            const openBtn = document.getElementById('menuOpenBtn');
+            const closeBtn = document.getElementById('menuCloseBtn');
+
+            openBtn.addEventListener('click', () => {
+                menu.classList.add('open');
+                document.body.style.overflow = 'hidden';
+            });
+
+            closeBtn.addEventListener('click', () => {
+                menu.classList.remove('open');
+                document.body.style.overflow = '';
+            });
+
+            menu.addEventListener('click', (e) => {
+                if (e.target === menu) {
+                    menu.classList.remove('open');
+                    document.body.style.overflow = '';
+                }
+            });
+
+            // Mobile menu links
+            menu.querySelectorAll('.menu-links a').forEach(link => {
+                link.addEventListener('click', () => {
+                    menu.classList.remove('open');
+                    document.body.style.overflow = '';
+                    const target = link.getAttribute('href');
+                    if (target) {
+                        const el = document.querySelector(target);
+                        if (el) el.scrollIntoView({ behavior: 'smooth' });
+                    }
+                });
+            });
+
+            // Mobile theme
+            document.getElementById('mobileThemeToggle').addEventListener('click', toggleTheme);
+
+            // Mobile language
+            document.getElementById('mobileLangToggle').addEventListener('click', cycleLanguage);
+
+            // Mobile currency
+            document.getElementById('mobileCurrencyToggle').addEventListener('click', cycleCurrency);
+
+            // Mobile wishlist
+            document.getElementById('mobileWishlistToggle').addEventListener('click', () => {
+                showToast('Wishlist: ' + state.wishlist.size + ' villas saved');
+            });
+
+            // Bottom nav
+            document.querySelectorAll('.nav-bottom .nav-item').forEach(item => {
+                item.addEventListener('click', () => {
+                    document.querySelectorAll('.nav-bottom .nav-item').forEach(i => i.classList.remove('active'));
+                    item.classList.add('active');
+                    const target = item.dataset.target;
+                    if (target === 'home') {
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                    } else if (target === 'explore') {
+                        document.getElementById('villas').scrollIntoView({ behavior: 'smooth' });
+                    } else if (target === 'saved') {
+                        showToast('Wishlist: ' + state.wishlist.size + ' villas');
+                    } else if (target === 'trips') {
+                        showToast('Your trips dashboard (demo)');
+                    }
+                });
+            });
+
+            // Bottom booking CTA
+            document.getElementById('bottomBookingCta').addEventListener('click', () => {
+                document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+            });
+
+            // Top nav booking
+            document.getElementById('navBookingCta').addEventListener('click', () => {
+                document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+            });
+
+            // Top nav theme
+            document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+
+            // Top nav language
+            document.getElementById('langToggle').addEventListener('click', cycleLanguage);
+
+            // Top nav currency
+            document.getElementById('currencyToggle').addEventListener('click', cycleCurrency);
+
+            // Top nav wishlist
+            document.getElementById('wishlistNav').addEventListener('click', () => {
+                showToast('Wishlist: ' + state.wishlist.size + ' villas saved');
+            });
+
+            // Desktop nav links
+            document.querySelectorAll('.nav-top .nav-links a').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    document.querySelectorAll('.nav-top .nav-links a').forEach(l => l.classList.remove('active'));
+                    link.classList.add('active');
+                });
+            });
+
+            // Hero CTAs
+            document.getElementById('heroExplore').addEventListener('click', () => {
+                document.getElementById('villas').scrollIntoView({ behavior: 'smooth' });
+            });
+            document.getElementById('heroBuild').addEventListener('click', () => {
+                document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+                showToast('Let\'s build your perfect escape.');
+            });
+
+            // Keyboard escape for menu
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && menu.classList.contains('open')) {
+                    menu.classList.remove('open');
+                    document.body.style.overflow = '';
+                }
+            });
+        }
+
+        // ============================================================
+        // MAP
+        // ============================================================
+        function initMap() {
+            const container = document.getElementById('mapPins');
+            const destinations = CONFIG.destinations;
+
+            destinations.forEach((d, i) => {
+                const pin = document.createElement('div');
+                pin.className = 'map-pin';
+                pin.dataset.region = d.region;
+                pin.style.left = d.x + '%';
+                pin.style.top = d.y + '%';
+                pin.innerHTML = `
+              <div class="pin-dot"></div>
+              <div class="pin-label">${d.name} <span class="count">(${d.villas})</span></div>
+              <div class="pin-card">
+                <div class="dest-name">${d.name}</div>
+                <div class="dest-meta">${d.villas} villas · ${d.region}</div>
+                <button class="dest-cta" data-dest="${d.name}">Explore <i class="fas fa-arrow-right" style="font-size:10px;"></i></button>
+              </div>
+            `;
+                container.appendChild(pin);
+
+                pin.addEventListener('click', () => {
+                    document.querySelectorAll('.map-pin').forEach(p => p.classList.remove('active'));
+                    pin.classList.toggle('active');
+                    if (pin.classList.contains('active')) {
+                        showToast('Exploring ' + d.name);
+                    }
+                });
+
+                pin.querySelector('.dest-cta').addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    showToast('Showing villas in ' + d.name);
+                    document.getElementById('villas').scrollIntoView({ behavior: 'smooth' });
+                });
+            });
+
+            // Region filters
+            document.querySelectorAll('#mapFilters .filter-chip').forEach(chip => {
+                chip.addEventListener('click', () => {
+                    document.querySelectorAll('#mapFilters .filter-chip').forEach(c => c.classList.remove(
+                    'active'));
+                    chip.classList.add('active');
+                    const region = chip.dataset.region;
+                    state.currentRegion = region;
+                    document.querySelectorAll('.map-pin').forEach(pin => {
+                        if (region === 'all' || pin.dataset.region === region) {
+                            pin.style.display = 'block';
+                        } else {
+                            pin.style.display = 'none';
+                        }
+                    });
+                });
+            });
+        }
+
+        // ============================================================
+        // MOODS
+        // ============================================================
+        function initMoods() {
+            document.querySelectorAll('.mood-card').forEach(card => {
+                card.addEventListener('click', () => {
+                    const mood = card.dataset.mood;
+                    state.currentMood = mood;
+                    const labels = {
+                        ocean: 'Ocean Stillness',
+                        romantic: 'Romantic Privacy',
+                        family: 'Family Freedom',
+                        mountain: 'Mountain Silence',
+                        culture: 'Cultural Immersion',
+                        wellness: 'Wellness Renewal',
+                        celebration: 'Celebration Energy',
+                        longstay: 'Long-Stay Living'
+                    };
+                    showToast('Exploring: ' + (labels[mood] || mood));
+                    document.getElementById('villas').scrollIntoView({ behavior: 'smooth' });
+                    // Highlight matching villas (simple demo)
+                    document.querySelectorAll('.villa-card').forEach((v, i) => {
+                        v.style.transition = 'all 0.6s ease';
+                        if (i < 2) {
+                            v.style.borderColor = 'var(--accent)';
+                            v.style.boxShadow = '0 0 0 2px var(--accent)';
+                        } else {
+                            v.style.borderColor = 'var(--border)';
+                            v.style.boxShadow = 'none';
+                        }
+                        setTimeout(() => {
+                            v.style.borderColor = 'var(--border)';
+                            v.style.boxShadow = 'none';
+                        }, 2500);
+                    });
+                });
+            });
+        }
+
+        // ============================================================
+        // VILLAS
+        // ============================================================
+        function initVillas() {
+            const grid = document.getElementById('villasGrid');
+            const villas = CONFIG.villas;
+            const currency = CONFIG.currencies[state.currencyIndex];
+
+            grid.innerHTML = villas.map((v, i) => {
+                const isWish = state.wishlist.has(v.id);
+                const availText = v.available ? 'Available' : 'On Request';
+                const availClass = v.available ? 'available' : '';
+                const rateDisplay = currency.symbol + (v.rate * currency.rate).toFixed(0);
+                return `
+              <div class="villa-card" data-id="${v.id}">
+                <div class="card-image">
+                  <img src="${v.image}" alt="${v.name}" loading="lazy" />
+                  <span class="badge ${availClass}">${v.badge || availText}</span>
+                  <button class="wishlist-btn ${isWish ? 'active' : ''}" data-id="${v.id}" aria-label="Save to wishlist">
+                    <i class="${isWish ? 'fas' : 'far'} fa-heart"></i>
+                  </button>
+                </div>
+                <div class="card-body">
+                  <div class="villa-name">${v.name}</div>
+                  <div class="villa-dest">${v.dest}</div>
+                  <div class="villa-story">${v.story}</div>
+                  <div class="villa-meta">
+                    <span><i class="fas fa-bed" style="font-size:11px;"></i> ${v.beds} beds</span>
+                    <span><i class="fas fa-user" style="font-size:11px;"></i> ${v.guests} guests</span>
+                    <span><i class="fas fa-water" style="font-size:11px;"></i> ${v.pool}</span>
+                  </div>
+                  <div class="villa-price">
+                    <span><span class="amount">${rateDisplay}</span> <span class="per-night">/ night</span></span>
+                    <span class="rating"><i class="fas fa-star" style="font-size:11px;color:var(--luxury-accent);"></i> ${v.rating}</span>
+                  </div>
+                  <div class="card-actions">
+                    <button class="btn-sm btn-primary" data-view="${v.id}">View Villa</button>
+                    <button class="btn-sm btn-secondary" data-enquire="${v.id}">Enquire</button>
+                  </div>
+                </div>
+              </div>
+            `;
+            }).join('');
+
+            // Event listeners
+            grid.querySelectorAll('.wishlist-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const id = parseInt(btn.dataset.id);
+                    toggleWishlist(id, btn);
+                });
+            });
+
+            grid.querySelectorAll('[data-view]').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const id = parseInt(btn.dataset.view);
+                    const villa = CONFIG.villas.find(v => v.id === id);
+                    if (villa) showVillaDetail(villa);
+                });
+            });
+
+            grid.querySelectorAll('[data-enquire]').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const id = parseInt(btn.dataset.enquire);
+                    const villa = CONFIG.villas.find(v => v.id === id);
+                    if (villa) {
+                        document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+                        showToast('Enquiry for ' + villa.name);
+                    }
+                });
+            });
+
+            // Click on card body to view
+            grid.querySelectorAll('.villa-card').forEach(card => {
+                card.addEventListener('click', (e) => {
+                    if (e.target.closest('.wishlist-btn') || e.target.closest('.card-actions')) return;
+                    const id = parseInt(card.dataset.id);
+                    const villa = CONFIG.villas.find(v => v.id === id);
+                    if (villa) showVillaDetail(villa);
+                });
+            });
+        }
+
+        // ============================================================
+        // VILLA DETAIL OVERLAY
+        // ============================================================
+        function showVillaDetail(villa) {
+            const overlay = document.createElement('div');
+            overlay.style.cssText = `
+            position: fixed; inset: 0; z-index: 5000;
+            background: var(--background); color: var(--text);
+            padding: 40px 20px; overflow-y: auto;
+            display: flex; flex-direction: column;
+            animation: fadeIn 0.4s ease;
+          `;
+            overlay.innerHTML = `
+            <style>
+              @keyframes fadeIn { from { opacity:0; transform:scale(0.96); } to { opacity:1; transform:scale(1); } }
+              @keyframes slideUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+              .detail-close { position:fixed; top:16px; right:16px; width:44px; height:44px; border-radius:50%; background:var(--surface-glass); backdrop-filter:blur(12px); border:1px solid var(--border); font-size:20px; color:var(--text); display:flex; align-items:center; justify-content:center; z-index:10; touch-action:manipulation; }
+              .detail-grid { max-width:1100px; margin:0 auto; width:100%; display:grid; grid-template-columns:1fr 1fr; gap:32px; padding-top:20px; }
+              .detail-grid .detail-image { border-radius:var(--radius-md); overflow:hidden; aspect-ratio:4/3; background:var(--background-secondary); }
+              .detail-grid .detail-image img { width:100%; height:100%; object-fit:cover; }
+              .detail-grid .detail-info { display:flex; flex-direction:column; gap:12px; }
+              .detail-grid .detail-info .name { font-family:var(--font-serif); font-size:clamp(1.8rem,3vw,2.8rem); font-weight:400; }
+              .detail-grid .detail-info .dest { font-size:14px; color:var(--text-muted); }
+              .detail-grid .detail-info .story { font-size:15px; color:var(--text-muted); font-weight:300; line-height:1.7; max-width:480px; }
+              .detail-grid .detail-info .meta-grid { display:grid; grid-template-columns:1fr 1fr; gap:6px 20px; padding:12px 0; border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
+              .detail-grid .detail-info .meta-grid .item { font-size:13px; color:var(--text-muted); }
+              .detail-grid .detail-info .meta-grid .item strong { display:block; font-weight:500; color:var(--text); font-size:15px; }
+              .detail-grid .detail-info .actions { display:flex; gap:10px; flex-wrap:wrap; margin-top:4px; }
+              @media (max-width:768px) {
+                .detail-grid { grid-template-columns:1fr; gap:20px; }
+                .detail-grid .detail-image { aspect-ratio:4/3; }
+                .detail-close { top:12px; right:12px; width:40px; height:40px; font-size:18px; }
+                overlay { padding:24px 16px; }
+              }
+            </style>
+            <button class="detail-close" id="detailClose"><i class="fas fa-xmark"></i></button>
+            <div class="detail-grid">
+              <div class="detail-image">
+                <img src="${villa.image}" alt="${villa.name}" loading="lazy" />
+              </div>
+              <div class="detail-info">
+                <div class="name">${villa.name}</div>
+                <div class="dest"><i class="fas fa-location-dot" style="font-size:12px;color:var(--text-muted);"></i> ${villa.dest}</div>
+                <div class="story">${villa.story} A private residence selected for its exceptional architecture, natural setting and commitment to guest privacy.</div>
+                <div class="meta-grid">
+                  <div class="item"><strong>${villa.beds}</strong> Bedrooms</div>
+                  <div class="item"><strong>${villa.guests}</strong> Guests</div>
+                  <div class="item"><strong>${villa.bathrooms}</strong> Bathrooms</div>
+                  <div class="item"><strong><i class="fas fa-water" style="font-size:12px;"></i> ${villa.pool}</strong> Pool</div>
+                  <div class="item"><strong>${villa.available ? 'Available' : 'On Request'}</strong> Status</div>
+                  <div class="item"><strong><i class="fas fa-star" style="font-size:12px;color:var(--luxury-accent);"></i> ${villa.rating}</strong> Rating</div>
+                </div>
+                <div class="actions">
+                  <button class="btn-primary" id="detailEnquire">Enquire <i class="fas fa-arrow-right"></i></button>
+                  <button class="btn-secondary" id="detailWishlist">${state.wishlist.has(villa.id) ? '<i class="fas fa-heart"></i> Saved' : '<i class="far fa-heart"></i> Save'}</button>
+                  <button class="btn-outline" id="detailShare"><i class="fas fa-share-nodes"></i> Share</button>
+                </div>
+              </div>
+            </div>
+          `;
+            document.body.appendChild(overlay);
+            document.body.style.overflow = 'hidden';
+
+            const close = () => {
+                overlay.remove();
+                document.body.style.overflow = '';
+                document.removeEventListener('keydown', escHandler);
+            };
+
+            overlay.querySelector('#detailClose').addEventListener('click', close);
+
+            overlay.querySelector('#detailEnquire').addEventListener('click', () => {
+                close();
+                document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+                showToast('Enquiry for ' + villa.name);
+            });
+
+            const wishBtn = overlay.querySelector('#detailWishlist');
+            wishBtn.addEventListener('click', () => {
+                if (state.wishlist.has(villa.id)) {
+                    state.wishlist.delete(villa.id);
+                    wishBtn.innerHTML = '<i class="far fa-heart"></i> Save';
+                    showToast('Removed from wishlist');
+                } else {
+                    state.wishlist.add(villa.id);
+                    wishBtn.innerHTML = '<i class="fas fa-heart"></i> Saved';
+                    showToast('Added to wishlist');
+                }
+                saveState();
+                updateWishlistUI();
+            });
+
+            overlay.querySelector('#detailShare').addEventListener('click', () => {
+                if (navigator.share) {
+                    navigator.share({ title: villa.name, text: 'Discover ' + villa.name + ' at Solara Private Escapes',
+                        url: window.location.href });
+                } else {
+                    navigator.clipboard.writeText(window.location.href).then(() => {
+                        showToast('Link copied');
+                    }).catch(() => showToast('Share: ' + villa.name));
+                }
+            });
+
+            const escHandler = (e) => { if (e.key === 'Escape') close(); };
+            document.addEventListener('keydown', escHandler);
+
+            overlay.addEventListener('click', (e) => { if (e.target === overlay) close(); });
+        }
+
+        // ============================================================
+        // WISHLIST
+        // ============================================================
+        function toggleWishlist(id, btn) {
+            if (state.wishlist.has(id)) {
+                state.wishlist.delete(id);
+                btn.innerHTML = '<i class="far fa-heart"></i>';
+                btn.classList.remove('active');
+                showToast('Removed from wishlist');
+            } else {
+                state.wishlist.add(id);
+                btn.innerHTML = '<i class="fas fa-heart"></i>';
+                btn.classList.add('active');
+                showToast('Added to wishlist');
+            }
+            saveState();
+            updateWishlistUI();
+        }
+
+        function updateWishlistUI() {
+            document.querySelectorAll('.wishlist-btn').forEach(btn => {
+                const id = parseInt(btn.dataset.id);
+                if (state.wishlist.has(id)) {
+                    btn.innerHTML = '<i class="fas fa-heart"></i>';
+                    btn.classList.add('active');
+                } else {
+                    btn.innerHTML = '<i class="far fa-heart"></i>';
+                    btn.classList.remove('active');
+                }
+            });
+        }
+
+        // ============================================================
+        // EXPERIENCES
+        // ============================================================
+        function initExperiences() {
+            document.querySelectorAll('.exp-card').forEach(card => {
+                card.addEventListener('click', () => {
+                    const name = card.querySelector('.exp-name').textContent;
+                    showToast('Experience: ' + name + ' — Add to your trip?');
+                });
+            });
+        }
+
+        // ============================================================
+        // CONCIERGE
+        // ============================================================
+        function initConcierge() {
+            document.querySelectorAll('.concierge-profile .contact-btns button').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const type = btn.dataset.contact;
+                    showToast('Contact via ' + type + ' (demo)');
+                });
+            });
+
+            document.getElementById('conciergeForm').addEventListener('submit', (e) => {
+                e.preventDefault();
+                showToast('Your enquiry has been sent to Elena. She will respond within 2 hours.');
+                e.target.reset();
+            });
+        }
+
+        // ============================================================
+        // FORMS
+        // ============================================================
+        function initForms() {
+            document.getElementById('ownersForm').addEventListener('submit', (e) => {
+                e.preventDefault();
+                showToast('Thank you. We will review your property submission.');
+                e.target.reset();
+            });
+
+            document.getElementById('contactForm').addEventListener('submit', (e) => {
+                e.preventDefault();
+                showToast('We have received your message. A team member will respond within 4 hours.');
+                e.target.reset();
+            });
+
+            // Hero search
+            document.getElementById('heroSearchBtn').addEventListener('click', () => {
+                const dest = document.getElementById('heroSearchDest').value || 'any destination';
+                showToast('Searching villas in ' + dest);
+                document.getElementById('villas').scrollIntoView({ behavior: 'smooth' });
+            });
+
+            // Enter key on search fields
+            document.querySelectorAll('.hero-search input').forEach(input => {
+                input.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter') {
+                        document.getElementById('heroSearchBtn').click();
+                    }
+                });
+            });
+        }
+
+        // ============================================================
+        // CURRENCY
+        // ============================================================
+        function cycleCurrency() {
+            state.currencyIndex = (state.currencyIndex + 1) % CONFIG.currencies.length;
+            const cur = CONFIG.currencies[state.currencyIndex];
+            document.getElementById('currencyToggle').innerHTML = cur.symbol === '€' ? '<i class="fas fa-euro-sign"></i>' :
+                cur.symbol === '$' ? '<i class="fas fa-dollar-sign"></i>' :
+                cur.symbol === '£' ? '<i class="fas fa-sterling-sign"></i>' :
+                '<i class="fas fa-franc-sign"></i>';
+            showToast('Currency: ' + cur.code);
+            saveState();
+            updatePrices();
+        }
+
+        function updatePrices() {
+            const currency = CONFIG.currencies[state.currencyIndex];
+            document.querySelectorAll('.villa-card .amount').forEach((el, i) => {
+                const villa = CONFIG.villas[i];
+                if (villa) {
+                    el.textContent = currency.symbol + (villa.rate * currency.rate).toFixed(0);
+                }
+            });
+        }
+
+        // ============================================================
+        // LANGUAGE
+        // ============================================================
+        function cycleLanguage() {
+            const langs = CONFIG.languages;
+            let idx = langs.findIndex(l => l.code === state.lang);
+            idx = (idx + 1) % langs.length;
+            state.lang = langs[idx].code;
+            document.getElementById('langToggle').textContent = langs[idx].label;
+            showToast('Language: ' + langs[idx].label);
+            saveState();
+        }
+
+        // ============================================================
+        // COOKIE BANNER
+        // ============================================================
+        function initCookieBanner() {
+            const banner = document.getElementById('cookieBanner');
+            const accept = document.getElementById('cookieAccept');
+            const settings = document.getElementById('cookieSettings');
+
+            if (localStorage.getItem('solara_cookies')) {
+                banner.classList.add('hidden');
+            }
+
+            accept.addEventListener('click', () => {
+                localStorage.setItem('solara_cookies', 'all');
+                banner.classList.add('hidden');
+                showToast('Cookie preferences saved');
+            });
+
+            settings.addEventListener('click', () => {
+                showToast('Cookie settings (demo) — Essential cookies always active');
+            });
+        }
+
+        // ============================================================
+        // SCROLL ANIMATIONS (GSAP)
+        // ============================================================
+        function initScrollAnimations() {
+            gsap.registerPlugin(ScrollTrigger);
+            if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+            // Hero content
+            gsap.from('.hero-content .eyebrow', {
+                y: 30,
+                opacity: 0,
+                duration: 0.8,
+                ease: 'power2.out',
+                delay: 0.2
+            });
+
+            gsap.from('.hero-content h1', {
+                y: 40,
+                opacity: 0,
+                duration: 0.9,
+                ease: 'power2.out',
+                delay: 0.3
+            });
+
+            gsap.from('.hero-content p', {
+                y: 30,
+                opacity: 0,
+                duration: 0.8,
+                ease: 'power2.out',
+                delay: 0.4
+            });
+
+            gsap.from('.hero-content .cta-group', {
+                y: 30,
+                opacity: 0,
+                duration: 0.8,
+                ease: 'power2.out',
+                delay: 0.5
+            });
+
+            gsap.from('.hero-content .hero-stats', {
+                y: 30,
+                opacity: 0,
+                duration: 0.8,
+                ease: 'power2.out',
+                delay: 0.6
+            });
+
+            gsap.from('.hero-search', {
+                y: 30,
+                opacity: 0,
+                duration: 0.8,
+                ease: 'power2.out',
+                delay: 0.7
+            });
+
+            // Map section
+            gsap.from('.map-wrapper', {
+                scale: 0.96,
+                opacity: 0,
+                duration: 1,
+                ease: 'power2.out',
+                scrollTrigger: {
+                    trigger: '.map-section',
+                    start: 'top 80%',
+                    toggleActions: 'play none none none'
+                }
+            });
+
+            // Mood cards
+            gsap.from('.mood-card', {
+                y: 40,
+                opacity: 0,
+                duration: 0.7,
+                stagger: 0.08,
+                ease: 'power2.out',
+                scrollTrigger: {
+                    trigger: '.mood-section',
+                    start: 'top 80%',
+                    toggleActions: 'play none none none'
+                }
+            });
+
+            // Villa cards
+            gsap.from('.villa-card', {
+                y: 40,
+                opacity: 0,
+                duration: 0.7,
+                stagger: 0.08,
+                ease: 'power2.out',
+                scrollTrigger: {
+                    trigger: '.villas-section',
+                    start: 'top 80%',
+                    toggleActions: 'play none none none'
+                }
+            });
+
+            // Experience cards
+            gsap.from('.exp-card', {
+                y: 30,
+                opacity: 0,
+                duration: 0.6,
+                stagger: 0.06,
+                ease: 'power2.out',
+                scrollTrigger: {
+                    trigger: '.experiences-section',
+                    start: 'top 80%',
+                    toggleActions: 'play none none none'
+                }
+            });
+
+            // Wellness items
+            gsap.from('.wellness-item', {
+                y: 20,
+                opacity: 0,
+                duration: 0.5,
+                stagger: 0.04,
+                ease: 'power2.out',
+                scrollTrigger: {
+                    trigger: '.wellness-section',
+                    start: 'top 80%',
+                    toggleActions: 'play none none none'
+                }
+            });
+
+            // Celebration cards
+            gsap.from('.celeb-card', {
+                y: 30,
+                opacity: 0,
+                duration: 0.6,
+                stagger: 0.06,
+                ease: 'power2.out',
+                scrollTrigger: {
+                    trigger: '.celebrations-section',
+                    start: 'top 80%',
+                    toggleActions: 'play none none none'
+                }
+            });
+
+            // Story cards
+            gsap.from('.story-card', {
+                y: 30,
+                opacity: 0,
+                duration: 0.6,
+                stagger: 0.08,
+                ease: 'power2.out',
+                scrollTrigger: {
+                    trigger: '.stories-section',
+                    start: 'top 80%',
+                    toggleActions: 'play none none none'
+                }
+            });
+
+            // Journal cards
+            gsap.from('.journal-card', {
+                y: 30,
+                opacity: 0,
+                duration: 0.6,
+                stagger: 0.08,
+                ease: 'power2.out',
+                scrollTrigger: {
+                    trigger: '.journal-section',
+                    start: 'top 80%',
+                    toggleActions: 'play none none none'
+                }
+            });
+
+            // Responsible items
+            gsap.from('.resp-item', {
+                y: 20,
+                opacity: 0,
+                duration: 0.5,
+                stagger: 0.04,
+                ease: 'power2.out',
+                scrollTrigger: {
+                    trigger: '.responsible-section',
+                    start: 'top 80%',
+                    toggleActions: 'play none none none'
+                }
+            });
+
+            // Footer
+            gsap.from('.footer .wordmark', {
+                y: 30,
+                opacity: 0,
+                duration: 0.8,
+                ease: 'power2.out',
+                scrollTrigger: {
+                    trigger: '.footer',
+                    start: 'top 85%',
+                    toggleActions: 'play none none none'
+                }
+            });
+        }
+
+        // ============================================================
+        // BACK TO TOP
+        // ============================================================
+        function initBackToTop() {
+            const btn = document.getElementById('backTop');
+            let visible = false;
+
+            window.addEventListener('scroll', () => {
+                const scroll = window.scrollY || window.pageYOffset || 0;
+                if (scroll > 600 && !visible) {
+                    visible = true;
+                    btn.classList.add('visible');
+                } else if (scroll <= 600 && visible) {
+                    visible = false;
+                    btn.classList.remove('visible');
+                }
+            });
+
+            btn.addEventListener('click', () => {
+                if (lenis) {
+                    lenis.scrollTo(0, { duration: 1.4 });
+                } else {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+            });
+        }
+
+        // ============================================================
+        // HERO SEARCH
+        // ============================================================
+        function initHeroSearch() {
+            // Already handled in initForms
+        }
+
+        // ============================================================
+        // FOOTER NEWSLETTER
+        // ============================================================
+        function initFooterNewsletter() {
+            document.getElementById('footerNewsletterBtn').addEventListener('click', () => {
+                const input = document.getElementById('footerNewsletter');
+                if (input.value && input.value.includes('@')) {
+                    showToast('Thank you for subscribing to our journal.');
+                    input.value = '';
+                } else {
+                    showToast('Please enter a valid email address.');
+                }
+            });
+
+            document.getElementById('footerNewsletter').addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') {
+                    document.getElementById('footerNewsletterBtn').click();
+                }
+            });
+        }
+
+        // ============================================================
+        // KEYBOARD SHORTCUTS
+        // ============================================================
+        document.addEventListener('keydown', (e) => {
+            if (e.ctrlKey && e.shiftKey && e.key === 'T') {
+                e.preventDefault();
+                toggleTheme();
+            }
+        });
+
+        // ============================================================
+        // REDUCED MOTION
+        // ============================================================
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            document.documentElement.style.setProperty('--transition', '0.01s');
+            document.documentElement.style.setProperty('--transition-fast', '0.01s');
+        }
+
+        console.log('🌊 Solara Private Escapes · Live Beautifully, Somewhere Else.');
+        console.log('© 2026 Solara — Private Collection');
+    </script>
+
+</body>
+</html>

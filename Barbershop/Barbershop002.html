@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Gilded Blade — Luxury Barbershop &amp; Grooming Studio</title>
+<meta name="description" content="The Gilded Blade is a premium barbershop offering precision cuts, hot towel shaves, and luxury grooming by master barbers. Book your appointment online.">
+<meta name="keywords" content="luxury barbershop, mens grooming, haircut, skin fade, hot towel shave, barber near me">
+<meta property="og:title" content="The Gilded Blade — Precision Cuts. Timeless Style.">
+<meta property="og:description" content="A cinematic luxury barbershop experience — master barbers, premium grooming, and a lounge built for the modern gentleman.">
+<meta property="og:type" content="website">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&amp;family=Outfit:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
+<style>
+:root{
+  --gold:#C9A227;
+  --gold-soft: rgba(201,162,39,.35);
+  --bg:#0E0E0E;
+  --bg2:#1F1F1F;
+  --accent:#B22222;
+  --text:#F5F5F5;
+  --muted:#a89f8f;
+  --glass: rgba(255,255,255,.08);
+  --glass-border: rgba(255,255,255,.14);
+  --shadow-lg: 0 40px 80px -25px rgba(0,0,0,.75);
+  --shadow-sm: 0 14px 30px -14px rgba(0,0,0,.6);
+  --ease: cubic-bezier(.22,1,.36,1);
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto;}
+  *{animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important;}
+}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Outfit',sans-serif;
+  font-weight:400;
+  overflow-x:hidden;
+  position:relative;
+}
+h1,h2,h3,h4,.display-edit{
+  font-family:'Bebas Neue',sans-serif;
+  color:var(--text);
+  font-weight:400;
+  letter-spacing:.03em;
+  text-transform:uppercase;
+}
+.eyebrow{
+  font-family:'Outfit',sans-serif; text-transform:uppercase; letter-spacing:.32em; font-size:.7rem; font-weight:600; color:var(--gold);
+}
+a{text-decoration:none; color:inherit;}
+:focus-visible{outline:2px solid var(--gold); outline-offset:3px; border-radius:3px;}
+.container-nice{max-width:1300px; margin:0 auto; padding:0 clamp(1.25rem,4vw,3.5rem);}
+section{position:relative; padding:clamp(4.5rem,9vw,8.5rem) 0;}
+.text-muted-luxe{color:var(--muted);}
+
+/* ---------- Ambient background ---------- */
+#bg-canvas{position:fixed; inset:0; width:100%; height:100%; z-index:0; pointer-events:none;}
+.mesh{
+  position:fixed; inset:0; z-index:0; pointer-events:none;
+  background:
+    radial-gradient(40% 34% at 15% 10%, rgba(201,162,39,.16), transparent 62%),
+    radial-gradient(34% 28% at 90% 15%, rgba(178,34,34,.14), transparent 60%),
+    radial-gradient(46% 38% at 50% 105%, rgba(201,162,39,.12), transparent 60%),
+    var(--bg);
+  animation: meshDrift 24s ease-in-out infinite alternate;
+}
+@keyframes meshDrift{0%{filter:hue-rotate(0deg);} 100%{filter:hue-rotate(-4deg);}}
+.spotlight{
+  position:fixed; inset:0; z-index:1; pointer-events:none;
+  background: radial-gradient(680px 680px at var(--mx,50%) var(--my,25%), rgba(201,162,39,.14), transparent 62%);
+  transition: background .25s var(--ease);
+}
+main{position:relative; z-index:2;}
+
+::-webkit-scrollbar{width:10px;}
+::-webkit-scrollbar-track{background:var(--bg2);}
+::-webkit-scrollbar-thumb{background:var(--gold); border-radius:10px;}
+
+/* ---------- Navigation ---------- */
+.nav-float{
+  position:fixed; top:18px; left:50%; transform:translateX(-50%);
+  width:min(1240px, 92%); z-index:1000;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:.7rem 1rem .7rem 1.5rem;
+  border-radius:100px;
+  background:rgba(14,14,14,.35);
+  backdrop-filter:blur(18px) saturate(160%);
+  -webkit-backdrop-filter:blur(18px) saturate(160%);
+  border:1px solid var(--glass-border);
+  box-shadow:0 14px 32px -20px rgba(0,0,0,.7);
+  transition:all .5s var(--ease);
+}
+.nav-float.solid{ background:rgba(14,14,14,.92); box-shadow:var(--shadow-sm); top:12px; }
+.nav-logo{ font-family:'Bebas Neue'; font-size:1.55rem; color:var(--text); display:flex; align-items:center; gap:.5rem; white-space:nowrap; letter-spacing:.05em;}
+.nav-logo i{color:var(--gold);}
+.nav-links{display:flex; gap:2rem; list-style:none; margin:0; padding:0;}
+.nav-links a{position:relative; font-size:.86rem; font-weight:500; color:var(--text); padding:.3rem 0; letter-spacing:.02em;}
+.nav-links a::after{content:''; position:absolute; left:0; bottom:-2px; width:0; height:2px; background:var(--gold); transition:width .35s var(--ease);}
+.nav-links a:hover::after, .nav-links a.active::after{width:100%;}
+.nav-actions{display:flex; align-items:center; gap:.6rem;}
+.btn-ghost{
+  border:1.5px solid var(--gold); color:var(--gold); border-radius:100px; padding:.5rem 1.2rem; font-size:.8rem; font-weight:600;
+  transition:all .35s var(--ease); background:transparent; letter-spacing:.03em;
+}
+.btn-ghost:hover{background:var(--gold); color:#0E0E0E; transform:translateY(-2px);}
+.btn-luxe{
+  border:none; border-radius:100px; padding:.55rem 1.35rem; font-size:.8rem; font-weight:700; color:#0E0E0E; letter-spacing:.03em;
+  background:linear-gradient(135deg,#e0bc4d, var(--gold));
+  box-shadow:0 12px 25px -10px rgba(201,162,39,.55);
+  transition:all .35s var(--ease);
+}
+.btn-luxe:hover{ transform:translateY(-3px); box-shadow:0 18px 30px -10px rgba(201,162,39,.7); color:#0E0E0E; }
+.navbar-toggler-custom{display:none; background:none; border:none; font-size:1.4rem; color:var(--gold);}
+
+/* ---------- Buttons general ---------- */
+.btn-outline-luxe{
+  border:1.5px solid var(--text); color:var(--text); border-radius:100px; padding:.9rem 2.1rem; font-weight:600;
+  display:inline-flex; align-items:center; gap:.6rem; transition:all .4s var(--ease); background:transparent; letter-spacing:.02em;
+}
+.btn-outline-luxe:hover{ background:var(--text); color:#0E0E0E; transform:translateY(-3px); }
+.btn-fill-luxe{
+  border:none; border-radius:100px; padding:.95rem 2.2rem; font-weight:700; color:#0E0E0E;
+  background:linear-gradient(135deg,#e0bc4d, var(--gold));
+  box-shadow:0 18px 36px -14px rgba(201,162,39,.6);
+  display:inline-flex; align-items:center; gap:.6rem; transition:all .4s var(--ease); letter-spacing:.02em;
+}
+.btn-fill-luxe:hover{ transform:translateY(-4px) scale(1.02); color:#0E0E0E; box-shadow:0 22px 44px -12px rgba(201,162,39,.75); }
+
+/* ---------- Hero ---------- */
+.hero{min-height:100vh; display:flex; align-items:center; padding-top:9rem; padding-bottom:4rem; position:relative;}
+.hero-eyebrow{display:flex; align-items:center; gap:.6rem; margin-bottom:1.2rem;}
+.hero-eyebrow .line{width:34px; height:1.5px; background:var(--gold);}
+.hero h1{font-size:clamp(3.1rem, 7.4vw, 6.2rem); line-height:.98; margin-bottom:1.3rem;}
+.hero h1 span{color:var(--gold);}
+.hero p.lead-txt{font-size:1.12rem; color:var(--muted); max-width:460px; margin-bottom:2.2rem; font-family:'Outfit';}
+.hero-cta{display:flex; gap:1rem; flex-wrap:wrap; margin-bottom:2.6rem;}
+.hero-stats{display:flex; gap:2.3rem;}
+.hero-stats .stat b{display:block; font-family:'Bebas Neue'; font-size:2rem; color:var(--gold);}
+.hero-stats .stat span{font-size:.72rem; color:var(--muted); text-transform:uppercase; letter-spacing:.1em;}
+
+.hero-visual{position:relative; height:640px;}
+.hero-img-main{
+  position:absolute; top:0; right:0; width:84%; height:82%; border-radius:20px; overflow:hidden;
+  box-shadow:var(--shadow-lg); border:1px solid var(--glass-border);
+  animation:floatSlow 7.5s ease-in-out infinite;
+}
+.hero-img-main::after{content:''; position:absolute; inset:0; background:linear-gradient(180deg, transparent 40%, rgba(14,14,14,.85) 100%);}
+.hero-img-main img{width:100%; height:100%; object-fit:cover; filter:grayscale(.15) contrast(1.12) brightness(.92);}
+.hero-img-small{
+  position:absolute; bottom:0; left:0; width:48%; height:44%; border-radius:16px; overflow:hidden;
+  box-shadow:var(--shadow-lg); border:5px solid var(--bg);
+  animation:floatSlow 8.5s ease-in-out infinite 1s;
+}
+.hero-img-small img{width:100%; height:100%; object-fit:cover; filter:grayscale(.1) contrast(1.1);}
+@keyframes floatSlow{0%,100%{transform:translateY(0);} 50%{transform:translateY(-16px);}}
+.glow-blob{position:absolute; border-radius:50%; filter:blur(60px); opacity:.4; z-index:-1;}
+.glow-blob.b1{width:240px; height:240px; background:var(--gold); top:-30px; left:15%;}
+.glow-blob.b2{width:200px; height:200px; background:var(--accent); bottom:8%; right:-20px; opacity:.3;}
+
+.booking-card-float{
+  position:absolute; left:-30px; bottom:-30px; width:340px; z-index:5;
+  background:var(--glass); backdrop-filter:blur(22px) saturate(160%); -webkit-backdrop-filter:blur(22px) saturate(160%);
+  border:1px solid var(--glass-border); border-radius:22px; padding:1.6rem;
+  box-shadow:var(--shadow-lg);
+  animation:floatSlow 9s ease-in-out infinite .5s;
+}
+.booking-card-float .bc-title{font-size:.72rem; text-transform:uppercase; letter-spacing:.16em; color:var(--gold); font-weight:600; margin-bottom:1rem;}
+.bc-field{margin-bottom:.7rem;}
+.bc-field label{font-size:.68rem; text-transform:uppercase; letter-spacing:.08em; color:var(--muted); margin-bottom:.3rem; display:block;}
+.bc-field select, .bc-field input{
+  width:100%; background:rgba(255,255,255,.05); border:1px solid var(--glass-border); border-radius:10px; padding:.55rem .8rem;
+  color:var(--text); font-size:.84rem;
+}
+.bc-field select:focus, .bc-field input:focus{outline:none; border-color:var(--gold);}
+.bc-field select option{background:#1F1F1F;}
+.bc-book-btn{
+  width:100%; border:none; border-radius:12px; padding:.75rem; margin-top:.5rem; font-weight:700; color:#0E0E0E;
+  background:linear-gradient(135deg,#e0bc4d,var(--gold)); transition:all .35s var(--ease); letter-spacing:.03em;
+}
+.bc-book-btn:hover{ transform:translateY(-2px); box-shadow:0 14px 26px -10px rgba(201,162,39,.6); }
+@media(max-width:991px){
+  .hero-visual{height:460px; margin-top:3rem;}
+  .booking-card-float{width:280px; left:0; bottom:-60px;}
+}
+
+/* ---------- Section heads ---------- */
+.section-head{max-width:640px; margin-bottom:3.2rem;}
+.section-head h2{font-size:clamp(2.3rem,4.4vw,3.4rem); line-height:1;}
+.section-head p{color:var(--muted); font-size:1.02rem; margin-top:.8rem;}
+.section-head.center{margin-left:auto; margin-right:auto; text-align:center;}
+
+/* ---------- 3D tilt service cards ---------- */
+.tilt-wrap{perspective:1400px;}
+.svc-card{
+  background:var(--bg2); border-radius:22px; overflow:hidden; position:relative;
+  box-shadow:var(--shadow-sm); transition:transform .12s linear, box-shadow .4s var(--ease); height:100%;
+  transform-style:preserve-3d; will-change:transform; border:1px solid var(--glass-border);
+}
+.svc-card:hover{box-shadow:var(--shadow-lg);}
+.svc-badge{
+  position:absolute; top:14px; left:14px; z-index:3; background:var(--accent); color:#fff; font-size:.68rem; font-weight:700;
+  padding:.3rem .7rem; border-radius:100px; letter-spacing:.03em; text-transform:uppercase;
+}
+.svc-img-wrap{height:210px; overflow:hidden; position:relative;}
+.svc-img-wrap img{width:100%; height:100%; object-fit:cover; transition:transform .6s var(--ease); filter:grayscale(.2) contrast(1.08);}
+.svc-card:hover .svc-img-wrap img{transform:scale(1.12) rotate(1deg);}
+.svc-glass-sweep{position:absolute; inset:0; background:linear-gradient(115deg, transparent 30%, rgba(255,255,255,.18) 45%, transparent 60%); transform:translateX(-120%); transition:transform .8s var(--ease);}
+.svc-card:hover .svc-glass-sweep{transform:translateX(120%);}
+.svc-body{padding:1.4rem 1.5rem 1.6rem; transform:translateZ(30px);}
+.svc-body h4{font-size:1.5rem; margin-bottom:.35rem; letter-spacing:.02em;}
+.svc-body p{font-size:.85rem; color:var(--muted); margin-bottom:.9rem; min-height:40px; font-family:'Outfit';}
+.svc-meta{display:flex; align-items:center; gap:.5rem; font-size:.76rem; color:var(--muted); margin-bottom:.9rem;}
+.svc-footer{display:flex; align-items:center; justify-content:space-between;}
+.svc-price{font-family:'Bebas Neue'; font-size:1.7rem; color:var(--gold); letter-spacing:.03em;}
+.svc-order-btn{
+  border:none; width:44px; height:44px; border-radius:50%; background:var(--text); color:#0E0E0E; display:flex; align-items:center; justify-content:center;
+  transition:all .35s var(--ease);
+}
+.svc-order-btn:hover{background:var(--gold); transform:rotate(20deg) scale(1.1);}
+
+/* ---------- Why choose us ---------- */
+.feature-card{
+  background:var(--glass); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px); border:1px solid var(--glass-border);
+  border-radius:20px; padding:1.8rem 1.6rem; height:100%; transition:all .4s var(--ease);
+}
+.feature-card:hover{transform:translateY(-8px); box-shadow:var(--shadow-sm); border-color:var(--gold-soft);}
+.feature-icon{
+  width:54px; height:54px; border-radius:14px; background:linear-gradient(135deg,var(--gold),#8a6d1a); color:#0E0E0E;
+  display:flex; align-items:center; justify-content:center; font-size:1.4rem; margin-bottom:1.1rem;
+}
+.feature-card h5{font-weight:600; color:var(--text); font-size:1.02rem; margin-bottom:.5rem; font-family:'Outfit'; text-transform:none; letter-spacing:0;}
+.feature-card p{font-size:.85rem; color:var(--muted); margin:0;}
+
+/* ---------- Master barbers ---------- */
+.barber-card{position:relative; border-radius:22px; overflow:hidden; height:520px;}
+.barber-card img{width:100%; height:100%; object-fit:cover; filter:grayscale(.3) contrast(1.1); transition:transform .7s var(--ease);}
+.barber-card:hover img{transform:scale(1.08);}
+.barber-card::after{content:''; position:absolute; inset:0; background:linear-gradient(180deg, transparent 30%, rgba(14,14,14,.95) 95%);}
+.barber-info{position:absolute; left:0; right:0; bottom:0; padding:1.6rem; z-index:2;}
+.barber-info h4{font-size:1.9rem; margin-bottom:.2rem;}
+.barber-info .spec{color:var(--gold); font-size:.78rem; text-transform:uppercase; letter-spacing:.1em; margin-bottom:.5rem;}
+.barber-info p{font-size:.83rem; color:var(--muted); margin-bottom:.6rem;}
+.barber-sig{height:44px; width:130px;}
+.barber-sig path{fill:none; stroke:var(--gold); stroke-width:2.2; stroke-linecap:round; stroke-dasharray:400; stroke-dashoffset:400; transition:stroke-dashoffset 1.8s var(--ease);}
+.barber-sig.in-view path{stroke-dashoffset:0;}
+.barber-exp{position:absolute; top:16px; right:16px; z-index:2; background:rgba(14,14,14,.6); backdrop-filter:blur(10px); border:1px solid var(--glass-border); border-radius:100px; padding:.35rem .9rem; font-size:.72rem; color:var(--gold); font-weight:600;}
+
+/* ---------- Gallery masonry ---------- */
+.masonry{column-count:3; column-gap:16px;}
+.masonry .m-item{break-inside:avoid; margin-bottom:16px; border-radius:18px; overflow:hidden; position:relative; cursor:pointer;}
+.masonry .m-item img{width:100%; display:block; transition:transform .6s var(--ease); filter:grayscale(.25) contrast(1.1);}
+.masonry .m-item:hover img{transform:scale(1.08);}
+.m-overlay{position:absolute; inset:0; background:linear-gradient(to top, rgba(14,14,14,.9), transparent 55%); display:flex; align-items:flex-end; padding:1rem; opacity:0; transition:opacity .4s var(--ease); border:1px solid transparent;}
+.m-item:hover .m-overlay{opacity:1;}
+.m-overlay span{color:var(--gold); font-weight:600; font-size:.85rem; text-transform:uppercase; letter-spacing:.05em;}
+@media(max-width:767px){.masonry{column-count:2;}}
+
+/* ---------- Booking process timeline ---------- */
+.process-line{position:relative;}
+.process-track{position:absolute; top:36px; left:0; right:0; height:1px; background:repeating-linear-gradient(to right, rgba(201,162,39,.4) 0 8px, transparent 8px 16px); z-index:0;}
+.process-step{position:relative; text-align:center; z-index:1;}
+.process-num{
+  width:72px; height:72px; border-radius:50%; background:var(--bg2); border:1.5px solid var(--gold); color:var(--gold);
+  display:flex; align-items:center; justify-content:center; font-family:'Bebas Neue'; font-size:1.9rem;
+  margin:0 auto 1.1rem; transition:all .4s var(--ease); box-shadow:var(--shadow-sm);
+}
+.process-step:hover .process-num{background:var(--gold); border-color:var(--gold); color:#0E0E0E; transform:scale(1.1) rotate(8deg);}
+.process-step h6{font-weight:600; color:var(--text); font-size:.92rem; margin-bottom:.4rem; font-family:'Outfit'; text-transform:none;}
+.process-step p{font-size:.8rem; color:var(--muted);}
+
+/* ---------- Stats ---------- */
+.stats-band{background:var(--bg2); border-radius:28px; border:1px solid var(--glass-border);}
+.stat-block{text-align:center;}
+.stat-block .num{font-family:'Bebas Neue'; font-size:clamp(2.8rem,5.4vw,4rem); color:var(--gold);}
+.stat-block .lbl{font-size:.78rem; color:var(--muted); text-transform:uppercase; letter-spacing:.1em;}
+
+/* ---------- Testimonials ---------- */
+.t-card{
+  background:var(--glass); backdrop-filter:blur(16px); border:1px solid var(--glass-border); border-radius:22px; padding:2.2rem;
+  height:100%; box-shadow:var(--shadow-sm); position:relative;
+}
+.t-quote-mark{font-family:'Bebas Neue'; font-size:4rem; color:var(--gold); line-height:.4; opacity:.7;}
+.t-card p.body-txt{font-size:.96rem; color:#d8d1c4; margin:1rem 0 1.4rem; line-height:1.6; font-family:'Outfit';}
+.t-person{display:flex; align-items:center; gap:.8rem;}
+.t-person img{width:46px; height:46px; border-radius:50%; object-fit:cover; filter:grayscale(.2);}
+.t-person b{display:block; font-size:.9rem; color:var(--text); font-family:'Outfit'; font-weight:600;}
+.t-person .stars{color:var(--gold); font-size:.7rem;}
+
+/* ---------- Membership ---------- */
+.member-card{
+  background:var(--bg2); border:1px solid var(--glass-border); border-radius:26px; padding:2.4rem 2rem; height:100%;
+  transition:all .45s var(--ease); position:relative; overflow:hidden;
+}
+.member-card:hover{transform:translateY(-10px); box-shadow:var(--shadow-lg); border-color:var(--gold-soft);}
+.member-card.featured{ border:1.5px solid var(--gold); background:linear-gradient(160deg, rgba(201,162,39,.1), var(--bg2)); }
+.member-tag{position:absolute; top:18px; right:-38px; background:var(--gold); color:#0E0E0E; font-size:.68rem; font-weight:700; padding:.3rem 2.6rem; transform:rotate(38deg); letter-spacing:.05em;}
+.member-card h4{font-size:1.7rem; margin-bottom:.3rem;}
+.member-price{font-family:'Bebas Neue'; font-size:3rem; color:var(--gold); margin:.8rem 0;}
+.member-price span{font-size:1rem; color:var(--muted); font-family:'Outfit';}
+.member-card ul{list-style:none; padding:0; margin:1.4rem 0;}
+.member-card ul li{font-size:.86rem; color:#d8d1c4; padding:.5rem 0; border-bottom:1px solid rgba(255,255,255,.06); display:flex; gap:.6rem; align-items:center;}
+.member-card ul li i{color:var(--gold);}
+
+/* ---------- Contact ---------- */
+.contact-info-item{display:flex; gap:1rem; align-items:flex-start; margin-bottom:1.6rem;}
+.contact-info-item i{width:48px; height:48px; border-radius:12px; background:var(--bg2); border:1px solid var(--glass-border); color:var(--gold); display:flex; align-items:center; justify-content:center; font-size:1.15rem; flex-shrink:0;}
+.contact-info-item b{display:block; font-size:.94rem; color:var(--text); margin-bottom:.15rem; font-family:'Outfit'; font-weight:600;}
+.contact-info-item span{font-size:.85rem; color:var(--muted);}
+.map-placeholder{
+  height:100%; min-height:340px; border-radius:24px; overflow:hidden; position:relative;
+  background:linear-gradient(135deg, var(--bg2), rgba(201,162,39,.08)); border:1px solid var(--glass-border);
+  display:flex; align-items:center; justify-content:center;
+}
+.map-placeholder i{font-size:2.6rem; color:var(--gold);}
+.map-pin{position:absolute; animation:bounce 2s ease-in-out infinite;}
+@keyframes bounce{0%,100%{transform:translateY(0);} 50%{transform:translateY(-10px);}}
+
+/* ---------- Footer ---------- */
+footer{background:#080808; color:#c9bfa9; border-radius:40px 40px 0 0; padding:5rem 0 2rem; margin-top:2rem; border-top:1px solid var(--glass-border);}
+footer h5{color:var(--text); font-weight:600; font-size:1rem; margin-bottom:1.2rem; font-family:'Outfit'; text-transform:none; letter-spacing:0;}
+footer .flogo{font-family:'Bebas Neue'; font-size:1.9rem; color:var(--text); letter-spacing:.04em;}
+footer p, footer a{color:#8a806e; font-size:.88rem;}
+footer ul{list-style:none; padding:0;}
+footer ul li{margin-bottom:.6rem;}
+footer a:hover{color:var(--gold);}
+.newsletter-input{display:flex; border-radius:100px; overflow:hidden; background:rgba(255,255,255,.05); border:1px solid var(--glass-border);}
+.newsletter-input input{flex:1; background:transparent; border:none; padding:.8rem 1.2rem; color:var(--text); font-size:.85rem;}
+.newsletter-input input::placeholder{color:#6b6355;}
+.newsletter-input input:focus{outline:none;}
+.newsletter-input button{border:none; background:var(--gold); color:#0E0E0E; padding:0 1.4rem; font-weight:700;}
+.social-row{display:flex; gap:.7rem; margin-top:1.2rem;}
+.social-row a{width:40px; height:40px; border-radius:50%; border:1px solid var(--glass-border); display:flex; align-items:center; justify-content:center; transition:all .35s var(--ease);}
+.social-row a:hover{background:var(--gold); border-color:var(--gold); color:#0E0E0E; transform:translateY(-4px);}
+.ig-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:8px;}
+.ig-grid img{width:100%; height:70px; object-fit:cover; border-radius:6px; transition:transform .3s var(--ease); filter:grayscale(.3);}
+.ig-grid img:hover{transform:scale(1.08);}
+.f-bottom{border-top:1px solid var(--glass-border); margin-top:3rem; padding-top:1.6rem; display:flex; justify-content:space-between; flex-wrap:wrap; gap:1rem; font-size:.8rem; color:#6b6355;}
+
+#backToTop{
+  position:fixed; bottom:28px; right:28px; width:52px; height:52px; border-radius:50%; background:var(--gold); color:#0E0E0E;
+  border:none; display:flex; align-items:center; justify-content:center; font-size:1.2rem; z-index:900; box-shadow:var(--shadow-sm);
+  opacity:0; pointer-events:none; transition:all .4s var(--ease);
+}
+#backToTop.show{opacity:1; pointer-events:auto;}
+#backToTop:hover{transform:translateY(-5px);}
+
+.reveal{opacity:0; transform:translateY(36px); transition:opacity .9s var(--ease), transform .9s var(--ease);}
+.reveal.visible{opacity:1; transform:translateY(0);}
+
+#preloader{
+  position:fixed; inset:0; z-index:9999; background:var(--bg); display:flex; align-items:center; justify-content:center;
+  transition:opacity .6s var(--ease), visibility .6s;
+}
+#preloader.hide{opacity:0; visibility:hidden;}
+.loader-mark{font-family:'Bebas Neue'; font-size:1.7rem; color:var(--gold); display:flex; flex-direction:column; align-items:center; gap:1rem; letter-spacing:.06em;}
+.loader-dot{width:44px; height:44px; border-radius:50%; border:3px solid rgba(201,162,39,.25); border-top-color:var(--gold); animation:spin 1s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+
+@media(max-width:991px){
+  .nav-links{display:none;}
+  .navbar-toggler-custom{display:block;}
+}
+</style>
+</head>
+<body>
+
+<div id="preloader"><div class="loader-mark"><div class="loader-dot"></div>THE GILDED BLADE</div></div>
+
+<canvas id="bg-canvas"></canvas>
+<div class="mesh"></div>
+<div class="spotlight" id="spotlightFollow"></div>
+
+<!-- ============ NAVIGATION ============ -->
+<nav class="nav-float" id="mainNav">
+  <a href="#home" class="nav-logo"><i class="bi bi-gem"></i> THE GILDED BLADE</a>
+  <ul class="nav-links">
+    <li><a href="#home" class="active">Home</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#barbers">Barbers</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="nav-actions">
+    <a href="tel:+14155550199" class="btn-ghost d-none d-md-inline-block">Call Now</a>
+    <a href="#booking" class="btn-luxe">Book Appointment</a>
+    <button class="navbar-toggler-custom" id="mobileToggle"><i class="bi bi-list"></i></button>
+  </div>
+</nav>
+
+<div id="mobileMenu" style="display:none; position:fixed; inset:0; z-index:999; background:rgba(14,14,14,.98); backdrop-filter:blur(10px); flex-direction:column; align-items:center; justify-content:center; gap:1.8rem;">
+  <a href="#home" class="mm-link" style="font-family:'Bebas Neue'; font-size:2rem; color:var(--text); letter-spacing:.05em;">Home</a>
+  <a href="#services" class="mm-link" style="font-family:'Bebas Neue'; font-size:2rem; color:var(--text); letter-spacing:.05em;">Services</a>
+  <a href="#barbers" class="mm-link" style="font-family:'Bebas Neue'; font-size:2rem; color:var(--text); letter-spacing:.05em;">Barbers</a>
+  <a href="#gallery" class="mm-link" style="font-family:'Bebas Neue'; font-size:2rem; color:var(--text); letter-spacing:.05em;">Gallery</a>
+  <a href="#contact" class="mm-link" style="font-family:'Bebas Neue'; font-size:2rem; color:var(--text); letter-spacing:.05em;">Contact</a>
+  <button id="closeMobile" style="border:none;background:var(--gold);color:#0E0E0E;width:50px;height:50px;border-radius:50%;font-size:1.3rem;">✕</button>
+</div>
+
+<main>
+<!-- ============ HERO ============ -->
+<section class="hero" id="home">
+  <div class="container-nice">
+    <div class="row align-items-center g-5">
+      <div class="col-lg-6">
+        <div class="hero-eyebrow"><span class="line"></span><span class="eyebrow">Est. 2014 — Downtown Atelier</span></div>
+        <h1>Precision Cuts.<br><span>Timeless</span> Style.</h1>
+        <p class="lead-txt">A private grooming atelier for the modern gentleman — master barbers, hand-honed razors, and a lounge built for the ritual of a great cut.</p>
+        <div class="hero-cta">
+          <a href="#booking" class="btn-fill-luxe">Book Appointment <i class="bi bi-arrow-up-right"></i></a>
+          <a href="#services" class="btn-outline-luxe">Explore Services <i class="bi bi-scissors"></i></a>
+        </div>
+        <div class="hero-stats">
+          <div class="stat"><b>12</b><span>Years Refined</span></div>
+          <div class="stat"><b>20+</b><span>Master Barbers</span></div>
+          <div class="stat"><b>4.9★</b><span>Client Rating</span></div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="hero-visual">
+          <div class="glow-blob b1"></div>
+          <div class="glow-blob b2"></div>
+          <div class="hero-img-main"><img src="https://picsum.photos/seed/blade-hero-main/900/1000" alt="Master barber giving a precision fade under warm studio light"></div>
+          <div class="hero-img-small"><img src="https://picsum.photos/seed/blade-hero-small/600/600" alt="Close-up of premium barbering tools on leather"></div>
+          <div class="booking-card-float" id="booking">
+            <div class="bc-title">Reserve Your Chair</div>
+            <div class="bc-field">
+              <label>Service</label>
+              <select id="bcService"><option>Signature Haircut</option><option>Skin Fade</option><option>Hot Towel Shave</option><option>VIP Grooming</option></select>
+            </div>
+            <div class="bc-field">
+              <label>Barber</label>
+              <select id="bcBarber"><option>Any Available</option><option>Marcus Reid</option><option>Antoine Cole</option><option>Julian Vance</option></select>
+            </div>
+            <div class="row g-2">
+              <div class="col-6 bc-field"><label>Date</label><input type="date" id="bcDate"></div>
+              <div class="col-6 bc-field"><label>Time</label><input type="time" id="bcTime"></div>
+            </div>
+            <button class="bc-book-btn" id="bcBookBtn" type="button">Book Now</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SERVICES ============ -->
+<section id="services">
+  <div class="container-nice">
+    <div class="row align-items-end reveal">
+      <div class="col-lg-7 section-head mb-0">
+        <span class="eyebrow">The Menu</span>
+        <h2>Grooming, elevated to ritual</h2>
+        <p>Eight signature services, each performed with hand-honed steel and unhurried precision.</p>
+      </div>
+    </div>
+    <div class="row g-4 tilt-wrap" id="serviceGrid"></div>
+  </div>
+</section>
+
+<!-- ============ WHY CHOOSE US ============ -->
+<section style="padding-top:0;">
+  <div class="container-nice">
+    <div class="row g-4">
+      <div class="col-6 col-md-4 col-lg-2 reveal"><div class="feature-card"><div class="feature-icon"><i class="bi bi-award"></i></div><h5>Master Barbers</h5><p>Award-trained, decades of blade.</p></div></div>
+      <div class="col-6 col-md-4 col-lg-2 reveal"><div class="feature-card"><div class="feature-icon"><i class="bi bi-droplet-half"></i></div><h5>Premium Products</h5><p>Small-batch pomades &amp; oils.</p></div></div>
+      <div class="col-6 col-md-4 col-lg-2 reveal"><div class="feature-card"><div class="feature-icon"><i class="bi bi-cup-straw"></i></div><h5>Luxury Lounge</h5><p>Bourbon on the house, always.</p></div></div>
+      <div class="col-6 col-md-4 col-lg-2 reveal"><div class="feature-card"><div class="feature-icon"><i class="bi bi-calendar-check"></i></div><h5>Online Booking</h5><p>Reserve your chair in seconds.</p></div></div>
+      <div class="col-6 col-md-4 col-lg-2 reveal"><div class="feature-card"><div class="feature-icon"><i class="bi bi-chat-dots"></i></div><h5>Free Consultation</h5><p>Every visit starts with a talk.</p></div></div>
+      <div class="col-6 col-md-4 col-lg-2 reveal"><div class="feature-card"><div class="feature-icon"><i class="bi bi-shield-check"></i></div><h5>Sanitized Tools</h5><p>Hospital-grade, every chair.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MASTER BARBERS ============ -->
+<section id="barbers">
+  <div class="container-nice">
+    <div class="section-head reveal">
+      <span class="eyebrow">The Craftsmen</span>
+      <h2>Meet our master barbers</h2>
+      <p>Three chairs, three distinct signatures — each barber trained across continents before earning a seat at The Gilded Blade.</p>
+    </div>
+    <div class="row g-4">
+      <div class="col-md-4 reveal">
+        <div class="barber-card">
+          <div class="barber-exp">14 Yrs</div>
+          <img src="https://picsum.photos/seed/barber-marcus/500/700" alt="Master barber Marcus Reid">
+          <div class="barber-info">
+            <div class="spec">Fades &amp; Sharp Lines</div>
+            <h4>Marcus Reid</h4>
+            <p>Trained in London, three-time Regional Barber of the Year.</p>
+            <svg class="barber-sig" viewBox="0 0 200 50" xmlns="http://www.w3.org/2000/svg"><path d="M5,35 C20,10 30,45 45,25 C55,12 65,40 80,28 C95,16 105,38 120,25 C135,12 150,35 170,20"/></svg>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 reveal">
+        <div class="barber-card">
+          <div class="barber-exp">10 Yrs</div>
+          <img src="https://picsum.photos/seed/barber-antoine/500/700" alt="Master barber Antoine Cole">
+          <div class="barber-info">
+            <div class="spec">Hot Towel Shaves</div>
+            <h4>Antoine Cole</h4>
+            <p>Straight-razor specialist, apprenticed in Milan for six years.</p>
+            <svg class="barber-sig" viewBox="0 0 200 50" xmlns="http://www.w3.org/2000/svg"><path d="M5,30 C25,15 35,42 55,22 C65,10 75,38 92,26 C108,15 118,36 135,24 C148,15 158,32 175,22"/></svg>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 reveal">
+        <div class="barber-card">
+          <div class="barber-exp">9 Yrs</div>
+          <img src="https://picsum.photos/seed/barber-julian/500/700" alt="Master barber Julian Vance">
+          <div class="barber-info">
+            <div class="spec">Color &amp; Texture</div>
+            <h4>Julian Vance</h4>
+            <p>Editorial colorist for three menswear campaigns since 2021.</p>
+            <svg class="barber-sig" viewBox="0 0 200 50" xmlns="http://www.w3.org/2000/svg"><path d="M5,25 C22,42 38,10 55,28 C68,40 80,14 98,26 C112,36 124,16 140,27 C152,34 162,20 178,28"/></svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ STYLE GALLERY ============ -->
+<section id="gallery">
+  <div class="container-nice">
+    <div class="section-head center mx-auto reveal">
+      <span class="eyebrow">Portfolio</span>
+      <h2>Cuts worth the wait</h2>
+    </div>
+    <div class="masonry reveal">
+      <div class="m-item"><img src="https://picsum.photos/seed/gal-fade1/500/650" alt="Modern skin fade close-up"><div class="m-overlay"><span>Modern Fade</span></div></div>
+      <div class="m-item"><img src="https://picsum.photos/seed/gal-classic1/500/400" alt="Classic pompadour cut"><div class="m-overlay"><span>Classic Cut</span></div></div>
+      <div class="m-item"><img src="https://picsum.photos/seed/gal-beard1/500/600" alt="Sharp beard styling"><div class="m-overlay"><span>Beard Styling</span></div></div>
+      <div class="m-item"><img src="https://picsum.photos/seed/gal-interior1/500/420" alt="Luxury barbershop interior"><div class="m-overlay"><span>Luxury Interior</span></div></div>
+      <div class="m-item"><img src="https://picsum.photos/seed/gal-tools1/500/560" alt="Premium barbering tools on display"><div class="m-overlay"><span>Premium Tools</span></div></div>
+      <div class="m-item"><img src="https://picsum.photos/seed/gal-fade2/500/460" alt="Textured crop haircut"><div class="m-overlay"><span>Textured Crop</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BOOKING PROCESS ============ -->
+<section>
+  <div class="container-nice">
+    <div class="section-head center mx-auto reveal">
+      <span class="eyebrow">How It Works</span>
+      <h2>Your visit, from chair to door</h2>
+    </div>
+    <div class="process-line reveal">
+      <div class="process-track d-none d-md-block"></div>
+      <div class="row g-4">
+        <div class="col-6 col-md"><div class="process-step"><div class="process-num">1</div><h6>Choose Service</h6><p>Pick your cut, shave, or ritual.</p></div></div>
+        <div class="col-6 col-md"><div class="process-step"><div class="process-num">2</div><h6>Select Barber</h6><p>Choose a specialist or any chair.</p></div></div>
+        <div class="col-6 col-md"><div class="process-step"><div class="process-num">3</div><h6>Pick Time</h6><p>Same-day slots, most weeks.</p></div></div>
+        <div class="col-6 col-md"><div class="process-step"><div class="process-num">4</div><h6>Relax</h6><p>Bourbon, hot towel, good talk.</p></div></div>
+        <div class="col-6 col-md"><div class="process-step"><div class="process-num">5</div><h6>Get Styled</h6><p>Walk out sharp, every time.</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ STATISTICS ============ -->
+<section>
+  <div class="container-nice">
+    <div class="stats-band p-5 reveal">
+      <div class="row g-4 text-center">
+        <div class="col-6 col-md-3"><div class="stat-block"><div class="num" data-count="20" data-suffix="+">0</div><div class="lbl">Professional Barbers</div></div></div>
+        <div class="col-6 col-md-3"><div class="stat-block"><div class="num" data-count="150" data-suffix="K+">0</div><div class="lbl">Haircuts Completed</div></div></div>
+        <div class="col-6 col-md-3"><div class="stat-block"><div class="num" data-count="4.9" data-suffix="★" data-decimal="1">0</div><div class="lbl">Customer Rating</div></div></div>
+        <div class="col-6 col-md-3"><div class="stat-block"><div class="num" data-count="12" data-suffix="">0</div><div class="lbl">Years Experience</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TESTIMONIALS ============ -->
+<section>
+  <div class="container-nice">
+    <div class="section-head center mx-auto reveal">
+      <span class="eyebrow">Client Voices</span>
+      <h2>Trusted by the sharpest in the city</h2>
+    </div>
+    <div id="testimonialCarousel" class="carousel slide reveal" data-bs-ride="carousel">
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <div class="row g-4 justify-content-center">
+            <div class="col-md-4"><div class="t-card"><div class="t-quote-mark">"</div><p class="body-txt">Marcus gave me the cleanest fade I have ever had. This is the only shop I trust with my hairline now.</p><div class="t-person"><img src="https://picsum.photos/seed/tb1/100/100" alt="Portrait of client Ethan W."><div><b>Ethan W.</b><div class="stars"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></div></div></div></div></div>
+            <div class="col-md-4"><div class="t-card"><div class="t-quote-mark">"</div><p class="body-txt">The hot towel shave alone is worth the visit. Add the bourbon and the leather chairs — it feels like a members club.</p><div class="t-person"><img src="https://picsum.photos/seed/tb2/100/100" alt="Portrait of client Nathaniel P."><div><b>Nathaniel P.</b><div class="stars"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></div></div></div></div></div>
+            <div class="col-md-4"><div class="t-card"><div class="t-quote-mark">"</div><p class="body-txt">Booked online in under a minute and was in the chair same day. Julian nailed the color exactly as discussed.</p><div class="t-person"><img src="https://picsum.photos/seed/tb3/100/100" alt="Portrait of client Devon R."><div><b>Devon R.</b><div class="stars"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></div></div></div></div></div>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <div class="row g-4 justify-content-center">
+            <div class="col-md-4"><div class="t-card"><div class="t-quote-mark">"</div><p class="body-txt">VIP membership has paid for itself twice over. Priority booking alone is worth it during busy weeks.</p><div class="t-person"><img src="https://picsum.photos/seed/tb4/100/100" alt="Portrait of client Cole M."><div><b>Cole M.</b><div class="stars"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></div></div></div></div></div>
+            <div class="col-md-4"><div class="t-card"><div class="t-quote-mark">"</div><p class="body-txt">Brought my son in for his first real haircut. The staff made it painless and he still asks to go back.</p><div class="t-person"><img src="https://picsum.photos/seed/tb5/100/100" alt="Portrait of client Andre F."><div><b>Andre F.</b><div class="stars"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></div></div></div></div></div>
+            <div class="col-md-4"><div class="t-card"><div class="t-quote-mark">"</div><p class="body-txt">Every barber here treats the cut like a craft, not a rush job. Worth every dollar and every minute.</p><div class="t-person"><img src="https://picsum.photos/seed/tb6/100/100" alt="Portrait of client Isaac B."><div><b>Isaac B.</b><div class="stars"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></div></div></div></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="d-flex justify-content-center gap-2 mt-4">
+        <button class="btn-ghost" data-bs-target="#testimonialCarousel" data-bs-slide="prev" style="width:44px;height:44px;border-radius:50%;padding:0;"><i class="bi bi-arrow-left"></i></button>
+        <button class="btn-ghost" data-bs-target="#testimonialCarousel" data-bs-slide="next" style="width:44px;height:44px;border-radius:50%;padding:0;"><i class="bi bi-arrow-right"></i></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MEMBERSHIP ============ -->
+<section>
+  <div class="container-nice">
+    <div class="section-head center mx-auto reveal">
+      <span class="eyebrow">Membership</span>
+      <h2>Join the club</h2>
+      <p>Unlimited grooming, priority chairs, and member-only perks.</p>
+    </div>
+    <div class="row g-4">
+      <div class="col-lg-4 reveal">
+        <div class="member-card">
+          <h4>Silver</h4>
+          <p class="text-muted-luxe" style="font-size:.85rem;">For the regular gentleman.</p>
+          <div class="member-price">$49<span>/mo</span></div>
+          <ul>
+            <li><i class="bi bi-check2"></i> One haircut monthly</li>
+            <li><i class="bi bi-check2"></i> 10% off products</li>
+            <li><i class="bi bi-check2"></i> Standard booking window</li>
+            <li><i class="bi bi-check2"></i> Complimentary beverage</li>
+          </ul>
+          <a href="#booking" class="btn-outline-luxe w-100 justify-content-center">Choose Silver</a>
+        </div>
+      </div>
+      <div class="col-lg-4 reveal">
+        <div class="member-card featured">
+          <div class="member-tag">Popular</div>
+          <h4>Gold</h4>
+          <p class="text-muted-luxe" style="font-size:.85rem;">For the man who never waits.</p>
+          <div class="member-price">$89<span>/mo</span></div>
+          <ul>
+            <li><i class="bi bi-check2"></i> Two visits monthly</li>
+            <li><i class="bi bi-check2"></i> 20% off products</li>
+            <li><i class="bi bi-check2"></i> Priority booking</li>
+            <li><i class="bi bi-check2"></i> Free beard trim add-on</li>
+          </ul>
+          <a href="#booking" class="btn-fill-luxe w-100 justify-content-center">Choose Gold</a>
+        </div>
+      </div>
+      <div class="col-lg-4 reveal">
+        <div class="member-card">
+          <h4>VIP</h4>
+          <p class="text-muted-luxe" style="font-size:.85rem;">The full atelier experience.</p>
+          <div class="member-price">$149<span>/mo</span></div>
+          <ul>
+            <li><i class="bi bi-check2"></i> Unlimited visits</li>
+            <li><i class="bi bi-check2"></i> 30% off products</li>
+            <li><i class="bi bi-check2"></i> Any barber, any time</li>
+            <li><i class="bi bi-check2"></i> Private lounge access</li>
+          </ul>
+          <a href="#booking" class="btn-outline-luxe w-100 justify-content-center">Choose VIP</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section id="contact">
+  <div class="container-nice">
+    <div class="section-head reveal">
+      <span class="eyebrow">Find Us</span>
+      <h2>Visit the atelier</h2>
+    </div>
+    <div class="row g-4">
+      <div class="col-lg-5 reveal">
+        <div class="contact-info-item"><i class="bi bi-geo-alt"></i><div><b>Studio Address</b><span>410 Vance Avenue, Financial District, City 30012</span></div></div>
+        <div class="contact-info-item"><i class="bi bi-telephone"></i><div><b>Phone</b><span>+1 (415) 555-0199</span></div></div>
+        <div class="contact-info-item"><i class="bi bi-envelope"></i><div><b>Email</b><span>book@gildedblade.com</span></div></div>
+        <div class="contact-info-item"><i class="bi bi-clock"></i><div><b>Opening Hours</b><span>Mon – Sat: 9:00 AM – 8:00 PM · Sun: By Appointment</span></div></div>
+      </div>
+      <div class="col-lg-7 reveal">
+        <div class="map-placeholder"><i class="bi bi-map map-pin"></i></div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="container-nice">
+    <div class="row g-5">
+      <div class="col-lg-4">
+        <div class="flogo mb-3"><i class="bi bi-gem" style="color:var(--gold);"></i> THE GILDED BLADE</div>
+        <p>A private grooming atelier for the modern gentleman, since 2014.</p>
+        <div class="newsletter-input mt-3">
+          <input type="email" placeholder="Your email address">
+          <button type="button" id="newsletterBtn">Join</button>
+        </div>
+        <div class="social-row">
+          <a href="#" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+          <a href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+          <a href="#" aria-label="X"><i class="bi bi-twitter-x"></i></a>
+          <a href="#" aria-label="TikTok"><i class="bi bi-tiktok"></i></a>
+        </div>
+      </div>
+      <div class="col-6 col-lg-2">
+        <h5>Quick Links</h5>
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#barbers">Barbers</a></li>
+          <li><a href="#gallery">Gallery</a></li>
+          <li><a href="#booking">Booking</a></li>
+        </ul>
+      </div>
+      <div class="col-6 col-lg-3">
+        <h5>Opening Hours</h5>
+        <ul>
+          <li>Mon – Fri: 9:00 AM – 8:00 PM</li>
+          <li>Saturday: 9:00 AM – 6:00 PM</li>
+          <li>Sunday: By Appointment</li>
+        </ul>
+      </div>
+      <div class="col-lg-3">
+        <h5>Instagram</h5>
+        <div class="ig-grid">
+          <img src="https://picsum.photos/seed/ig-b1/150/150" alt="Instagram barbershop photo 1">
+          <img src="https://picsum.photos/seed/ig-b2/150/150" alt="Instagram barbershop photo 2">
+          <img src="https://picsum.photos/seed/ig-b3/150/150" alt="Instagram barbershop photo 3">
+          <img src="https://picsum.photos/seed/ig-b4/150/150" alt="Instagram barbershop photo 4">
+          <img src="https://picsum.photos/seed/ig-b5/150/150" alt="Instagram barbershop photo 5">
+          <img src="https://picsum.photos/seed/ig-b6/150/150" alt="Instagram barbershop photo 6">
+        </div>
+      </div>
+    </div>
+    <div class="f-bottom">
+      <span>© 2026 The Gilded Blade. All rights reserved.</span>
+      <span>Precision. Patience. Steel.</span>
+    </div>
+  </div>
+</footer>
+
+<button id="backToTop" aria-label="Back to top"><i class="bi bi-arrow-up"></i></button>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+
+/* ---------------- Preloader ---------------- */
+window.addEventListener("load", function(){
+  setTimeout(function(){ document.getElementById("preloader").classList.add("hide"); }, 400);
+});
+
+/* ---------------- Nav solidify + back to top ---------------- */
+var nav = document.getElementById("mainNav");
+window.addEventListener("scroll", function(){
+  nav.classList.toggle("solid", window.scrollY > 60);
+  document.getElementById("backToTop").classList.toggle("show", window.scrollY > 700);
+});
+
+/* ---------------- Mobile menu ---------------- */
+var mobileMenu = document.getElementById("mobileMenu");
+document.getElementById("mobileToggle").addEventListener("click", function(){ mobileMenu.style.display = "flex"; });
+document.getElementById("closeMobile").addEventListener("click", function(){ mobileMenu.style.display = "none"; });
+document.querySelectorAll(".mm-link").forEach(function(l){ l.addEventListener("click", function(){ mobileMenu.style.display = "none"; }); });
+
+/* ---------------- Spotlight follows cursor ---------------- */
+var spotlight = document.getElementById("spotlightFollow");
+window.addEventListener("mousemove", function(e){
+  spotlight.style.setProperty("--mx", e.clientX + "px");
+  spotlight.style.setProperty("--my", e.clientY + "px");
+});
+
+/* ---------------- Floating gold light particles canvas ---------------- */
+var canvas = document.getElementById("bg-canvas");
+var ctx = canvas.getContext("2d");
+var W, H, particles = [];
+function resize(){ W = canvas.width = window.innerWidth; H = canvas.height = document.documentElement.scrollHeight; }
+resize();
+window.addEventListener("resize", resize);
+var PCOUNT = window.innerWidth < 768 ? 30 : 60;
+for(var i=0;i<PCOUNT;i++){
+  particles.push({
+    x: Math.random()*W, y: Math.random()*H, r: Math.random()*1.8+0.5,
+    vy: Math.random()*0.22+0.06, vx: (Math.random()-0.5)*0.12, o: Math.random()*0.5+0.15
+  });
+}
+function drawParticles(){
+  ctx.clearRect(0,0,W,H);
+  ctx.fillStyle = "#C9A227";
+  particles.forEach(function(p){
+    ctx.globalAlpha = p.o;
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+    ctx.fill();
+    p.y -= p.vy; p.x += p.vx;
+    if(p.y < -10){ p.y = H+10; p.x = Math.random()*W; }
+  });
+  ctx.globalAlpha = 1;
+  requestAnimationFrame(drawParticles);
+}
+drawParticles();
+setInterval(resize, 3000);
+
+/* ---------------- Reveal on scroll ---------------- */
+var revealEls = document.querySelectorAll(".reveal");
+var revealObs = new IntersectionObserver(function(entries){
+  entries.forEach(function(en){ if(en.isIntersecting){ en.target.classList.add("visible"); revealObs.unobserve(en.target); } });
+},{threshold:0.15});
+revealEls.forEach(function(el){ revealObs.observe(el); });
+
+/* ---------------- 3D tilt for service cards ---------------- */
+function attachTilt(card){
+  card.addEventListener("mousemove", function(e){
+    var r = card.getBoundingClientRect();
+    var x = e.clientX - r.left, y = e.clientY - r.top;
+    var rx = ((y / r.height) - 0.5) * -10;
+    var ry = ((x / r.width) - 0.5) * 10;
+    card.style.transform = "rotateX(" + rx + "deg) rotateY(" + ry + "deg) translateY(-6px)";
+  });
+  card.addEventListener("mouseleave", function(){ card.style.transform = "rotateX(0) rotateY(0) translateY(0)"; });
+}
+
+/* ---------------- Service data + render ---------------- */
+var services = [
+  {name:"Signature Haircut", desc:"Precision scissor work tailored to your face shape.", duration:"45 min", price:"$45", img:"https://picsum.photos/seed/svc-haircut/500/450", badge:"Popular"},
+  {name:"Skin Fade", desc:"Razor-clean fade blended to a seamless finish.", duration:"50 min", price:"$50", img:"https://picsum.photos/seed/svc-fade/500/450", badge:""},
+  {name:"Beard Trim &amp; Shape", desc:"Sculpted lines with hot towel prep.", duration:"25 min", price:"$25", img:"https://picsum.photos/seed/svc-beard/500/450", badge:""},
+  {name:"Hot Towel Shave", desc:"Traditional straight-razor shave, three towels.", duration:"40 min", price:"$40", img:"https://picsum.photos/seed/svc-shave/500/450", badge:"Signature"},
+  {name:"Hair Coloring", desc:"Grey blending or full color, ammonia-free.", duration:"60 min", price:"$70", img:"https://picsum.photos/seed/svc-color/500/450", badge:""},
+  {name:"Facial Treatment", desc:"Deep cleanse, steam, and cooling mask.", duration:"35 min", price:"$55", img:"https://picsum.photos/seed/svc-facial/500/450", badge:"New"},
+  {name:"Kids Haircut", desc:"Patient, precise cuts for ages 12 and under.", duration:"30 min", price:"$28", img:"https://picsum.photos/seed/svc-kids/500/450", badge:""},
+  {name:"VIP Grooming Package", desc:"Full service: cut, shave, facial, and lounge.", duration:"120 min", price:"$150", img:"https://picsum.photos/seed/svc-vip/500/450", badge:"VIP"}
+];
+var grid = document.getElementById("serviceGrid");
+services.forEach(function(s){
+  var col = document.createElement("div");
+  col.className = "col-sm-6 col-lg-3 reveal";
+  col.innerHTML =
+    '<div class="svc-card">' +
+      (s.badge ? '<span class="svc-badge">' + s.badge + '</span>' : '') +
+      '<div class="svc-img-wrap"><img src="' + s.img + '" alt="' + s.name + '"><div class="svc-glass-sweep"></div></div>' +
+      '<div class="svc-body">' +
+        '<h4>' + s.name + '</h4>' +
+        '<p>' + s.desc + '</p>' +
+        '<div class="svc-meta"><i class="bi bi-clock"></i><span>' + s.duration + '</span></div>' +
+        '<div class="svc-footer">' +
+          '<span class="svc-price">' + s.price + '</span>' +
+          '<button class="svc-order-btn" aria-label="Book ' + s.name + '"><i class="bi bi-plus-lg"></i></button>' +
+        '</div>' +
+      '</div>' +
+    '</div>';
+  grid.appendChild(col);
+  attachTilt(col.querySelector(".svc-card"));
+  revealObs.observe(col);
+});
+
+/* ---------------- Booking card book now ---------------- */
+document.getElementById("bcBookBtn").addEventListener("click", function(){
+  var btn = this;
+  var original = btn.textContent;
+  btn.textContent = "Request Sent";
+  btn.style.background = "linear-gradient(135deg,#6b8f63,#557a4f)";
+  btn.style.color = "#fff";
+  setTimeout(function(){ btn.textContent = original; btn.style.background = ""; btn.style.color = ""; }, 2600);
+});
+
+/* ---------------- Animated signatures on scroll ---------------- */
+var sigObs = new IntersectionObserver(function(entries){
+  entries.forEach(function(en){ if(en.isIntersecting){ en.target.classList.add("in-view"); } });
+},{threshold:0.4});
+document.querySelectorAll(".barber-sig").forEach(function(s){ sigObs.observe(s); });
+
+/* ---------------- Animated counters ---------------- */
+var counters = document.querySelectorAll(".num[data-count]");
+var countObs = new IntersectionObserver(function(entries){
+  entries.forEach(function(en){
+    if(en.isIntersecting){
+      var el = en.target;
+      var target = parseFloat(el.dataset.count);
+      var suffix = el.dataset.suffix || "";
+      var isDecimal = el.dataset.decimal === "1";
+      var cur = 0;
+      var steps = 50;
+      var inc = target / steps;
+      var i = 0;
+      var tick = setInterval(function(){
+        i++;
+        cur += inc;
+        if(i >= steps){ cur = target; clearInterval(tick); }
+        el.textContent = (isDecimal ? cur.toFixed(1) : Math.floor(cur)) + suffix;
+      }, 25);
+      countObs.unobserve(el);
+    }
+  });
+},{threshold:0.5});
+counters.forEach(function(c){ countObs.observe(c); });
+
+/* ---------------- Newsletter ---------------- */
+document.getElementById("newsletterBtn").addEventListener("click", function(){
+  var input = this.previousElementSibling;
+  if(input.value.trim()){
+    this.textContent = "Subscribed";
+    var self = this;
+    setTimeout(function(){ self.textContent = "Join"; input.value = ""; }, 2200);
+  }
+});
+
+/* ---------------- Back to top ---------------- */
+document.getElementById("backToTop").addEventListener("click", function(){
+  window.scrollTo({top:0, behavior:"smooth"});
+});
+
+/* ---------------- Active nav link on scroll ---------------- */
+var sections = document.querySelectorAll("main section[id]");
+var navA = document.querySelectorAll(".nav-links a");
+var navObs = new IntersectionObserver(function(entries){
+  entries.forEach(function(en){
+    if(en.isIntersecting){
+      navA.forEach(function(a){ a.classList.remove("active"); });
+      var active = document.querySelector('.nav-links a[href="#' + en.target.id + '"]');
+      if(active) active.classList.add("active");
+    }
+  });
+},{rootMargin:"-40% 0px -50% 0px"});
+sections.forEach(function(s){ navObs.observe(s); });
+
+});
+</script>
+</body>
+</html>

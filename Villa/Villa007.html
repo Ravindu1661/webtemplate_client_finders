@@ -1,0 +1,5173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>Veyra Residences — Private Space. Infinite Perspective.</title>
+    <meta name="description" content="A curated global collection of architectural villas, private residences and destination homes designed for guests seeking privacy, exceptional design and deeply personalized travel." />
+    <meta name="keywords" content="luxury villas, private residences, architectural villas, exclusive holiday homes, design-led villa rentals, private destination retreats, high-end concierge travel, premium long-stay residences" />
+    <link rel="canonical" href="https://veyraresidences.com/" />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Veyra Residences — Private Space. Infinite Perspective." />
+    <meta property="og:description" content="A curated global collection of architectural villas, private residences and destination homes." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://veyraresidences.com/" />
+    <meta property="og:image" content="https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=1200&h=630&fit=crop" />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Manrope:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest">
+    </script>
+
+    <!-- GSAP + ScrollTrigger + Lenis -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js">
+    </script>
+
+    <style>
+        /* ============================================================
+           CSS VARIABLES — ATMOSPHERE ENGINE
+           ============================================================ */
+        :root {
+            /* Morning Stone (default) */
+            --page-bg: #f5f0eb;
+            --page-bg-secondary: #e8e2da;
+            --surface: #ffffff;
+            --surface-elevated: rgba(255, 255, 255, 0.85);
+            --surface-glass: rgba(255, 255, 255, 0.30);
+            --surface-dark: #2c2824;
+            --primary: #3d362f;
+            --secondary: #8a7e72;
+            --accent: #b8a694;
+            --accent-soft: #d4c8bc;
+            --luxury: #9e8b7a;
+            --text-primary: #1e1a16;
+            --text-secondary: #4d443c;
+            --text-muted: #8a7e72;
+            --line: rgba(61, 54, 47, 0.12);
+            --line-strong: rgba(61, 54, 47, 0.25);
+            --shadow-soft: 0 8px 40px rgba(30, 26, 22, 0.06);
+            --shadow-deep: 0 24px 80px rgba(30, 26, 22, 0.12);
+            --glow: 0 0 60px rgba(184, 166, 148, 0.15);
+            --success: #4a7c59;
+            --warning: #b88a5b;
+            --danger: #b55a5a;
+            --hero-overlay: rgba(30, 26, 22, 0.20);
+            --nav-bg: rgba(245, 240, 235, 0.72);
+            --glass-border: rgba(255, 255, 255, 0.25);
+            --input-bg: rgba(255, 255, 255, 0.50);
+        }
+
+        [data-atmosphere="ocean"] {
+            --page-bg: #e8edf0;
+            --page-bg-secondary: #d5dde3;
+            --surface: #f5f8fa;
+            --surface-elevated: rgba(245, 248, 250, 0.88);
+            --surface-glass: rgba(245, 248, 250, 0.30);
+            --surface-dark: #1a2a33;
+            --primary: #1a2a33;
+            --secondary: #4d6a7a;
+            --accent: #7a9aaa;
+            --accent-soft: #b0c8d4;
+            --luxury: #5a7a8a;
+            --text-primary: #0e1a22;
+            --text-secondary: #2a404d;
+            --text-muted: #6a8a9a;
+            --line: rgba(26, 42, 51, 0.10);
+            --line-strong: rgba(26, 42, 51, 0.20);
+            --shadow-soft: 0 8px 40px rgba(10, 30, 40, 0.06);
+            --shadow-deep: 0 24px 80px rgba(10, 30, 40, 0.12);
+            --glow: 0 0 60px rgba(122, 154, 170, 0.15);
+            --hero-overlay: rgba(10, 30, 40, 0.18);
+            --nav-bg: rgba(232, 237, 240, 0.72);
+        }
+
+        [data-atmosphere="sunset"] {
+            --page-bg: #f0e6db;
+            --page-bg-secondary: #e2d4c6;
+            --surface: #faf5ef;
+            --surface-elevated: rgba(250, 245, 239, 0.88);
+            --surface-glass: rgba(250, 245, 239, 0.30);
+            --surface-dark: #3d2e22;
+            --primary: #3d2e22;
+            --secondary: #8a6e5a;
+            --accent: #c49a7a;
+            --accent-soft: #dcc4b0;
+            --luxury: #a88066;
+            --text-primary: #2a1e14;
+            --text-secondary: #5a4434;
+            --text-muted: #8a6e5a;
+            --line: rgba(61, 46, 34, 0.10);
+            --line-strong: rgba(61, 46, 34, 0.20);
+            --shadow-soft: 0 8px 40px rgba(40, 30, 20, 0.06);
+            --shadow-deep: 0 24px 80px rgba(40, 30, 20, 0.12);
+            --glow: 0 0 60px rgba(196, 154, 122, 0.18);
+            --hero-overlay: rgba(40, 30, 20, 0.20);
+            --nav-bg: rgba(240, 230, 219, 0.72);
+        }
+
+        [data-atmosphere="night"] {
+            --page-bg: #0f0d12;
+            --page-bg-secondary: #1a1720;
+            --surface: #1e1a26;
+            --surface-elevated: rgba(30, 26, 38, 0.92);
+            --surface-glass: rgba(30, 26, 38, 0.40);
+            --surface-dark: #0a0810;
+            --primary: #e8e0d8;
+            --secondary: #a098a8;
+            --accent: #8a7a98;
+            --accent-soft: #6a5a78;
+            --luxury: #b098b8;
+            --text-primary: #ece8f0;
+            --text-secondary: #b8b0c0;
+            --text-muted: #807888;
+            --line: rgba(200, 190, 210, 0.08);
+            --line-strong: rgba(200, 190, 210, 0.18);
+            --shadow-soft: 0 8px 40px rgba(0, 0, 0, 0.30);
+            --shadow-deep: 0 24px 80px rgba(0, 0, 0, 0.50);
+            --glow: 0 0 60px rgba(138, 122, 152, 0.12);
+            --hero-overlay: rgba(0, 0, 0, 0.40);
+            --nav-bg: rgba(15, 13, 18, 0.80);
+            --glass-border: rgba(200, 190, 210, 0.10);
+            --input-bg: rgba(30, 26, 38, 0.60);
+        }
+
+        /* ============================================================
+           RESET & BASE
+           ============================================================ */
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        body {
+            font-family: 'Manrope', sans-serif;
+            background: var(--page-bg);
+            color: var(--text-primary);
+            transition: background 0.8s ease, color 0.8s ease;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        img {
+            display: block;
+            max-width: 100%;
+            height: auto;
+        }
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        button {
+            cursor: pointer;
+            font-family: inherit;
+            border: none;
+            background: none;
+            color: inherit;
+        }
+        input,
+        select,
+        textarea {
+            font-family: inherit;
+            color: inherit;
+            background: transparent;
+            border: none;
+            outline: none;
+        }
+
+        /* ============================================================
+           SKIP LINK
+           ============================================================ */
+        .skip-link {
+            position: fixed;
+            top: -200%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--surface);
+            color: var(--text-primary);
+            padding: 12px 28px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            z-index: 99999;
+            box-shadow: var(--shadow-deep);
+            transition: top 0.3s ease;
+        }
+        .skip-link:focus {
+            top: 24px;
+        }
+
+        /* ============================================================
+           OPENING SEQUENCE
+           ============================================================ */
+        #opening {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            background: var(--surface-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            transition: opacity 1.2s ease, visibility 1.2s ease;
+            pointer-events: all;
+        }
+        #opening.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .opening-canvas {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+        }
+
+        .opening-grid {
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            opacity: 0;
+            animation: gridFade 1.8s ease 0.3s forwards;
+        }
+        @keyframes gridFade {
+            to {
+                opacity: 1;
+            }
+        }
+
+        .opening-doorway {
+            position: relative;
+            width: 180px;
+            height: 280px;
+            border: 1.5px solid rgba(255, 255, 255, 0.15);
+            border-radius: 4px;
+            overflow: hidden;
+            opacity: 0;
+            animation: doorwayReveal 2s ease 0.6s forwards;
+        }
+        @keyframes doorwayReveal {
+            0% {
+                opacity: 0;
+                transform: scale(0.92);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .doorway-light {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.06) 0%, transparent 70%);
+            opacity: 0;
+            animation: lightPulse 2.4s ease 1s infinite alternate;
+        }
+        @keyframes lightPulse {
+            0% {
+                opacity: 0.3;
+            }
+            100% {
+                opacity: 0.9;
+            }
+        }
+
+        .doorway-image {
+            position: absolute;
+            inset: 0;
+            object-fit: cover;
+            opacity: 0;
+            transform: scale(1.1);
+            animation: imageReveal 2s ease 1.2s forwards;
+        }
+        @keyframes imageReveal {
+            to {
+                opacity: 0.6;
+                transform: scale(1);
+            }
+        }
+
+        .opening-monogram {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Instrument Serif', serif;
+            font-size: 2.8rem;
+            letter-spacing: 6px;
+            color: rgba(255, 255, 255, 0.25);
+            opacity: 0;
+            animation: monoFade 1.4s ease 1.6s forwards;
+            text-shadow: 0 0 60px rgba(255, 255, 255, 0.04);
+        }
+        @keyframes monoFade {
+            to {
+                opacity: 1;
+            }
+        }
+
+        .opening-progress {
+            position: absolute;
+            bottom: 60px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            color: rgba(255, 255, 255, 0.25);
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-weight: 300;
+        }
+        .opening-progress-bar {
+            width: 120px;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.10);
+            position: relative;
+            overflow: hidden;
+        }
+        .opening-progress-bar::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 0%;
+            background: rgba(255, 255, 255, 0.30);
+            animation: progressFill 2.2s ease forwards;
+        }
+        @keyframes progressFill {
+            to {
+                width: 100%;
+            }
+        }
+
+        .opening-skip {
+            position: absolute;
+            bottom: 60px;
+            right: 60px;
+            color: rgba(255, 255, 255, 0.20);
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-weight: 300;
+            padding: 10px 20px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.02);
+        }
+        .opening-skip:hover {
+            color: rgba(255, 255, 255, 0.50);
+            border-color: rgba(255, 255, 255, 0.12);
+        }
+
+        @media (max-width: 768px) {
+            .opening-doorway {
+                width: 140px;
+                height: 220px;
+            }
+            .opening-monogram {
+                font-size: 2rem;
+            }
+            .opening-skip {
+                bottom: 30px;
+                right: 30px;
+                font-size: 0.6rem;
+                padding: 8px 16px;
+            }
+            .opening-progress {
+                bottom: 30px;
+                font-size: 0.6rem;
+            }
+            .opening-progress-bar {
+                width: 80px;
+            }
+        }
+
+        /* ============================================================
+           LENIS OVERRIDE
+           ============================================================ */
+        html.lenis {
+            height: auto;
+        }
+        .lenis.lenis-smooth {
+            scroll-behavior: auto !important;
+        }
+        .lenis.lenis-smooth [data-lenis-prevent] {
+            overscroll-behavior: contain;
+        }
+
+        /* ============================================================
+           NAVIGATION
+           ============================================================ */
+        .nav-desktop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 20px 36px;
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            pointer-events: none;
+            transition: transform 0.6s ease, opacity 0.6s ease;
+        }
+        .nav-desktop.nav-compact {
+            transform: translateY(-10px);
+            opacity: 0.85;
+        }
+        .nav-desktop>* {
+            pointer-events: auto;
+        }
+
+        .nav-top-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        .nav-monogram {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.4rem;
+            letter-spacing: 3px;
+            color: var(--text-primary);
+            transition: color 0.6s ease;
+        }
+        .nav-section-name {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-muted);
+            font-weight: 400;
+            opacity: 0.7;
+            transition: opacity 0.4s ease;
+        }
+
+        .nav-top-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .nav-top-right button {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--text-secondary);
+            padding: 6px 14px;
+            border-radius: 30px;
+            background: var(--surface-glass);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .nav-top-right button:hover {
+            background: var(--surface-elevated);
+            color: var(--text-primary);
+        }
+        .nav-top-right .nav-icon-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+        }
+        .nav-top-right .nav-icon-btn svg {
+            width: 18px;
+            height: 18px;
+            stroke: currentColor;
+        }
+
+        .nav-left-center {
+            position: fixed;
+            left: 28px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            pointer-events: none;
+        }
+        .nav-left-center a {
+            pointer-events: auto;
+            font-size: 0.55rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-muted);
+            writing-mode: vertical-lr;
+            padding: 6px 0;
+            transition: color 0.3s ease, opacity 0.3s ease;
+            opacity: 0.3;
+            font-weight: 400;
+        }
+        .nav-left-center a.active {
+            color: var(--text-primary);
+            opacity: 0.8;
+        }
+        .nav-left-center a:hover {
+            opacity: 0.7;
+            color: var(--text-primary);
+        }
+
+        .nav-right-center {
+            position: fixed;
+            right: 28px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1000;
+            font-size: 0.55rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-muted);
+            writing-mode: vertical-lr;
+            opacity: 0.4;
+            pointer-events: none;
+            font-weight: 300;
+        }
+
+        .nav-bottom-center {
+            position: fixed;
+            bottom: 32px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            padding: 8px 20px;
+            background: var(--nav-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 60px;
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--shadow-soft);
+            pointer-events: none;
+            transition: background 0.6s ease, border-color 0.6s ease;
+        }
+        .nav-bottom-center a {
+            pointer-events: auto;
+            padding: 8px 16px;
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--text-secondary);
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            font-weight: 400;
+            position: relative;
+        }
+        .nav-bottom-center a:hover {
+            color: var(--text-primary);
+            background: var(--surface-glass);
+        }
+        .nav-bottom-center a.active {
+            color: var(--text-primary);
+            background: var(--surface-glass);
+        }
+        .nav-bottom-center .nav-reserve {
+            background: var(--primary);
+            color: var(--page-bg);
+            padding: 8px 24px;
+            border-radius: 30px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            margin-left: 8px;
+        }
+        .nav-bottom-center .nav-reserve:hover {
+            background: var(--secondary);
+            color: var(--page-bg);
+        }
+
+        /* Mobile Nav */
+        .nav-mobile {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 12px 20px env(safe-area-inset-bottom, 12px) 20px;
+            background: var(--nav-bg);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border-top: 1px solid var(--glass-border);
+            box-shadow: 0 -8px 40px rgba(0, 0, 0, 0.04);
+            transition: background 0.6s ease, border-color 0.6s ease;
+        }
+        .nav-mobile-items {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            max-width: 500px;
+            margin: 0 auto;
+            position: relative;
+        }
+        .nav-mobile-items a {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+            font-size: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            padding: 4px 12px;
+            transition: color 0.3s ease;
+            min-height: 44px;
+            justify-content: center;
+            position: relative;
+        }
+        .nav-mobile-items a svg {
+            width: 20px;
+            height: 20px;
+            stroke: currentColor;
+            transition: stroke 0.3s ease;
+        }
+        .nav-mobile-items a.active {
+            color: var(--text-primary);
+        }
+        .nav-mobile-items a.active svg {
+            stroke: var(--text-primary);
+        }
+
+        .nav-mobile-reserve {
+            position: relative;
+            top: -12px;
+            background: var(--primary);
+            color: var(--page-bg) !important;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            display: flex !important;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s ease, background 0.3s ease;
+            padding: 0 !important;
+            margin-top: -12px;
+        }
+        .nav-mobile-reserve svg {
+            width: 24px !important;
+            height: 24px !important;
+            stroke: currentColor;
+        }
+        .nav-mobile-reserve:active {
+            transform: scale(0.92);
+        }
+
+        .nav-mobile-menu-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 999;
+            background: var(--page-bg);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            padding: 60px 30px 100px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            transform: translateY(100%);
+            transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.5s ease;
+            opacity: 0;
+            pointer-events: none;
+            overflow-y: auto;
+        }
+        .nav-mobile-menu-overlay.open {
+            transform: translateY(0);
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .nav-mobile-menu-overlay a {
+            font-size: 1.4rem;
+            font-weight: 300;
+            letter-spacing: 1px;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--line);
+            color: var(--text-secondary);
+            transition: color 0.3s ease, padding-left 0.3s ease;
+        }
+        .nav-mobile-menu-overlay a:hover,
+        .nav-mobile-menu-overlay a:focus {
+            color: var(--text-primary);
+            padding-left: 12px;
+        }
+        .nav-mobile-menu-overlay .close-menu {
+            position: absolute;
+            top: 20px;
+            right: 24px;
+            font-size: 1.8rem;
+            color: var(--text-secondary);
+            padding: 8px;
+        }
+        .nav-mobile-menu-overlay .menu-controls {
+            margin-top: 30px;
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            padding-top: 20px;
+            border-top: 1px solid var(--line);
+        }
+        .nav-mobile-menu-overlay .menu-controls button {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--text-secondary);
+            padding: 8px 20px;
+            border: 1px solid var(--line);
+            border-radius: 30px;
+            transition: all 0.3s ease;
+        }
+        .nav-mobile-menu-overlay .menu-controls button:hover {
+            border-color: var(--text-primary);
+            color: var(--text-primary);
+        }
+
+        @media (max-width: 1024px) {
+            .nav-desktop {
+                padding: 16px 24px;
+            }
+            .nav-left-center,
+            .nav-right-center {
+                display: none;
+            }
+            .nav-bottom-center {
+                display: none;
+            }
+            .nav-mobile {
+                display: block;
+            }
+            .nav-top-right .nav-text-btn {
+                display: none;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-desktop {
+                padding: 12px 16px;
+            }
+            .nav-monogram {
+                font-size: 1.1rem;
+            }
+            .nav-section-name {
+                font-size: 0.5rem;
+            }
+            .nav-top-right button {
+                font-size: 0.5rem;
+                padding: 4px 10px;
+            }
+            .nav-mobile-items a {
+                font-size: 0.4rem;
+                min-height: 38px;
+                padding: 2px 8px;
+            }
+            .nav-mobile-items a svg {
+                width: 18px;
+                height: 18px;
+            }
+            .nav-mobile-reserve {
+                width: 48px;
+                height: 48px;
+                top: -8px;
+            }
+            .nav-mobile-reserve svg {
+                width: 20px !important;
+                height: 20px !important;
+            }
+        }
+
+        /* ============================================================
+           HERO — ARRIVAL SCENE
+           ============================================================ */
+        #hero {
+            position: relative;
+            width: 100%;
+            min-height: 100vh;
+            min-height: 100dvh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background: var(--page-bg);
+            transition: background 0.8s ease;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+        }
+        .hero-bg img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 30%;
+            filter: brightness(0.85) saturate(1.05);
+            transition: filter 0.8s ease;
+        }
+        .hero-bg::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: var(--hero-overlay);
+            transition: background 0.8s ease;
+        }
+
+        .hero-water {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 30%;
+            background: linear-gradient(180deg, transparent 0%, var(--page-bg) 100%);
+            opacity: 0.6;
+            pointer-events: none;
+            transition: background 0.8s ease;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 1200px;
+            padding: 120px 40px 80px;
+            width: 100%;
+        }
+
+        .hero-headline {
+            font-family: 'Instrument Serif', serif;
+            font-size: clamp(2.8rem, 10vw, 6.5rem);
+            line-height: 1.04;
+            letter-spacing: -0.02em;
+            color: var(--text-primary);
+            max-width: 800px;
+            transition: color 0.6s ease;
+        }
+        .hero-headline .italic {
+            font-style: italic;
+            color: var(--secondary);
+        }
+
+        .hero-sub {
+            font-size: clamp(0.95rem, 1.4vw, 1.25rem);
+            color: var(--text-secondary);
+            max-width: 480px;
+            margin-top: 28px;
+            font-weight: 300;
+            line-height: 1.7;
+            transition: color 0.6s ease;
+        }
+
+        .hero-ctas {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-top: 40px;
+        }
+        .hero-ctas .btn-primary {
+            background: var(--primary);
+            color: var(--page-bg);
+            padding: 14px 40px;
+            border-radius: 60px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            transition: all 0.4s ease;
+            border: 1px solid var(--primary);
+        }
+        .hero-ctas .btn-primary:hover {
+            background: transparent;
+            color: var(--text-primary);
+            border-color: var(--text-primary);
+        }
+        .hero-ctas .btn-secondary {
+            padding: 14px 32px;
+            border-radius: 60px;
+            font-size: 0.8rem;
+            font-weight: 400;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            border: 1px solid var(--line-strong);
+            transition: all 0.4s ease;
+        }
+        .hero-ctas .btn-secondary:hover {
+            border-color: var(--text-primary);
+            color: var(--text-primary);
+        }
+
+        .hero-coordinates {
+            position: absolute;
+            bottom: 40px;
+            right: 40px;
+            z-index: 2;
+            text-align: right;
+            font-size: 0.55rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--text-muted);
+            line-height: 2;
+            opacity: 0.6;
+            transition: color 0.6s ease;
+        }
+        .hero-coordinates strong {
+            color: var(--text-secondary);
+            font-weight: 400;
+        }
+
+        .hero-float-info {
+            position: absolute;
+            bottom: 40px;
+            left: 40px;
+            z-index: 2;
+            display: flex;
+            gap: 32px;
+            flex-wrap: wrap;
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--text-muted);
+            opacity: 0.5;
+            transition: color 0.6s ease;
+        }
+        .hero-float-info span {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .hero-float-info .value {
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        @media (max-width: 768px) {
+            .hero-content {
+                padding: 100px 24px 60px;
+            }
+            .hero-headline {
+                font-size: clamp(2.2rem, 8vw, 3.8rem);
+            }
+            .hero-sub {
+                font-size: 0.95rem;
+                margin-top: 20px;
+                max-width: 100%;
+            }
+            .hero-ctas {
+                gap: 12px;
+            }
+            .hero-ctas .btn-primary {
+                padding: 12px 28px;
+                font-size: 0.7rem;
+            }
+            .hero-ctas .btn-secondary {
+                padding: 12px 24px;
+                font-size: 0.7rem;
+            }
+            .hero-float-info {
+                display: none;
+            }
+            .hero-coordinates {
+                bottom: 80px;
+                right: 24px;
+                font-size: 0.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-content {
+                padding: 80px 16px 50px;
+            }
+            .hero-headline {
+                font-size: clamp(1.8rem, 7vw, 2.8rem);
+            }
+            .hero-coordinates {
+                bottom: 100px;
+                right: 16px;
+                font-size: 0.45rem;
+                line-height: 1.8;
+            }
+        }
+
+        /* ============================================================
+           SECTION COMMON
+           ============================================================ */
+        .section {
+            position: relative;
+            padding: 80px 40px;
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            transition: background 0.8s ease, color 0.8s ease;
+        }
+        .section-label {
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+            font-weight: 400;
+        }
+        .section-title {
+            font-family: 'Instrument Serif', serif;
+            font-size: clamp(2.4rem, 6vw, 4.2rem);
+            line-height: 1.08;
+            letter-spacing: -0.02em;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+            transition: color 0.6s ease;
+        }
+        .section-title .italic {
+            font-style: italic;
+            color: var(--secondary);
+        }
+        .section-desc {
+            font-size: clamp(0.9rem, 1.2vw, 1.1rem);
+            color: var(--text-secondary);
+            max-width: 560px;
+            font-weight: 300;
+            line-height: 1.7;
+            transition: color 0.6s ease;
+        }
+
+        @media (max-width: 768px) {
+            .section {
+                padding: 60px 24px;
+                min-height: auto;
+            }
+        }
+        @media (max-width: 480px) {
+            .section {
+                padding: 40px 16px;
+            }
+        }
+
+        /* ============================================================
+           RESIDENCE GALLERY
+           ============================================================ */
+        #residences {
+            background: var(--page-bg-secondary);
+            transition: background 0.8s ease;
+            overflow: hidden;
+            padding: 60px 0 80px;
+        }
+
+        .gallery-header {
+            padding: 0 40px 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .gallery-scene {
+            position: relative;
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+            min-height: 500px;
+        }
+
+        .gallery-track {
+            display: flex;
+            gap: 24px;
+            overflow-x: auto;
+            padding: 20px 4px 40px;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            scroll-behavior: smooth;
+            scrollbar-width: none;
+        }
+        .gallery-track::-webkit-scrollbar {
+            display: none;
+        }
+
+        .gallery-card {
+            flex: 0 0 calc(33.333% - 16px);
+            min-width: 280px;
+            scroll-snap-align: start;
+            background: var(--surface);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow-soft);
+            transition: all 0.5s ease;
+            border: 1px solid var(--line);
+            cursor: pointer;
+            position: relative;
+        }
+        .gallery-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-deep);
+        }
+        .gallery-card-image {
+            width: 100%;
+            aspect-ratio: 16/10;
+            overflow: hidden;
+            position: relative;
+        }
+        .gallery-card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+        .gallery-card:hover .gallery-card-image img {
+            transform: scale(1.03);
+        }
+        .gallery-card-image .wishlist-btn {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--surface-glass);
+            backdrop-filter: blur(8px);
+            border: 1px solid var(--glass-border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+        .gallery-card-image .wishlist-btn:hover {
+            background: var(--surface-elevated);
+            color: var(--danger);
+        }
+        .gallery-card-image .wishlist-btn.active {
+            color: var(--danger);
+        }
+
+        .gallery-card-body {
+            padding: 20px 24px 24px;
+        }
+        .gallery-card-body .name {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.4rem;
+            letter-spacing: -0.01em;
+            color: var(--text-primary);
+            transition: color 0.6s ease;
+        }
+        .gallery-card-body .dest {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+        .gallery-card-body .meta {
+            display: flex;
+            gap: 16px;
+            margin-top: 12px;
+            font-size: 0.65rem;
+            color: var(--text-secondary);
+            flex-wrap: wrap;
+        }
+        .gallery-card-body .meta span {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .gallery-card-body .rate {
+            margin-top: 14px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        .gallery-card-body .rate small {
+            font-weight: 400;
+            font-size: 0.65rem;
+            color: var(--text-muted);
+        }
+
+        .gallery-controls {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 20px;
+        }
+        .gallery-controls button {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 1px solid var(--line);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            color: var(--text-secondary);
+            transition: all 0.3s ease;
+            background: var(--surface-glass);
+        }
+        .gallery-controls button:hover {
+            border-color: var(--text-primary);
+            color: var(--text-primary);
+            background: var(--surface);
+        }
+
+        @media (max-width: 1024px) {
+            .gallery-card {
+                flex: 0 0 calc(50% - 12px);
+                min-width: 220px;
+            }
+        }
+        @media (max-width: 768px) {
+            .gallery-header {
+                padding: 0 24px 24px;
+            }
+            .gallery-scene {
+                padding: 0 24px;
+            }
+            .gallery-card {
+                flex: 0 0 calc(85% - 12px);
+                min-width: 200px;
+            }
+        }
+        @media (max-width: 480px) {
+            .gallery-header {
+                padding: 0 16px 16px;
+            }
+            .gallery-scene {
+                padding: 0 16px;
+            }
+            .gallery-card {
+                flex: 0 0 calc(92% - 8px);
+                min-width: 160px;
+            }
+            .gallery-card-body {
+                padding: 16px;
+            }
+            .gallery-card-body .name {
+                font-size: 1.1rem;
+            }
+        }
+
+        /* ============================================================
+           DESTINATION OBSERVATORY
+           ============================================================ */
+        #destinations {
+            background: var(--page-bg);
+            transition: background 0.8s ease;
+            overflow: hidden;
+        }
+
+        .observatory {
+            display: flex;
+            align-items: center;
+            gap: 60px;
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+            flex-wrap: wrap;
+        }
+
+        .observatory-dial {
+            flex: 1 1 400px;
+            position: relative;
+            aspect-ratio: 1;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .dial-ring {
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            border: 1px solid var(--line);
+            transition: border-color 0.6s ease;
+        }
+        .dial-ring:nth-child(1) {
+            inset: 5%;
+        }
+        .dial-ring:nth-child(2) {
+            inset: 20%;
+        }
+        .dial-ring:nth-child(3) {
+            inset: 40%;
+            border-color: var(--accent-soft);
+        }
+
+        .dial-marker {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: var(--text-muted);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            cursor: pointer;
+            transition: all 0.4s ease;
+            border: 2px solid var(--page-bg);
+        }
+        .dial-marker:hover,
+        .dial-marker.active {
+            background: var(--text-primary);
+            transform: translate(-50%, -50%) scale(1.5);
+            box-shadow: 0 0 20px var(--glow);
+        }
+        .dial-marker .label {
+            position: absolute;
+            font-size: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--text-muted);
+            white-space: nowrap;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        .dial-marker:hover .label,
+        .dial-marker.active .label {
+            opacity: 1;
+        }
+
+        .observatory-info {
+            flex: 1 1 320px;
+            padding: 20px 0;
+        }
+        .observatory-info .dest-name {
+            font-family: 'Instrument Serif', serif;
+            font-size: clamp(2.2rem, 4vw, 3.6rem);
+            color: var(--text-primary);
+            transition: color 0.6s ease;
+        }
+        .observatory-info .dest-coord {
+            font-size: 0.65rem;
+            font-family: 'IBM Plex Mono', monospace;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+            margin-top: 4px;
+        }
+        .observatory-info .dest-details {
+            margin-top: 20px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+        .observatory-info .dest-details .item {
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            letter-spacing: 0.5px;
+        }
+        .observatory-info .dest-details .item strong {
+            display: block;
+            font-weight: 500;
+            color: var(--text-primary);
+            font-size: 0.85rem;
+        }
+        .observatory-info .dest-cta {
+            margin-top: 28px;
+            display: inline-block;
+            padding: 12px 32px;
+            border: 1px solid var(--text-primary);
+            border-radius: 60px;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-primary);
+            transition: all 0.4s ease;
+        }
+        .observatory-info .dest-cta:hover {
+            background: var(--primary);
+            color: var(--page-bg);
+            border-color: var(--primary);
+        }
+
+        @media (max-width: 768px) {
+            .observatory {
+                gap: 30px;
+            }
+            .observatory-dial {
+                flex: 1 1 100%;
+                max-width: 320px;
+            }
+            .observatory-info {
+                flex: 1 1 100%;
+                text-align: center;
+            }
+            .observatory-info .dest-details {
+                grid-template-columns: 1fr 1fr;
+                text-align: left;
+            }
+        }
+
+        /* ============================================================
+           TRAVEL SIGNAL
+           ============================================================ */
+        #signal {
+            background: var(--page-bg-secondary);
+            transition: background 0.8s ease;
+        }
+
+        .signal-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+        .signal-controls {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        .signal-control {
+            background: var(--surface-glass);
+            backdrop-filter: blur(8px);
+            padding: 24px;
+            border-radius: 12px;
+            border: 1px solid var(--line);
+            transition: all 0.3s ease;
+        }
+        .signal-control label {
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-muted);
+            display: block;
+            margin-bottom: 12px;
+        }
+        .signal-control .options {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .signal-control .options button {
+            padding: 6px 16px;
+            border-radius: 30px;
+            font-size: 0.65rem;
+            border: 1px solid var(--line);
+            color: var(--text-secondary);
+            transition: all 0.3s ease;
+            background: transparent;
+        }
+        .signal-control .options button.active {
+            background: var(--primary);
+            color: var(--page-bg);
+            border-color: var(--primary);
+        }
+        .signal-control .options button:hover:not(.active) {
+            border-color: var(--text-primary);
+            color: var(--text-primary);
+        }
+
+        .signal-result {
+            margin-top: 40px;
+            padding: 32px;
+            background: var(--surface);
+            border-radius: 16px;
+            border: 1px solid var(--line);
+            box-shadow: var(--shadow-soft);
+            display: none;
+            transition: all 0.5s ease;
+        }
+        .signal-result.visible {
+            display: block;
+        }
+        .signal-result .result-title {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.6rem;
+            color: var(--text-primary);
+        }
+        .signal-result .result-villa {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-top: 8px;
+        }
+        .signal-result .result-meta {
+            display: flex;
+            gap: 24px;
+            flex-wrap: wrap;
+            margin-top: 16px;
+            font-size: 0.7rem;
+            color: var(--text-muted);
+        }
+        .signal-result .result-cta {
+            margin-top: 20px;
+            display: inline-block;
+            padding: 10px 28px;
+            background: var(--primary);
+            color: var(--page-bg);
+            border-radius: 60px;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: background 0.3s ease;
+        }
+        .signal-result .result-cta:hover {
+            background: var(--secondary);
+        }
+
+        @media (max-width: 768px) {
+            .signal-controls {
+                grid-template-columns: 1fr 1fr;
+                gap: 16px;
+            }
+            .signal-control {
+                padding: 16px;
+            }
+            .signal-control .options button {
+                padding: 4px 12px;
+                font-size: 0.55rem;
+            }
+            .signal-result {
+                padding: 20px;
+            }
+        }
+        @media (max-width: 480px) {
+            .signal-controls {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ============================================================
+           EXPERIENCE ATELIER
+           ============================================================ */
+        #experiences {
+            background: var(--page-bg);
+            transition: background 0.8s ease;
+            overflow: hidden;
+        }
+
+        .atelier-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 16px;
+            max-width: 1200px;
+            margin: 30px auto 0;
+            width: 100%;
+        }
+        .atelier-item {
+            background: var(--surface-glass);
+            backdrop-filter: blur(8px);
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            padding: 24px 20px;
+            text-align: center;
+            transition: all 0.4s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        .atelier-item:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-deep);
+            border-color: var(--accent-soft);
+        }
+        .atelier-item .icon {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            display: block;
+            opacity: 0.7;
+        }
+        .atelier-item .name {
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            letter-spacing: 0.5px;
+            transition: color 0.6s ease;
+        }
+        .atelier-item .desc {
+            font-size: 0.6rem;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        .atelier-detail {
+            max-width: 1200px;
+            margin: 30px auto 0;
+            padding: 32px;
+            background: var(--surface);
+            border-radius: 16px;
+            border: 1px solid var(--line);
+            box-shadow: var(--shadow-soft);
+            display: none;
+            transition: all 0.5s ease;
+        }
+        .atelier-detail.visible {
+            display: block;
+        }
+        .atelier-detail .detail-name {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.6rem;
+            color: var(--text-primary);
+        }
+        .atelier-detail .detail-meta {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 12px;
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+        }
+        .atelier-detail .detail-cta {
+            margin-top: 16px;
+            display: inline-block;
+            padding: 10px 28px;
+            border: 1px solid var(--text-primary);
+            border-radius: 60px;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-primary);
+            transition: all 0.3s ease;
+        }
+        .atelier-detail .detail-cta:hover {
+            background: var(--primary);
+            color: var(--page-bg);
+            border-color: var(--primary);
+        }
+
+        @media (max-width: 480px) {
+            .atelier-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+            .atelier-item {
+                padding: 16px 12px;
+            }
+            .atelier-item .icon {
+                font-size: 1.4rem;
+            }
+            .atelier-item .name {
+                font-size: 0.65rem;
+            }
+            .atelier-detail {
+                padding: 20px;
+            }
+        }
+
+        /* ============================================================
+           CONCIERGE LOUNGE
+           ============================================================ */
+        #concierge {
+            background: var(--page-bg-secondary);
+            transition: background 0.8s ease;
+        }
+
+        .concierge-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            max-width: 1200px;
+            margin: 30px auto 0;
+            width: 100%;
+        }
+        .concierge-profile {
+            background: var(--surface);
+            border-radius: 16px;
+            padding: 32px;
+            border: 1px solid var(--line);
+            box-shadow: var(--shadow-soft);
+        }
+        .concierge-profile .avatar {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            background: var(--accent-soft);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+        }
+        .concierge-profile .name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        .concierge-profile .title {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+        .concierge-profile .status {
+            display: inline-block;
+            padding: 4px 14px;
+            border-radius: 30px;
+            font-size: 0.6rem;
+            background: var(--success);
+            color: #fff;
+            margin-top: 8px;
+        }
+        .concierge-profile .details {
+            margin-top: 16px;
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            line-height: 2;
+        }
+        .concierge-profile .contact-btns {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 16px;
+        }
+        .concierge-profile .contact-btns button {
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-size: 0.65rem;
+            border: 1px solid var(--line);
+            color: var(--text-secondary);
+            transition: all 0.3s ease;
+            background: transparent;
+        }
+        .concierge-profile .contact-btns button:hover {
+            border-color: var(--text-primary);
+            color: var(--text-primary);
+        }
+
+        .concierge-services {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            align-content: start;
+        }
+        .concierge-services .service {
+            background: var(--surface-glass);
+            backdrop-filter: blur(8px);
+            padding: 14px 18px;
+            border-radius: 10px;
+            border: 1px solid var(--line);
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-align: center;
+        }
+        .concierge-services .service:hover {
+            border-color: var(--text-primary);
+            color: var(--text-primary);
+            background: var(--surface);
+        }
+
+        .concierge-request {
+            max-width: 1200px;
+            margin: 30px auto 0;
+            width: 100%;
+            background: var(--surface);
+            border-radius: 16px;
+            padding: 32px;
+            border: 1px solid var(--line);
+            box-shadow: var(--shadow-soft);
+        }
+        .concierge-request .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+        .concierge-request .form-group {
+            margin-bottom: 16px;
+        }
+        .concierge-request label {
+            display: block;
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+        }
+        .concierge-request input,
+        .concierge-request select,
+        .concierge-request textarea {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            background: var(--input-bg);
+            font-size: 0.85rem;
+            transition: border-color 0.3s ease;
+            color: var(--text-primary);
+        }
+        .concierge-request input:focus,
+        .concierge-request select:focus,
+        .concierge-request textarea:focus {
+            border-color: var(--text-primary);
+        }
+        .concierge-request textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+        .concierge-request .submit-btn {
+            padding: 12px 36px;
+            background: var(--primary);
+            color: var(--page-bg);
+            border-radius: 60px;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: background 0.3s ease;
+        }
+        .concierge-request .submit-btn:hover {
+            background: var(--secondary);
+        }
+
+        @media (max-width: 768px) {
+            .concierge-grid {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+            .concierge-services {
+                grid-template-columns: 1fr 1fr;
+            }
+            .concierge-request .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+        @media (max-width: 480px) {
+            .concierge-services {
+                grid-template-columns: 1fr 1fr;
+            }
+            .concierge-request {
+                padding: 20px;
+            }
+        }
+
+        /* ============================================================
+           COMPARISON ROOM
+           ============================================================ */
+        #comparison {
+            background: var(--page-bg);
+            transition: background 0.8s ease;
+        }
+
+        .compare-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            max-width: 1200px;
+            margin: 30px auto 0;
+            width: 100%;
+        }
+        .compare-card {
+            background: var(--surface);
+            border-radius: 16px;
+            padding: 24px;
+            border: 1px solid var(--line);
+            box-shadow: var(--shadow-soft);
+            transition: all 0.4s ease;
+        }
+        .compare-card .name {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.2rem;
+            color: var(--text-primary);
+        }
+        .compare-card .dest {
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+        .compare-card .details {
+            margin-top: 12px;
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            line-height: 2;
+        }
+        .compare-card .details strong {
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+        .compare-card .rate {
+            margin-top: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        .compare-card .remove-btn {
+            margin-top: 12px;
+            padding: 6px 18px;
+            border: 1px solid var(--line);
+            border-radius: 30px;
+            font-size: 0.6rem;
+            color: var(--text-muted);
+            transition: all 0.3s ease;
+        }
+        .compare-card .remove-btn:hover {
+            border-color: var(--danger);
+            color: var(--danger);
+        }
+
+        .compare-empty {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            grid-column: 1 / -1;
+        }
+        .compare-empty .add-hint {
+            margin-top: 12px;
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+        }
+
+        @media (max-width: 768px) {
+            .compare-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        @media (max-width: 480px) {
+            .compare-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ============================================================
+           AVAILABILITY CALENDAR
+           ============================================================ */
+        #calendar-section {
+            background: var(--page-bg-secondary);
+            transition: background 0.8s ease;
+        }
+
+        .calendar-container {
+            max-width: 800px;
+            margin: 30px auto 0;
+            width: 100%;
+            background: var(--surface);
+            border-radius: 16px;
+            padding: 32px;
+            border: 1px solid var(--line);
+            box-shadow: var(--shadow-soft);
+        }
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+        .calendar-header .month {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.4rem;
+            color: var(--text-primary);
+        }
+        .calendar-header .nav-btn {
+            padding: 8px 16px;
+            border-radius: 30px;
+            border: 1px solid var(--line);
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            transition: all 0.3s ease;
+            background: transparent;
+        }
+        .calendar-header .nav-btn:hover {
+            border-color: var(--text-primary);
+            color: var(--text-primary);
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 4px;
+            text-align: center;
+        }
+        .calendar-grid .day-label {
+            font-size: 0.55rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            padding: 8px 0;
+            font-weight: 500;
+        }
+        .calendar-grid .day {
+            padding: 12px 0;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            transition: all 0.2s ease;
+            cursor: pointer;
+            position: relative;
+        }
+        .calendar-grid .day:hover {
+            background: var(--surface-glass);
+        }
+        .calendar-grid .day.available {
+            color: var(--text-primary);
+        }
+        .calendar-grid .day.unavailable {
+            color: var(--text-muted);
+            opacity: 0.3;
+            cursor: not-allowed;
+            text-decoration: line-through;
+        }
+        .calendar-grid .day.selected {
+            background: var(--primary);
+            color: var(--page-bg);
+            border-radius: 8px;
+        }
+        .calendar-grid .day.today {
+            border: 1px solid var(--accent-soft);
+        }
+        .calendar-grid .day .dot {
+            position: absolute;
+            bottom: 4px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: var(--success);
+        }
+
+        .calendar-info {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .calendar-info .selected-range {
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        @media (max-width: 480px) {
+            .calendar-container {
+                padding: 20px 16px;
+            }
+            .calendar-grid .day {
+                padding: 10px 0;
+                font-size: 0.7rem;
+            }
+            .calendar-grid .day-label {
+                font-size: 0.45rem;
+            }
+        }
+
+        /* ============================================================
+           BOOKING SUITE
+           ============================================================ */
+        #booking {
+            background: var(--page-bg);
+            transition: background 0.8s ease;
+        }
+
+        .booking-stepper {
+            max-width: 900px;
+            margin: 30px auto 0;
+            width: 100%;
+        }
+        .booking-steps {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            position: relative;
+            padding: 0 20px;
+        }
+        .booking-steps::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 40px;
+            right: 40px;
+            height: 1px;
+            background: var(--line);
+            transform: translateY(-50%);
+        }
+        .booking-steps .step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.55rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            position: relative;
+            z-index: 2;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+        .booking-steps .step .num {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: 1px solid var(--line);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: 500;
+            background: var(--page-bg);
+            transition: all 0.3s ease;
+        }
+        .booking-steps .step.active .num {
+            background: var(--primary);
+            color: var(--page-bg);
+            border-color: var(--primary);
+        }
+        .booking-steps .step.active {
+            color: var(--text-primary);
+        }
+        .booking-steps .step.done .num {
+            background: var(--success);
+            color: #fff;
+            border-color: var(--success);
+        }
+
+        .booking-panel {
+            background: var(--surface);
+            border-radius: 16px;
+            padding: 32px;
+            border: 1px solid var(--line);
+            box-shadow: var(--shadow-soft);
+            min-height: 300px;
+        }
+        .booking-panel .panel-title {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.4rem;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+        }
+        .booking-panel .panel-desc {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+        }
+        .booking-panel .form-group {
+            margin-bottom: 16px;
+        }
+        .booking-panel label {
+            display: block;
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+        }
+        .booking-panel input,
+        .booking-panel select {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            background: var(--input-bg);
+            font-size: 0.85rem;
+            transition: border-color 0.3s ease;
+            color: var(--text-primary);
+        }
+        .booking-panel input:focus,
+        .booking-panel select:focus {
+            border-color: var(--text-primary);
+        }
+        .booking-panel .panel-nav {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+            flex-wrap: wrap;
+        }
+        .booking-panel .panel-nav button {
+            padding: 10px 28px;
+            border-radius: 60px;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+        }
+        .booking-panel .panel-nav .prev {
+            border: 1px solid var(--line);
+            color: var(--text-secondary);
+            background: transparent;
+        }
+        .booking-panel .panel-nav .prev:hover {
+            border-color: var(--text-primary);
+            color: var(--text-primary);
+        }
+        .booking-panel .panel-nav .next {
+            background: var(--primary);
+            color: var(--page-bg);
+        }
+        .booking-panel .panel-nav .next:hover {
+            background: var(--secondary);
+        }
+
+        .booking-summary {
+            margin-top: 24px;
+            padding: 20px;
+            background: var(--page-bg-secondary);
+            border-radius: 12px;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+        .booking-summary strong {
+            color: var(--text-primary);
+        }
+
+        .booking-confirmation {
+            text-align: center;
+            padding: 40px 20px;
+        }
+        .booking-confirmation .check {
+            font-size: 4rem;
+            color: var(--success);
+            display: block;
+            margin-bottom: 16px;
+        }
+        .booking-confirmation h3 {
+            font-family: 'Instrument Serif', serif;
+            font-size: 2rem;
+            color: var(--text-primary);
+        }
+        .booking-confirmation p {
+            color: var(--text-secondary);
+            margin-top: 8px;
+        }
+
+        @media (max-width: 768px) {
+            .booking-steps {
+                flex-wrap: wrap;
+                gap: 12px;
+                justify-content: center;
+                padding: 0;
+            }
+            .booking-steps::before {
+                display: none;
+            }
+            .booking-steps .step {
+                flex-direction: row;
+                gap: 8px;
+                font-size: 0.5rem;
+            }
+            .booking-steps .step .num {
+                width: 28px;
+                height: 28px;
+                font-size: 0.6rem;
+            }
+            .booking-panel {
+                padding: 24px;
+            }
+            .booking-summary {
+                grid-template-columns: 1fr;
+            }
+        }
+        @media (max-width: 480px) {
+            .booking-panel {
+                padding: 16px;
+            }
+            .booking-panel .panel-title {
+                font-size: 1.2rem;
+            }
+            .booking-panel .panel-nav button {
+                padding: 8px 20px;
+                font-size: 0.6rem;
+            }
+        }
+
+        /* ============================================================
+           GUEST STORIES
+           ============================================================ */
+        #stories {
+            background: var(--page-bg-secondary);
+            transition: background 0.8s ease;
+            overflow: hidden;
+        }
+
+        .stories-scroll {
+            display: flex;
+            gap: 24px;
+            overflow-x: auto;
+            padding: 20px 40px 40px;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .stories-scroll::-webkit-scrollbar {
+            display: none;
+        }
+
+        .story-card {
+            flex: 0 0 340px;
+            scroll-snap-align: start;
+            background: var(--surface);
+            border-radius: 16px;
+            padding: 28px;
+            border: 1px solid var(--line);
+            box-shadow: var(--shadow-soft);
+            transition: all 0.4s ease;
+        }
+        .story-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-deep);
+        }
+        .story-card .quote {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.1rem;
+            font-style: italic;
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+        .story-card .author {
+            margin-top: 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .story-card .author .initials {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--accent-soft);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+        .story-card .author .info .name {
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+        .story-card .author .info .detail {
+            font-size: 0.6rem;
+            color: var(--text-muted);
+        }
+        .story-card .rating {
+            margin-top: 12px;
+            color: var(--warning);
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+        }
+
+        @media (max-width: 768px) {
+            .stories-scroll {
+                padding: 16px 24px 32px;
+                gap: 16px;
+            }
+            .story-card {
+                flex: 0 0 280px;
+                padding: 20px;
+            }
+            .story-card .quote {
+                font-size: 0.95rem;
+            }
+        }
+        @media (max-width: 480px) {
+            .stories-scroll {
+                padding: 12px 16px 24px;
+                gap: 12px;
+            }
+            .story-card {
+                flex: 0 0 240px;
+                padding: 16px;
+            }
+            .story-card .quote {
+                font-size: 0.85rem;
+            }
+        }
+
+        /* ============================================================
+           JOURNAL
+           ============================================================ */
+        #journal {
+            background: var(--page-bg);
+            transition: background 0.8s ease;
+        }
+
+        .journal-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 24px;
+            max-width: 1200px;
+            margin: 30px auto 0;
+            width: 100%;
+        }
+        .journal-item {
+            background: var(--surface);
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid var(--line);
+            box-shadow: var(--shadow-soft);
+            transition: all 0.4s ease;
+        }
+        .journal-item:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-deep);
+        }
+        .journal-item .img {
+            width: 100%;
+            aspect-ratio: 16/10;
+            overflow: hidden;
+        }
+        .journal-item .img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+        .journal-item:hover .img img {
+            transform: scale(1.03);
+        }
+        .journal-item .body {
+            padding: 20px 24px 24px;
+        }
+        .journal-item .body .category {
+            font-size: 0.55rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-muted);
+        }
+        .journal-item .body .headline {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.2rem;
+            color: var(--text-primary);
+            margin-top: 6px;
+            line-height: 1.3;
+        }
+        .journal-item .body .excerpt {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin-top: 8px;
+            font-weight: 300;
+            line-height: 1.6;
+        }
+        .journal-item .body .meta {
+            display: flex;
+            gap: 16px;
+            margin-top: 12px;
+            font-size: 0.6rem;
+            color: var(--text-muted);
+        }
+        .journal-item .body .read-btn {
+            margin-top: 14px;
+            display: inline-block;
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-primary);
+            border-bottom: 1px solid var(--line);
+            padding-bottom: 2px;
+            transition: border-color 0.3s ease;
+        }
+        .journal-item .body .read-btn:hover {
+            border-color: var(--text-primary);
+        }
+
+        @media (max-width: 480px) {
+            .journal-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+            .journal-item .body {
+                padding: 16px;
+            }
+        }
+
+        /* ============================================================
+           RESPONSIBLE LUXURY
+           ============================================================ */
+        #responsible {
+            background: var(--page-bg-secondary);
+            transition: background 0.8s ease;
+        }
+
+        .responsible-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: 30px auto 0;
+            width: 100%;
+        }
+        .responsible-item {
+            background: var(--surface-glass);
+            backdrop-filter: blur(8px);
+            padding: 24px 20px;
+            border-radius: 12px;
+            border: 1px solid var(--line);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        .responsible-item .number {
+            font-family: 'Instrument Serif', serif;
+            font-size: 2.4rem;
+            color: var(--text-primary);
+            line-height: 1;
+        }
+        .responsible-item .label {
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--text-muted);
+            margin-top: 6px;
+        }
+        .responsible-item .desc {
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            margin-top: 4px;
+        }
+
+        /* ============================================================
+           PROPERTY PARTNERS
+           ============================================================ */
+        #partners {
+            background: var(--page-bg);
+            transition: background 0.8s ease;
+        }
+
+        .partner-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 24px;
+            max-width: 1200px;
+            margin: 30px auto 0;
+            width: 100%;
+        }
+        .partner-card {
+            background: var(--surface);
+            border-radius: 12px;
+            padding: 24px;
+            border: 1px solid var(--line);
+            box-shadow: var(--shadow-soft);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        .partner-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-deep);
+        }
+        .partner-card .icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            opacity: 0.6;
+        }
+        .partner-card .name {
+            font-weight: 500;
+            color: var(--text-primary);
+            font-size: 0.9rem;
+        }
+        .partner-card .desc {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        .partner-enquiry {
+            max-width: 600px;
+            margin: 30px auto 0;
+            width: 100%;
+            background: var(--surface);
+            border-radius: 16px;
+            padding: 32px;
+            border: 1px solid var(--line);
+            box-shadow: var(--shadow-soft);
+        }
+        .partner-enquiry .form-group {
+            margin-bottom: 14px;
+        }
+        .partner-enquiry label {
+            display: block;
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+        }
+        .partner-enquiry input,
+        .partner-enquiry textarea {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            background: var(--input-bg);
+            font-size: 0.85rem;
+            color: var(--text-primary);
+            transition: border-color 0.3s ease;
+        }
+        .partner-enquiry input:focus,
+        .partner-enquiry textarea:focus {
+            border-color: var(--text-primary);
+        }
+        .partner-enquiry textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+        .partner-enquiry .submit-btn {
+            padding: 12px 36px;
+            background: var(--primary);
+            color: var(--page-bg);
+            border-radius: 60px;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: background 0.3s ease;
+        }
+        .partner-enquiry .submit-btn:hover {
+            background: var(--secondary);
+        }
+
+        /* ============================================================
+           CONTACT SCENE
+           ============================================================ */
+        #contact {
+            background: var(--page-bg-secondary);
+            transition: background 0.8s ease;
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+        }
+
+        .contact-container {
+            max-width: 900px;
+            margin: 0 auto;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 40px;
+            align-items: start;
+        }
+        .contact-info .title {
+            font-family: 'Instrument Serif', serif;
+            font-size: clamp(2rem, 4vw, 3.2rem);
+            color: var(--text-primary);
+            line-height: 1.1;
+        }
+        .contact-info .sub {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-top: 12px;
+            font-weight: 300;
+            line-height: 1.7;
+        }
+        .contact-info .reasons {
+            margin-top: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .contact-info .reasons span {
+            padding: 6px 16px;
+            border: 1px solid var(--line);
+            border-radius: 30px;
+            font-size: 0.6rem;
+            color: var(--text-secondary);
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            cursor: default;
+        }
+        .contact-info .reasons span:hover {
+            border-color: var(--text-primary);
+            color: var(--text-primary);
+        }
+
+        .contact-form {
+            background: var(--surface);
+            border-radius: 16px;
+            padding: 32px;
+            border: 1px solid var(--line);
+            box-shadow: var(--shadow-soft);
+        }
+        .contact-form .form-group {
+            margin-bottom: 14px;
+        }
+        .contact-form label {
+            display: block;
+            font-size: 0.55rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+        }
+        .contact-form input,
+        .contact-form select,
+        .contact-form textarea {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            background: var(--input-bg);
+            font-size: 0.85rem;
+            color: var(--text-primary);
+            transition: border-color 0.3s ease;
+        }
+        .contact-form input:focus,
+        .contact-form select:focus,
+        .contact-form textarea:focus {
+            border-color: var(--text-primary);
+        }
+        .contact-form textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+        .contact-form .submit-btn {
+            padding: 12px 36px;
+            background: var(--primary);
+            color: var(--page-bg);
+            border-radius: 60px;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: background 0.3s ease;
+            width: 100%;
+        }
+        .contact-form .submit-btn:hover {
+            background: var(--secondary);
+        }
+
+        .contact-success {
+            text-align: center;
+            padding: 40px 20px;
+            display: none;
+        }
+        .contact-success.visible {
+            display: block;
+        }
+        .contact-success .check {
+            font-size: 3rem;
+            color: var(--success);
+            display: block;
+            margin-bottom: 12px;
+        }
+        .contact-success h3 {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.6rem;
+            color: var(--text-primary);
+        }
+        .contact-success p {
+            color: var(--text-secondary);
+            margin-top: 6px;
+        }
+
+        @media (max-width: 768px) {
+            .contact-container {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+            .contact-form {
+                padding: 24px;
+            }
+        }
+        @media (max-width: 480px) {
+            .contact-form {
+                padding: 16px;
+            }
+            .contact-info .reasons span {
+                font-size: 0.5rem;
+                padding: 4px 12px;
+            }
+        }
+
+        /* ============================================================
+           FOOTER — NIGHT TERRACE
+           ============================================================ */
+        #footer {
+            background: var(--surface-dark);
+            color: rgba(255, 255, 255, 0.7);
+            padding: 80px 40px 40px;
+            position: relative;
+            overflow: hidden;
+            transition: background 0.8s ease;
+        }
+        #footer .footer-bg {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            opacity: 0.2;
+        }
+        #footer .footer-bg img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.3) saturate(0.5);
+        }
+        #footer .footer-content {
+            position: relative;
+            z-index: 2;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .footer-top {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+            padding-bottom: 40px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
+        .footer-top .brand .wordmark {
+            font-family: 'Instrument Serif', serif;
+            font-size: 2.4rem;
+            color: #fff;
+            letter-spacing: 4px;
+        }
+        .footer-top .brand .tagline {
+            font-size: 0.7rem;
+            color: rgba(255, 255, 255, 0.4);
+            margin-top: 6px;
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+        .footer-top .brand .closing {
+            margin-top: 20px;
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.4rem;
+            font-style: italic;
+            color: rgba(255, 255, 255, 0.25);
+        }
+        .footer-top .col h4 {
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: rgba(255, 255, 255, 0.3);
+            margin-bottom: 12px;
+            font-weight: 400;
+        }
+        .footer-top .col a {
+            display: block;
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.5);
+            padding: 4px 0;
+            transition: color 0.3s ease;
+            font-weight: 300;
+        }
+        .footer-top .col a:hover {
+            color: #fff;
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 24px;
+            font-size: 0.6rem;
+            color: rgba(255, 255, 255, 0.25);
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+        .footer-bottom .links {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .footer-bottom .links a {
+            color: rgba(255, 255, 255, 0.25);
+            transition: color 0.3s ease;
+        }
+        .footer-bottom .links a:hover {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .footer-back-top {
+            position: absolute;
+            right: 40px;
+            bottom: 40px;
+            z-index: 3;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.10);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255, 255, 255, 0.20);
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(8px);
+        }
+        .footer-back-top:hover {
+            border-color: rgba(255, 255, 255, 0.30);
+            color: rgba(255, 255, 255, 0.50);
+        }
+
+        @media (max-width: 768px) {
+            .footer-top {
+                grid-template-columns: 1fr 1fr;
+                gap: 30px;
+            }
+            .footer-top .brand {
+                grid-column: 1 / -1;
+            }
+            .footer-bottom {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
+            .footer-back-top {
+                right: 24px;
+                bottom: 24px;
+                width: 38px;
+                height: 38px;
+            }
+        }
+        @media (max-width: 480px) {
+            #footer {
+                padding: 40px 20px 24px;
+            }
+            .footer-top {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            .footer-top .brand .wordmark {
+                font-size: 1.8rem;
+            }
+        }
+
+        /* ============================================================
+           COOKIE BANNER
+           ============================================================ */
+        #cookie-banner {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 9998;
+            background: var(--surface);
+            border-top: 1px solid var(--line);
+            padding: 20px 32px;
+            box-shadow: var(--shadow-deep);
+            transform: translateY(100%);
+            transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            display: none;
+        }
+        #cookie-banner.visible {
+            transform: translateY(0);
+            display: block;
+        }
+        .cookie-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .cookie-content p {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            flex: 1;
+        }
+        .cookie-content .actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .cookie-content .actions button {
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            transition: all 0.3s ease;
+            border: 1px solid var(--line);
+            background: transparent;
+            color: var(--text-secondary);
+        }
+        .cookie-content .actions .accept {
+            background: var(--primary);
+            color: var(--page-bg);
+            border-color: var(--primary);
+        }
+        .cookie-content .actions .accept:hover {
+            background: var(--secondary);
+            border-color: var(--secondary);
+        }
+        .cookie-content .actions .reject:hover {
+            border-color: var(--text-primary);
+            color: var(--text-primary);
+        }
+
+        @media (max-width: 480px) {
+            #cookie-banner {
+                padding: 16px;
+            }
+            .cookie-content {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 12px;
+            }
+            .cookie-content .actions {
+                justify-content: center;
+            }
+        }
+
+        /* ============================================================
+           TOAST NOTIFICATIONS
+           ============================================================ */
+        #toast {
+            position: fixed;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 9999;
+            padding: 14px 32px;
+            background: var(--surface);
+            border-radius: 60px;
+            box-shadow: var(--shadow-deep);
+            border: 1px solid var(--line);
+            font-size: 0.8rem;
+            color: var(--text-primary);
+            opacity: 0;
+            transform: translateX(-50%) translateY(20px);
+            transition: all 0.4s ease;
+            pointer-events: none;
+            white-space: nowrap;
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+        }
+        #toast.visible {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+            pointer-events: auto;
+        }
+
+        @media (max-width: 480px) {
+            #toast {
+                bottom: 80px;
+                padding: 10px 20px;
+                font-size: 0.7rem;
+                white-space: normal;
+                max-width: 90%;
+                text-align: center;
+            }
+        }
+
+        /* ============================================================
+           UTILITY
+           ============================================================ */
+        .sr-only {
+            position: absolute !important;
+            width: 1px !important;
+            height: 1px !important;
+            padding: 0 !important;
+            margin: -1px !important;
+            overflow: hidden !important;
+            clip: rect(0, 0, 0, 0) !important;
+            border: 0 !important;
+        }
+
+        /* Reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+            .opening-grid {
+                animation: none !important;
+                opacity: 1;
+            }
+            .opening-doorway {
+                animation: none !important;
+                opacity: 1;
+                transform: scale(1);
+            }
+            .doorway-image {
+                animation: none !important;
+                opacity: 0.6;
+                transform: scale(1);
+            }
+            .opening-monogram {
+                animation: none !important;
+                opacity: 1;
+            }
+            .opening-progress-bar::after {
+                animation: none !important;
+                width: 100%;
+            }
+            .opening-skip {
+                display: none;
+            }
+            #opening {
+                transition: opacity 0.3s ease, visibility 0.3s ease;
+            }
+        }
+
+        /* Focus visible */
+        :focus-visible {
+            outline: 2px solid var(--text-primary);
+            outline-offset: 2px;
+        }
+
+        /* Selection */
+        ::selection {
+            background: var(--accent-soft);
+            color: var(--text-primary);
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 4px;
+            height: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--page-bg);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--text-muted);
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ============================================================
+    SKIP LINK
+    ============================================================ -->
+    <a class="skip-link" href="#hero">Skip to content</a>
+
+    <!-- ============================================================
+    OPENING SEQUENCE
+    ============================================================ -->
+    <div id="opening" role="status" aria-label="Loading Veyra Residences">
+        <div class="opening-canvas">
+            <div class="opening-grid"></div>
+            <div class="opening-doorway">
+                <div class="doorway-light"></div>
+                <img class="doorway-image" src="https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=600&h=800&fit=crop&crop=center" alt="" aria-hidden="true" loading="eager" />
+                <div class="opening-monogram">V</div>
+            </div>
+            <div class="opening-progress">
+                <span>Loading</span>
+                <div class="opening-progress-bar"></div>
+                <span id="opening-percent">0%</span>
+            </div>
+            <button class="opening-skip" id="opening-skip" aria-label="Skip intro">Skip</button>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    TOAST
+    ============================================================ -->
+    <div id="toast" role="status" aria-live="polite"></div>
+
+    <!-- ============================================================
+    COOKIE BANNER
+    ============================================================ -->
+    <div id="cookie-banner" role="dialog" aria-label="Cookie preferences">
+        <div class="cookie-content">
+            <p>We use cookies to enhance your experience. By continuing, you agree to our use of essential, analytics, and personalization cookies.</p>
+            <div class="actions">
+                <button class="reject" id="cookie-reject">Reject Optional</button>
+                <button class="accept" id="cookie-accept">Accept All</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    NAVIGATION — DESKTOP
+    ============================================================ -->
+    <nav class="nav-desktop" id="nav-desktop" role="navigation" aria-label="Main navigation">
+        <div class="nav-top-left">
+            <span class="nav-monogram">V</span>
+            <span class="nav-section-name" id="nav-section-name">Arrival</span>
+        </div>
+        <div class="nav-top-right">
+            <button class="nav-text-btn" id="atmosphere-toggle" aria-label="Change atmosphere">
+                <span id="atmosphere-label">Morning</span>
+            </button>
+            <button class="nav-text-btn" id="lang-toggle" aria-label="Change language">EN</button>
+            <button class="nav-text-btn" id="currency-toggle" aria-label="Change currency">USD</button>
+            <button class="nav-icon-btn" id="wishlist-toggle" aria-label="Wishlist">
+                <i data-lucide="heart"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Nav Left Center -->
+    <div class="nav-left-center" id="nav-left-center" role="navigation" aria-label="Section navigation">
+        <a href="#hero" data-section="hero" class="active">Arrival</a>
+        <a href="#residences" data-section="residences">Residences</a>
+        <a href="#destinations" data-section="destinations">Places</a>
+        <a href="#experiences" data-section="experiences">Experiences</a>
+        <a href="#concierge" data-section="concierge">Concierge</a>
+        <a href="#contact" data-section="contact">Contact</a>
+    </div>
+
+    <!-- Nav Right Center -->
+    <div class="nav-right-center" id="nav-right-center">Villa Ora · Santorini</div>
+
+    <!-- Nav Bottom Center -->
+    <div class="nav-bottom-center" id="nav-bottom-center" role="navigation" aria-label="Main navigation dock">
+        <a href="#hero" data-section="hero" class="active">Arrival</a>
+        <a href="#residences" data-section="residences">Residences</a>
+        <a href="#destinations" data-section="destinations">Places</a>
+        <a href="#experiences" data-section="experiences">Experiences</a>
+        <a href="#concierge" data-section="concierge">Concierge</a>
+        <a href="#contact" data-section="contact">Contact</a>
+        <a href="#booking" class="nav-reserve">Reserve</a>
+    </div>
+
+    <!-- ============================================================
+    NAVIGATION — MOBILE
+    ============================================================ -->
+    <nav class="nav-mobile" id="nav-mobile" role="navigation" aria-label="Mobile navigation">
+        <div class="nav-mobile-items">
+            <a href="#hero" data-section="hero" class="active" aria-label="Home">
+                <i data-lucide="home"></i>
+                <span>Home</span>
+            </a>
+            <a href="#residences" data-section="residences" aria-label="Explore">
+                <i data-lucide="compass"></i>
+                <span>Explore</span>
+            </a>
+            <a href="#" id="mobile-reserve-btn" class="nav-mobile-reserve" aria-label="Reserve">
+                <i data-lucide="plus"></i>
+            </a>
+            <a href="#" id="mobile-wishlist-btn" aria-label="Saved">
+                <i data-lucide="heart"></i>
+                <span>Saved</span>
+            </a>
+            <a href="#" id="mobile-menu-btn" aria-label="Menu">
+                <i data-lucide="menu"></i>
+                <span>Menu</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="nav-mobile-menu-overlay" id="mobile-menu-overlay" role="dialog" aria-label="Mobile menu">
+        <button class="close-menu" id="close-menu" aria-label="Close menu">✕</button>
+        <a href="#hero" data-section="hero">Arrival</a>
+        <a href="#residences" data-section="residences">Residences</a>
+        <a href="#destinations" data-section="destinations">Places</a>
+        <a href="#experiences" data-section="experiences">Experiences</a>
+        <a href="#concierge" data-section="concierge">Concierge</a>
+        <a href="#contact" data-section="contact">Contact</a>
+        <a href="#booking" class="nav-reserve-mobile">Reserve</a>
+        <div class="menu-controls">
+            <button id="mobile-atmosphere-toggle">Atmosphere: Morning</button>
+            <button id="mobile-lang-toggle">EN</button>
+            <button id="mobile-currency-toggle">USD</button>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    HERO — ARRIVAL SCENE
+    ============================================================ -->
+    <section id="hero" data-section="hero" aria-labelledby="hero-title">
+        <div class="hero-bg">
+            <img src="https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=1920&h=1080&fit=crop&crop=center" alt="Luxury cliffside villa with infinity pool overlooking the Aegean Sea at sunset" loading="eager" />
+            <div class="hero-water"></div>
+        </div>
+
+        <div class="hero-content">
+            <h1 id="hero-title" class="hero-headline">
+                Enter A Different<br />
+                <span class="italic">Way Of Living.</span>
+            </h1>
+            <p class="hero-sub">Private residences shaped by architecture, landscape and the freedom to experience each destination entirely your way.</p>
+            <div class="hero-ctas">
+                <a href="#residences" class="btn-primary">Enter The Collection</a>
+                <a href="#booking" class="btn-secondary">Plan A Private Stay</a>
+            </div>
+        </div>
+
+        <div class="hero-coordinates">
+            <strong>Villa Ora</strong> · Santorini · 4 BR · 8 Guests · <span class="value">$2,400</span> / night
+        </div>
+        <div class="hero-float-info">
+            <span>Rating <span class="value">★ 4.9</span></span>
+            <span>Concierge <span class="value">Available</span></span>
+            <span>Next <span class="value">Jun 12</span></span>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    RESIDENCE GALLERY
+    ============================================================ -->
+    <section id="residences" data-section="residences" aria-labelledby="residences-title">
+        <div class="gallery-header">
+            <span class="section-label">The Collection</span>
+            <h2 id="residences-title" class="section-title">Residences In <span class="italic">Perspective</span></h2>
+            <p class="section-desc">Each villa is a distinct architectural expression, shaped by its place and designed for those who seek more than a stay.</p>
+        </div>
+
+        <div class="gallery-scene">
+            <div class="gallery-track" id="gallery-track" role="list">
+                <!-- Cards injected by JS -->
+            </div>
+            <div class="gallery-controls">
+                <button id="gallery-prev" aria-label="Previous villa">‹</button>
+                <button id="gallery-next" aria-label="Next villa">›</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    DESTINATION OBSERVATORY
+    ============================================================ -->
+    <section id="destinations" data-section="destinations" aria-labelledby="destinations-title">
+        <div class="section" style="padding-top:40px;">
+            <span class="section-label">The World, Curated</span>
+            <h2 id="destinations-title" class="section-title">Destinations As <span class="italic">Perspective</span></h2>
+            <p class="section-desc">A circular observatory of places where architecture meets landscape and each residence finds its true context.</p>
+        </div>
+        <div class="observatory" style="padding:0 40px 80px;">
+            <div class="observatory-dial" id="dial-container">
+                <div class="dial-ring"></div>
+                <div class="dial-ring"></div>
+                <div class="dial-ring"></div>
+                <!-- Markers injected by JS -->
+            </div>
+            <div class="observatory-info" id="dest-info">
+                <div class="dest-name" id="dest-name">Santorini</div>
+                <div class="dest-coord" id="dest-coord">36.3932° N · 25.4615° E</div>
+                <div class="dest-details" id="dest-details">
+                    <div class="item"><strong>Best Months</strong> May–Oct</div>
+                    <div class="item"><strong>Climate</strong> Mediterranean</div>
+                    <div class="item"><strong>Villas</strong> 6</div>
+                    <div class="item"><strong>Vibe</strong> Romantic · Iconic</div>
+                </div>
+                <a href="#residences" class="dest-cta">Explore Villas →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    TRAVEL SIGNAL
+    ============================================================ -->
+    <section id="signal" data-section="signal" aria-labelledby="signal-title">
+        <div class="section">
+            <div class="signal-container">
+                <span class="section-label">Discover Your Signal</span>
+                <h2 id="signal-title" class="section-title">Set Your <span class="italic">Travel Signal</span></h2>
+                <p class="section-desc">Adjust the controls below to generate a travel profile and a villa recommendation uniquely for you.</p>
+
+                <div class="signal-controls" id="signal-controls">
+                    <div class="signal-control" data-control="energy">
+                        <label>Energy</label>
+                        <div class="options">
+                            <button data-value="still">Still</button>
+                            <button data-value="balanced" class="active">Balanced</button>
+                            <button data-value="social">Social</button>
+                        </div>
+                    </div>
+                    <div class="signal-control" data-control="landscape">
+                        <label>Landscape</label>
+                        <div class="options">
+                            <button data-value="ocean" class="active">Ocean</button>
+                            <button data-value="mountain">Mountain</button>
+                            <button data-value="countryside">Countryside</button>
+                        </div>
+                    </div>
+                    <div class="signal-control" data-control="privacy">
+                        <label>Privacy</label>
+                        <div class="options">
+                            <button data-value="connected">Connected</button>
+                            <button data-value="secluded" class="active">Secluded</button>
+                            <button data-value="hidden">Completely Hidden</button>
+                        </div>
+                    </div>
+                    <div class="signal-control" data-control="experience">
+                        <label>Experience</label>
+                        <div class="options">
+                            <button data-value="wellness" class="active">Wellness</button>
+                            <button data-value="culture">Culture</button>
+                            <button data-value="family">Family</button>
+                            <button data-value="celebration">Celebration</button>
+                            <button data-value="romance">Romance</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="signal-result" id="signal-result">
+                    <div class="result-title">Your Travel Profile</div>
+                    <div class="result-villa" id="result-villa">Villa Ora · Santorini</div>
+                    <div class="result-meta" id="result-meta">
+                        <span>4 nights · 8 guests</span>
+                        <span>Wellness focus</span>
+                        <span>Secluded ocean retreat</span>
+                    </div>
+                    <button class="result-cta" id="signal-book">Begin Booking →</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    EXPERIENCE ATELIER
+    ============================================================ -->
+    <section id="experiences" data-section="experiences" aria-labelledby="experiences-title">
+        <div class="section">
+            <span class="section-label">Design The Experience</span>
+            <h2 id="experiences-title" class="section-title">The Atelier of <span class="italic">Moments</span></h2>
+            <p class="section-desc">Select experiences to compose a stay that reflects your private vision.</p>
+
+            <div class="atelier-grid" id="atelier-grid">
+                <!-- Injected by JS -->
+            </div>
+
+            <div class="atelier-detail" id="atelier-detail">
+                <div class="detail-name" id="atelier-detail-name">Private Chef Dinner</div>
+                <div class="detail-meta" id="atelier-detail-meta">
+                    <span>Duration: 3 hours</span>
+                    <span>Guests: 2–12</span>
+                    <span>From $450</span>
+                </div>
+                <button class="detail-cta" id="atelier-add">Add to Plan →</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    CONCIERGE LOUNGE
+    ============================================================ -->
+    <section id="concierge" data-section="concierge" aria-labelledby="concierge-title">
+        <div class="section">
+            <span class="section-label">Everything Beyond The Villa</span>
+            <h2 id="concierge-title" class="section-title">The <span class="italic">Concierge</span> Lounge</h2>
+            <p class="section-desc">A private service dashboard for your stay. Request anything, anywhere.</p>
+
+            <div class="concierge-grid">
+                <div class="concierge-profile">
+                    <div class="avatar">E</div>
+                    <div class="name">Elena Voss</div>
+                    <div class="title">Private Concierge</div>
+                    <span class="status">● Available</span>
+                    <div class="details">
+                        <div>Languages: English · French · Italian</div>
+                        <div>Response: ~2 min</div>
+                        <div>Local time: 14:32</div>
+                    </div>
+                    <div class="contact-btns">
+                        <button>WhatsApp</button>
+                        <button>Email</button>
+                        <button>Request Call</button>
+                    </div>
+                </div>
+                <div class="concierge-services" id="concierge-services">
+                    <!-- Injected by JS -->
+                </div>
+            </div>
+
+            <div class="concierge-request">
+                <h3 style="font-family:'Instrument Serif',serif;font-size:1.2rem;margin-bottom:16px;color:var(--text-primary);">Request a Service</h3>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Villa / Destination</label>
+                        <input type="text" placeholder="e.g. Villa Ora, Santorini" />
+                    </div>
+                    <div class="form-group">
+                        <label>Dates</label>
+                        <input type="text" placeholder="e.g. Jun 12–16" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Service</label>
+                    <select>
+                        <option>Airport Transfer</option>
+                        <option>Private Driver</option>
+                        <option>Personal Chef</option>
+                        <option>Housekeeping</option>
+                        <option>Yacht Charter</option>
+                        <option>Restaurant Reservation</option>
+                        <option>Wellness</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Notes</label>
+                    <textarea placeholder="Any special requests…"></textarea>
+                </div>
+                <button class="submit-btn">Send Request</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    COMPARISON ROOM
+    ============================================================ -->
+    <section id="comparison" data-section="comparison" aria-labelledby="comparison-title">
+        <div class="section">
+            <span class="section-label">Compare The Atmosphere</span>
+            <h2 id="comparison-title" class="section-title">Villa <span class="italic">Comparison</span></h2>
+            <p class="section-desc">Select up to three villas to compare side by side.</p>
+
+            <div class="compare-grid" id="compare-grid">
+                <div class="compare-empty">
+                    <p>Select villas from the gallery to compare.</p>
+                    <div class="add-hint">Click the compare icon on any villa card.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    AVAILABILITY CALENDAR
+    ============================================================ -->
+    <section id="calendar-section" data-section="calendar" aria-labelledby="calendar-title">
+        <div class="section">
+            <span class="section-label">Plan Your Stay</span>
+            <h2 id="calendar-title" class="section-title">Availability <span class="italic">Calendar</span></h2>
+            <p class="section-desc">Select your dates and check availability across our residences.</p>
+
+            <div class="calendar-container" id="calendar-container">
+                <div class="calendar-header">
+                    <button class="nav-btn" id="cal-prev">‹</button>
+                    <span class="month" id="cal-month">June 2026</span>
+                    <button class="nav-btn" id="cal-next">›</button>
+                </div>
+                <div class="calendar-grid" id="calendar-grid">
+                    <!-- Injected by JS -->
+                </div>
+                <div class="calendar-info">
+                    <span>● Available · ○ Unavailable</span>
+                    <span class="selected-range" id="cal-range">No dates selected</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    BOOKING SUITE
+    ============================================================ -->
+    <section id="booking" data-section="booking" aria-labelledby="booking-title">
+        <div class="section">
+            <span class="section-label">Private Reservation Suite</span>
+            <h2 id="booking-title" class="section-title">Compose Your <span class="italic">Stay</span></h2>
+            <p class="section-desc">A seamless, private booking experience tailored to your preferences.</p>
+
+            <div class="booking-stepper" id="booking-stepper">
+                <div class="booking-steps" id="booking-steps">
+                    <div class="step active" data-step="0"><span class="num">1</span> Residence</div>
+                    <div class="step" data-step="1"><span class="num">2</span> Dates</div>
+                    <div class="step" data-step="2"><span class="num">3</span> Guests</div>
+                    <div class="step" data-step="3"><span class="num">4</span> Preferences</div>
+                    <div class="step" data-step="4"><span class="num">5</span> Confirmation</div>
+                </div>
+
+                <div class="booking-panel" id="booking-panel">
+                    <!-- Injected by JS -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    GUEST STORIES
+    ============================================================ -->
+    <section id="stories" data-section="stories" aria-labelledby="stories-title">
+        <div class="section" style="padding-bottom:20px;">
+            <span class="section-label">Perspectives From Elsewhere</span>
+            <h2 id="stories-title" class="section-title">Guest <span class="italic">Stories</span></h2>
+            <p class="section-desc">Real experiences from those who have found their perspective.</p>
+        </div>
+        <div class="stories-scroll" id="stories-scroll">
+            <!-- Injected by JS -->
+        </div>
+    </section>
+
+    <!-- ============================================================
+    JOURNAL
+    ============================================================ -->
+    <section id="journal" data-section="journal" aria-labelledby="journal-title">
+        <div class="section">
+            <span class="section-label">Veyra Perspectives</span>
+            <h2 id="journal-title" class="section-title">The <span class="italic">Journal</span></h2>
+            <p class="section-desc">Stories on architecture, villas, destinations and the art of private living.</p>
+
+            <div class="journal-grid" id="journal-grid">
+                <!-- Injected by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    RESPONSIBLE LUXURY
+    ============================================================ -->
+    <section id="responsible" data-section="responsible" aria-labelledby="responsible-title">
+        <div class="section">
+            <span class="section-label">Designed To Respect The Place</span>
+            <h2 id="responsible-title" class="section-title">Responsible <span class="italic">Luxury</span></h2>
+            <p class="section-desc">Our commitment to the destinations and communities that make each residence extraordinary.</p>
+
+            <div class="responsible-grid" id="responsible-grid">
+                <div class="responsible-item">
+                    <div class="number">100%</div>
+                    <div class="label">Local Employment</div>
+                    <div class="desc">Staff hired from surrounding communities</div>
+                </div>
+                <div class="responsible-item">
+                    <div class="number">85%</div>
+                    <div class="label">Water Conservation</div>
+                    <div class="desc">Through greywater recycling and smart systems</div>
+                </div>
+                <div class="responsible-item">
+                    <div class="number">60%</div>
+                    <div class="label">Renewable Energy</div>
+                    <div class="desc">Solar and geothermal across all properties</div>
+                </div>
+                <div class="responsible-item">
+                    <div class="number">90%</div>
+                    <div class="label">Local Sourcing</div>
+                    <div class="desc">Food, materials and products from nearby</div>
+                </div>
+                <div class="responsible-item">
+                    <div class="number">100%</div>
+                    <div class="label">Plastic-Free</div>
+                    <div class="desc">Eliminated single-use plastics in all villas</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    PROPERTY PARTNERS
+    ============================================================ -->
+    <section id="partners" data-section="partners" aria-labelledby="partners-title">
+        <div class="section">
+            <span class="section-label">Residences Worth Representing</span>
+            <h2 id="partners-title" class="section-title">Property <span class="italic">Partners</span></h2>
+            <p class="section-desc">For villa owners and developers who share our vision of architectural luxury.</p>
+
+            <div class="partner-grid" id="partner-grid">
+                <div class="partner-card">
+                    <div class="icon">🏛</div>
+                    <div class="name">Selective Representation</div>
+                    <div class="desc">Curated collection of exceptional properties</div>
+                </div>
+                <div class="partner-card">
+                    <div class="icon">📸</div>
+                    <div class="name">Professional Photography</div>
+                    <div class="desc">World-class visual storytelling</div>
+                </div>
+                <div class="partner-card">
+                    <div class="icon">📈</div>
+                    <div class="name">Revenue Strategy</div>
+                    <div class="desc">Dynamic pricing and occupancy management</div>
+                </div>
+                <div class="partner-card">
+                    <div class="icon">🤝</div>
+                    <div class="name">Concierge Coordination</div>
+                    <div class="desc">Seamless guest experience management</div>
+                </div>
+            </div>
+
+            <div class="partner-enquiry">
+                <h3 style="font-family:'Instrument Serif',serif;font-size:1.2rem;margin-bottom:16px;color:var(--text-primary);">Owner Enquiry</h3>
+                <div class="form-group">
+                    <label>Property Name</label>
+                    <input type="text" placeholder="e.g. Villa Ora" />
+                </div>
+                <div class="form-group">
+                    <label>Location</label>
+                    <input type="text" placeholder="e.g. Santorini, Greece" />
+                </div>
+                <div class="form-group">
+                    <label>Your Name</label>
+                    <input type="text" placeholder="Full name" />
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" placeholder="you@example.com" />
+                </div>
+                <div class="form-group">
+                    <label>Message</label>
+                    <textarea placeholder="Tell us about your property…"></textarea>
+                </div>
+                <button class="submit-btn">Submit Enquiry</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    CONTACT SCENE
+    ============================================================ -->
+    <section id="contact" data-section="contact" aria-labelledby="contact-title">
+        <div class="section" style="padding:60px 40px;">
+            <div class="contact-container">
+                <div class="contact-info">
+                    <span class="section-label">Begin With A Private Conversation</span>
+                    <h2 id="contact-title" class="section-title" style="font-size:clamp(2rem,4vw,3.2rem);">Speak <span class="italic">Directly</span></h2>
+                    <p class="sub">Whether you're selecting a villa, planning a celebration, or exploring a partnership, we're here to listen.</p>
+                    <div class="reasons">
+                        <span>Villa Selection</span>
+                        <span>Booking Support</span>
+                        <span>Concierge</span>
+                        <span>Trip Planning</span>
+                        <span>Celebration</span>
+                        <span>Partnership</span>
+                    </div>
+                </div>
+                <div class="contact-form" id="contact-form">
+                    <div id="contact-form-fields">
+                        <div class="form-group">
+                            <label>Full Name</label>
+                            <input type="text" placeholder="Your name" />
+                        </div>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" placeholder="you@example.com" />
+                        </div>
+                        <div class="form-group">
+                            <label>Phone</label>
+                            <input type="tel" placeholder="+1 234 567 890" />
+                        </div>
+                        <div class="form-group">
+                            <label>Destination</label>
+                            <input type="text" placeholder="e.g. Santorini" />
+                        </div>
+                        <div class="form-group">
+                            <label>Message</label>
+                            <textarea placeholder="How can we assist you?"></textarea>
+                        </div>
+                        <button class="submit-btn" id="contact-submit">Send Message</button>
+                    </div>
+                    <div class="contact-success" id="contact-success">
+                        <span class="check">✓</span>
+                        <h3>Message Sent</h3>
+                        <p>We'll respond within 2 hours. Expect a private conversation.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    FOOTER — NIGHT TERRACE
+    ============================================================ -->
+    <footer id="footer" role="contentinfo">
+        <div class="footer-bg">
+            <img src="https://images.unsplash.com/photo-1519681393784-d120267933ba?w=1920&h=800&fit=crop&crop=center" alt="Night sky over a luxury villa terrace" loading="lazy" />
+        </div>
+        <div class="footer-content">
+            <div class="footer-top">
+                <div class="brand">
+                    <div class="wordmark">VEYRA</div>
+                    <div class="tagline">Private Space. Infinite Perspective.</div>
+                    <div class="closing">Space Changes Everything.</div>
+                </div>
+                <div class="col">
+                    <h4>Residences</h4>
+                    <a href="#residences">Villa Ora</a>
+                    <a href="#residences">Casa Vela</a>
+                    <a href="#residences">Maison Terre</a>
+                    <a href="#residences">Aer House</a>
+                </div>
+                <div class="col">
+                    <h4>Destinations</h4>
+                    <a href="#destinations">Mediterranean</a>
+                    <a href="#destinations">Alps</a>
+                    <a href="#destinations">Indian Ocean</a>
+                    <a href="#destinations">Caribbean</a>
+                </div>
+                <div class="col">
+                    <h4>Connect</h4>
+                    <a href="#concierge">Concierge</a>
+                    <a href="#contact">Contact</a>
+                    <a href="#partners">Partners</a>
+                    <a href="#journal">Journal</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <span>© 2026 Veyra Residences. All rights reserved.</span>
+                <div class="links">
+                    <a href="#">Privacy</a>
+                    <a href="#">Terms</a>
+                    <a href="#">Cancellation Policy</a>
+                    <a href="#">Cookie Settings</a>
+                    <a href="#">Accessibility</a>
+                </div>
+            </div>
+        </div>
+        <button class="footer-back-top" id="back-to-top" aria-label="Back to top">↑</button>
+    </footer>
+
+    <!-- ============================================================
+    LUCIDE ICONS
+    ============================================================ -->
+    <script>
+        lucide.createIcons();
+    </script>
+
+    <!-- ============================================================
+    MAIN JAVASCRIPT
+    ============================================================ -->
+    <script>
+        // ============================================================
+        // DATA
+        // ============================================================
+        const VILLAS = [{
+            id: 'villa-ora',
+            name: 'Villa Ora',
+            destination: 'Santorini',
+            country: 'Greece',
+            bedrooms: 4,
+            guests: 8,
+            rate: 2400,
+            currency: 'USD',
+            rating: 4.9,
+            description: 'Cliffside infinity pool with sunset views over the caldera.',
+            image: 'https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=800&h=500&fit=crop&crop=center',
+            style: 'Cycladic minimalism',
+            pool: true,
+            view: 'Aegean Sea',
+            staff: 'Private chef',
+            signature: 'Sunset terrace',
+            available: true,
+            bathrooms: 4
+        }, {
+            id: 'casa-vela',
+            name: 'Casa Vela',
+            destination: 'Mallorca',
+            country: 'Spain',
+            bedrooms: 6,
+            guests: 12,
+            rate: 3600,
+            currency: 'USD',
+            rating: 4.8,
+            description: 'Private cove estate with rooftop lounge and cinema.',
+            image: 'https://images.unsplash.com/photo-1575517111478-7f6afd0973db?w=800&h=500&fit=crop&crop=center',
+            style: 'Mediterranean contemporary',
+            pool: true,
+            view: 'Sea and mountains',
+            staff: 'Full villa team',
+            signature: 'Rooftop cinema',
+            available: true,
+            bathrooms: 5
+        }, {
+            id: 'maison-terre',
+            name: 'Maison Terre',
+            destination: 'Provence',
+            country: 'France',
+            bedrooms: 5,
+            guests: 10,
+            rate: 2900,
+            currency: 'USD',
+            rating: 4.7,
+            description: 'Olive estate with heated pool and private wine cellar.',
+            image: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&h=500&fit=crop&crop=center',
+            style: 'Provençal farmhouse',
+            pool: true,
+            view: 'Olive groves and hills',
+            staff: 'Private chef',
+            signature: 'Wine cellar',
+            available: true,
+            bathrooms: 4
+        }, {
+            id: 'aer-house',
+            name: 'Aer House',
+            destination: 'Swiss Alps',
+            country: 'Switzerland',
+            bedrooms: 4,
+            guests: 8,
+            rate: 3350,
+            currency: 'USD',
+            rating: 4.9,
+            description: 'Glass architecture with mountain spa and ski access.',
+            image: 'https://images.unsplash.com/photo-1519125323398-675f0ddb6308?w=800&h=500&fit=crop&crop=center',
+            style: 'Alpine modern',
+            pool: false,
+            view: 'Mountain peaks',
+            staff: 'Spa attendant',
+            signature: 'Glass sauna',
+            available: true,
+            bathrooms: 4
+        }, {
+            id: 'kai-residence',
+            name: 'Kai Residence',
+            destination: 'Sri Lanka',
+            country: 'Sri Lanka',
+            bedrooms: 7,
+            guests: 14,
+            rate: 3100,
+            currency: 'USD',
+            rating: 4.8,
+            description: 'Tropical beachfront with wellness pavilion and garden pool.',
+            image: 'https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=800&h=500&fit=crop&crop=center',
+            style: 'Tropical contemporary',
+            pool: true,
+            view: 'Indian Ocean',
+            staff: 'Full villa staff',
+            signature: 'Wellness pavilion',
+            available: true,
+            bathrooms: 6
+        }, {
+            id: 'noa-island',
+            name: 'Noa Island House',
+            destination: 'Maldives',
+            country: 'Maldives',
+            bedrooms: 5,
+            guests: 10,
+            rate: 6200,
+            currency: 'USD',
+            rating: 4.9,
+            description: 'Private island with infinity pool and full villa staff.',
+            image: 'https://images.unsplash.com/photo-1437719417032-8595fd9e9dc6?w=800&h=500&fit=crop&crop=center',
+            style: 'Island contemporary',
+            pool: true,
+            view: 'Turquoise lagoon',
+            staff: 'Full villa team',
+            signature: 'Private boat',
+            available: true,
+            bathrooms: 5
+        }];
+
+        const EXPERIENCES = [
+            { id: 'chef', name: 'Private Chef Dinner', icon: '🍽', duration: '3 hours', guests: '2–12', rate: 450,
+            desc: 'A curated tasting menu in your villa.' },
+            { id: 'yacht', name: 'Sunset Yacht Journey', icon: '⛵', duration: '4 hours', guests: '2–10', rate: 1200,
+                desc: 'Sail into the sunset with champagne.' },
+            { id: 'wellness', name: 'In-Villa Wellness', icon: '🧘', duration: '90 min', guests: '1–6', rate: 280,
+                desc: 'Private yoga and massage.' },
+            { id: 'architecture', name: 'Architecture Tour', icon: '🏛', duration: '2 hours', guests: '2–8', rate: 350,
+                desc: 'Guided tour of local design icons.' },
+            { id: 'vineyard', name: 'Vineyard Visit', icon: '🍷', duration: '3 hours', guests: '2–12', rate: 220,
+                desc: 'Private tasting at a local estate.' },
+            { id: 'helicopter', name: 'Helicopter Transfer', icon: '🚁', duration: '1 hour', guests: '2–6', rate: 1800,
+                desc: 'Arrive in style with aerial views.' },
+            { id: 'surfing', name: 'Surfing Experience', icon: '🏄', duration: '2 hours', guests: '1–4', rate: 200,
+                desc: 'Private surf coaching at the best break.' },
+            { id: 'celebration', name: 'Celebration Planning', icon: '🎉', duration: '4 hours', guests: '2–20', rate: 600,
+                desc: 'Custom event design for your occasion.' }
+        ];
+
+        const DESTINATIONS = [
+            { name: 'Santorini', coord: '36.3932° N · 25.4615° E', months: 'May–Oct', climate: 'Mediterranean',
+                villas: 6, vibe: 'Romantic · Iconic', angle: 0 },
+            { name: 'Mallorca', coord: '39.6953° N · 3.0176° E', months: 'Apr–Oct', climate: 'Mediterranean', villas: 4,
+                vibe: 'Coastal · Lively', angle: 51 },
+            { name: 'Provence', coord: '43.9358° N · 5.2480° E', months: 'May–Sep', climate: 'Mediterranean', villas: 3,
+                vibe: 'Rustic · Refined', angle: 102 },
+            { name: 'Swiss Alps', coord: '46.4983° N · 8.1140° E', months: 'Dec–Apr', climate: 'Alpine', villas: 2,
+                vibe: 'Mountain · Tranquil', angle: 153 },
+            { name: 'Sri Lanka', coord: '7.8731° N · 80.7718° E', months: 'Dec–Mar', climate: 'Tropical', villas: 3,
+                vibe: 'Exotic · Serene', angle: 204 },
+            { name: 'Maldives', coord: '3.2028° N · 73.2207° E', months: 'Nov–Apr', climate: 'Tropical', villas: 2,
+                vibe: 'Island · Secluded', angle: 255 },
+            { name: 'Caribbean', coord: '18.2208° N · 66.5901° W', months: 'Dec–Apr', climate: 'Tropical', villas: 3,
+                vibe: 'Vibrant · Relaxed', angle: 306 }
+        ];
+
+        const STORIES = [{
+            initials: 'LM',
+            name: 'Lauren M.',
+            detail: 'Villa Ora · Santorini',
+            quote: 'The sunset from the terrace felt like a private performance. We didn\'t just stay — we were part of the landscape.',
+            rating: 5
+        }, {
+            initials: 'JP',
+            name: 'James P.',
+            detail: 'Casa Vela · Mallorca',
+            quote: 'Every detail was considered. The rooftop cinema under the stars was unforgettable.',
+            rating: 5
+        }, {
+            initials: 'AR',
+            name: 'Alessia R.',
+            detail: 'Maison Terre · Provence',
+            quote: 'The olive estate felt like stepping into a painting. The wine cellar tour was a highlight.',
+            rating: 4
+        }, {
+            initials: 'KW',
+            name: 'Kai W.',
+            detail: 'Aer House · Swiss Alps',
+            quote: 'The glass architecture made the mountains feel like they were part of the room. Absolute silence, absolute peace.',
+            rating: 5
+        }, {
+            initials: 'SM',
+            name: 'Sofia M.',
+            detail: 'Kai Residence · Sri Lanka',
+            quote: 'The wellness pavilion transformed our stay. We left feeling renewed and deeply connected.',
+            rating: 5
+        }];
+
+        const JOURNAL_ARTICLES = [{
+            category: 'Architecture',
+            headline: 'The Language of Light and Stone',
+            excerpt: 'How Mediterranean villas use natural materials to shape atmosphere and perspective.',
+            image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&h=400&fit=crop&crop=center',
+            author: 'Elena Voss',
+            date: 'May 15, 2026',
+            read: '6 min'
+        }, {
+            category: 'Destinations',
+            headline: 'Santorini: A Caldera of Possibility',
+            excerpt: 'Exploring the volcanic island through its architecture, light and private spaces.',
+            image: 'https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=600&h=400&fit=crop&crop=center',
+            author: 'Marco Bianchi',
+            date: 'May 8, 2026',
+            read: '8 min'
+        }, {
+            category: 'Wellness',
+            headline: 'The Art of Doing Nothing Well',
+            excerpt: 'Why slow travel and private wellness are the new luxury.',
+            image: 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=600&h=400&fit=crop&crop=center',
+            author: 'Dr. Anya Singh',
+            date: 'Apr 28, 2026',
+            read: '5 min'
+        }, {
+            category: 'Design',
+            headline: 'Interior Spaces That Hold Silence',
+            excerpt: 'How minimalist design creates room for reflection and presence.',
+            image: 'https://images.unsplash.com/photo-1618220179428-22790b461013?w=600&h=400&fit=crop&crop=center',
+            author: 'Clara Dubois',
+            date: 'Apr 20, 2026',
+            read: '7 min'
+        }];
+
+        const CONCIERGE_SERVICES = [
+            'Airport Transfer', 'Private Driver', 'Personal Chef', 'Housekeeping',
+            'Grocery Pre-Stocking', 'Yacht Charter', 'Restaurant Reservations',
+            'Childcare', 'Security', 'Wellness', 'Event Planning', 'Medical Support',
+            'Local Guide', 'Luxury Transport', 'Emergency Assistance'
+        ];
+
+        const BOOKING_STEPS = [
+            { title: 'Residence', desc: 'Select your villa.' },
+            { title: 'Dates', desc: 'Choose your stay dates.' },
+            { title: 'Guests', desc: 'Number of guests.' },
+            { title: 'Preferences', desc: 'Tell us about your stay.' },
+            { title: 'Confirmation', desc: 'Review and confirm.' }
+        ];
+
+        // ============================================================
+        // STATE
+        // ============================================================
+        const state = {
+            atmosphere: 'morning',
+            language: 'en',
+            currency: 'USD',
+            wishlist: JSON.parse(localStorage.getItem('veyra-wishlist') || '[]'),
+            compare: JSON.parse(localStorage.getItem('veyra-compare') || '[]'),
+            bookingStep: 0,
+            selectedDates: [],
+            signal: { energy: 'balanced', landscape: 'ocean', privacy: 'secluded', experience: 'wellness' },
+            currentDest: 0,
+            cart: [],
+            cookieAccepted: localStorage.getItem('veyra-cookie') === 'true'
+        };
+
+        const exchangeRates = { USD: 1, EUR: 0.92, GBP: 0.79, CHF: 0.91 };
+
+        // ============================================================
+        // HELPERS
+        // ============================================================
+        function $(sel, ctx = document) { return ctx.querySelector(sel); }
+
+        function $$(sel, ctx = document) { return [...ctx.querySelectorAll(sel)]; }
+
+        function toast(msg) {
+            const el = $('#toast');
+            el.textContent = msg;
+            el.classList.add('visible');
+            clearTimeout(el._hide);
+            el._hide = setTimeout(() => el.classList.remove('visible'), 3000);
+        }
+
+        function formatPrice(amount, currency = state.currency) {
+            const sym = { USD: '$', EUR: '€', GBP: '£', CHF: 'Fr' };
+            const rate = exchangeRates[currency] || 1;
+            return sym[currency] + (Math.round(amount * rate * 100) / 100).toLocaleString('en');
+        }
+
+        function getCurrencySymbol() {
+            const sym = { USD: '$', EUR: '€', GBP: '£', CHF: 'Fr' };
+            return sym[state.currency] || '$';
+        }
+
+        function getAtmosphereLabel() {
+            const map = { morning: 'Morning', ocean: 'Ocean', sunset: 'Sunset', night: 'Night' };
+            return map[state.atmosphere] || 'Morning';
+        }
+
+        function saveWishlist() {
+            localStorage.setItem('veyra-wishlist', JSON.stringify(state.wishlist));
+        }
+
+        function saveCompare() {
+            localStorage.setItem('veyra-compare', JSON.stringify(state.compare));
+        }
+
+        function isInWishlist(id) { return state.wishlist.includes(id); }
+
+        function isInCompare(id) { return state.compare.includes(id); }
+
+        function toggleWishlist(id) {
+            const idx = state.wishlist.indexOf(id);
+            if (idx > -1) state.wishlist.splice(idx, 1);
+            else state.wishlist.push(id);
+            saveWishlist();
+            renderGallery();
+            toast(idx > -1 ? 'Removed from wishlist' : 'Added to wishlist');
+        }
+
+        function toggleCompare(id) {
+            const idx = state.compare.indexOf(id);
+            if (idx > -1) state.compare.splice(idx, 1);
+            else if (state.compare.length < 3) state.compare.push(id);
+            else { toast('Maximum 3 villas for comparison'); return; }
+            saveCompare();
+            renderGallery();
+            renderComparison();
+            toast(idx > -1 ? 'Removed from comparison' : 'Added to comparison');
+        }
+
+        // ============================================================
+        // OPENING SEQUENCE
+        // ============================================================
+        function initOpening() {
+            const opening = $('#opening');
+            const percentEl = $('#opening-percent');
+            let progress = 0;
+            const interval = setInterval(() => {
+                progress += Math.random() * 8 + 2;
+                if (progress > 100) progress = 100;
+                percentEl.textContent = Math.floor(progress) + '%';
+                if (progress >= 100) {
+                    clearInterval(interval);
+                    setTimeout(() => {
+                        opening.classList.add('hidden');
+                        document.body.style.overflow = '';
+                        initLenis();
+                        initGSAP();
+                        initAll();
+                    }, 400);
+                }
+            }, 120);
+
+            $('#opening-skip').addEventListener('click', () => {
+                clearInterval(interval);
+                percentEl.textContent = '100%';
+                setTimeout(() => {
+                    opening.classList.add('hidden');
+                    document.body.style.overflow = '';
+                    initLenis();
+                    initGSAP();
+                    initAll();
+                }, 200);
+            });
+        }
+
+        // ============================================================
+        // LENIS
+        // ============================================================
+        let lenis = null;
+
+        function initLenis() {
+            if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+            lenis = new Lenis({
+                duration: 1.2,
+                easing: (t) => Math.min(1, 1.5 * t - 0.5 * t * t * t),
+                orientation: 'vertical',
+                smoothWheel: true,
+                wheelMultiplier: 0.9,
+                touchMultiplier: 0.7,
+                infinite: false,
+            });
+            lenis.on('scroll', updateNav);
+            lenis.on('scroll', updateNavLeft);
+            lenis.connect();
+
+            // RAF
+            function raf(time) {
+                lenis.raf(time);
+                requestAnimationFrame(raf);
+            }
+            requestAnimationFrame(raf);
+
+            // ScrollTrigger
+            gsap.registerPlugin(ScrollTrigger);
+            ScrollTrigger.scrollerProxy(document.body, {
+                scrollTop(value) {
+                    if (value !== undefined) return lenis.scrollTo(value, { immediate: true });
+                    return lenis.actualScroll;
+                },
+                getBoundingClientRect() {
+                    return { top: 0, left: 0, width: window.innerWidth, height: window.innerHeight };
+                },
+                pinType: document.body.style.transform ? 'transform' : 'fixed',
+            });
+            ScrollTrigger.addEventListener('refresh', () => lenis.resize());
+        }
+
+        // ============================================================
+        // GSAP
+        // ============================================================
+        function initGSAP() {
+            if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+            gsap.registerPlugin(ScrollTrigger);
+
+            // Hero parallax
+            gsap.to('.hero-bg img', {
+                scale: 1.08,
+                y: -20,
+                ease: 'none',
+                scrollTrigger: { trigger: '#hero', start: 'top top', end: 'bottom top', scrub: 1.2, scroller: document
+                        .body }
+            });
+
+            // Hero water
+            gsap.to('.hero-water', {
+                opacity: 0.2,
+                ease: 'none',
+                scrollTrigger: { trigger: '#hero', start: 'top bottom', end: 'bottom top', scrub: 1, scroller: document
+                        .body }
+            });
+
+            // Gallery cards reveal
+            $$('.gallery-card').forEach((el, i) => {
+                gsap.from(el, {
+                    opacity: 0,
+                    y: 40,
+                    scale: 0.96,
+                    duration: 1.2,
+                    delay: i * 0.08,
+                    ease: 'power2.out',
+                    scrollTrigger: { trigger: el, start: 'top 85%', toggleActions: 'play none none reverse',
+                        scroller: document.body }
+                });
+            });
+
+            // Signal controls
+            gsap.from('.signal-control', {
+                opacity: 0,
+                y: 30,
+                duration: 0.8,
+                stagger: 0.1,
+                ease: 'power2.out',
+                scrollTrigger: { trigger: '#signal', start: 'top 70%', toggleActions: 'play none none reverse',
+                    scroller: document.body }
+            });
+
+            // Journal items
+            $$('.journal-item').forEach((el, i) => {
+                gsap.from(el, {
+                    opacity: 0,
+                    y: 30,
+                    duration: 0.9,
+                    delay: i * 0.06,
+                    ease: 'power2.out',
+                    scrollTrigger: { trigger: el, start: 'top 85%', toggleActions: 'play none none reverse',
+                        scroller: document.body }
+                });
+            });
+
+            // Stories
+            $$('.story-card').forEach((el, i) => {
+                gsap.from(el, {
+                    opacity: 0,
+                    x: 40,
+                    duration: 0.8,
+                    delay: i * 0.06,
+                    ease: 'power2.out',
+                    scrollTrigger: { trigger: el, start: 'top 80%', toggleActions: 'play none none reverse',
+                        scroller: document.body }
+                });
+            });
+
+            // Footer
+            gsap.from('.footer-top .brand', {
+                opacity: 0,
+                y: 30,
+                duration: 1,
+                ease: 'power2.out',
+                scrollTrigger: { trigger: '#footer', start: 'top 80%', toggleActions: 'play none none reverse',
+                    scroller: document.body }
+            });
+        }
+
+        // ============================================================
+        // NAVIGATION
+        // ============================================================
+        function updateNav() {
+            const sections = $$('[data-section]');
+            const scrollY = window.scrollY || 0;
+            let active = 'hero';
+            sections.forEach(s => {
+                const rect = s.getBoundingClientRect();
+                const mid = rect.top + rect.height / 2;
+                if (mid < window.innerHeight / 2) active = s.dataset.section;
+            });
+
+            // Desktop bottom nav
+            $$('.nav-bottom-center a').forEach(a => {
+                a.classList.toggle('active', a.dataset.section === active);
+            });
+
+            // Left nav
+            $$('.nav-left-center a').forEach(a => {
+                a.classList.toggle('active', a.dataset.section === active);
+            });
+
+            // Section name
+            const names = {
+                hero: 'Arrival',
+                residences: 'Residences',
+                destinations: 'Places',
+                experiences: 'Experiences',
+                concierge: 'Concierge',
+                contact: 'Contact',
+                booking: 'Planning',
+                stories: 'Stories',
+                journal: 'Journal'
+            };
+            $('#nav-section-name').textContent = names[active] || 'Veyra';
+
+            // Mobile active
+            $$('.nav-mobile-items a').forEach(a => {
+                a.classList.toggle('active', a.dataset.section === active);
+            });
+
+            // Right center
+            const villa = VILLAS.find(v => v.id === 'villa-ora') || VILLAS[0];
+            $('#nav-right-center').textContent = villa.name + ' · ' + villa.destination;
+        }
+
+        function updateNavLeft() {
+            // handled in updateNav via scroll
+        }
+
+        // ============================================================
+        // ATMOSPHERE
+        // ============================================================
+        function setAtmosphere(val) {
+            state.atmosphere = val;
+            document.documentElement.setAttribute('data-atmosphere', val);
+            localStorage.setItem('veyra-atmosphere', val);
+            const label = getAtmosphereLabel();
+            $('#atmosphere-label').textContent = label;
+            $('#mobile-atmosphere-toggle').textContent = 'Atmosphere: ' + label;
+            toast('Atmosphere: ' + label);
+            // Refresh GSAP
+            if (window.ScrollTrigger) ScrollTrigger.refresh();
+        }
+
+        // ============================================================
+        // CURRENCY
+        // ============================================================
+        function setCurrency(val) {
+            state.currency = val;
+            localStorage.setItem('veyra-currency', val);
+            $('#currency-toggle').textContent = val;
+            $('#mobile-currency-toggle').textContent = val;
+            renderGallery();
+            renderComparison();
+            toast('Currency: ' + val);
+        }
+
+        // ============================================================
+        // LANGUAGE
+        // ============================================================
+        function setLanguage(val) {
+            state.language = val;
+            localStorage.setItem('veyra-language', val);
+            $('#lang-toggle').textContent = val.toUpperCase();
+            $('#mobile-lang-toggle').textContent = val.toUpperCase();
+            toast('Language: ' + val.toUpperCase());
+            // Simple translation demo
+            const t = {
+                en: { hero: 'Enter A Different Way Of Living.' },
+                fr: { hero: 'Entrez une autre manière de vivre.' },
+                de: { hero: 'Betreten Sie eine andere Art zu leben.' },
+                it: { hero: 'Entra in un altro modo di vivere.' },
+                es: { hero: 'Entra en una forma diferente de vivir.' },
+                nl: { hero: 'Betreed een andere manier van leven.' }
+            };
+            const h = $('#hero-title');
+            if (t[val]) h.innerHTML = t[val].hero.replace(/\n/g, '<br />');
+            else h.innerHTML = 'Enter A Different<br /><span class="italic">Way Of Living.</span>';
+        }
+
+        // ============================================================
+        // RENDER GALLERY
+        // ============================================================
+        function renderGallery() {
+            const track = $('#gallery-track');
+            track.innerHTML = '';
+            VILLAS.forEach((v, i) => {
+                const inWish = isInWishlist(v.id);
+                const inComp = isInCompare(v.id);
+                const card = document.createElement('div');
+                card.className = 'gallery-card';
+                card.setAttribute('role', 'listitem');
+                card.innerHTML = `
+              <div class="gallery-card-image">
+                <img src="${v.image}" alt="${v.name}, ${v.destination}" loading="${i < 3 ? 'eager' : 'lazy'}" />
+                <button class="wishlist-btn ${inWish ? 'active' : ''}" data-id="${v.id}" aria-label="${inWish ? 'Remove from' : 'Add to'} wishlist">
+                  <i data-lucide="${inWish ? 'heart' : 'heart'}"></i>
+                </button>
+              </div>
+              <div class="gallery-card-body">
+                <div class="name">${v.name}</div>
+                <div class="dest">${v.destination} · ${v.country}</div>
+                <div class="meta">
+                  <span>🛏 ${v.bedrooms} BR</span>
+                  <span>👤 ${v.guests} guests</span>
+                  <span>★ ${v.rating}</span>
+                </div>
+                <div class="rate">${formatPrice(v.rate)} <small>/ night</small></div>
+                <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;">
+                  <button class="compare-btn" data-id="${v.id}" style="font-size:0.55rem;text-transform:uppercase;letter-spacing:1px;color:var(--text-muted);border:1px solid var(--line);padding:4px 12px;border-radius:30px;transition:all 0.3s ease;">${inComp ? 'Remove' : 'Compare'}</button>
+                  <button class="explore-btn" data-id="${v.id}" style="font-size:0.55rem;text-transform:uppercase;letter-spacing:1px;color:var(--text-primary);border:1px solid var(--text-primary);padding:4px 16px;border-radius:30px;transition:all 0.3s ease;">Explore</button>
+                </div>
+              </div>
+            `;
+                track.appendChild(card);
+            });
+
+            // Re-init Lucide
+            lucide.createIcons();
+
+            // Event listeners
+            $$('.wishlist-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    toggleWishlist(btn.dataset.id);
+                });
+            });
+
+            $$('.compare-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    toggleCompare(btn.dataset.id);
+                });
+            });
+
+            $$('.explore-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const v = VILLAS.find(x => x.id === btn.dataset.id);
+                    if (v) toast('Exploring ' + v.name + '…');
+                });
+            });
+
+            // Card click
+            $$('.gallery-card').forEach(card => {
+                card.addEventListener('click', () => {
+                    const id = card.querySelector('.explore-btn')?.dataset.id;
+                    if (id) {
+                        const v = VILLAS.find(x => x.id === id);
+                        if (v) toast('Villa detail: ' + v.name);
+                    }
+                });
+            });
+        }
+
+        // ============================================================
+        // RENDER COMPARISON
+        // ============================================================
+        function renderComparison() {
+            const grid = $('#compare-grid');
+            if (state.compare.length === 0) {
+                grid.innerHTML = `
+              <div class="compare-empty">
+                <p>Select villas from the gallery to compare.</p>
+                <div class="add-hint">Click the compare icon on any villa card.</div>
+              </div>
+            `;
+                return;
+            }
+
+            const villas = state.compare.map(id => VILLAS.find(v => v.id === id)).filter(Boolean);
+            grid.innerHTML = villas.map(v => `
+            <div class="compare-card">
+              <div class="name">${v.name}</div>
+              <div class="dest">${v.destination} · ${v.country}</div>
+              <div class="details">
+                <strong>${v.bedrooms}</strong> bedrooms · <strong>${v.guests}</strong> guests<br />
+                <strong>${v.bathrooms}</strong> bathrooms · ${v.pool ? '✓ Pool' : '— Pool'}<br />
+                <strong>${v.view}</strong><br />
+                ${v.staff ? 'Staff: ' + v.staff : ''}
+              </div>
+              <div class="rate">${formatPrice(v.rate)} <small>/ night</small></div>
+              <button class="remove-btn" data-id="${v.id}">Remove</button>
+            </div>
+          `).join('');
+
+            $$('.remove-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    toggleCompare(btn.dataset.id);
+                });
+            });
+        }
+
+        // ============================================================
+        // RENDER DESTINATIONS
+        // ============================================================
+        function renderDestinations() {
+            const container = $('#dial-container');
+            // Remove old markers
+            $$('.dial-marker').forEach(el => el.remove());
+
+            DESTINATIONS.forEach((d, i) => {
+                const angle = d.angle || (i * 360 / DESTINATIONS.length);
+                const rad = (angle - 90) * Math.PI / 180;
+                const r = 38; // percentage
+                const cx = 50 + r * Math.cos(rad);
+                const cy = 50 + r * Math.sin(rad);
+                const marker = document.createElement('div');
+                marker.className = 'dial-marker' + (i === state.currentDest ? ' active' : '');
+                marker.style.left = cx + '%';
+                marker.style.top = cy + '%';
+                marker.dataset.index = i;
+                marker.innerHTML = `<span class="label">${d.name}</span>`;
+                marker.addEventListener('click', () => selectDestination(i));
+                marker.addEventListener('mouseenter', () => {
+                    if (i !== state.currentDest) {
+                        marker.classList.add('active');
+                    }
+                });
+                marker.addEventListener('mouseleave', () => {
+                    if (i !== state.currentDest) {
+                        marker.classList.remove('active');
+                    }
+                });
+                container.appendChild(marker);
+            });
+            selectDestination(state.currentDest);
+        }
+
+        function selectDestination(index) {
+            state.currentDest = index;
+            const d = DESTINATIONS[index];
+            $$('.dial-marker').forEach((el, i) => {
+                el.classList.toggle('active', i === index);
+            });
+            $('#dest-name').textContent = d.name;
+            $('#dest-coord').textContent = d.coord;
+            $('#dest-details').innerHTML = `
+            <div class="item"><strong>Best Months</strong> ${d.months}</div>
+            <div class="item"><strong>Climate</strong> ${d.climate}</div>
+            <div class="item"><strong>Villas</strong> ${d.villas}</div>
+            <div class="item"><strong>Vibe</strong> ${d.vibe}</div>
+          `;
+        }
+
+        // ============================================================
+        // RENDER EXPERIENCES
+        // ============================================================
+        function renderExperiences() {
+            const grid = $('#atelier-grid');
+            grid.innerHTML = EXPERIENCES.map((e, i) => `
+            <div class="atelier-item" data-id="${e.id}" data-index="${i}">
+              <span class="icon">${e.icon}</span>
+              <div class="name">${e.name}</div>
+              <div class="desc">${e.desc}</div>
+            </div>
+          `).join('');
+
+            $$('.atelier-item').forEach(el => {
+                el.addEventListener('click', () => {
+                    const idx = parseInt(el.dataset.index);
+                    const e = EXPERIENCES[idx];
+                    const detail = $('#atelier-detail');
+                    detail.classList.add('visible');
+                    $('#atelier-detail-name').textContent = e.name;
+                    $('#atelier-detail-meta').innerHTML = `
+                <span>Duration: ${e.duration}</span>
+                <span>Guests: ${e.guests}</span>
+                <span>From ${formatPrice(e.rate)}</span>
+              `;
+                    toast('Selected: ' + e.name);
+                });
+            });
+
+            $('#atelier-add').addEventListener('click', () => {
+                const name = $('#atelier-detail-name').textContent;
+                toast('Added to plan: ' + name);
+            });
+        }
+
+        // ============================================================
+        // RENDER CONCIERGE SERVICES
+        // ============================================================
+        function renderConcierge() {
+            const grid = $('#concierge-services');
+            grid.innerHTML = CONCIERGE_SERVICES.map(s => `
+            <div class="service">${s}</div>
+          `).join('');
+            $$('.concierge-services .service').forEach(el => {
+                el.addEventListener('click', () => {
+                    toast('Service requested: ' + el.textContent);
+                });
+            });
+        }
+
+        // ============================================================
+        // RENDER CALENDAR
+        // ============================================================
+        let calMonth = 5,
+            calYear = 2026;
+
+        function renderCalendar() {
+            const grid = $('#calendar-grid');
+            const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September',
+                'October', 'November', 'December'
+            ];
+            $('#cal-month').textContent = monthNames[calMonth] + ' ' + calYear;
+
+            const firstDay = new Date(calYear, calMonth, 1).getDay();
+            const daysInMonth = new Date(calYear, calMonth + 1, 0).getDate();
+            const today = new Date();
+            const todayDate = (today.getFullYear() === calYear && today.getMonth() === calMonth) ? today.getDate() :
+            null;
+
+            let html = '';
+            const labels = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
+            labels.forEach(l => html += `<div class="day-label">${l}</div>`);
+
+            for (let i = 0; i < firstDay; i++) {
+                html += `<div class="day" style="opacity:0.2;"></div>`;
+            }
+
+            for (let d = 1; d <= daysInMonth; d++) {
+                const isToday = d === todayDate;
+                const isAvailable = d % 2 === 0; // Demo: even days available
+                const isSelected = state.selectedDates.includes(d);
+                const cls = [
+                    'day',
+                    isAvailable ? 'available' : 'unavailable',
+                    isToday ? 'today' : '',
+                    isSelected ? 'selected' : ''
+                ].filter(Boolean).join(' ');
+                html += `<div class="${cls}" data-day="${d}">${d}${isAvailable && isToday ? '<span class="dot"></span>' : ''}</div>`;
+            }
+
+            grid.innerHTML = html;
+
+            // Click handler
+            $$('.calendar-grid .day.available').forEach(el => {
+                el.addEventListener('click', () => {
+                    const day = parseInt(el.dataset.day);
+                    const idx = state.selectedDates.indexOf(day);
+                    if (idx > -1) state.selectedDates.splice(idx, 1);
+                    else state.selectedDates.push(day);
+                    renderCalendar();
+                    const range = state.selectedDates.sort((a, b) => a - b);
+                    $('#cal-range').textContent = range.length ? 'Selected: ' + range.join(', ') :
+                        'No dates selected';
+                });
+            });
+        }
+
+        // ============================================================
+        // RENDER BOOKING
+        // ============================================================
+        function renderBooking(step) {
+            const panel = $('#booking-panel');
+            const steps = $$('.booking-steps .step');
+            steps.forEach((s, i) => {
+                s.classList.toggle('active', i === step);
+                s.classList.toggle('done', i < step);
+            });
+
+            const data = BOOKING_STEPS[step];
+            let html = `<div class="panel-title">${data.title}</div><div class="panel-desc">${data.desc}</div>`;
+
+            if (step === 0) {
+                html += VILLAS.map(v => `
+              <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--line);cursor:pointer;" data-id="${v.id}">
+                <span>${v.name} · ${v.destination}</span>
+                <span>${formatPrice(v.rate)}/night</span>
+              </div>
+            `).join('');
+                html += `<div style="margin-top:12px;font-size:0.7rem;color:var(--text-muted);">Select a villa to continue.</div>`;
+            } else if (step === 1) {
+                html += `
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+                <div class="form-group"><label>Check-in</label><input type="date" value="2026-06-12" /></div>
+                <div class="form-group"><label>Check-out</label><input type="date" value="2026-06-16" /></div>
+              </div>
+              <div style="font-size:0.7rem;color:var(--text-muted);margin-top:8px;">Minimum stay: 3 nights · Flexible dates available.</div>
+            `;
+            } else if (step === 2) {
+                html += `
+              <div class="form-group"><label>Adults</label><input type="number" value="2" min="1" max="20" /></div>
+              <div class="form-group"><label>Children</label><input type="number" value="0" min="0" max="10" /></div>
+              <div class="form-group"><label>Infants</label><input type="number" value="0" min="0" max="5" /></div>
+            `;
+            } else if (step === 3) {
+                html += `
+              <div class="form-group"><label>Dietary Needs</label><input type="text" placeholder="e.g. Vegan, Gluten-free" /></div>
+              <div class="form-group"><label>Accessibility</label><input type="text" placeholder="Any specific requirements" /></div>
+              <div class="form-group"><label>Celebration</label><input type="text" placeholder="e.g. Anniversary, Birthday" /></div>
+              <div class="form-group"><label>Special Requests</label><textarea placeholder="Anything else we should know…" style="width:100%;padding:10px 14px;border:1px solid var(--line);border-radius:8px;background:var(--input-bg);min-height:60px;"></textarea></div>
+            `;
+            } else if (step === 4) {
+                const total = 4800;
+                html += `
+              <div class="booking-confirmation">
+                <span class="check">✓</span>
+                <h3>Your Stay is Composed</h3>
+                <p>Villa Ora · Santorini · 4 nights · 8 guests</p>
+                <div class="booking-summary" style="margin-top:16px;text-align:left;">
+                  <div><strong>Nightly rate</strong> $2,400 × 4</div>
+                  <div><strong>Service fee</strong> $420</div>
+                  <div><strong>Local taxes</strong> $240</div>
+                  <div style="font-weight:600;color:var(--text-primary);font-size:1.1rem;grid-column:1/-1;border-top:1px solid var(--line);padding-top:12px;margin-top:8px;">Total: ${formatPrice(total)}</div>
+                </div>
+                <button class="result-cta" style="margin-top:20px;padding:12px 40px;background:var(--success);color:#fff;border-radius:60px;font-size:0.8rem;text-transform:uppercase;letter-spacing:2px;">Confirm Booking</button>
+              </div>
+            `;
+            }
+
+            html += `
+            <div class="panel-nav">
+              ${step > 0 ? '<button class="prev" id="booking-prev">← Back</button>' : ''}
+              ${step < 4 ? '<button class="next" id="booking-next">Continue →</button>' : ''}
+            </div>
+          `;
+
+            panel.innerHTML = html;
+
+            // Event listeners
+            const prevBtn = $('#booking-prev');
+            const nextBtn = $('#booking-next');
+            if (prevBtn) prevBtn.addEventListener('click', () => { state.bookingStep--;
+                renderBooking(state.bookingStep); });
+            if (nextBtn) nextBtn.addEventListener('click', () => {
+                if (state.bookingStep < 4) { state.bookingStep++;
+                    renderBooking(state.bookingStep); }
+            });
+
+            // Villa selection for step 0
+            if (step === 0) {
+                $$('.booking-panel [data-id]').forEach(el => {
+                    el.addEventListener('click', () => {
+                        toast('Selected: ' + el.querySelector('span')?.textContent);
+                        state.bookingStep = 1;
+                        renderBooking(1);
+                    });
+                });
+            }
+
+            // Confirm booking
+            const confirmBtn = panel.querySelector('.result-cta');
+            if (confirmBtn) {
+                confirmBtn.addEventListener('click', () => {
+                    toast('Booking confirmed! Reference: VEYRA-2026-001');
+                });
+            }
+        }
+
+        // ============================================================
+        // RENDER STORIES
+        // ============================================================
+        function renderStories() {
+            const scroll = $('#stories-scroll');
+            scroll.innerHTML = STORIES.map(s => `
+            <div class="story-card">
+              <div class="quote">“${s.quote}”</div>
+              <div class="author">
+                <div class="initials">${s.initials}</div>
+                <div class="info">
+                  <div class="name">${s.name}</div>
+                  <div class="detail">${s.detail}</div>
+                </div>
+              </div>
+              <div class="rating">${'★'.repeat(s.rating)}${'☆'.repeat(5-s.rating)}</div>
+            </div>
+          `).join('');
+        }
+
+        // ============================================================
+        // RENDER JOURNAL
+        // ============================================================
+        function renderJournal() {
+            const grid = $('#journal-grid');
+            grid.innerHTML = JOURNAL_ARTICLES.map(a => `
+            <div class="journal-item">
+              <div class="img"><img src="${a.image}" alt="${a.headline}" loading="lazy" /></div>
+              <div class="body">
+                <div class="category">${a.category}</div>
+                <div class="headline">${a.headline}</div>
+                <div class="excerpt">${a.excerpt}</div>
+                <div class="meta"><span>${a.author}</span><span>${a.date}</span><span>${a.read}</span></div>
+                <a href="#" class="read-btn">Read Article →</a>
+              </div>
+            </div>
+          `).join('');
+        }
+
+        // ============================================================
+        // SIGNAL
+        // ============================================================
+        function initSignal() {
+            const controls = $$('.signal-control');
+            controls.forEach(ctrl => {
+                const btns = ctrl.querySelectorAll('.options button');
+                btns.forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        btns.forEach(b => b.classList.remove('active'));
+                        btn.classList.add('active');
+                        const key = ctrl.dataset.control;
+                        state.signal[key] = btn.dataset.value;
+                        updateSignalResult();
+                    });
+                });
+            });
+            updateSignalResult();
+        }
+
+        function updateSignalResult() {
+            const result = $('#signal-result');
+            result.classList.add('visible');
+
+            // Simple matching logic
+            const key = state.signal.energy + '-' + state.signal.landscape + '-' + state.signal.privacy + '-' + state
+            .signal.experience;
+            let villa = VILLAS[0];
+            if (state.signal.landscape === 'mountain') villa = VILLAS[3];
+            else if (state.signal.landscape === 'countryside') villa = VILLAS[2];
+            else if (state.signal.experience === 'wellness') villa = VILLAS[4];
+            else if (state.signal.experience === 'celebration') villa = VILLAS[1];
+            else if (state.signal.privacy === 'hidden') villa = VILLAS[5];
+            else villa = VILLAS[0];
+
+            $('#result-villa').textContent = villa.name + ' · ' + villa.destination;
+            $('#result-meta').innerHTML = `
+            <span>${Math.floor(Math.random() * 4 + 3)} nights · ${villa.guests} guests</span>
+            <span>${state.signal.experience} focus</span>
+            <span>${state.signal.privacy} ${state.signal.landscape} retreat</span>
+          `;
+        }
+
+        // ============================================================
+        // MOBILE NAV
+        // ============================================================
+        function initMobileNav() {
+            const menuBtn = $('#mobile-menu-btn');
+            const closeBtn = $('#close-menu');
+            const overlay = $('#mobile-menu-overlay');
+
+            menuBtn.addEventListener('click', () => {
+                overlay.classList.toggle('open');
+                document.body.style.overflow = overlay.classList.contains('open') ? 'hidden' : '';
+            });
+
+            closeBtn.addEventListener('click', () => {
+                overlay.classList.remove('open');
+                document.body.style.overflow = '';
+            });
+
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) {
+                    overlay.classList.remove('open');
+                    document.body.style.overflow = '';
+                }
+            });
+
+            // Swipe down to close
+            let startY = 0;
+            overlay.addEventListener('touchstart', (e) => { startY = e.touches[0].clientY; });
+            overlay.addEventListener('touchmove', (e) => {
+                const dy = e.touches[0].clientY - startY;
+                if (dy > 80) {
+                    overlay.classList.remove('open');
+                    document.body.style.overflow = '';
+                }
+            });
+
+            // Mobile nav links
+            $$('.nav-mobile-items a').forEach(a => {
+                a.addEventListener('click', (e) => {
+                    if (a.id === 'mobile-reserve-btn') {
+                        e.preventDefault();
+                        $('#booking').scrollIntoView({ behavior: 'smooth' });
+                        return;
+                    }
+                    if (a.id === 'mobile-wishlist-btn') {
+                        e.preventDefault();
+                        toast('Wishlist: ' + state.wishlist.length + ' villas');
+                        return;
+                    }
+                    if (a.id === 'mobile-menu-btn') return;
+                    // Close overlay if open
+                    if (overlay.classList.contains('open')) {
+                        overlay.classList.remove('open');
+                        document.body.style.overflow = '';
+                    }
+                });
+            });
+
+            // Menu controls
+            $('#mobile-atmosphere-toggle').addEventListener('click', () => {
+                const vals = ['morning', 'ocean', 'sunset', 'night'];
+                const idx = vals.indexOf(state.atmosphere);
+                setAtmosphere(vals[(idx + 1) % vals.length]);
+            });
+            $('#mobile-lang-toggle').addEventListener('click', () => {
+                const vals = ['en', 'fr', 'de', 'it', 'es', 'nl'];
+                const idx = vals.indexOf(state.language);
+                setLanguage(vals[(idx + 1) % vals.length]);
+            });
+            $('#mobile-currency-toggle').addEventListener('click', () => {
+                const vals = ['USD', 'EUR', 'GBP', 'CHF'];
+                const idx = vals.indexOf(state.currency);
+                setCurrency(vals[(idx + 1) % vals.length]);
+            });
+
+            // Mobile reserve button
+            $('#mobile-reserve-btn').addEventListener('click', (e) => {
+                e.preventDefault();
+                $('#booking').scrollIntoView({ behavior: 'smooth' });
+            });
+        }
+
+        // ============================================================
+        // COOKIE BANNER
+        // ============================================================
+        function initCookie() {
+            const banner = $('#cookie-banner');
+            if (state.cookieAccepted) {
+                banner.style.display = 'none';
+                return;
+            }
+            banner.classList.add('visible');
+
+            $('#cookie-accept').addEventListener('click', () => {
+                state.cookieAccepted = true;
+                localStorage.setItem('veyra-cookie', 'true');
+                banner.classList.remove('visible');
+                setTimeout(() => { banner.style.display = 'none'; }, 500);
+                toast('Cookies accepted');
+            });
+
+            $('#cookie-reject').addEventListener('click', () => {
+                state.cookieAccepted = false;
+                localStorage.setItem('veyra-cookie', 'false');
+                banner.classList.remove('visible');
+                setTimeout(() => { banner.style.display = 'none'; }, 500);
+                toast('Optional cookies rejected');
+            });
+        }
+
+        // ============================================================
+        // BACK TO TOP
+        // ============================================================
+        function initBackToTop() {
+            const btn = $('#back-to-top');
+            btn.addEventListener('click', () => {
+                if (lenis) lenis.scrollTo(0, { duration: 1.2 });
+                else window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        }
+
+        // ============================================================
+        // GALLERY SCROLL CONTROLS
+        // ============================================================
+        function initGalleryControls() {
+            const track = $('#gallery-track');
+            const prev = $('#gallery-prev');
+            const next = $('#gallery-next');
+
+            prev.addEventListener('click', () => {
+                track.scrollBy({ left: -320, behavior: 'smooth' });
+            });
+            next.addEventListener('click', () => {
+                track.scrollBy({ left: 320, behavior: 'smooth' });
+            });
+        }
+
+        // ============================================================
+        // ATMOSPHERE TOGGLE
+        // ============================================================
+        function initAtmosphereToggle() {
+            $('#atmosphere-toggle').addEventListener('click', () => {
+                const vals = ['morning', 'ocean', 'sunset', 'night'];
+                const idx = vals.indexOf(state.atmosphere);
+                setAtmosphere(vals[(idx + 1) % vals.length]);
+            });
+        }
+
+        // ============================================================
+        // LANGUAGE TOGGLE
+        // ============================================================
+        function initLangToggle() {
+            $('#lang-toggle').addEventListener('click', () => {
+                const vals = ['en', 'fr', 'de', 'it', 'es', 'nl'];
+                const idx = vals.indexOf(state.language);
+                setLanguage(vals[(idx + 1) % vals.length]);
+            });
+        }
+
+        // ============================================================
+        // CURRENCY TOGGLE
+        // ============================================================
+        function initCurrencyToggle() {
+            $('#currency-toggle').addEventListener('click', () => {
+                const vals = ['USD', 'EUR', 'GBP', 'CHF'];
+                const idx = vals.indexOf(state.currency);
+                setCurrency(vals[(idx + 1) % vals.length]);
+            });
+        }
+
+        // ============================================================
+        // WISHLIST TOGGLE (desktop)
+        // ============================================================
+        function initWishlistToggle() {
+            $('#wishlist-toggle').addEventListener('click', () => {
+                toast('Wishlist: ' + state.wishlist.length + ' villas saved');
+            });
+        }
+
+        // ============================================================
+        // CONTACT FORM
+        // ============================================================
+        function initContact() {
+            $('#contact-submit').addEventListener('click', (e) => {
+                e.preventDefault();
+                const fields = $('#contact-form-fields');
+                const success = $('#contact-success');
+                fields.style.display = 'none';
+                success.classList.add('visible');
+                toast('Message sent! We\'ll respond within 2 hours.');
+            });
+        }
+
+        // ============================================================
+        // CALENDAR NAV
+        // ============================================================
+        function initCalendarNav() {
+            $('#cal-prev').addEventListener('click', () => {
+                calMonth--;
+                if (calMonth < 0) { calMonth = 11;
+                    calYear--; }
+                renderCalendar();
+            });
+            $('#cal-next').addEventListener('click', () => {
+                calMonth++;
+                if (calMonth > 11) { calMonth = 0;
+                    calYear++; }
+                renderCalendar();
+            });
+        }
+
+        // ============================================================
+        // SCROLL TO BOOKING ON RESERVE CLICKS
+        // ============================================================
+        function initReserveButtons() {
+            $$('.nav-reserve, .nav-reserve-mobile').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    $('#booking').scrollIntoView({ behavior: 'smooth' });
+                });
+            });
+        }
+
+        // ============================================================
+        // KEYBOARD NAV
+        // ============================================================
+        function initKeyboardNav() {
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    const overlay = $('#mobile-menu-overlay');
+                    if (overlay.classList.contains('open')) {
+                        overlay.classList.remove('open');
+                        document.body.style.overflow = '';
+                    }
+                }
+                if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+                    // Let lenis handle
+                }
+            });
+        }
+
+        // ============================================================
+        // INIT ALL
+        // ============================================================
+        function initAll() {
+            // Restore saved state
+            const savedAtmo = localStorage.getItem('veyra-atmosphere');
+            if (savedAtmo) setAtmosphere(savedAtmo);
+
+            const savedCurrency = localStorage.getItem('veyra-currency');
+            if (savedCurrency) setCurrency(savedCurrency);
+
+            const savedLang = localStorage.getItem('veyra-language');
+            if (savedLang) setLanguage(savedLang);
+
+            // Render
+            renderGallery();
+            renderComparison();
+            renderDestinations();
+            renderExperiences();
+            renderConcierge();
+            renderCalendar();
+            renderBooking(0);
+            renderStories();
+            renderJournal();
+            initSignal();
+            initMobileNav();
+            initCookie();
+            initBackToTop();
+            initGalleryControls();
+            initAtmosphereToggle();
+            initLangToggle();
+            initCurrencyToggle();
+            initWishlistToggle();
+            initContact();
+            initCalendarNav();
+            initReserveButtons();
+            initKeyboardNav();
+
+            // Update nav after a moment
+            setTimeout(updateNav, 300);
+
+            // Refresh GSAP after load
+            if (window.ScrollTrigger) setTimeout(() => ScrollTrigger.refresh(), 600);
+
+            // Handle resize
+            let resizeTimer;
+            window.addEventListener('resize', () => {
+                clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(() => {
+                    if (window.ScrollTrigger) ScrollTrigger.refresh();
+                    if (lenis) lenis.resize();
+                }, 200);
+            });
+
+            // Signal book button
+            $('#signal-book').addEventListener('click', () => {
+                $('#booking').scrollIntoView({ behavior: 'smooth' });
+                toast('Starting booking for your signal profile…');
+            });
+
+            toast('Welcome to Veyra Residences');
+        }
+
+        // ============================================================
+        // START
+        // ============================================================
+        document.addEventListener('DOMContentLoaded', () => {
+            // Block scroll during opening
+            document.body.style.overflow = 'hidden';
+            initOpening();
+        });
+    </script>
+</body>
+</html>

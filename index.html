@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Web Template Gallery — Browse & Get Your Website</title>
+  <meta name="description" content="Browse our premium collection of professional website templates. Pick your favourite and get a custom website built for your business today." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    /* ─── Reset & Base ─────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #08080f;
+      --bg2:       #0e0e1a;
+      --surface:   rgba(255,255,255,0.04);
+      --border:    rgba(255,255,255,0.08);
+      --accent:    #7c6ef7;
+      --accent2:   #e04cff;
+      --gold:      #f5c842;
+      --text:      #e8e8f0;
+      --muted:     #7878a0;
+      --card-h:    260px;
+      --radius:    18px;
+      --wa-green:  #25d366;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Outfit', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ─── Animated BG Grid ────────────────────────────────── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(124,110,247,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(124,110,247,0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ─── Glowing Orbs ────────────────────────────────────── */
+    .orb {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(80px);
+      pointer-events: none;
+      z-index: 0;
+      animation: pulse 8s ease-in-out infinite alternate;
+    }
+    .orb-1 {
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(124,110,247,0.15) 0%, transparent 70%);
+      top: -200px; left: -150px;
+    }
+    .orb-2 {
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(224,76,255,0.1) 0%, transparent 70%);
+      bottom: 100px; right: -100px;
+      animation-delay: -4s;
+    }
+    @keyframes pulse {
+      from { transform: scale(1); opacity: 0.8; }
+      to   { transform: scale(1.2); opacity: 1; }
+    }
+
+    /* ─── Content Wrapper ─────────────────────────────────── */
+    .wrap { position: relative; z-index: 1; }
+
+    /* ─── Navbar ──────────────────────────────────────────── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      background: rgba(8,8,15,0.85);
+      border-bottom: 1px solid var(--border);
+      padding: 0 clamp(16px, 5vw, 60px);
+      height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1.3rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
+    .nav-logo span {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .nav-logo .dot { color: var(--gold); -webkit-text-fill-color: var(--gold); }
+
+    .nav-wa {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--wa-green);
+      color: #fff;
+      font-weight: 600;
+      font-size: 0.9rem;
+      padding: 9px 18px;
+      border-radius: 50px;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 0 20px rgba(37,211,102,0.3);
+    }
+    .nav-wa:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 30px rgba(37,211,102,0.5);
+    }
+    .nav-wa svg { width: 18px; height: 18px; fill: #fff; flex-shrink: 0; }
+
+    /* ─── Hero ────────────────────────────────────────────── */
+    .hero {
+      padding: clamp(60px, 10vw, 120px) clamp(16px, 5vw, 60px) clamp(40px, 6vw, 80px);
+      text-align: center;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(124,110,247,0.12);
+      border: 1px solid rgba(124,110,247,0.3);
+      border-radius: 50px;
+      padding: 6px 16px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--accent);
+      letter-spacing: 0.5px;
+      margin-bottom: 28px;
+      animation: fadeInDown 0.6s ease both;
+    }
+    .hero-badge::before { content: '✦'; }
+
+    .hero h1 {
+      font-size: clamp(2.2rem, 6vw, 4.5rem);
+      font-weight: 900;
+      line-height: 1.08;
+      letter-spacing: -2px;
+      margin-bottom: 24px;
+      animation: fadeInDown 0.7s ease 0.1s both;
+    }
+    .hero h1 .grad {
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 50%, var(--gold) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero p {
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      color: var(--muted);
+      max-width: 560px;
+      margin: 0 auto 40px;
+      font-weight: 400;
+      line-height: 1.7;
+      animation: fadeInDown 0.7s ease 0.2s both;
+    }
+
+    .hero-stats {
+      display: flex;
+      justify-content: center;
+      gap: clamp(24px, 4vw, 60px);
+      animation: fadeInDown 0.7s ease 0.3s both;
+    }
+    .hero-stat { text-align: center; }
+    .hero-stat strong {
+      display: block;
+      font-size: 1.8rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-stat span { font-size: 0.8rem; color: var(--muted); font-weight: 400; }
+
+    /* ─── Filter Bar ──────────────────────────────────────── */
+    .filter-section {
+      padding: 0 clamp(16px, 5vw, 60px) 40px;
+      animation: fadeInDown 0.7s ease 0.4s both;
+    }
+
+    .filter-label {
+      text-align: center;
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: var(--muted);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+    }
+
+    .filter-btn {
+      padding: 10px 22px;
+      border-radius: 50px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--muted);
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      backdrop-filter: blur(10px);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .filter-btn:hover {
+      border-color: rgba(124,110,247,0.5);
+      color: var(--text);
+      background: rgba(124,110,247,0.08);
+    }
+    .filter-btn.active {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      border-color: transparent;
+      color: #fff;
+      box-shadow: 0 0 20px rgba(124,110,247,0.4);
+    }
+    .filter-btn .count {
+      background: rgba(255,255,255,0.2);
+      border-radius: 20px;
+      padding: 1px 8px;
+      font-size: 0.75rem;
+    }
+    .filter-btn.active .count { background: rgba(0,0,0,0.2); }
+
+    /* Search bar */
+    .search-wrap {
+      display: flex;
+      justify-content: center;
+      margin-top: 16px;
+    }
+    .search-box {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 50px;
+      padding: 10px 20px;
+      width: 100%;
+      max-width: 360px;
+      backdrop-filter: blur(10px);
+      transition: border-color 0.2s;
+    }
+    .search-box:focus-within { border-color: rgba(124,110,247,0.5); }
+    .search-box svg { width: 16px; height: 16px; fill: var(--muted); flex-shrink: 0; }
+    .search-box input {
+      background: none;
+      border: none;
+      outline: none;
+      color: var(--text);
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.88rem;
+      width: 100%;
+    }
+    .search-box input::placeholder { color: var(--muted); }
+
+    /* ─── Template Grid ───────────────────────────────────── */
+    .grid-section {
+      padding: 0 clamp(12px, 4vw, 60px) 80px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 24px;
+    }
+    .section-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .section-count {
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+
+    .templates-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 24px;
+    }
+
+    /* ─── Template Card ───────────────────────────────────── */
+    .template-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+      animation: cardIn 0.5s ease both;
+      backdrop-filter: blur(10px);
+    }
+    .template-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(124,110,247,0.4);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 40px rgba(124,110,247,0.1);
+    }
+    .template-card.hidden { display: none; }
+
+    /* Card image */
+    .card-img {
+      position: relative;
+      height: var(--card-h);
+      overflow: hidden;
+      background: var(--bg2);
+    }
+    .card-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      transition: transform 0.5s ease;
+    }
+    .template-card:hover .card-img img { transform: scale(1.05); }
+
+    /* Category badge on image */
+    .cat-badge {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      padding: 4px 12px;
+      border-radius: 50px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      backdrop-filter: blur(10px);
+    }
+
+    /* Template number badge */
+    .num-badge {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      width: 32px;
+      height: 32px;
+      background: rgba(0,0,0,0.7);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--gold);
+    }
+
+    /* Hover overlay */
+    .card-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(8,8,15,0.95) 0%, rgba(8,8,15,0.3) 60%, transparent 100%);
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      padding: 16px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .template-card:hover .card-overlay { opacity: 1; }
+
+    .preview-btn {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      padding: 10px 22px;
+      background: rgba(255,255,255,0.95);
+      color: #08080f;
+      border-radius: 50px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition: transform 0.2s;
+    }
+    .preview-btn:hover { transform: scale(1.05); }
+    .preview-btn svg { width: 15px; height: 15px; fill: #08080f; }
+
+    /* Card body */
+    .card-body {
+      padding: 18px 18px 16px;
+    }
+    .card-name {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 4px;
+      letter-spacing: -0.3px;
+    }
+    .card-desc {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-bottom: 16px;
+      font-weight: 400;
+    }
+
+    /* Card CTA buttons */
+    .card-actions {
+      display: flex;
+      gap: 10px;
+    }
+
+    .btn-preview {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 10px 14px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text);
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+    .btn-preview:hover {
+      border-color: rgba(124,110,247,0.5);
+      background: rgba(124,110,247,0.08);
+      color: var(--accent);
+    }
+    .btn-preview svg { width: 14px; height: 14px; fill: currentColor; }
+
+    .btn-wa {
+      flex: 1.4;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      padding: 10px 14px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #25d366, #128c50);
+      color: #fff;
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 16px rgba(37,211,102,0.25);
+      cursor: pointer;
+    }
+    .btn-wa:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 24px rgba(37,211,102,0.4);
+    }
+    .btn-wa svg { width: 15px; height: 15px; fill: #fff; }
+
+    /* ─── No results ──────────────────────────────────────── */
+    .no-results {
+      display: none;
+      text-align: center;
+      padding: 80px 20px;
+      color: var(--muted);
+      grid-column: 1 / -1;
+    }
+    .no-results .icon { font-size: 3rem; margin-bottom: 16px; }
+    .no-results h3 { font-size: 1.2rem; margin-bottom: 8px; color: var(--text); }
+    .no-results p { font-size: 0.88rem; }
+
+    /* ─── Footer ──────────────────────────────────────────── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 40px clamp(16px, 5vw, 60px);
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+    .footer-logo {
+      font-size: 1.2rem;
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
+    .footer-logo span {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    footer p {
+      color: var(--muted);
+      font-size: 0.82rem;
+      margin-bottom: 20px;
+    }
+    .footer-wa {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--wa-green);
+      color: #fff;
+      font-weight: 600;
+      font-size: 0.9rem;
+      padding: 12px 28px;
+      border-radius: 50px;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 0 24px rgba(37,211,102,0.35);
+    }
+    .footer-wa:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 36px rgba(37,211,102,0.55);
+    }
+    .footer-wa svg { width: 18px; height: 18px; fill: #fff; }
+    footer small {
+      display: block;
+      margin-top: 24px;
+      color: var(--muted);
+      font-size: 0.75rem;
+      opacity: 0.6;
+    }
+
+    /* ─── Animations ──────────────────────────────────────── */
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes cardIn {
+      from { opacity: 0; transform: translateY(24px) scale(0.97); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    /* ─── Responsive ──────────────────────────────────────── */
+    @media (max-width: 640px) {
+      .templates-grid { grid-template-columns: 1fr; }
+      .hero h1 { letter-spacing: -1px; }
+      .hero-stats { gap: 20px; }
+      .nav-wa span { display: none; }
+      .card-actions { flex-direction: column; }
+      .btn-wa, .btn-preview { flex: none; }
+    }
+    @media (max-width: 480px) {
+      :root { --card-h: 220px; }
+    }
+
+    /* ─── Category Color Themes ───────────────────────────── */
+    .badge-food      { background: rgba(245,100,50,0.2);  color: #ff8060; border: 1px solid rgba(245,100,50,0.3); }
+    .badge-health    { background: rgba(255,100,180,0.2); color: #ff78c4; border: 1px solid rgba(255,100,180,0.3); }
+    .badge-business  { background: rgba(80,160,255,0.2);  color: #70b8ff; border: 1px solid rgba(80,160,255,0.3); }
+    .badge-lifestyle { background: rgba(100,220,150,0.2); color: #70e0a0; border: 1px solid rgba(100,220,150,0.3); }
+    .badge-creative  { background: rgba(160,100,255,0.2); color: #c080ff; border: 1px solid rgba(160,100,255,0.3); }
+
+    /* ─── Scroll to top ───────────────────────────────────── */
+    #scrollTop {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      width: 46px;
+      height: 46px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      border: none;
+      border-radius: 50%;
+      color: #fff;
+      font-size: 1.2rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 20px rgba(124,110,247,0.4);
+      transition: transform 0.2s, opacity 0.3s;
+      opacity: 0;
+      pointer-events: none;
+      z-index: 200;
+    }
+    #scrollTop.visible { opacity: 1; pointer-events: all; }
+    #scrollTop:hover { transform: scale(1.1); }
+  </style>
+</head>
+<body>
+
+<!-- Ambient orbs -->
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+
+<!-- ══ Navbar ══════════════════════════════════════════════ -->
+<nav>
+  <div class="nav-logo">
+    <span>Web</span>Templates<span class="dot">.</span>
+  </div>
+  <a id="nav-wa-btn" href="https://wa.me/94729825570?text=Hi%21%20I%20would%20like%20to%20know%20more%20about%20your%20website%20templates." class="nav-wa" target="_blank" rel="noopener">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+    <span>Chat with Us</span>
+  </a>
+</nav>
+
+<!-- ══ Hero ═════════════════════════════════════════════════ -->
+<div class="wrap">
+  <section class="hero">
+    <div class="hero-badge">Premium Website Templates</div>
+    <h1>Find the Perfect<br /><span class="grad">Template for Your Business</span></h1>
+    <p>Browse our collection of professionally designed, mobile-ready website templates. Pick one you love and we'll build it for you.</p>
+    <div class="hero-stats">
+      <div class="hero-stat"><strong id="total-count">70+</strong><span>Templates</span></div>
+      <div class="hero-stat"><strong>13</strong><span>Categories</span></div>
+      <div class="hero-stat"><strong>100%</strong><span>Custom Built</span></div>
+    </div>
+  </section>
+
+  <!-- ══ Filter Bar ══════════════════════════════════════════ -->
+  <section class="filter-section">
+    <div class="filter-label">Browse by Category</div>
+    <div class="filter-bar" id="filterBar">
+      <button class="filter-btn active" data-filter="all" id="btn-all">✦ All <span class="count" id="count-all">0</span></button>
+      <button class="filter-btn" data-filter="food" id="btn-food">🍽️ Food &amp; Beverage <span class="count" id="count-food">0</span></button>
+      <button class="filter-btn" data-filter="health" id="btn-health">💆 Health &amp; Beauty <span class="count" id="count-health">0</span></button>
+      <button class="filter-btn" data-filter="business" id="btn-business">🏢 Business <span class="count" id="count-business">0</span></button>
+      <button class="filter-btn" data-filter="lifestyle" id="btn-lifestyle">🏡 Lifestyle <span class="count" id="count-lifestyle">0</span></button>
+      <button class="filter-btn" data-filter="creative" id="btn-creative">✨ Creative <span class="count" id="count-creative">0</span></button>
+    </div>
+    <div class="search-wrap">
+      <div class="search-box">
+        <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+        <input type="text" id="searchInput" placeholder="Search templates…" />
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ Template Grid ════════════════════════════════════════ -->
+  <section class="grid-section">
+    <div class="section-header">
+      <div class="section-title">All Templates</div>
+      <div class="section-count" id="resultCount"></div>
+    </div>
+    <div class="templates-grid" id="templatesGrid">
+      <!-- Cards injected by JS -->
+      <div class="no-results" id="noResults">
+        <div class="icon">🔍</div>
+        <h3>No templates found</h3>
+        <p>Try adjusting your search or filter.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ Footer ══════════════════════════════════════════════ -->
+  <footer>
+    <div class="footer-logo"><span>Web</span>Templates<span style="-webkit-text-fill-color:var(--gold);color:var(--gold)">.</span></div>
+    <p>Ready to get your website built? Chat with us on WhatsApp!</p>
+    <a href="https://wa.me/94729825570?text=Hi%21%20I%20would%20like%20to%20know%20more%20about%20your%20website%20templates." class="footer-wa" target="_blank" rel="noopener" id="footer-wa-btn">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+      Start on WhatsApp
+    </a>
+    <small>© 2025 WebTemplates. All rights reserved.</small>
+  </footer>
+</div>
+
+<!-- Scroll to top -->
+<button id="scrollTop" title="Back to top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+// ══ Template Data ══════════════════════════════════════════
+// GitHub Pages base URL — update username after pushing
+const BASE = './';
+const WA   = '94729825570';
+
+const CATEGORIES = {
+  bakery:      { label: 'Bakery',        group: 'food',      badge: 'badge-food',      emoji: '🥐', image: 'ui_image/bakery.png',      desc: 'Artisan bakery & pastry shop website' },
+  barbershop:  { label: 'Barbershop',    group: 'health',    badge: 'badge-health',    emoji: '✂️', image: 'ui_image/barbershop.png',   desc: 'Modern barbershop & grooming website' },
+  burger:      { label: 'Burger',        group: 'food',      badge: 'badge-food',      emoji: '🍔', image: 'ui_image/burger.png',       desc: 'Bold burger restaurant website' },
+  coffee:      { label: 'Coffee',        group: 'food',      badge: 'badge-food',      emoji: '☕', image: 'ui_image/coffee.png',       desc: 'Elegant coffee shop & café website' },
+  fitness:     { label: 'Fitness / Gym', group: 'health',    badge: 'badge-health',    emoji: '💪', image: 'ui_image/fitness.png',      desc: 'Powerful gym & fitness center website' },
+  villa:       { label: 'Villa / Resort',group: 'lifestyle', badge: 'badge-lifestyle', emoji: '🏡', image: 'ui_image/villa.png',        desc: 'Luxury villa & real estate website' },
+  restaurant:  { label: 'Restaurant',    group: 'food',      badge: 'badge-food',      emoji: '🍽️', image: 'ui_image/restaurant.png',   desc: 'Fine dining restaurant website' },
+  beautysaloon:{ label: 'Beauty Salon',  group: 'health',    badge: 'badge-health',    emoji: '💅', image: 'ui_image/beautysaloon.png', desc: 'Glamorous beauty salon & spa website' },
+  boutique:    { label: 'Boutique',      group: 'lifestyle', badge: 'badge-lifestyle', emoji: '👗', image: 'ui_image/boutique.png',     desc: 'Chic fashion boutique website' },
+  pizza:       { label: 'Pizza',         group: 'food',      badge: 'badge-food',      emoji: '🍕', image: 'ui_image/pizza.png',        desc: 'Vibrant pizza restaurant website' },
+  sushi:       { label: 'Sushi',         group: 'food',      badge: 'badge-food',      emoji: '🍣', image: 'ui_image/sushi.png',        desc: 'Elegant Japanese sushi restaurant website' },
+  dentals:     { label: 'Dental Clinic', group: 'business',  badge: 'badge-business',  emoji: '🦷', image: 'ui_image/dental.png',       desc: 'Professional dental clinic website' },
+  animated_web:{ label: 'Animated Web',  group: 'creative',  badge: 'badge-creative',  emoji: '✨', image: 'ui_image/animated.png',     desc: 'Dynamic animated creative website' },
+};
+
+const TEMPLATES = [
+  // ── Bakery ─────────────────────────────────────────────────
+  { id:'bakery-1',  cat:'bakery',       name:'Bakery Template 01',   file:'Bakery/Bakery001.html'  },
+  { id:'bakery-2',  cat:'bakery',       name:'Bakery Template 02',   file:'Bakery/Bakery002.html'  },
+  { id:'bakery-3',  cat:'bakery',       name:'Bakery Template 03',   file:'Bakery/Bakery003.html'  },
+  { id:'bakery-4',  cat:'bakery',       name:'Bakery Template 04',   file:'Bakery/Bakery004.html'  },
+  { id:'bakery-5',  cat:'bakery',       name:'Bakery Template 05',   file:'Bakery/bakery005.html'  },
+
+  // ── Barbershop ─────────────────────────────────────────────
+  { id:'barber-1',  cat:'barbershop',   name:'Barbershop Template 01', file:'Barbershop/Barbershop001.html' },
+  { id:'barber-2',  cat:'barbershop',   name:'Barbershop Template 02', file:'Barbershop/Barbershop002.html' },
+  { id:'barber-3',  cat:'barbershop',   name:'Barbershop Template 03', file:'Barbershop/Barbershop003.html' },
+  { id:'barber-4',  cat:'barbershop',   name:'Barbershop Template 04', file:'Barbershop/Barbershop004.html' },
+  { id:'barber-5',  cat:'barbershop',   name:'Barbershop Template 05', file:'Barbershop/Barbershop005.html' },
+  { id:'barber-6',  cat:'barbershop',   name:'Barbershop Template 06', file:'Barbershop/Barbershop006.html' },
+  { id:'barber-7',  cat:'barbershop',   name:'Barbershop Template 07', file:'Barbershop/Barbershop007.html' },
+
+  // ── Burger ─────────────────────────────────────────────────
+  { id:'burger-1',  cat:'burger',       name:'Burger Template 01',   file:'Burger/Burger001.html'  },
+  { id:'burger-2',  cat:'burger',       name:'Burger Template 02',   file:'Burger/Burger002.html'  },
+  { id:'burger-3',  cat:'burger',       name:'Burger Template 03',   file:'Burger/Burger003.html'  },
+  { id:'burger-4',  cat:'burger',       name:'Burger Template 04',   file:'Burger/Burger004.html'  },
+  { id:'burger-5',  cat:'burger',       name:'Burger Template 05',   file:'Burger/Burger005.html'  },
+  { id:'burger-6',  cat:'burger',       name:'Burger Template 06',   file:'Burger/Burger006.html'  },
+
+  // ── Coffee ─────────────────────────────────────────────────
+  { id:'coffee-1',  cat:'coffee',       name:'Coffee Template 01',   file:'Coffee/coffee01.html'  },
+  { id:'coffee-2',  cat:'coffee',       name:'Coffee Template 02',   file:'Coffee/coffee02.html'  },
+  { id:'coffee-3',  cat:'coffee',       name:'Coffee Template 03',   file:'Coffee/coffee03.html'  },
+  { id:'coffee-4',  cat:'coffee',       name:'Coffee Template 04',   file:'Coffee/cofee04.html'   },
+  { id:'coffee-5',  cat:'coffee',       name:'Coffee Template 05',   file:'Coffee/coffee05.html'  },
+  { id:'coffee-a1', cat:'coffee',       name:'Coffee Animated 01',   file:'Coffee/animated/index.html'    },
+  { id:'coffee-a2', cat:'coffee',       name:'Coffee Animated 02',   file:'Coffee/animated_02/index.html' },
+
+  // ── Fitness ────────────────────────────────────────────────
+  { id:'fit-1',     cat:'fitness',      name:'Fitness Template 01',  file:'Fitness/Fitness001.html' },
+  { id:'fit-2',     cat:'fitness',      name:'Fitness Template 02',  file:'Fitness/Fitness002.html' },
+  { id:'fit-3',     cat:'fitness',      name:'Fitness Template 03',  file:'Fitness/Fitness003.html' },
+  { id:'fit-4',     cat:'fitness',      name:'Fitness Template 04',  file:'Fitness/Fitness004.html' },
+  { id:'fit-5',     cat:'fitness',      name:'Fitness Template 05',  file:'Fitness/Fitness005.html' },
+  { id:'fit-6',     cat:'fitness',      name:'Fitness Template 06',  file:'Fitness/Fitness006.html' },
+  { id:'fit-7',     cat:'fitness',      name:'Fitness Template 07',  file:'Fitness/Fitness007.html' },
+  { id:'fit-8',     cat:'fitness',      name:'Fitness Template 08',  file:'Fitness/Fitness008.html' },
+
+  // ── Villa ──────────────────────────────────────────────────
+  { id:'villa-1',   cat:'villa',        name:'Villa Template 01',    file:'Villa/Villa001.html' },
+  { id:'villa-2',   cat:'villa',        name:'Villa Template 02',    file:'Villa/Villa002.html' },
+  { id:'villa-3',   cat:'villa',        name:'Villa Template 03',    file:'Villa/Villa003.html' },
+  { id:'villa-4',   cat:'villa',        name:'Villa Template 04',    file:'Villa/Villa004.html' },
+  { id:'villa-5',   cat:'villa',        name:'Villa Template 05',    file:'Villa/Villa005.html' },
+  { id:'villa-6',   cat:'villa',        name:'Villa Template 06',    file:'Villa/Villa006.html' },
+  { id:'villa-7',   cat:'villa',        name:'Villa Template 07',    file:'Villa/Villa007.html' },
+  { id:'villa-8',   cat:'villa',        name:'Villa Template 08',    file:'Villa/Villa008.html' },
+
+  // ── Restaurant ─────────────────────────────────────────────
+  { id:'rest-1',    cat:'restaurant',   name:'Restaurant Template 01', file:'restaurant/Restaurant001.html' },
+  { id:'rest-2',    cat:'restaurant',   name:'Restaurant Template 02', file:'restaurant/Restaurant002.html' },
+  { id:'rest-3',    cat:'restaurant',   name:'Restaurant Template 03', file:'restaurant/Restaurant003.html' },
+  { id:'rest-4',    cat:'restaurant',   name:'Restaurant Template 04', file:'restaurant/Restaurant004.html' },
+
+  // ── Beauty Salon ───────────────────────────────────────────
+  { id:'beauty-1',  cat:'beautysaloon', name:'Beauty Salon Template 01', file:'beautysaloon/beautysaloon001.html' },
+  { id:'beauty-2',  cat:'beautysaloon', name:'Beauty Salon Template 02', file:'beautysaloon/beautysaloon002.html' },
+  { id:'beauty-3',  cat:'beautysaloon', name:'Beauty Salon Template 03', file:'beautysaloon/beautysaloon003.html' },
+  { id:'beauty-4',  cat:'beautysaloon', name:'Beauty Salon Template 04', file:'beautysaloon/beautysaloon004.html' },
+  { id:'beauty-5',  cat:'beautysaloon', name:'Beauty Salon Template 05', file:'beautysaloon/beautysaloon005.html' },
+  { id:'beauty-6',  cat:'beautysaloon', name:'Beauty Salon Template 06', file:'beautysaloon/beautysaloon006.html' },
+  { id:'beauty-7',  cat:'beautysaloon', name:'Beauty Salon Template 07', file:'beautysaloon/beautysaloon007.html' },
+  { id:'beauty-8',  cat:'beautysaloon', name:'Beauty Salon Template 08', file:'beautysaloon/beautysaloon008.html' },
+  { id:'beauty-9',  cat:'beautysaloon', name:'Beauty Salon Template 09', file:'beautysaloon/beautysaloon009.html' },
+
+  // ── Boutique ───────────────────────────────────────────────
+  { id:'bout-1',    cat:'boutique',     name:'Boutique Template 01', file:'boutique/boutique01.html' },
+  { id:'bout-2',    cat:'boutique',     name:'Boutique Template 02', file:'boutique/Boutique02.html' },
+  { id:'bout-3',    cat:'boutique',     name:'Boutique Template 03', file:'boutique/boutique03.html' },
+  { id:'bout-4',    cat:'boutique',     name:'Boutique Template 04', file:'boutique/boutique04.html' },
+  { id:'bout-5',    cat:'boutique',     name:'Boutique Template 05', file:'boutique/Boutique05.html' },
+  { id:'bout-6',    cat:'boutique',     name:'Boutique Template 06', file:'boutique/boutique06.html' },
+
+  // ── Pizza ──────────────────────────────────────────────────
+  { id:'pizza-1',   cat:'pizza',        name:'Pizza Template 01',    file:'pizza/pizza001.html' },
+  { id:'pizza-2',   cat:'pizza',        name:'Pizza Template 02',    file:'pizza/pizza002.html' },
+  { id:'pizza-3',   cat:'pizza',        name:'Pizza Template 03',    file:'pizza/pizza003.html' },
+
+  // ── Sushi ──────────────────────────────────────────────────
+  { id:'sushi-1',   cat:'sushi',        name:'Sushi Template 01',    file:'sushi/sushi001.html' },
+  { id:'sushi-2',   cat:'sushi',        name:'Sushi Template 02',    file:'sushi/sushi002.html' },
+  { id:'sushi-3',   cat:'sushi',        name:'Sushi Template 03',    file:'sushi/sushi003.html' },
+  { id:'sushi-4',   cat:'sushi',        name:'Sushi Template 04',    file:'sushi/sushi004.html' },
+  { id:'sushi-5',   cat:'sushi',        name:'Sushi Template 05',    file:'sushi/sushi005.html' },
+
+  // ── Dental ─────────────────────────────────────────────────
+  { id:'dent-1',    cat:'dentals',      name:'Dental Template 01',   file:'dentals/dental001.html' },
+  { id:'dent-2',    cat:'dentals',      name:'Dental Template 02',   file:'dentals/dental002.html' },
+  { id:'dent-3',    cat:'dentals',      name:'Dental Template 03',   file:'dentals/dental003.html' },
+
+  // ── Animated ───────────────────────────────────────────────
+  { id:'anim-1',    cat:'animated_web', name:'Dynamic Sky (Full)',    file:'animated_web/DynamicSky.html' },
+  { id:'anim-2',    cat:'animated_web', name:'Dynamic Sky — Claude',  file:'animated_web/DynamicSky_claude.html' },
+  { id:'anim-3',    cat:'animated_web', name:'Dynamic Sky — Gemini',  file:'animated_web/DynamicSky_gemini.html' },
+  { id:'anim-4',    cat:'animated_web', name:'Dynamic Sky — Grok',    file:'animated_web/DynamicSky_grok.html' },
+  { id:'anim-5',    cat:'animated_web', name:'Dynamic Sky — DeepSeek',file:'animated_web/deepseek_dynamicsky.html' },
+];
+
+// ══ Render ═════════════════════════════════════════════════
+function waLink(templateName) {
+  const msg = encodeURIComponent(`Hi! 👋 I saw your template gallery and I'm interested in the *${templateName}*. Could you please help me get this template for my business?`);
+  return `https://wa.me/${WA}?text=${msg}`;
+}
+
+function buildCards() {
+  const grid = document.getElementById('templatesGrid');
+  const noRes = document.getElementById('noResults');
+
+  TEMPLATES.forEach((t, i) => {
+    const cat   = CATEGORIES[t.cat];
+    const previewUrl = BASE + t.file;
+    const catNum = TEMPLATES.filter(x => x.cat === t.cat).indexOf(t) + 1;
+
+    const card = document.createElement('div');
+    card.className = 'template-card';
+    card.dataset.cat   = t.cat;
+    card.dataset.group = cat.group;
+    card.dataset.name  = t.name.toLowerCase();
+    card.style.animationDelay = `${(i % 12) * 0.04}s`;
+    card.id = `card-${t.id}`;
+
+    card.innerHTML = `
+      <div class="card-img">
+        <img src="${cat.image}" alt="${t.name}" loading="lazy" />
+        <div class="cat-badge ${cat.badge}">${cat.emoji} ${cat.label}</div>
+        <div class="num-badge">${String(catNum).padStart(2,'0')}</div>
+        <div class="card-overlay">
+          <a href="${previewUrl}" target="_blank" rel="noopener" class="preview-btn" id="overlay-preview-${t.id}">
+            <svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+            Live Preview
+          </a>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-name">${t.name}</div>
+        <div class="card-desc">${cat.desc}</div>
+        <div class="card-actions">
+          <a href="${previewUrl}" target="_blank" rel="noopener" class="btn-preview" id="preview-${t.id}">
+            <svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+            Preview
+          </a>
+          <a href="${waLink(t.name)}" target="_blank" rel="noopener" class="btn-wa" id="wa-${t.id}">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+            Get This
+          </a>
+        </div>
+      </div>
+    `;
+
+    grid.insertBefore(card, noRes);
+  });
+}
+
+// ══ Filter Logic ═══════════════════════════════════════════
+let activeFilter = 'all';
+let searchQuery  = '';
+
+function updateCounts() {
+  const total = TEMPLATES.length;
+  document.getElementById('count-all').textContent = total;
+  document.getElementById('total-count').textContent = total + '+';
+
+  const groups = { food:0, health:0, business:0, lifestyle:0, creative:0 };
+  TEMPLATES.forEach(t => { groups[CATEGORIES[t.cat].group]++; });
+  document.getElementById('count-food').textContent      = groups.food;
+  document.getElementById('count-health').textContent    = groups.health;
+  document.getElementById('count-business').textContent  = groups.business;
+  document.getElementById('count-lifestyle').textContent = groups.lifestyle;
+  document.getElementById('count-creative').textContent  = groups.creative;
+}
+
+function applyFilters() {
+  const cards   = document.querySelectorAll('.template-card');
+  const noRes   = document.getElementById('noResults');
+  const counter = document.getElementById('resultCount');
+  let visible   = 0;
+
+  cards.forEach(card => {
+    const groupMatch  = activeFilter === 'all' || card.dataset.group === activeFilter;
+    const searchMatch = !searchQuery   || card.dataset.name.includes(searchQuery);
+    const show        = groupMatch && searchMatch;
+    card.classList.toggle('hidden', !show);
+    if (show) visible++;
+  });
+
+  noRes.style.display = visible === 0 ? 'block' : 'none';
+  counter.textContent = visible === TEMPLATES.length ? '' : `Showing ${visible} of ${TEMPLATES.length}`;
+}
+
+// Filter buttons
+document.getElementById('filterBar').addEventListener('click', e => {
+  const btn = e.target.closest('.filter-btn');
+  if (!btn) return;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  activeFilter = btn.dataset.filter;
+  applyFilters();
+});
+
+// Search
+document.getElementById('searchInput').addEventListener('input', e => {
+  searchQuery = e.target.value.toLowerCase().trim();
+  applyFilters();
+});
+
+// Scroll to top
+const scrollBtn = document.getElementById('scrollTop');
+window.addEventListener('scroll', () => {
+  scrollBtn.classList.toggle('visible', window.scrollY > 400);
+});
+
+// ══ Init ═══════════════════════════════════════════════════
+buildCards();
+updateCounts();
+applyFilters();
+</script>
+</body>
+</html>

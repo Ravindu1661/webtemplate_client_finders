@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Kuro Sora · Precision From The Sea</title>
+  <meta name="description" content="Kuro Sora – contemporary sushi & omakase in Europe. Precision, seasonality, and craft. Reserve your counter.">
+  <link rel="canonical" href="https://kurosora.example.com">
+  <meta property="og:title" content="Kuro Sora · Precision From The Sea">
+  <meta property="og:description" content="Modern Japanese dining in Europe. Omakase, sake, and the art of the cut.">
+  <meta property="og:type" content="website">
+  <meta name="theme-color" content="#090A0A">
+  <!-- Google Fonts + Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:opsz,wght@14..32,300..700&family=JetBrains+Mono:wght@400;600&family=Noto+Serif+JP:wght@200..900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.2.3/dist/lenis.min.js"></script>
+  <style>
+    /* ===== CSS VARIABLES ===== */
+    * { margin:0; padding:0; box-sizing:border-box; }
+    :root {
+      --bg: #090A0A; --bg-secondary: #111313; --surface: #171A1A; --surface-elevated: #202424;
+      --text: #F4F0E8; --text-muted: #A6A29A; --steel: #AAB2B2; --accent: #C74432;
+      --accent-soft: #b85a4a; --rice: #F2EEE5; --ink: #1B2627; --sea: #486B63;
+      --amber: #B58A4A; --line: #303535; --line-strong: #4a4f4f;
+      --shadow: rgba(0,0,0,0.6); --glow: rgba(199,68,50,0.25);
+      --success: #5f8b7b; --warning: #b58a4a; --danger: #b93e2f;
+      --font-serif: 'Instrument Serif', 'Noto Serif JP', serif;
+      --font-sans: 'Inter', 'Noto Sans JP', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+    .light-theme {
+      --bg: #F4F1EA; --bg-secondary: #E9E4DA; --surface: #FFFDF8; --surface-elevated: #F7F3EC;
+      --text: #131515; --text-muted: #77746E; --steel: #697474; --accent: #B93E2F;
+      --accent-soft: #a54437; --rice: #F2EEE5; --ink: #1B2627; --sea: #58786F;
+      --amber: #A77D40; --line: #D0C9BE; --line-strong: #b3aa9c;
+      --shadow: rgba(0,0,0,0.08); --glow: rgba(185,62,47,0.15);
+    }
+    html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+    body { background: var(--bg); color: var(--text); font-family: var(--font-sans); transition: background 0.6s ease, color 0.4s ease; overflow-x: hidden; }
+    a, button { transition: color 0.2s, background 0.2s, border 0.2s; }
+    img { display: block; max-width: 100%; height: auto; }
+    .container { max-width: 1400px; margin: 0 auto; padding: 0 2rem; }
+    @media (max-width: 768px) { .container { padding: 0 1.25rem; } }
+
+    /* ===== PRELOADER ===== */
+    #preloader { position: fixed; inset:0; z-index:9999; background: var(--bg); display:flex; flex-direction:column; align-items:center; justify-content:center; transition: opacity 0.8s; }
+    #preloader .knife-line { width: 0; height: 2px; background: var(--steel); margin: 1.5rem 0; transition: width 1.8s cubic-bezier(0.23,1,0.32,1); }
+    #preloader .words { display: flex; gap: 1.8rem; font-size: 1.6rem; letter-spacing: 0.2em; color: var(--text-muted); font-weight: 300; }
+    #preloader .words span { opacity:0; transform: translateY(8px); }
+    #preloader .brand { font-family: var(--font-serif); font-size: 3rem; letter-spacing: 0.1em; margin-top: 1.2rem; color: var(--text); }
+    #preloader .progress { font-family: var(--font-mono); font-size: 1rem; color: var(--steel); margin-top: 1.2rem; }
+    #preloader .skip { position: absolute; bottom: 3rem; font-size: 0.8rem; color: var(--text-muted); background: none; border: 1px solid var(--line); padding: 0.4rem 1.2rem; border-radius: 30px; cursor: pointer; }
+    @media (prefers-reduced-motion: reduce) { #preloader { display: none; } }
+
+    /* ===== THEME TOGGLE (stamp) ===== */
+    .theme-stamp { display: inline-flex; align-items: center; gap: 0.4rem; background: var(--surface); border: 1px solid var(--line); border-radius: 40px; padding: 0.2rem 0.6rem 0.2rem 0.4rem; font-size: 0.7rem; font-weight: 500; letter-spacing: 0.05em; cursor: pointer; color: var(--text-muted); transition: 0.25s; }
+    .theme-stamp .slider { display: inline-block; width: 28px; height: 16px; background: var(--line); border-radius: 20px; position: relative; margin: 0 4px; }
+    .theme-stamp .slider::after { content: ''; position: absolute; width: 12px; height: 12px; background: var(--rice); border-radius: 50%; top:2px; left:2px; transition: transform 0.3s ease; }
+    .light-theme .theme-stamp .slider::after { transform: translateX(12px); background: var(--ink); }
+    .theme-stamp .moon, .theme-stamp .sun { font-size: 0.9rem; }
+    .theme-stamp .label { min-width: 44px; }
+
+    /* ===== NAVIGATION ===== */
+    .nav { position: fixed; top:0; left:0; width:100%; z-index:1000; background: var(--bg); border-bottom: 1px solid var(--line); padding: 0.6rem 2rem; display: flex; align-items: center; justify-content: space-between; backdrop-filter: blur(6px); transition: background 0.3s, border 0.3s; }
+    .nav.scrolled { padding: 0.3rem 2rem; background: var(--bg-secondary); }
+    .nav .logo { font-family: var(--font-serif); font-size: 1.5rem; letter-spacing: -0.02em; color: var(--text); }
+    .nav .logo small { font-size: 0.7rem; font-family: var(--font-mono); color: var(--steel); margin-left: 0.3rem; }
+    .nav-links { display: flex; gap: 1.6rem; font-size: 0.75rem; font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase; color: var(--text-muted); }
+    .nav-links a { color: inherit; text-decoration: none; position: relative; padding: 0.2rem 0; }
+    .nav-links a::after { content: ''; position: absolute; left:0; bottom:-2px; width:0; height:1px; background: var(--accent); transition: width 0.3s; }
+    .nav-links a:hover::after { width:100%; }
+    .nav-right { display: flex; align-items: center; gap: 0.8rem; }
+    .btn-reserve { background: var(--accent); color: var(--rice); border: none; padding: 0.3rem 1.2rem; border-radius: 40px; font-weight: 600; font-size: 0.7rem; letter-spacing: 0.04em; cursor: pointer; transition: 0.2s; }
+    .btn-reserve:hover { background: var(--accent-soft); transform: scale(0.97); }
+
+    .mobile-toggle { display: none; background: none; border: none; color: var(--text); font-size: 1.6rem; cursor: pointer; }
+
+    /* Mobile menu fullscreen */
+    .mobile-menu { position: fixed; inset:0; z-index:999; background: var(--bg-secondary); padding: 3rem 2rem; display: flex; flex-direction: column; gap: 2rem; transform: translateY(-100%); transition: transform 0.4s cubic-bezier(0.23,1,0.32,1); overflow-y: auto; }
+    .mobile-menu.open { transform: translateY(0); }
+    .mobile-menu .close-btn { align-self: flex-end; background: none; border: none; color: var(--text); font-size: 2rem; }
+    .mobile-menu a { font-size: 1.8rem; font-weight: 300; color: var(--text); text-decoration: none; border-bottom: 1px solid var(--line); padding: 0.6rem 0; }
+    .mobile-menu .bottom-actions { margin-top: auto; display: flex; flex-wrap: wrap; gap: 1rem; }
+    @media (max-width: 1024px) { .nav-links { display: none; } .mobile-toggle { display: block; } .nav { padding: 0.5rem 1.2rem; } }
+
+    /* ===== HERO ===== */
+    .hero { padding-top: 6rem; min-height: 100vh; display: grid; grid-template-columns: 55% 45%; align-items: center; gap: 1rem; background: var(--bg); }
+    .hero-content { padding: 2rem 0 2rem 2rem; }
+    .hero-eyebrow { font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.2em; color: var(--steel); text-transform: uppercase; margin-bottom: 1rem; }
+    .hero h1 { font-family: var(--font-serif); font-size: clamp(3.2rem, 10vw, 6rem); line-height: 0.95; letter-spacing: -0.02em; color: var(--text); }
+    .hero h1 span { display: block; }
+    .hero p { font-size: 1rem; max-width: 32ch; color: var(--text-muted); margin: 1.2rem 0 1.8rem; line-height: 1.6; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 1rem; }
+    .hero-actions .btn-primary { background: var(--accent); color: var(--rice); border: none; padding: 0.7rem 2.2rem; border-radius: 40px; font-weight: 600; }
+    .hero-actions .btn-secondary { background: transparent; border: 1px solid var(--line); color: var(--text); padding: 0.7rem 2.2rem; border-radius: 40px; }
+    .hero-image { height: 80vh; background: var(--bg-secondary); overflow: hidden; position: relative; }
+    .hero-image img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; }
+    .hero-image .caption { position: absolute; bottom: 1.5rem; right: 1.5rem; background: var(--surface); padding: 0.3rem 1rem; font-size: 0.6rem; letter-spacing: 0.1em; color: var(--text-muted); }
+    @media (max-width: 900px) { .hero { grid-template-columns: 1fr; } .hero-content { padding: 1rem; } .hero-image { height: 50vh; } }
+    @media (max-width: 480px) { .hero h1 { font-size: 2.8rem; } }
+
+    /* ===== SECTIONS ===== */
+    section { padding: 4rem 0; border-bottom: 1px solid var(--line); }
+    .section-title { font-family: var(--font-serif); font-size: clamp(2.4rem, 5vw, 4rem); letter-spacing: -0.02em; margin-bottom: 0.2rem; }
+    .section-sub { font-family: var(--font-mono); font-size: 0.7rem; text-transform: uppercase; color: var(--steel); letter-spacing: 0.15em; margin-bottom: 2rem; }
+
+    /* philosophy */
+    .philosophy-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 2rem; margin: 2rem 0; }
+    .phil-item { border-top: 1px solid var(--line); padding-top: 1.2rem; }
+    .phil-item .num { font-family: var(--font-mono); font-size: 1.2rem; color: var(--steel); }
+    .phil-item h3 { font-family: var(--font-serif); font-size: 1.6rem; margin: 0.2rem 0; }
+    @media (max-width: 768px) { .philosophy-grid { grid-template-columns: 1fr; } }
+
+    /* OMAKASE COURSE TIMELINE */
+    .omakase-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+    .course-list { display: flex; flex-direction: column; gap: 0.3rem; }
+    .course-item { display: flex; align-items: baseline; gap: 1rem; padding: 0.6rem 0; border-bottom: 1px solid var(--line); cursor: pointer; transition: 0.2s; }
+    .course-item.active { color: var(--accent); }
+    .course-item .cnum { font-family: var(--font-mono); font-size: 0.7rem; color: var(--steel); min-width: 2.8rem; }
+    .course-item .cname { font-weight: 500; }
+    .course-sticky { position: sticky; top: 6rem; height: 60vh; background: var(--bg-secondary); overflow: hidden; border-radius: 8px; }
+    .course-sticky img { width: 100%; height: 100%; object-fit: cover; }
+    @media (max-width: 768px) { .omakase-wrap { grid-template-columns: 1fr; } .course-sticky { height: 40vh; } }
+
+    /* MENU / CATEGORY TABS */
+    .menu-tabs { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 1.5rem 0; }
+    .menu-tabs button { background: var(--surface); border: 1px solid var(--line); color: var(--text-muted); padding: 0.3rem 1.2rem; border-radius: 30px; font-size: 0.7rem; cursor: pointer; }
+    .menu-tabs button.active { background: var(--accent); color: var(--rice); border-color: var(--accent); }
+    .menu-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px,1fr)); gap: 1.2rem; }
+    .menu-item { background: var(--surface); padding: 1rem; border-radius: 6px; border-left: 2px solid var(--steel); }
+    .menu-item .price { font-family: var(--font-mono); color: var(--amber); }
+    .menu-item .diet { display: flex; gap: 0.3rem; margin-top: 0.3rem; font-size: 0.6rem; color: var(--steel); }
+
+    /* INGREDIENT WALL */
+    .ingredient-wall { display: flex; flex-direction: column; gap: 0.6rem; }
+    .ing-row { display: flex; justify-content: space-between; padding: 0.8rem 0; border-bottom: 1px solid var(--line); font-size: 1.2rem; cursor: pointer; }
+    .ing-row .code { font-family: var(--font-mono); font-size: 0.7rem; color: var(--steel); }
+
+    /* CHEF TIMELINE */
+    .chef-timeline { display: flex; flex-wrap: wrap; gap: 1.5rem; margin-top: 2rem; }
+    .chef-step { flex: 1; min-width: 80px; border-top: 2px solid var(--line); padding-top: 0.8rem; }
+    .chef-step .year { font-family: var(--font-mono); font-size: 0.8rem; color: var(--steel); }
+
+    /* SAKE PAIRING */
+    .pairing-questions { display: flex; flex-wrap: wrap; gap: 1.2rem; background: var(--surface); padding: 1.5rem; border-radius: 8px; }
+    .pairing-questions select { background: var(--bg-secondary); color: var(--text); border: 1px solid var(--line); padding: 0.4rem; border-radius: 4px; }
+
+    /* RESERVATION FLOW */
+    .res-step { display: none; }
+    .res-step.active { display: block; }
+    .res-step .step-indicator { display: flex; gap: 1rem; margin-bottom: 1.5rem; font-family: var(--font-mono); font-size: 0.7rem; color: var(--steel); }
+    .res-step .step-indicator span { padding: 0.2rem 0.8rem; border: 1px solid var(--line); border-radius: 20px; }
+    .res-step .step-indicator .active-step { background: var(--accent); color: var(--rice); border-color: var(--accent); }
+
+    /* FORMS */
+    input, select, textarea { background: var(--bg-secondary); border: 1px solid var(--line); color: var(--text); padding: 0.6rem 1rem; border-radius: 4px; width: 100%; font-family: var(--font-sans); }
+    input:focus, select:focus, textarea:focus { outline: 2px solid var(--accent); }
+    .form-group { margin-bottom: 1rem; }
+    .form-group label { font-size: 0.75rem; font-weight: 500; display: block; margin-bottom: 0.2rem; color: var(--text-muted); }
+
+    /* FOOTER */
+    .footer { background: var(--bg-secondary); padding: 3rem 0 1.5rem; border-top: 1px solid var(--line); }
+    .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px,1fr)); gap: 2rem; }
+    .footer-bottom { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--line); font-size: 0.7rem; color: var(--text-muted); }
+
+    /* GDPR */
+    .cookie-banner { position: fixed; bottom:0; left:0; width:100%; background: var(--surface-elevated); border-top: 1px solid var(--line); padding: 1rem 2rem; z-index: 9998; display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; justify-content: space-between; }
+    .cookie-banner .btn-cookie { background: var(--accent); color: var(--rice); border: none; padding: 0.3rem 1.2rem; border-radius: 30px; cursor: pointer; }
+
+    /* responsive helpers */
+    .flex { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .text-center { text-align: center; }
+    .mt-2 { margin-top: 2rem; }
+    .hidden { display: none; }
+
+    @media (max-width: 480px) { .hero-actions .btn-primary, .hero-actions .btn-secondary { width: 100%; text-align: center; } }
+    @media (max-width: 600px) { .menu-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 390px) { .menu-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+<!-- PRELOADER -->
+<div id="preloader" role="status" aria-label="Loading">
+  <div class="words"><span>RICE</span><span>SEA</span><span>PRECISION</span></div>
+  <div class="knife-line" id="knifeLine"></div>
+  <div class="brand">KURO SORA</div>
+  <div class="progress" id="loadProgress">0%</div>
+  <button class="skip" id="skipPreloader" aria-label="Skip intro">Skip intro</button>
+</div>
+
+<!-- COOKIE BANNER -->
+<div class="cookie-banner" id="cookieBanner" role="dialog" aria-label="Cookie preferences">
+  <span style="font-size:0.85rem;">🍣 We use essential and optional cookies. <button class="btn-cookie" id="acceptAllCookies">Accept all</button> <button class="btn-cookie" id="rejectOptionalCookies" style="background:var(--line);">Reject optional</button> <button class="btn-cookie" id="customizeCookies" style="background:transparent;border:1px solid var(--line);">Customize</button></span>
+</div>
+
+<!-- NAVIGATION -->
+<nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+  <div class="logo">KURO SORA <small>黒空</small></div>
+  <div class="nav-links">
+    <a href="#experience">Experience</a><a href="#menu">Menu</a><a href="#omakase">Omakase</a><a href="#chef">Chef</a><a href="#sake">Sake</a><a href="#private">Private</a><a href="#journal">Journal</a>
+  </div>
+  <div class="nav-right">
+    <div class="theme-stamp" id="themeToggle" role="button" tabindex="0" aria-label="Toggle theme" aria-checked="false">
+      <span class="moon"><i class="fas fa-moon"></i></span>
+      <span class="slider"></span>
+      <span class="sun"><i class="fas fa-sun"></i></span>
+      <span class="label" id="themeLabel">MIDNIGHT</span>
+    </div>
+    <button class="btn-reserve" id="navReserve">Reserve</button>
+    <button class="mobile-toggle" id="mobileToggle" aria-label="Open menu"><i class="fas fa-bars"></i></button>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu" role="dialog" aria-modal="true">
+  <button class="close-btn" id="closeMobileMenu" aria-label="Close menu"><i class="fas fa-times"></i></button>
+  <a href="#experience">Experience</a><a href="#menu">Menu</a><a href="#omakase">Omakase</a><a href="#chef">Chef</a><a href="#sake">Sake</a><a href="#private">Private</a><a href="#journal">Journal</a>
+  <div class="bottom-actions"><button class="btn-reserve">Reserve</button> <span style="color:var(--text-muted);">+41 44 123 45 67</span></div>
+</div>
+
+<main>
+  <!-- HERO -->
+  <section class="hero" id="experience">
+    <div class="hero-content">
+      <div class="hero-eyebrow">CONTEMPORARY SUSHI / EUROPE</div>
+      <h1>The Art Of <span>A Perfect Cut.</span></h1>
+      <p>Seasonal fish, warm rice and Japanese precision presented through a contemporary European dining experience.</p>
+      <div class="hero-actions">
+        <button class="btn-primary" id="heroReserve">Reserve A Seat</button>
+        <button class="btn-secondary" id="heroMenu">Explore The Menu</button>
+      </div>
+      <div style="margin-top:1.8rem; display:flex; gap:2rem; flex-wrap:wrap; font-size:0.7rem; color:var(--text-muted);"><span>★ 4.9 · 12 counter seats</span><span>Open today 17:30–23:00</span><span>Zürich, CH</span></div>
+    </div>
+    <div class="hero-image">
+      <img src="https://images.unsplash.com/photo-1579871494447-9811cf80d66c?w=800&h=900&fit=crop&crop=center" alt="Chef preparing sushi with precision" loading="eager">
+      <div class="caption">Omakase · Chef's cut</div>
+    </div>
+  </section>
+
+  <!-- PHILOSOPHY -->
+  <section>
+    <div class="container"><span class="section-sub">Three Elements. No Distraction.</span>
+      <div class="philosophy-grid">
+        <div class="phil-item"><span class="num">01</span><h3>RICE</h3><p>Temperature, vinegar balance, grain selection — hand-pressed to body temperature.</p></div>
+        <div class="phil-item"><span class="num">02</span><h3>SEA</h3><p>Seasonal fish from European waters &amp; Japanese imports, selected daily.</p></div>
+        <div class="phil-item"><span class="num">03</span><h3>PRECISION</h3><p>Knife technique, timing, temperature — every movement deliberate.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- OMAKASE -->
+  <section id="omakase">
+    <div class="container"><span class="section-sub">Tonight’s Omakase</span>
+      <div class="omakase-wrap">
+        <div class="course-list" id="courseList">
+          <div class="course-item active" data-index="0"><span class="cnum">01</span><span class="cname">Sakizuke · seasonal opening</span></div>
+          <div class="course-item" data-index="1"><span class="cnum">02</span><span class="cname">Hirame · aged flounder</span></div>
+          <div class="course-item" data-index="2"><span class="cnum">03</span><span class="cname">Akami · lean bluefin</span></div>
+          <div class="course-item" data-index="3"><span class="cnum">04</span><span class="cname">Chutoro · medium fatty</span></div>
+          <div class="course-item" data-index="4"><span class="cnum">05</span><span class="cname">Hotate · Hokkaido scallop</span></div>
+          <div class="course-item" data-index="5"><span class="cnum">06</span><span class="cname">Kinmedai · golden eye snapper</span></div>
+          <div class="course-item" data-index="6"><span class="cnum">07</span><span class="cname">Uni · sea urchin</span></div>
+          <div class="course-item" data-index="7"><span class="cnum">08</span><span class="cname">Anago · warm sea eel</span></div>
+          <div class="course-item" data-index="8"><span class="cnum">09</span><span class="cname">Tamago · sweet omelette</span></div>
+          <div class="course-item" data-index="9"><span class="cnum">10</span><span class="cname">Miso · seasonal broth</span></div>
+        </div>
+        <div class="course-sticky" id="courseSticky"><img src="https://images.unsplash.com/photo-1580554530778-ca3644398b44?w=600&h=600&fit=crop&crop=center" alt="Omakase course" id="courseImage"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MENU -->
+  <section id="menu">
+    <div class="container"><span class="section-sub">Select Your Course</span>
+      <div class="menu-tabs" id="menuTabs"><button class="active" data-cat="all">All</button><button data-cat="nigiri">Nigiri</button><button data-cat="sashimi">Sashimi</button><button data-cat="maki">Maki</button><button data-cat="dessert">Dessert</button><button data-cat="sake">Sake</button></div>
+      <div class="menu-grid" id="menuGrid"></div>
+    </div>
+  </section>
+
+  <!-- INGREDIENT WALL -->
+  <section id="ingredients">
+    <div class="container"><span class="section-sub">From Water To Counter</span>
+      <div class="ingredient-wall" id="ingredientWall"></div>
+    </div>
+  </section>
+
+  <!-- CHEF -->
+  <section id="chef">
+    <div class="container"><span class="section-sub">The Hand Behind The Counter</span>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:2rem; align-items:center;">
+        <div><img src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=600&h=600&fit=crop&crop=center" alt="Chef Ren Takamori" style="border-radius:8px; width:100%;"></div>
+        <div><h2 style="font-family:var(--font-serif); font-size:2.8rem;">Ren Takamori</h2><p style="color:var(--text-muted);">Tokyo · Osaka · Copenhagen · Paris · London · KURO SORA</p><p>Knife craftsmanship, Japanese philosophy, and European precision. “The fish tells me when it’s ready.”</p></div>
+      </div>
+      <div class="chef-timeline"><div class="chef-step"><span class="year">2012</span> Tokyo — Sushi Kanesaka</div><div class="chef-step"><span class="year">2015</span> Osaka — Mizai</div><div class="chef-step"><span class="year">2018</span> Copenhagen — noma</div><div class="chef-step"><span class="year">2021</span> Paris — L'Ambroisie</div><div class="chef-step"><span class="year">2024</span> KURO SORA</div></div>
+    </div>
+  </section>
+
+  <!-- SAKE -->
+  <section id="sake">
+    <div class="container"><span class="section-sub">Pour With Purpose</span>
+      <div class="pairing-questions"><label>Preferred flavour <select id="sakeFlavor"><option>Light & floral</option><option>Rich & umami</option><option>Dry & crisp</option></select></label><label>With sushi <select><option>Nigiri</option><option>Sashimi</option><option>Maki</option></select></label><button class="btn-reserve" id="pairingSuggest">Suggest pairing</button></div>
+      <div id="sakeResult" style="margin-top:1rem; font-family:var(--font-mono); color:var(--steel);">Select preferences to see recommendation.</div>
+    </div>
+  </section>
+
+  <!-- PRIVATE DINING -->
+  <section id="private">
+    <div class="container"><span class="section-sub">A Room Beyond The Counter</span>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:2rem;"><div><h3>Private sushi counter · Chef-led omakase</h3><p>Corporate dinners, anniversaries, brand events. Up to 12 guests.</p><button class="btn-reserve" id="privateEnquiry">Enquire now</button></div><div><img src="https://images.unsplash.com/photo-1552566626-52f8b828add9?w=600&h=400&fit=crop&crop=center" alt="Private dining" style="border-radius:8px;"></div></div>
+    </div>
+  </section>
+
+  <!-- JOURNAL -->
+  <section id="journal">
+    <div class="container"><span class="section-sub">KURO SORA Notes</span>
+      <div class="menu-grid"><div class="menu-item"><h4>01 · Sushi Craft</h4><p>The art of shari.</p><span style="font-size:0.6rem;color:var(--steel);">5 min read</span></div><div class="menu-item"><h4>02 · European Producers</h4><p>Scallops from Scotland.</p><span style="font-size:0.6rem;color:var(--steel);">3 min read</span></div><div class="menu-item"><h4>03 · Seasonal Menu</h4><p>Spring awakening.</p><span style="font-size:0.6rem;color:var(--steel);">4 min read</span></div></div>
+    </div>
+  </section>
+
+  <!-- RESERVATION (demo) -->
+  <section id="reservation">
+    <div class="container"><span class="section-sub">Reserve The Counter</span>
+      <div class="res-step active" id="step1"><div class="step-indicator"><span class="active-step">1</span><span>2</span><span>3</span></div><h3>Select experience</h3><div class="flex"><button class="btn-reserve" data-step="2">Sushi Counter</button><button class="btn-reserve" data-step="2">Omakase</button><button class="btn-reserve" data-step="2">Private Dining</button></div></div>
+      <div class="res-step" id="step2"><div class="step-indicator"><span>1</span><span class="active-step">2</span><span>3</span></div><h3>Choose date & guests</h3><div class="form-group"><label>Date</label><input type="date" value="2025-05-20"></div><div class="form-group"><label>Guests</label><input type="number" value="2" min="1" max="12"></div><button class="btn-reserve" data-step="3">Continue</button></div>
+      <div class="res-step" id="step3"><div class="step-indicator"><span>1</span><span>2</span><span class="active-step">3</span></div><h3>Confirm</h3><p>Reservation summary · 2 guests · Omakase · 20 May 2025 · 19:30</p><button class="btn-reserve" id="confirmReservation">Confirm reservation</button></div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container"><div style="font-family:var(--font-serif); font-size:2.4rem;">KURO SORA</div>
+      <div class="footer-grid"><div><strong>Menu</strong><br>Omakase<br>Chef<br>Sake</div><div><strong>Private</strong><br>Journal<br>Contact</div><div><strong>Zürich</strong><br>+41 44 123 45 67<br>info@kurosora.ch</div></div>
+      <div class="footer-bottom"><span>© 2025 Kuro Sora · Precision Ends. Memory Remains.</span><span><i class="fas fa-globe"></i> EN · EUR</span></div>
+    </div>
+  </footer>
+</main>
+
+<script>
+  // ===== PRELOADER =====
+  (function preloader() {
+    const pre = document.getElementById('preloader');
+    const line = document.getElementById('knifeLine');
+    const progress = document.getElementById('loadProgress');
+    const words = document.querySelectorAll('.preloader .words span');
+    let p = 0;
+    const interval = setInterval(() => { p += Math.floor(Math.random() * 12) + 3; if (p > 100) p = 100; progress.textContent = p + '%'; if (p >= 100) { clearInterval(interval); finish(); } }, 120);
+    function finish() { line.style.width = '80%'; setTimeout(() => { pre.style.opacity = '0'; setTimeout(() => pre.style.display = 'none', 800); }, 400); }
+    document.getElementById('skipPreloader').addEventListener('click', finish);
+    setTimeout(() => { if (p < 100) { p = 100; progress.textContent = '100%'; finish(); } }, 4000);
+  })();
+
+  // ===== THEME =====
+  (function theme() {
+    const toggle = document.getElementById('themeToggle');
+    const label = document.getElementById('themeLabel');
+    let dark = true;
+    function applyTheme(d) {
+      document.body.classList.toggle('light-theme', !d);
+      label.textContent = d ? 'MIDNIGHT' : 'RICE PAPER';
+      toggle.setAttribute('aria-checked', d ? 'false' : 'true');
+      localStorage.setItem('kuro-theme', d ? 'dark' : 'light');
+      dark = d;
+    }
+    const saved = localStorage.getItem('kuro-theme');
+    if (saved === 'light') { dark = false; applyTheme(false); }
+    else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) { dark = false; applyTheme(false); }
+    toggle.addEventListener('click', () => { applyTheme(!dark); });
+    toggle.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); applyTheme(!dark); } });
+  })();
+
+  // ===== OMAKASE INTERACTION =====
+  (function omakase() {
+    const items = document.querySelectorAll('.course-item');
+    const img = document.getElementById('courseImage');
+    const images = [
+      'https://images.unsplash.com/photo-1580554530778-ca3644398b44?w=600&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1579871494447-9811cf80d66c?w=600&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1574483433533-16a9529b8d1a?w=600&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1574483433533-16a9529b8d1a?w=600&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1580554530778-ca3644398b44?w=600&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1579871494447-9811cf80d66c?w=600&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1580554530778-ca3644398b44?w=600&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1579871494447-9811cf80d66c?w=600&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1574483433533-16a9529b8d1a?w=600&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1580554530778-ca3644398b44?w=600&h=600&fit=crop'
+    ];
+    items.forEach((el, idx) => {
+      el.addEventListener('click', () => {
+        items.forEach(i => i.classList.remove('active'));
+        el.classList.add('active');
+        img.src = images[idx] || images[0];
+      });
+    });
+  })();
+
+  // ===== MENU (demo) =====
+  (function menu() {
+    const grid = document.getElementById('menuGrid');
+    const items = [
+      { name: 'Otoro Nigiri', cat: 'nigiri', price: '€28', diet: 'raw' },
+      { name: 'Akami Nigiri', cat: 'nigiri', price: '€18', diet: 'raw' },
+      { name: 'Salmon Aburi', cat: 'nigiri', price: '€22', diet: 'raw' },
+      { name: 'Hamachi Sashimi', cat: 'sashimi', price: '€24', diet: 'raw' },
+      { name: 'Scallop Maki', cat: 'maki', price: '€16', diet: 'raw' },
+      { name: 'Wagyu Nigiri', cat: 'nigiri', price: '€38', diet: 'cooked' },
+      { name: 'Matcha Tiramisu', cat: 'dessert', price: '€14', diet: 'vegetarian' },
+      { name: 'Junmai Daiginjo', cat: 'sake', price: '€48/bottle', diet: '' },
+    ];
+    function render(cat) {
+      grid.innerHTML = items.filter(i => cat === 'all' || i.cat === cat).map(i => `<div class="menu-item"><strong>${i.name}</strong> <span class="price">${i.price}</span><div class="diet">${i.diet}</div></div>`).join('');
+    }
+    render('all');
+    document.querySelectorAll('#menuTabs button').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('#menuTabs button').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        render(btn.dataset.cat);
+      });
+    });
+  })();
+
+  // ===== INGREDIENT WALL =====
+  (function ingredients() {
+    const wall = document.getElementById('ingredientWall');
+    const data = [{ name: 'Bluefin Tuna', code: 'ES' }, { name: 'Salmon', code: 'NO' }, { name: 'Sea Bass', code: 'FR' }, { name: 'Scallops', code: 'GB' }, { name: 'Yellowtail', code: 'JP' }, { name: 'Sea Urchin', code: 'JP' }, { name: 'Wagyu', code: 'JP' }, { name: 'Rice', code: 'JP' }];
+    wall.innerHTML = data.map(d => `<div class="ing-row"><span>${d.name}</span><span class="code">${d.code}</span></div>`).join('');
+  })();
+
+  // ===== SAKE PAIRING =====
+  document.getElementById('pairingSuggest')?.addEventListener('click', function() {
+    const result = document.getElementById('sakeResult');
+    const flavor = document.getElementById('sakeFlavor').value;
+    if (flavor.includes('Light')) result.textContent = '🍶 Recommendation: Junmai Ginjo · crisp & floral';
+    else if (flavor.includes('Rich')) result.textContent = '🍶 Recommendation: Daiginjo · rich umami';
+    else result.textContent = '🍶 Recommendation: Nigori · creamy & sweet';
+  });
+
+  // ===== RESERVATION STEPS =====
+  (function reservation() {
+    let step = 1;
+    document.querySelectorAll('[data-step]').forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        const target = parseInt(this.dataset.step);
+        document.querySelectorAll('.res-step').forEach(el => el.classList.remove('active'));
+        document.getElementById('step' + target).classList.add('active');
+      });
+    });
+    document.getElementById('confirmReservation')?.addEventListener('click', () => alert('Reservation confirmed! (demo)'));
+  })();
+
+  // ===== MOBILE MENU =====
+  (function mobile() {
+    const toggle = document.getElementById('mobileToggle');
+    const menu = document.getElementById('mobileMenu');
+    const close = document.getElementById('closeMobileMenu');
+    const open = () => { menu.classList.add('open'); document.body.style.overflow = 'hidden'; };
+    const closeMenu = () => { menu.classList.remove('open'); document.body.style.overflow = ''; };
+    toggle.addEventListener('click', open);
+    close.addEventListener('click', closeMenu);
+    menu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
+    menu.addEventListener('swipedown', closeMenu);
+  })();
+
+  // ===== COOKIE =====
+  document.getElementById('acceptAllCookies')?.addEventListener('click', function() {
+    document.getElementById('cookieBanner').style.display = 'none';
+  });
+  document.getElementById('rejectOptionalCookies')?.addEventListener('click', function() {
+    document.getElementById('cookieBanner').style.display = 'none';
+  });
+  document.getElementById('customizeCookies')?.addEventListener('click', function() {
+    alert('Cookie preferences demo');
+  });
+
+  // ===== LENIS SMOOTH SCROLL (lightweight) =====
+  if (typeof Lenis !== 'undefined') {
+    const lenis = new Lenis({ duration: 1.2, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) });
+    lenis.on('scroll', ScrollTrigger.update);
+    requestAnimationFrame(function raf(time) { lenis.raf(time); requestAnimationFrame(raf); });
+  }
+
+  // ===== GSAP SCROLLTRIGGER (optional) =====
+  gsap.registerPlugin(ScrollTrigger);
+  // simple hero reveal
+  gsap.from('.hero h1 span', { opacity: 0, y: 30, duration: 1.2, stagger: 0.2, ease: 'power2.out' });
+  gsap.from('.hero-image img', { opacity: 0, scale: 1.02, duration: 1.8, ease: 'power2.out' });
+
+  console.log('KURO SORA · Precision From The Sea');
+</script>
+</body>
+</html>

@@ -1,0 +1,1313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>L'Artisan | Premium Artisan Bakery</title>
+    <meta name="description" content="Experience the art of fine baking. Handcrafted breads, luxurious pastries, and bespoke cakes tailored for the modern palate.">
+    
+    <!-- Bootstrap 5 CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap Icons CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=Outfit:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+
+    <!-- Internal CSS -->
+    <style>
+        :root {
+            --bg-color: #FFF8F2;
+            --cream: #F9F3EB;
+            --primary: #D4A373;
+            --accent: #E76F51;
+            --choc: #5B3A29;
+            --dark: #2C2C2C;
+            --glass-bg: rgba(255, 255, 255, 0.45);
+            --glass-border: rgba(255, 255, 255, 0.7);
+            --glass-shadow: 0 12px 40px rgba(91, 58, 41, 0.08);
+            --transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* Base Styles & Typography */
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--dark);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        h1, h2, h3, h4, h5, h6, .display-font {
+            font-family: 'Cormorant Garamond', serif;
+            color: var(--choc);
+        }
+
+        p {
+            font-weight: 300;
+            line-height: 1.8;
+            color: rgba(44, 44, 44, 0.8);
+        }
+
+        a { text-decoration: none; }
+
+        /* Smooth Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg-color); }
+        ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 10px; }
+
+        /* Canvas Background */
+        #particle-canvas {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            z-index: -1;
+            pointer-events: none;
+            background: radial-gradient(circle at 50% 0%, rgba(212, 163, 115, 0.05) 0%, rgba(255, 248, 242, 0) 70%);
+        }
+
+        /* Glassmorphism Utilities */
+        .glass {
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            box-shadow: var(--glass-shadow);
+        }
+
+        .glass-dark {
+            background: rgba(44, 44, 44, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--bg-color);
+        }
+
+        /* Buttons */
+        .btn-luxury {
+            background: var(--choc);
+            color: var(--cream);
+            padding: 14px 32px;
+            border-radius: 50px;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 400;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            border: 1px solid var(--choc);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        .btn-luxury::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 0; height: 100%;
+            background: var(--accent);
+            z-index: -1;
+            transition: var(--transition);
+        }
+        .btn-luxury:hover { color: #fff; border-color: var(--accent); }
+        .btn-luxury:hover::before { width: 100%; }
+
+        .btn-outline-luxury {
+            background: transparent;
+            color: var(--choc);
+            padding: 14px 32px;
+            border-radius: 50px;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 400;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            border: 1px solid var(--choc);
+            transition: var(--transition);
+        }
+        .btn-outline-luxury:hover {
+            background: var(--choc);
+            color: var(--cream);
+        }
+
+        /* Navigation */
+        .navbar {
+            padding: 20px 0;
+            transition: var(--transition);
+            z-index: 1030;
+        }
+        .navbar.scrolled {
+            padding: 10px 0;
+            background: rgba(255, 248, 242, 0.85);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+        }
+        .navbar-brand {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--choc) !important;
+            letter-spacing: 2px;
+        }
+        .nav-link {
+            color: var(--dark) !important;
+            font-weight: 400;
+            margin: 0 15px;
+            position: relative;
+            font-size: 0.95rem;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0; height: 2px;
+            bottom: 0; left: 0;
+            background-color: var(--primary);
+            transition: var(--transition);
+        }
+        .nav-link:hover::after { width: 100%; }
+
+        /* Hero Section */
+        #hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            padding-top: 100px;
+        }
+        .hero-title {
+            font-size: clamp(3.5rem, 6vw, 6.5rem);
+            line-height: 1.1;
+            font-weight: 500;
+            margin-bottom: 24px;
+        }
+        .hero-subtitle {
+            font-size: 1.25rem;
+            max-width: 500px;
+            margin-bottom: 40px;
+        }
+        .hero-img-wrapper {
+            position: relative;
+            border-radius: 40px;
+            overflow: hidden;
+            box-shadow: 0 30px 60px rgba(91, 58, 41, 0.15);
+            transform: perspective(1000px) rotateY(-5deg);
+            transition: var(--transition);
+        }
+        .hero-img-wrapper:hover {
+            transform: perspective(1000px) rotateY(0deg);
+        }
+        .hero-img-wrapper img {
+            width: 100%;
+            height: 700px;
+            object-fit: cover;
+            transform: scale(1.05);
+            transition: transform 2s ease;
+        }
+        .hero-img-wrapper:hover img { transform: scale(1); }
+        .hero-glow {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(45deg, rgba(212, 163, 115, 0.3), transparent);
+            pointer-events: none;
+        }
+
+        /* Floating Order Card */
+        .order-card-wrapper {
+            position: absolute;
+            bottom: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            max-width: 1000px;
+            z-index: 10;
+        }
+        .floating-order-card {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+            border-radius: 100px;
+        }
+        .order-item {
+            display: flex;
+            flex-direction: column;
+            padding: 10px 20px;
+            border-right: 1px solid rgba(91, 58, 41, 0.1);
+            flex: 1;
+        }
+        .order-item:last-of-type { border-right: none; }
+        .order-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; color: var(--primary); font-weight: 600;}
+        .order-value { font-family: 'Cormorant Garamond', serif; font-size: 1.25rem; font-weight: 500; color: var(--choc);}
+        .search-btn {
+            background: var(--accent);
+            color: #fff;
+            width: 60px; height: 60px;
+            border-radius: 50%;
+            display: flex; justify-content: center; align-items: center;
+            font-size: 1.5rem;
+            border: none;
+            transition: var(--transition);
+            box-shadow: 0 10px 20px rgba(231, 111, 81, 0.3);
+        }
+        .search-btn:hover { background: var(--choc); transform: scale(1.05); color: #fff;}
+
+        /* Section Globals */
+        section { padding: 120px 0; }
+        .section-title {
+            text-align: center;
+            margin-bottom: 70px;
+        }
+        .section-title h2 { font-size: 3.5rem; margin-bottom: 15px; }
+        .section-title p { color: var(--primary); text-transform: uppercase; letter-spacing: 2px; font-size: 0.9rem; font-weight: 500;}
+
+        /* 3D Tilt Cards */
+        .tilt-card {
+            transform-style: preserve-3d;
+            transition: transform 0.1s;
+            will-change: transform;
+            cursor: pointer;
+        }
+        .product-card {
+            padding: 20px;
+            border-radius: 30px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+        .product-img-box {
+            border-radius: 20px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            position: relative;
+            height: 280px;
+            transform: translateZ(30px);
+        }
+        .product-img-box img {
+            width: 100%; height: 100%; object-fit: cover;
+            transition: transform 0.8s ease;
+        }
+        .product-card:hover .product-img-box img { transform: scale(1.1); }
+        .product-info { transform: translateZ(40px); }
+        .product-title { font-size: 1.75rem; margin-bottom: 5px; }
+        .product-desc { font-size: 0.9rem; margin-bottom: 15px; }
+        .product-footer { display: flex; justify-content: space-between; align-items: center; margin-top: auto; }
+        .product-price { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 600; color: var(--accent); }
+        .product-rating i { color: var(--primary); font-size: 0.8rem; }
+        .add-to-cart {
+            width: 45px; height: 45px;
+            border-radius: 50%;
+            background: var(--cream);
+            border: 1px solid var(--primary);
+            display: flex; justify-content: center; align-items: center;
+            color: var(--choc);
+            transition: var(--transition);
+        }
+        .product-card:hover .add-to-cart { background: var(--choc); color: #fff; border-color: var(--choc); }
+
+        /* Features */
+        .feature-box {
+            padding: 40px 30px;
+            text-align: center;
+            border-radius: 30px;
+            transition: var(--transition);
+        }
+        .feature-box:hover { transform: translateY(-10px); }
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+        .feature-box h4 { font-size: 1.5rem; margin-bottom: 15px; }
+
+        /* Chef Story */
+        .story-section { position: relative; }
+        .story-img {
+            border-radius: 30px;
+            width: 100%;
+            height: 600px;
+            object-fit: cover;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        .signature {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: 2.5rem;
+            color: var(--accent);
+            margin-top: 30px;
+        }
+
+        /* Menu / Categories */
+        .category-nav {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 50px;
+            flex-wrap: wrap;
+        }
+        .cat-btn {
+            background: transparent;
+            border: 1px solid var(--primary);
+            color: var(--choc);
+            padding: 10px 25px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+        .cat-btn.active, .cat-btn:hover { background: var(--primary); color: #fff; }
+        .menu-item { display: none; animation: fadeIn 0.6s ease forwards; }
+        .menu-item.show { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Daily Specials Banner */
+        .special-banner {
+            border-radius: 40px;
+            padding: 60px;
+            position: relative;
+            overflow: hidden;
+            display: flex; align-items: center;
+            box-shadow: 0 30px 60px rgba(231, 111, 81, 0.15);
+            background: linear-gradient(135deg, var(--choc) 0%, var(--dark) 100%);
+            color: var(--bg-color);
+        }
+        .special-banner::before {
+            content: '';
+            position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+            background: radial-gradient(circle, rgba(212,163,115,0.15) 0%, transparent 60%);
+            animation: rotate 20s linear infinite;
+        }
+        @keyframes rotate { 100% { transform: rotate(360deg); } }
+        .special-banner h3 { color: var(--cream); font-size: 3rem; margin-bottom: 20px; }
+        .special-banner p { color: rgba(249, 243, 235, 0.8); }
+        .special-badge {
+            position: absolute;
+            top: 40px; right: 40px;
+            background: var(--accent); color: #fff;
+            padding: 10px 20px; border-radius: 30px;
+            font-weight: 600; letter-spacing: 1px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        /* Process Timeline */
+        .process-row { position: relative; }
+        .process-row::after {
+            content: ''; position: absolute;
+            top: 50%; left: 0; width: 100%; height: 2px;
+            background: dashed 2px var(--primary);
+            z-index: -1; opacity: 0.5;
+        }
+        .process-step { text-align: center; }
+        .step-num {
+            width: 60px; height: 60px;
+            background: var(--cream);
+            border: 2px solid var(--primary);
+            border-radius: 50%;
+            display: flex; justify-content: center; align-items: center;
+            font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 600;
+            margin: 0 auto 20px; color: var(--choc);
+            transition: var(--transition);
+            box-shadow: 0 0 0 10px var(--bg-color);
+        }
+        .process-step:hover .step-num { background: var(--primary); color: #fff; transform: scale(1.1); }
+
+        /* Masonry Gallery */
+        .gallery-masonry {
+            column-count: 3;
+            column-gap: 20px;
+        }
+        .gallery-item {
+            break-inside: avoid;
+            margin-bottom: 20px;
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+        }
+        .gallery-item img {
+            width: 100%; height: auto; display: block;
+            transition: transform 0.6s ease;
+        }
+        .gallery-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(91, 58, 41, 0.6);
+            display: flex; justify-content: center; align-items: center;
+            opacity: 0; transition: var(--transition);
+            backdrop-filter: blur(4px);
+        }
+        .gallery-overlay i { color: #fff; font-size: 2rem; transform: scale(0.5); transition: var(--transition); }
+        .gallery-item:hover img { transform: scale(1.05); }
+        .gallery-item:hover .gallery-overlay { opacity: 1; }
+        .gallery-item:hover .gallery-overlay i { transform: scale(1); }
+
+        /* Statistics */
+        .stat-box { text-align: center; }
+        .stat-num {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 4rem; font-weight: 600; color: var(--accent);
+            margin-bottom: 10px;
+        }
+        .stat-label { font-size: 1.1rem; text-transform: uppercase; letter-spacing: 2px; }
+
+        /* Testimonials */
+        .testimonial-card {
+            padding: 40px; border-radius: 30px;
+            margin: 20px; position: relative;
+        }
+        .quote-icon {
+            position: absolute; top: 30px; right: 30px;
+            font-size: 3rem; color: rgba(212, 163, 115, 0.2);
+        }
+        .testi-text { font-size: 1.1rem; font-style: italic; margin-bottom: 30px; }
+        .testi-author { display: flex; align-items: center; gap: 15px; }
+        .testi-author img { width: 60px; height: 60px; border-radius: 50%; object-fit: cover; }
+
+        /* Order Form */
+        .form-control, .form-select {
+            background: rgba(255, 255, 255, 0.5);
+            border: none; border-bottom: 1px solid rgba(91, 58, 41, 0.2);
+            border-radius: 0; padding: 15px 20px;
+            font-family: 'Outfit', sans-serif;
+            transition: var(--transition);
+        }
+        .form-control:focus, .form-select:focus {
+            background: rgba(255, 255, 255, 0.8);
+            box-shadow: none; border-color: var(--primary);
+        }
+        .form-floating label { padding-left: 20px; color: rgba(91, 58, 41, 0.6); }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: var(--cream);
+            padding: 100px 0 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .footer-logo { font-family: 'Cormorant Garamond', serif; font-size: 2.5rem; color: var(--cream); margin-bottom: 20px; display: inline-block;}
+        .footer-links li { margin-bottom: 12px; }
+        .footer-links a { color: rgba(249, 243, 235, 0.7); transition: var(--transition); }
+        .footer-links a:hover { color: var(--primary); padding-left: 5px; }
+        .social-icons a {
+            display: inline-flex; justify-content: center; align-items: center;
+            width: 40px; height: 40px; border-radius: 50%;
+            background: rgba(255,255,255,0.05); color: var(--cream);
+            margin-right: 10px; transition: var(--transition);
+        }
+        .social-icons a:hover { background: var(--primary); transform: translateY(-5px); }
+        .newsletter-input {
+            background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+            color: #fff; padding: 15px 20px; border-radius: 30px; width: 100%;
+        }
+        .back-to-top {
+            position: fixed; bottom: 30px; right: 30px;
+            width: 50px; height: 50px; border-radius: 50%;
+            background: var(--choc); color: #fff;
+            display: flex; justify-content: center; align-items: center;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            opacity: 0; visibility: hidden; transition: var(--transition); z-index: 999;
+        }
+        .back-to-top.show { opacity: 1; visibility: visible; }
+        .back-to-top:hover { background: var(--accent); transform: translateY(-5px); }
+
+        /* Scroll Animations */
+        .reveal { opacity: 0; transform: translateY(40px); transition: 0.8s cubic-bezier(0.5, 0, 0, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Responsive */
+        @media (max-width: 991px) {
+            .order-card-wrapper { position: relative; bottom: 0; transform: none; left: 0; width: 100%; margin-top: -30px; }
+            .floating-order-card { flex-direction: column; border-radius: 30px; gap: 20px; }
+            .order-item { border-right: none; border-bottom: 1px solid rgba(91, 58, 41, 0.1); width: 100%; text-align: center; }
+            .process-row::after { display: none; }
+            .process-step { margin-bottom: 40px; }
+            .gallery-masonry { column-count: 2; }
+            .hero-img-wrapper img { height: 400px; }
+            .hero-title { font-size: 3rem; }
+        }
+        @media (max-width: 576px) {
+            .gallery-masonry { column-count: 1; }
+            .section-title h2 { font-size: 2.5rem; }
+            .special-banner { padding: 30px; }
+            .special-banner h3 { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Particle Background -->
+    <canvas id="particle-canvas"></canvas>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">L'Artisan</a>
+            <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <i class="bi bi-list fs-1 text-dark"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item"><a class="nav-link" href="#hero">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#signature">Collection</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#menu">Menu</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#story">Our Story</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#gallery">Gallery</a></li>
+                </ul>
+                <div class="d-flex gap-3">
+                    <a href="#order" class="btn btn-outline-luxury d-none d-lg-block">Visit Store</a>
+                    <a href="#order" class="btn btn-luxury">Order Online</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 reveal">
+                    <p class="text-uppercase text-primary fw-semibold tracking-wide mb-3" style="letter-spacing: 2px;">Established 2012</p>
+                    <h1 class="hero-title">Freshly Baked<br>Every Morning.</h1>
+                    <p class="hero-subtitle">Experience the symphony of organic flour, natural levain, and artisanal craftsmanship. Elevating your daily rituals with luxury pastries and bespoke breads.</p>
+                    <div class="d-flex gap-3">
+                        <a href="#menu" class="btn btn-luxury">Explore Menu</a>
+                        <a href="#cakes" class="btn btn-outline-luxury">Custom Cakes</a>
+                    </div>
+                </div>
+                <div class="col-lg-6 mt-5 mt-lg-0 reveal">
+                    <div class="hero-img-wrapper">
+                        <div class="hero-glow"></div>
+                        <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Artisan Bread">
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Floating Order Card -->
+        <div class="order-card-wrapper reveal">
+            <div class="glass floating-order-card shadow-lg">
+                <div class="order-item">
+                    <span class="order-label">Service</span>
+                    <span class="order-value">Pickup / Delivery</span>
+                </div>
+                <div class="order-item">
+                    <span class="order-label">Category</span>
+                    <span class="order-value">Fresh Breads</span>
+                </div>
+                <div class="order-item">
+                    <span class="order-label">Date</span>
+                    <span class="order-value">Today</span>
+                </div>
+                <button class="search-btn"><i class="bi bi-search"></i></button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Signature Collection -->
+    <section id="signature" class="pt-5 mt-5">
+        <div class="container">
+            <div class="section-title reveal">
+                <p>Curated Masterpieces</p>
+                <h2>Signature Collection</h2>
+            </div>
+            <div class="row g-4">
+                <!-- Product 1 -->
+                <div class="col-lg-3 col-md-6 reveal">
+                    <div class="tilt-card h-100">
+                        <div class="glass product-card">
+                            <div class="product-img-box">
+                                <img src="https://images.unsplash.com/photo-1555507036-ab1f40ce8850?auto=format&fit=crop&w=600&q=80" alt="Classic Croissant">
+                            </div>
+                            <div class="product-info">
+                                <h4 class="product-title">Classic Croissant</h4>
+                                <p class="product-desc">Laminated with rich Normandy butter for a flaky, golden finish.</p>
+                                <div class="product-footer">
+                                    <span class="product-price">$6.00</span>
+                                    <div class="product-rating">
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                    </div>
+                                    <a href="#" class="add-to-cart"><i class="bi bi-bag-plus"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Product 2 -->
+                <div class="col-lg-3 col-md-6 reveal" style="transition-delay: 0.1s">
+                    <div class="tilt-card h-100">
+                        <div class="glass product-card">
+                            <div class="product-img-box">
+                                <img src="https://images.unsplash.com/photo-1589367920969-ab8e050bfcee?auto=format&fit=crop&w=600&q=80" alt="Rustic Sourdough">
+                            </div>
+                            <div class="product-info">
+                                <h4 class="product-title">Rustic Sourdough</h4>
+                                <p class="product-desc">48-hour fermented levain with a caramelized, crackling crust.</p>
+                                <div class="product-footer">
+                                    <span class="product-price">$12.00</span>
+                                    <div class="product-rating">
+                                        <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-half"></i>
+                                    </div>
+                                    <a href="#" class="add-to-cart"><i class="bi bi-bag-plus"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Product 3 -->
+                <div class="col-lg-3 col-md-6 reveal" style="transition-delay: 0.2s">
+                    <div class="tilt-card h-100">
+                        <div class="glass product-card">
+                            <div class="product-img-box">
+                                <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=600&q=80" alt="Dark Truffle Cake">
+                            </div>
+                            <div class="product-info">
+                                <h4 class="product-title">Dark Truffle Cake</h4>
+                                <p class="product-desc">Decadent 70% Valrhona chocolate ganache layers.</p>
+                                <div class="product-footer">
+                                    <span class="product-price">$45.00</span>
+                                    <div class="product-rating">
+                                        <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                                    </div>
+                                    <a href="#" class="add-to-cart"><i class="bi bi-bag-plus"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Product 4 -->
+                <div class="col-lg-3 col-md-6 reveal" style="transition-delay: 0.3s">
+                    <div class="tilt-card h-100">
+                        <div class="glass product-card">
+                            <div class="product-img-box">
+                                <img src="https://images.unsplash.com/photo-1569864358642-9d1684040f43?auto=format&fit=crop&w=600&q=80" alt="Raspberry Macarons">
+                            </div>
+                            <div class="product-info">
+                                <h4 class="product-title">Rose Macarons</h4>
+                                <p class="product-desc">Delicate almond shells filled with fragrant rose buttercream.</p>
+                                <div class="product-footer">
+                                    <span class="product-price">$18.00</span>
+                                    <div class="product-rating">
+                                        <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star"></i>
+                                    </div>
+                                    <a href="#" class="add-to-cart"><i class="bi bi-bag-plus"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section id="features" style="background: rgba(255,255,255,0.4);">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-3 col-md-6 reveal">
+                    <div class="glass feature-box h-100">
+                        <i class="bi bi-brightness-alt-high feature-icon"></i>
+                        <h4>Baked Fresh Daily</h4>
+                        <p class="mb-0 text-sm">Every pastry and loaf is baked from scratch before dawn.</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 reveal" style="transition-delay: 0.1s">
+                    <div class="glass feature-box h-100">
+                        <i class="bi bi-flower1 feature-icon"></i>
+                        <h4>Organic Ingredients</h4>
+                        <p class="mb-0 text-sm">We source locally milled organic flour and farm-fresh dairy.</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 reveal" style="transition-delay: 0.2s">
+                    <div class="glass feature-box h-100">
+                        <i class="bi bi-award feature-icon"></i>
+                        <h4>Master Craftsmanship</h4>
+                        <p class="mb-0 text-sm">Traditional French techniques blended with modern innovation.</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 reveal" style="transition-delay: 0.3s">
+                    <div class="glass feature-box h-100">
+                        <i class="bi bi-truck feature-icon"></i>
+                        <h4>White-Glove Delivery</h4>
+                        <p class="mb-0 text-sm">Pristine packaging and fast, careful delivery to your door.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Chef Story -->
+    <section id="story">
+        <div class="container story-section">
+            <div class="row align-items-center">
+                <div class="col-lg-5 reveal">
+                    <img src="https://images.unsplash.com/photo-1581349485608-9469926a8e5e?auto=format&fit=crop&w=800&q=80" alt="Master Baker" class="story-img">
+                </div>
+                <div class="col-lg-6 offset-lg-1 mt-5 mt-lg-0 reveal">
+                    <p class="text-primary text-uppercase letter-spacing-2 mb-2">The Artisan's Journey</p>
+                    <h2 class="display-font mb-4" style="font-size: 3.5rem;">Passion in Every Fold of Dough.</h2>
+                    <p class="mb-4">Founded by Master Baker Julien Rousseau, L'Artisan began with a simple philosophy: respect the ingredients and trust the process. After honing his craft in the boulangeries of Paris, Julien brought his vision of uncompromising quality to life.</p>
+                    <p class="mb-4">"Baking is a conversation with nature. You must listen to the flour, the ambient temperature, the wild yeast. It cannot be rushed."</p>
+                    <ul class="list-unstyled mb-5">
+                        <li class="mb-2"><i class="bi bi-check2-circle text-primary me-2"></i> 20+ Years of Baking Excellence</li>
+                        <li class="mb-2"><i class="bi bi-check2-circle text-primary me-2"></i> Michelin-Trained Artisans</li>
+                        <li><i class="bi bi-check2-circle text-primary me-2"></i> 100% Wild Yeast Fermentation</li>
+                    </ul>
+                    <div class="signature">Julien Rousseau</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section id="menu" style="background: rgba(255, 255, 255, 0.2);">
+        <div class="container">
+            <div class="section-title reveal">
+                <p>Taste the Perfection</p>
+                <h2>Artisanal Menu</h2>
+            </div>
+            
+            <div class="category-nav reveal">
+                <button class="cat-btn active" data-filter="all">All</button>
+                <button class="cat-btn" data-filter="bread">Viennoiserie & Bread</button>
+                <button class="cat-btn" data-filter="dessert">Desserts</button>
+                <button class="cat-btn" data-filter="coffee">Specialty Coffee</button>
+            </div>
+
+            <div class="row g-4" id="menu-grid">
+                <!-- Item 1 -->
+                <div class="col-lg-4 col-md-6 menu-item show bread">
+                    <div class="glass p-4 rounded-4 h-100 d-flex align-items-center gap-3 tilt-card">
+                        <img src="https://images.unsplash.com/photo-1608198093002-ad4e005484ec?auto=format&fit=crop&w=200&q=80" class="rounded-circle" width="80" height="80" style="object-fit: cover;" alt="Pain au Chocolat">
+                        <div>
+                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                <h5 class="mb-0 font-weight-bold">Pain au Chocolat</h5>
+                                <span class="text-accent fw-bold font-serif">$5.50</span>
+                            </div>
+                            <p class="mb-0 text-sm text-muted">Flaky pastry with batons of dark chocolate.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Item 2 -->
+                <div class="col-lg-4 col-md-6 menu-item show dessert">
+                    <div class="glass p-4 rounded-4 h-100 d-flex align-items-center gap-3 tilt-card">
+                        <img src="https://images.unsplash.com/photo-1550617931-e17a7b70dce2?auto=format&fit=crop&w=200&q=80" class="rounded-circle" width="80" height="80" style="object-fit: cover;" alt="Vanilla Éclair">
+                        <div>
+                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                <h5 class="mb-0 font-weight-bold">Vanilla Bean Éclair</h5>
+                                <span class="text-accent fw-bold font-serif">$6.50</span>
+                            </div>
+                            <p class="mb-0 text-sm text-muted">Choux pastry filled with Madagascar vanilla cream.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Item 3 -->
+                <div class="col-lg-4 col-md-6 menu-item show coffee">
+                    <div class="glass p-4 rounded-4 h-100 d-flex align-items-center gap-3 tilt-card">
+                        <img src="https://images.unsplash.com/photo-1541167760496-1628856ab772?auto=format&fit=crop&w=200&q=80" class="rounded-circle" width="80" height="80" style="object-fit: cover;" alt="Artisan Latte">
+                        <div>
+                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                <h5 class="mb-0 font-weight-bold">Toasted Almond Latte</h5>
+                                <span class="text-accent fw-bold font-serif">$5.00</span>
+                            </div>
+                            <p class="mb-0 text-sm text-muted">Single origin espresso, house almond milk.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Item 4 -->
+                <div class="col-lg-4 col-md-6 menu-item show bread">
+                    <div class="glass p-4 rounded-4 h-100 d-flex align-items-center gap-3 tilt-card">
+                        <img src="https://images.unsplash.com/photo-1598373182133-52452f7691ef?auto=format&fit=crop&w=200&q=80" class="rounded-circle" width="80" height="80" style="object-fit: cover;" alt="Baguette">
+                        <div>
+                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                <h5 class="mb-0 font-weight-bold">Traditional Baguette</h5>
+                                <span class="text-accent fw-bold font-serif">$4.50</span>
+                            </div>
+                            <p class="mb-0 text-sm text-muted">Crisp crust, open crumb. Baked fresh twice daily.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Item 5 -->
+                <div class="col-lg-4 col-md-6 menu-item show dessert">
+                    <div class="glass p-4 rounded-4 h-100 d-flex align-items-center gap-3 tilt-card">
+                        <img src="https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?auto=format&fit=crop&w=200&q=80" class="rounded-circle" width="80" height="80" style="object-fit: cover;" alt="Fruit Tart">
+                        <div>
+                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                <h5 class="mb-0 font-weight-bold">Seasonal Fruit Tart</h5>
+                                <span class="text-accent fw-bold font-serif">$8.00</span>
+                            </div>
+                            <p class="mb-0 text-sm text-muted">Shortcrust pastry, crème pâtissière, fresh berries.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Item 6 -->
+                <div class="col-lg-4 col-md-6 menu-item show bread">
+                    <div class="glass p-4 rounded-4 h-100 d-flex align-items-center gap-3 tilt-card">
+                        <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=200&q=80" class="rounded-circle" width="80" height="80" style="object-fit: cover;" alt="Brioche">
+                        <div>
+                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                <h5 class="mb-0 font-weight-bold">Butter Brioche Loaf</h5>
+                                <span class="text-accent fw-bold font-serif">$9.50</span>
+                            </div>
+                            <p class="mb-0 text-sm text-muted">Incredibly soft and rich, perfect for French toast.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Daily Specials Banner -->
+    <section id="specials" class="py-5">
+        <div class="container reveal">
+            <div class="special-banner">
+                <div class="row align-items-center w-100 position-relative z-1">
+                    <div class="col-md-7">
+                        <h3>Weekend Morning Ritual</h3>
+                        <p class="fs-5 mb-4">Enjoy 2 classic croissants and 2 artisan coffees for a special price. Perfect for a slow, luxurious weekend morning.</p>
+                        <a href="#order" class="btn btn-luxury" style="background: var(--cream); color: var(--choc); border:none;">Claim Offer</a>
+                    </div>
+                    <div class="col-md-5 d-none d-md-block text-end">
+                        <img src="https://images.unsplash.com/photo-1495147466023-ac5c588e2e94?auto=format&fit=crop&w=400&q=80" alt="Coffee and Croissant" class="rounded-circle shadow-lg" style="width: 280px; height: 280px; object-fit: cover; border: 10px solid rgba(255,255,255,0.1);">
+                    </div>
+                </div>
+                <div class="special-badge">Save 20%</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Timeline -->
+    <section id="process">
+        <div class="container">
+            <div class="section-title reveal">
+                <p>The Art of Baking</p>
+                <h2>Our Crafting Process</h2>
+            </div>
+            <div class="row process-row align-items-center mt-5">
+                <div class="col-md-3 process-step reveal">
+                    <div class="step-num">1</div>
+                    <h5 class="fw-bold">Selection</h5>
+                    <p class="text-sm">Sourcing the finest organic heritage grains.</p>
+                </div>
+                <div class="col-md-3 process-step reveal" style="transition-delay: 0.1s">
+                    <div class="step-num">2</div>
+                    <h5 class="fw-bold">Fermentation</h5>
+                    <p class="text-sm">A patient 48-hour wild yeast cold resting.</p>
+                </div>
+                <div class="col-md-3 process-step reveal" style="transition-delay: 0.2s">
+                    <div class="step-num">3</div>
+                    <h5 class="fw-bold">Shaping</h5>
+                    <p class="text-sm">Hand-folded and shaped by master bakers.</p>
+                </div>
+                <div class="col-md-3 process-step reveal" style="transition-delay: 0.3s">
+                    <div class="step-num">4</div>
+                    <h5 class="fw-bold">Baking</h5>
+                    <p class="text-sm">Baked on hearthstones for the perfect crust.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Masonry -->
+    <section id="gallery" class="pt-0">
+        <div class="container">
+            <div class="section-title reveal">
+                <p>Visual Feast</p>
+                <h2>Bakery Atmosphere</h2>
+            </div>
+            <div class="gallery-masonry reveal">
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1555507036-ab1f40ce8850?auto=format&fit=crop&w=600&q=80" alt="Gallery">
+                    <div class="gallery-overlay"><i class="bi bi-instagram"></i></div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1509315811345-672d83ef2fbc?auto=format&fit=crop&w=600&q=80" alt="Gallery">
+                    <div class="gallery-overlay"><i class="bi bi-instagram"></i></div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1608198093002-ad4e005484ec?auto=format&fit=crop&w=600&q=80" alt="Gallery">
+                    <div class="gallery-overlay"><i class="bi bi-instagram"></i></div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1517433622965-0e6a54143296?auto=format&fit=crop&w=600&q=80" alt="Gallery">
+                    <div class="gallery-overlay"><i class="bi bi-instagram"></i></div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1621236378699-8597faf6a176?auto=format&fit=crop&w=600&q=80" alt="Gallery">
+                    <div class="gallery-overlay"><i class="bi bi-instagram"></i></div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1541167760496-1628856ab772?auto=format&fit=crop&w=600&q=80" alt="Gallery">
+                    <div class="gallery-overlay"><i class="bi bi-instagram"></i></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Statistics -->
+    <section id="stats" class="py-5 bg-white bg-opacity-50">
+        <div class="container py-5">
+            <div class="row g-4 justify-content-center">
+                <div class="col-md-3 col-6 stat-box reveal">
+                    <div class="stat-num" data-target="50">0</div>
+                    <div class="stat-label text-muted">Bakery Products</div>
+                </div>
+                <div class="col-md-3 col-6 stat-box reveal" style="transition-delay: 0.1s">
+                    <div class="stat-num" data-target="15">0</div>
+                    <div class="stat-label text-muted">Master Bakers</div>
+                </div>
+                <div class="col-md-3 col-6 stat-box reveal" style="transition-delay: 0.2s">
+                    <div class="stat-num" data-target="100">0</div>
+                    <div class="stat-label text-muted">Happy Clients (K)</div>
+                </div>
+                <div class="col-md-3 col-6 stat-box reveal" style="transition-delay: 0.3s">
+                    <div class="stat-num" data-target="20">0</div>
+                    <div class="stat-label text-muted">Years Exp.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section id="testimonials">
+        <div class="container">
+            <div class="section-title reveal">
+                <p>Sweet Words</p>
+                <h2>Customer Experiences</h2>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-6 reveal">
+                    <div class="glass testimonial-card h-100">
+                        <i class="bi bi-quote quote-icon"></i>
+                        <p class="testi-text">"Absolutely the best sourdough I've had outside of France. The crust is perfectly caramelized, and the crumb is heavenly. A true artisanal experience."</p>
+                        <div class="testi-author">
+                            <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=100&q=80" alt="User">
+                            <div>
+                                <h5 class="mb-0 font-weight-bold">Eleanor Vance</h5>
+                                <div class="text-primary"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 reveal" style="transition-delay: 0.2s">
+                    <div class="glass testimonial-card h-100">
+                        <i class="bi bi-quote quote-icon"></i>
+                        <p class="testi-text">"We ordered our wedding cake from L'Artisan. Not only was it visually breathtaking, but the dark chocolate truffle layers were melt-in-your-mouth perfection."</p>
+                        <div class="testi-author">
+                            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=100&q=80" alt="User">
+                            <div>
+                                <h5 class="mb-0 font-weight-bold">Marcus Thorne</h5>
+                                <div class="text-primary"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Order / Reservation -->
+    <section id="order" style="background: rgba(255,255,255,0.3);">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-5 mb-5 mb-lg-0 reveal">
+                    <h2 class="display-font" style="font-size: 3rem;">Reserve Your Order</h2>
+                    <p class="mb-4">Ensure your favorite breads and pastries are waiting for you. For custom cake inquiries, please provide details in the message box.</p>
+                    <ul class="list-unstyled">
+                        <li class="d-flex align-items-center mb-3">
+                            <div class="bg-primary text-white rounded-circle d-flex justify-content-center align-items-center me-3" style="width: 40px; height: 40px;"><i class="bi bi-geo-alt"></i></div>
+                            <div>482 Artisan Boulevard, Pastry District</div>
+                        </li>
+                        <li class="d-flex align-items-center mb-3">
+                            <div class="bg-primary text-white rounded-circle d-flex justify-content-center align-items-center me-3" style="width: 40px; height: 40px;"><i class="bi bi-telephone"></i></div>
+                            <div>+1 (555) 123-4567</div>
+                        </li>
+                        <li class="d-flex align-items-center">
+                            <div class="bg-primary text-white rounded-circle d-flex justify-content-center align-items-center me-3" style="width: 40px; height: 40px;"><i class="bi bi-clock"></i></div>
+                            <div>Tue - Sun: 7:00 AM - 6:00 PM</div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-lg-6 offset-lg-1 reveal">
+                    <div class="glass p-5 rounded-4 shadow-lg">
+                        <form id="orderForm">
+                            <div class="row g-3">
+                                <div class="col-md-6 form-floating">
+                                    <input type="text" class="form-control" id="nameInput" placeholder="Name">
+                                    <label for="nameInput">Full Name</label>
+                                </div>
+                                <div class="col-md-6 form-floating">
+                                    <input type="tel" class="form-control" id="phoneInput" placeholder="Phone">
+                                    <label for="phoneInput">Phone Number</label>
+                                </div>
+                                <div class="col-12 form-floating">
+                                    <input type="email" class="form-control" id="emailInput" placeholder="Email">
+                                    <label for="emailInput">Email Address</label>
+                                </div>
+                                <div class="col-md-6 form-floating">
+                                    <select class="form-select" id="orderType">
+                                        <option value="pickup">Store Pickup</option>
+                                        <option value="delivery">Local Delivery</option>
+                                        <option value="custom">Custom Cake Consultation</option>
+                                    </select>
+                                    <label for="orderType">Order Type</label>
+                                </div>
+                                <div class="col-md-6 form-floating">
+                                    <input type="date" class="form-control" id="dateInput">
+                                    <label for="dateInput">Preferred Date</label>
+                                </div>
+                                <div class="col-12 form-floating">
+                                    <textarea class="form-control" placeholder="Message" id="msgInput" style="height: 120px"></textarea>
+                                    <label for="msgInput">Order Details / Message</label>
+                                </div>
+                                <div class="col-12 mt-4 text-end">
+                                    <button type="button" class="btn btn-luxury w-100">Submit Request</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row g-5 border-bottom border-secondary pb-5 mb-4">
+                <div class="col-lg-4">
+                    <a href="#" class="footer-logo text-decoration-none">L'Artisan</a>
+                    <p class="text-white-50 mt-3 pe-4">Elevating the daily ritual of bread and pastry into a luxurious culinary experience. Baked fresh, crafted with passion.</p>
+                    <div class="social-icons mt-4">
+                        <a href="#"><i class="bi bi-instagram"></i></a>
+                        <a href="#"><i class="bi bi-facebook"></i></a>
+                        <a href="#"><i class="bi bi-twitter-x"></i></a>
+                        <a href="#"><i class="bi bi-pinterest"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6">
+                    <h5 class="text-white mb-4">Explore</h5>
+                    <ul class="list-unstyled footer-links">
+                        <li><a href="#signature">Signature Collection</a></li>
+                        <li><a href="#menu">Full Menu</a></li>
+                        <li><a href="#story">Our Story</a></li>
+                        <li><a href="#cakes">Custom Cakes</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-6">
+                    <h5 class="text-white mb-4">Information</h5>
+                    <ul class="list-unstyled footer-links">
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Delivery Policy</a></li>
+                        <li><a href="#">Allergen Guide</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4">
+                    <h5 class="text-white mb-4">Join The Club</h5>
+                    <p class="text-white-50 mb-4">Subscribe for exclusive seasonal releases, baking tips, and special offers.</p>
+                    <div class="d-flex gap-2">
+                        <input type="email" class="newsletter-input" placeholder="Email Address">
+                        <button class="btn btn-primary" style="background: var(--primary); border:none; border-radius: 30px; padding: 0 25px;"><i class="bi bi-arrow-right"></i></button>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start text-white-50">
+                    <small>&copy; 2028 L'Artisan Bakery. All Rights Reserved.</small>
+                </div>
+                <div class="col-md-6 text-center text-md-end text-white-50">
+                    <small>Designed for the Future of Baking</small>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <a href="#" class="back-to-top" id="backToTop"><i class="bi bi-chevron-up"></i></a>
+
+    <!-- Vanilla JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // 1. Particle Canvas (Floating Flour/Glow)
+            const canvas = document.getElementById('particle-canvas');
+            const ctx = canvas.getContext('2d');
+            let particlesArray = [];
+            
+            function resizeCanvas() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+            window.addEventListener('resize', resizeCanvas);
+            resizeCanvas();
+
+            class Particle {
+                constructor() {
+                    this.x = Math.random() * canvas.width;
+                    this.y = Math.random() * canvas.height;
+                    this.size = Math.random() * 2.5 + 0.5;
+                    this.speedX = Math.random() * 0.5 - 0.25;
+                    this.speedY = Math.random() * -0.5 - 0.1;
+                    this.color = `rgba(212, 163, 115, ${Math.random() * 0.3})`;
+                }
+                update() {
+                    this.x += this.speedX;
+                    this.y += this.speedY;
+                    if (this.y < 0) {
+                        this.y = canvas.height;
+                        this.x = Math.random() * canvas.width;
+                    }
+                }
+                draw() {
+                    ctx.fillStyle = this.color;
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            }
+
+            function initParticles() {
+                particlesArray = [];
+                let numParticles = (canvas.width * canvas.height) / 12000;
+                for (let i = 0; i < numParticles; i++) {
+                    particlesArray.push(new Particle());
+                }
+            }
+            initParticles();
+
+            function animateParticles() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                for (let i = 0; i < particlesArray.length; i++) {
+                    particlesArray[i].update();
+                    particlesArray[i].draw();
+                }
+                requestAnimationFrame(animateParticles);
+            }
+            animateParticles();
+
+            // 2. Navbar Scroll Effect & Back to Top Button
+            const navbar = document.querySelector('.navbar');
+            const backToTop = document.getElementById('backToTop');
+            
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('scrolled');
+                    backToTop.classList.add('show');
+                } else {
+                    navbar.classList.remove('scrolled');
+                    backToTop.classList.remove('show');
+                }
+            });
+
+            // 3. Scroll Reveal Animation
+            const reveals = document.querySelectorAll('.reveal');
+            const revealOptions = {
+                threshold: 0.15,
+                rootMargin: "0px 0px -50px 0px"
+            };
+
+            const revealObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, revealOptions);
+
+            reveals.forEach(reveal => {
+                revealObserver.observe(reveal);
+            });
+
+            // 4. 3D Tilt Effect on Cards
+            const tiltCards = document.querySelectorAll('.tilt-card');
+            tiltCards.forEach(card => {
+                card.addEventListener('mousemove', e => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    const rotateX = ((y - centerY) / centerY) * -8;
+                    const rotateY = ((x - centerX) / centerX) * 8;
+                    
+                    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+                });
+
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+                });
+            });
+
+            // 5. Menu Category Filtering
+            const filterBtns = document.querySelectorAll('.cat-btn');
+            const menuItems = document.querySelectorAll('.menu-item');
+
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    
+                    const filter = btn.getAttribute('data-filter');
+                    
+                    menuItems.forEach(item => {
+                        item.classList.remove('show');
+                        if (filter === 'all' || item.classList.contains(filter)) {
+                            setTimeout(() => {
+                                item.classList.add('show');
+                            }, 50);
+                        }
+                    });
+                });
+            });
+
+            // 6. Number Counters Animation
+            const counters = document.querySelectorAll('.stat-num');
+            let started = false;
+
+            const counterObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && !started) {
+                        counters.forEach(counter => {
+                            const target = +counter.getAttribute('data-target');
+                            const duration = 2000;
+                            const increment = target / (duration / 16);
+                            
+                            let current = 0;
+                            const updateCounter = () => {
+                                current += increment;
+                                if (current < target) {
+                                    counter.innerText = Math.ceil(current) + (target > 20 ? '+' : '');
+                                    requestAnimationFrame(updateCounter);
+                                } else {
+                                    counter.innerText = target + '+';
+                                }
+                            };
+                            updateCounter();
+                        });
+                        started = true;
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            const statsSection = document.getElementById('stats');
+            if(statsSection) counterObserver.observe(statsSection);
+
+        });
+    </script>
+    
+    <!-- Bootstrap JS (Optional for simple navbar toggle) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

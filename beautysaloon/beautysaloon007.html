@@ -1,0 +1,4727 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AuraBeauty — Modern European Beauty Atelier</title>
+    <meta name="description"
+        content="AuraBeauty is a modern European beauty atelier offering personalized hair, skin, and wellness experiences." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Manrope:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <style>
+        /* ============================================================
+           CSS VARIABLES (dynamic palette)
+           ============================================================ */
+        :root {
+            --background: #f8f5f0;
+            --background-secondary: #f0ede8;
+            --surface: #ffffff;
+            --surface-soft: #faf8f5;
+            --primary: #8b7a6a;
+            --primary-dark: #5d4f43;
+            --secondary: #c4b5a5;
+            --accent: #b8a08c;
+            --accent-soft: #e8dfd7;
+            --text: #1e1a16;
+            --text-muted: #6b5f55;
+            --border: #e0d8d0;
+            --shadow: rgba(30, 26, 22, 0.08);
+            --glow: rgba(139, 122, 106, 0.15);
+            --gradient-start: #f0ede8;
+            --gradient-end: #e8dfd7;
+            --radius: 16px;
+            --radius-sm: 8px;
+            --transition: 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            --font-heading: 'Cormorant Garamond', serif;
+            --font-body: 'Manrope', sans-serif;
+            --preloader-bg: #f8f5f0;
+            --nav-bg: rgba(248, 245, 240, 0.72);
+            --nav-border: rgba(224, 216, 208, 0.3);
+            --card-bg: rgba(255, 255, 255, 0.6);
+            --glow-color: rgba(139, 122, 106, 0.2);
+        }
+
+        [data-theme="dark"] {
+            --background: #141110;
+            --background-secondary: #1e1a17;
+            --surface: #2a2420;
+            --surface-soft: #221e1a;
+            --primary: #c4b5a5;
+            --primary-dark: #a89787;
+            --secondary: #8b7a6a;
+            --accent: #b8a08c;
+            --accent-soft: #3a322c;
+            --text: #f0ece7;
+            --text-muted: #a89a8e;
+            --border: #3a322c;
+            --shadow: rgba(0, 0, 0, 0.4);
+            --glow: rgba(196, 181, 165, 0.12);
+            --gradient-start: #1e1a17;
+            --gradient-end: #2a2420;
+            --preloader-bg: #141110;
+            --nav-bg: rgba(20, 17, 16, 0.8);
+            --nav-border: rgba(58, 50, 44, 0.4);
+            --card-bg: rgba(42, 36, 32, 0.7);
+            --glow-color: rgba(196, 181, 165, 0.15);
+        }
+
+        /* ============================================================
+           RESET & BASE
+           ============================================================ */
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--background);
+            color: var(--text);
+            transition: background 0.6s ease, color 0.6s ease;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        button {
+            cursor: pointer;
+            font-family: inherit;
+            border: none;
+            background: none;
+            color: inherit;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 32px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 16px;
+            }
+        }
+
+        /* ============================================================
+           PRELOADER
+           ============================================================ */
+        #preloader {
+            position: fixed;
+            inset: 0;
+            z-index: 99999;
+            background: var(--preloader-bg);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
+            pointer-events: all;
+        }
+
+        #preloader.hide {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .preloader-monogram {
+            font-family: var(--font-heading);
+            font-size: 4rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            color: var(--primary);
+            margin-bottom: 24px;
+            display: flex;
+            gap: 6px;
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        .preloader-monogram span {
+            display: inline-block;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: preloadLetter 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+
+        .preloader-monogram span:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .preloader-monogram span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .preloader-monogram span:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        .preloader-monogram span:nth-child(4) {
+            animation-delay: 0.4s;
+        }
+
+        .preloader-monogram span:nth-child(5) {
+            animation-delay: 0.5s;
+        }
+
+        .preloader-monogram span:nth-child(6) {
+            animation-delay: 0.6s;
+        }
+
+        .preloader-monogram span:nth-child(7) {
+            animation-delay: 0.7s;
+        }
+
+        .preloader-monogram span:nth-child(8) {
+            animation-delay: 0.8s;
+        }
+
+        .preloader-monogram span:nth-child(9) {
+            animation-delay: 0.9s;
+        }
+
+        @keyframes preloadLetter {
+            0% {
+                opacity: 0;
+                transform: translateY(20px) scale(0.9);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .preloader-bar-wrap {
+            width: 200px;
+            height: 2px;
+            background: var(--border);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 8px;
+        }
+
+        .preloader-bar {
+            height: 100%;
+            width: 0%;
+            background: var(--primary);
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+
+        .preloader-percent {
+            font-size: 0.8rem;
+            letter-spacing: 0.1em;
+            color: var(--text-muted);
+            margin-top: 12px;
+            font-weight: 300;
+        }
+
+        .preloader-glow {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: var(--glow-color);
+            filter: blur(80px);
+            pointer-events: none;
+            animation: pulseGlow 2.4s ease-in-out infinite alternate;
+        }
+
+        @keyframes pulseGlow {
+            0% {
+                transform: scale(0.8);
+                opacity: 0.4;
+            }
+
+            100% {
+                transform: scale(1.2);
+                opacity: 0.8;
+            }
+        }
+
+        /* ============================================================
+           CUSTOM CURSOR
+           ============================================================ */
+        .cursor-dot {
+            position: fixed;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--primary);
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition: width 0.2s, height 0.2s;
+            mix-blend-mode: difference;
+            will-change: transform;
+            display: none;
+        }
+
+        .cursor-ring {
+            position: fixed;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: 1.5px solid var(--primary);
+            pointer-events: none;
+            z-index: 9998;
+            transform: translate(-50%, -50%);
+            transition: width 0.3s, height 0.3s, border-color 0.3s, opacity 0.3s;
+            will-change: transform;
+            opacity: 0.6;
+            display: none;
+        }
+
+        @media (pointer: fine) {
+
+            .cursor-dot,
+            .cursor-ring {
+                display: block;
+            }
+        }
+
+        @media (pointer: coarse) {
+
+            .cursor-dot,
+            .cursor-ring {
+                display: none !important;
+            }
+        }
+
+        /* ============================================================
+           NAVIGATION
+           ============================================================ */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 16px 32px;
+            background: var(--nav-bg);
+            backdrop-filter: blur(20px) saturate(1.2);
+            -webkit-backdrop-filter: blur(20px) saturate(1.2);
+            border-bottom: 1px solid var(--nav-border);
+            transition: background 0.4s ease, border-color 0.4s ease, padding 0.4s ease, box-shadow 0.4s ease;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .navbar.scrolled {
+            padding: 10px 32px;
+            box-shadow: 0 4px 30px var(--shadow);
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            color: var(--text);
+            z-index: 1001;
+        }
+
+        .nav-logo .logo-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            font-size: 1rem;
+            font-weight: 600;
+            transition: border-color 0.4s, color 0.4s;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        .nav-links a {
+            position: relative;
+            transition: color 0.3s;
+            padding: 4px 0;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -2px;
+            width: 0;
+            height: 1.5px;
+            background: var(--primary);
+            transition: width 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .nav-links a:hover {
+            color: var(--text);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .nav-cta {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .btn-book {
+            padding: 10px 28px;
+            border-radius: 60px;
+            background: var(--primary);
+            color: #fff;
+            font-weight: 600;
+            font-size: 0.8rem;
+            letter-spacing: 0.04em;
+            transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 20px var(--glow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-book:hover {
+            transform: scale(1.04);
+            box-shadow: 0 8px 32px var(--glow);
+            background: var(--primary-dark);
+        }
+
+        .btn-book::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 60px;
+            background: rgba(255, 255, 255, 0.08);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .btn-book:hover::after {
+            transform: scaleX(1);
+        }
+
+        .nav-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-controls button {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            transition: background 0.3s, border-color 0.3s, transform 0.3s;
+            background: transparent;
+            color: var(--text-muted);
+            position: relative;
+        }
+
+        .nav-controls button:hover {
+            background: var(--surface-soft);
+            border-color: var(--primary);
+            transform: scale(1.06);
+            color: var(--text);
+        }
+
+        .nav-controls #cartCount {
+            position: absolute;
+            top: -4px;
+            right: -4px;
+            font-size: 0.5rem;
+            background: var(--primary);
+            color: #fff;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+
+        .nav-hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            padding: 6px;
+            z-index: 1001;
+            cursor: pointer;
+        }
+
+        .nav-hamburger span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--text);
+            transition: transform 0.3s, opacity 0.3s;
+            border-radius: 2px;
+        }
+
+        .nav-hamburger.open span:nth-child(1) {
+            transform: translateY(7px) rotate(45deg);
+        }
+
+        .nav-hamburger.open span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .nav-hamburger.open span:nth-child(3) {
+            transform: translateY(-7px) rotate(-45deg);
+        }
+
+        .mobile-menu {
+            position: fixed;
+            inset: 0;
+            z-index: 999;
+            background: var(--background);
+            padding: 100px 32px 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 24px;
+            transform: translateY(-100%);
+            transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.6s ease;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .mobile-menu.open {
+            transform: translateY(0);
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .mobile-menu a {
+            font-family: var(--font-heading);
+            font-size: 2.2rem;
+            font-weight: 600;
+            color: var(--text);
+            transition: color 0.3s, transform 0.3s;
+            letter-spacing: 0.04em;
+        }
+
+        .mobile-menu a:hover {
+            color: var(--primary);
+            transform: scale(1.04);
+        }
+
+        .mobile-menu .btn-book {
+            font-family: var(--font-body);
+            font-size: 0.9rem;
+            margin-top: 12px;
+        }
+
+        @media (max-width: 1024px) {
+            .nav-links {
+                display: none;
+            }
+
+            .nav-hamburger {
+                display: flex;
+            }
+
+            .nav-cta .btn-book {
+                display: none;
+            }
+
+            .navbar {
+                padding: 12px 20px;
+            }
+
+            .navbar.scrolled {
+                padding: 8px 20px;
+            }
+
+            .nav-controls button {
+                width: 34px;
+                height: 34px;
+                font-size: 0.85rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .navbar {
+                padding: 10px 16px;
+            }
+
+            .nav-logo {
+                font-size: 1.2rem;
+            }
+
+            .nav-logo .logo-icon {
+                width: 28px;
+                height: 28px;
+                font-size: 0.8rem;
+            }
+
+            .mobile-menu a {
+                font-size: 1.6rem;
+            }
+        }
+
+        /* ============================================================
+           HERO
+           ============================================================ */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 80px 0 40px;
+            position: relative;
+            overflow: hidden;
+            background: var(--background);
+            transition: background 0.6s ease;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            width: 100%;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-content {
+            padding-top: 40px;
+        }
+
+        .hero-eyebrow {
+            font-size: 0.7rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+            font-weight: 500;
+            opacity: 0.7;
+        }
+
+        .hero-headline {
+            font-family: var(--font-heading);
+            font-size: clamp(3.2rem, 8vw, 5.8rem);
+            font-weight: 700;
+            line-height: 1.05;
+            color: var(--text);
+            margin-bottom: 20px;
+            letter-spacing: -0.02em;
+        }
+
+        .hero-headline .line {
+            display: block;
+            overflow: hidden;
+        }
+
+        .hero-headline .line span {
+            display: block;
+            transform: translateY(100%);
+            animation: heroReveal 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+        }
+
+        .hero-headline .line:nth-child(1) span {
+            animation-delay: 0.2s;
+        }
+
+        .hero-headline .line:nth-child(2) span {
+            animation-delay: 0.45s;
+        }
+
+        @keyframes heroReveal {
+            0% {
+                transform: translateY(100%);
+                opacity: 0;
+            }
+
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .hero-sub {
+            font-size: clamp(0.95rem, 1.2vw, 1.15rem);
+            color: var(--text-muted);
+            max-width: 460px;
+            margin-bottom: 32px;
+            font-weight: 300;
+            line-height: 1.7;
+        }
+
+        .hero-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            margin-bottom: 36px;
+        }
+
+        .btn-primary {
+            padding: 14px 40px;
+            border-radius: 60px;
+            background: var(--primary);
+            color: #fff;
+            font-weight: 600;
+            font-size: 0.85rem;
+            letter-spacing: 0.04em;
+            transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 24px var(--glow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 8px 36px var(--glow);
+            background: var(--primary-dark);
+        }
+
+        .btn-secondary {
+            padding: 14px 36px;
+            border-radius: 60px;
+            border: 1.5px solid var(--border);
+            color: var(--text);
+            font-weight: 500;
+            font-size: 0.85rem;
+            letter-spacing: 0.04em;
+            transition: border-color 0.3s, background 0.3s, transform 0.3s;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--primary);
+            background: var(--surface-soft);
+            transform: translateY(-2px);
+        }
+
+        .hero-trust {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 28px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
+        }
+
+        .hero-trust-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            letter-spacing: 0.02em;
+        }
+
+        .hero-trust-item i {
+            color: var(--primary);
+            font-size: 0.85rem;
+        }
+
+        .hero-visual {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero-image-wrap {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 0.85/1;
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: 0 20px 60px var(--shadow);
+            background: var(--surface-soft);
+        }
+
+        .hero-image-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s ease;
+        }
+
+        .hero-image-wrap:hover img {
+            transform: scale(1.04);
+        }
+
+        .hero-floating-card {
+            position: absolute;
+            bottom: -20px;
+            left: -20px;
+            background: var(--card-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 16px 20px;
+            box-shadow: 0 8px 32px var(--shadow);
+            max-width: 180px;
+            animation: floatCard 4s ease-in-out infinite alternate;
+        }
+
+        .hero-floating-card .label {
+            font-size: 0.6rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .hero-floating-card .value {
+            font-family: var(--font-heading);
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .hero-floating-card .sub {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+        }
+
+        @keyframes floatCard {
+            0% {
+                transform: translateY(0px);
+            }
+
+            100% {
+                transform: translateY(-12px);
+            }
+        }
+
+        .hero-scroll-indicator {
+            position: absolute;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            color: var(--text-muted);
+            font-size: 0.65rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            animation: scrollBounce 2s ease-in-out infinite;
+            opacity: 0.5;
+            z-index: 2;
+        }
+
+        .hero-scroll-indicator .line {
+            width: 1px;
+            height: 32px;
+            background: var(--text-muted);
+            opacity: 0.3;
+            position: relative;
+        }
+
+        .hero-scroll-indicator .line::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--text);
+            animation: scrollLine 2s ease-in-out infinite;
+        }
+
+        @keyframes scrollLine {
+
+            0%,
+            100% {
+                transform: scaleY(0.1);
+                opacity: 0.2;
+            }
+
+            50% {
+                transform: scaleY(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes scrollBounce {
+
+            0%,
+            100% {
+                transform: translateX(-50%) translateY(0);
+            }
+
+            50% {
+                transform: translateX(-50%) translateY(-6px);
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .hero-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .hero-content {
+                padding-top: 0;
+            }
+
+            .hero-visual {
+                order: -1;
+            }
+
+            .hero-image-wrap {
+                aspect-ratio: 1.2/1;
+                max-height: 400px;
+            }
+
+            .hero-floating-card {
+                bottom: -10px;
+                left: 10px;
+                padding: 12px 16px;
+                max-width: 140px;
+            }
+
+            .hero-scroll-indicator {
+                display: none;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .hero {
+                padding: 100px 0 30px;
+                min-height: auto;
+            }
+
+            .hero-image-wrap {
+                aspect-ratio: 1/1;
+                max-height: 300px;
+            }
+
+            .hero-floating-card {
+                display: none;
+            }
+
+            .hero-trust {
+                gap: 14px;
+            }
+
+            .hero-trust-item {
+                font-size: 0.65rem;
+            }
+
+            .hero-buttons .btn-primary,
+            .hero-buttons .btn-secondary {
+                width: 100%;
+                text-align: center;
+                justify-content: center;
+            }
+        }
+
+        /* ============================================================
+           SECTION SHARED
+           ============================================================ */
+        section {
+            padding: 80px 0;
+            background: var(--background);
+            transition: background 0.6s ease;
+        }
+
+        section:nth-child(even) {
+            background: var(--background-secondary);
+        }
+
+        .section-label {
+            font-size: 0.65rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+
+        .section-title {
+            font-family: var(--font-heading);
+            font-size: clamp(2.4rem, 5vw, 3.6rem);
+            font-weight: 700;
+            line-height: 1.1;
+            color: var(--text);
+            margin-bottom: 16px;
+        }
+
+        .section-desc {
+            font-size: 1rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            font-weight: 300;
+            line-height: 1.7;
+        }
+
+        .section-header {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            margin-bottom: 48px;
+        }
+
+        .section-header.centered {
+            align-items: center;
+            text-align: center;
+        }
+
+        .section-header.centered .section-desc {
+            max-width: 640px;
+        }
+
+        /* ============================================================
+           MANIFESTO
+           ============================================================ */
+        .manifesto-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .manifesto-text {
+            font-size: 1.05rem;
+            line-height: 1.9;
+            color: var(--text-muted);
+            font-weight: 300;
+        }
+
+        .manifesto-text strong {
+            color: var(--text);
+            font-weight: 600;
+        }
+
+        .manifesto-values {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 32px;
+        }
+
+        .manifesto-value {
+            padding: 20px 24px;
+            border-radius: var(--radius);
+            background: var(--surface-soft);
+            border: 1px solid var(--border);
+            transition: border-color 0.4s, transform 0.4s, box-shadow 0.4s;
+        }
+
+        .manifesto-value:hover {
+            border-color: var(--primary);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 32px var(--shadow);
+        }
+
+        .manifesto-value .num {
+            font-family: var(--font-heading);
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--primary);
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .manifesto-value h4 {
+            font-family: var(--font-heading);
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .manifesto-value p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        .manifesto-image {
+            border-radius: var(--radius);
+            overflow: hidden;
+            aspect-ratio: 0.9/1;
+            background: var(--surface-soft);
+            box-shadow: 0 16px 48px var(--shadow);
+        }
+
+        .manifesto-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s ease;
+        }
+
+        .manifesto-image:hover img {
+            transform: scale(1.04);
+        }
+
+        @media (max-width: 1024px) {
+            .manifesto-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .manifesto-image {
+                aspect-ratio: 1.4/1;
+                max-height: 360px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .manifesto-values {
+                grid-template-columns: 1fr;
+            }
+
+            .manifesto-text {
+                font-size: 0.95rem;
+            }
+        }
+
+        /* ============================================================
+           RITUALS
+           ============================================================ */
+        .rituals-categories {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 32px;
+        }
+
+        .rituals-categories button {
+            padding: 8px 20px;
+            border-radius: 40px;
+            border: 1px solid var(--border);
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.04em;
+            color: var(--text-muted);
+            transition: all 0.3s;
+            background: transparent;
+        }
+
+        .rituals-categories button:hover,
+        .rituals-categories button.active {
+            border-color: var(--primary);
+            color: var(--text);
+            background: var(--surface-soft);
+        }
+
+        .rituals-categories button.active {
+            background: var(--primary);
+            color: #fff;
+            border-color: var(--primary);
+        }
+
+        .rituals-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 28px;
+        }
+
+        .ritual-card {
+            background: var(--surface-soft);
+            border-radius: var(--radius);
+            overflow: hidden;
+            border: 1px solid var(--border);
+            transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.5s, border-color 0.4s;
+            box-shadow: 0 4px 20px var(--shadow);
+        }
+
+        .ritual-card:hover {
+            transform: translateY(-8px) scale(1.01);
+            box-shadow: 0 16px 48px var(--shadow);
+            border-color: var(--primary);
+        }
+
+        .ritual-card .card-img {
+            aspect-ratio: 1.2/1;
+            overflow: hidden;
+            background: var(--background-secondary);
+        }
+
+        .ritual-card .card-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.7s ease;
+        }
+
+        .ritual-card:hover .card-img img {
+            transform: scale(1.06);
+        }
+
+        .ritual-card .card-body {
+            padding: 20px 24px 24px;
+        }
+
+        .ritual-card .card-body h4 {
+            font-family: var(--font-heading);
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 4px;
+        }
+
+        .ritual-card .card-body .desc {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-weight: 300;
+            margin-bottom: 12px;
+            line-height: 1.5;
+        }
+
+        .ritual-card .card-body .meta {
+            display: flex;
+            gap: 16px;
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            font-weight: 500;
+            letter-spacing: 0.02em;
+            margin-bottom: 14px;
+        }
+
+        .ritual-card .card-body .meta span {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .ritual-card .card-body .card-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .ritual-card .card-body .card-actions .btn-sm {
+            padding: 8px 18px;
+            border-radius: 40px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            transition: all 0.3s;
+            border: 1px solid var(--border);
+            background: transparent;
+            color: var(--text);
+        }
+
+        .ritual-card .card-body .card-actions .btn-sm:hover {
+            border-color: var(--primary);
+            background: var(--primary);
+            color: #fff;
+        }
+
+        .ritual-card .card-body .card-actions .btn-sm.primary {
+            background: var(--primary);
+            color: #fff;
+            border-color: var(--primary);
+        }
+
+        .ritual-card .card-body .card-actions .btn-sm.primary:hover {
+            background: var(--primary-dark);
+            border-color: var(--primary-dark);
+        }
+
+        @media (max-width: 600px) {
+            .rituals-grid {
+                grid-template-columns: 1fr;
+                max-width: 400px;
+                margin: 0 auto;
+            }
+
+            .rituals-categories {
+                justify-content: center;
+            }
+
+            .rituals-categories button {
+                font-size: 0.65rem;
+                padding: 6px 14px;
+            }
+        }
+
+        /* ============================================================
+           FINDER
+           ============================================================ */
+        .finder-container {
+            background: var(--surface-soft);
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            padding: 40px 48px;
+            box-shadow: 0 8px 40px var(--shadow);
+            transition: background 0.4s, border-color 0.4s;
+        }
+
+        .finder-steps {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 32px;
+            justify-content: center;
+        }
+
+        .finder-steps .step-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--border);
+            transition: background 0.4s, transform 0.4s;
+        }
+
+        .finder-steps .step-dot.active {
+            background: var(--primary);
+            transform: scale(1.3);
+        }
+
+        .finder-steps .step-dot.done {
+            background: var(--primary);
+            opacity: 0.4;
+        }
+
+        .finder-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .finder-options button {
+            padding: 12px 16px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border);
+            background: transparent;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            transition: all 0.3s;
+            text-align: center;
+        }
+
+        .finder-options button:hover {
+            border-color: var(--primary);
+            color: var(--text);
+            background: var(--surface);
+        }
+
+        .finder-options button.selected {
+            border-color: var(--primary);
+            background: var(--primary);
+            color: #fff;
+        }
+
+        .finder-result {
+            margin-top: 28px;
+            padding: 24px 28px;
+            border-radius: var(--radius);
+            background: var(--background);
+            border: 1px solid var(--border);
+            display: none;
+            animation: fadeUp 0.6s ease;
+        }
+
+        .finder-result.show {
+            display: block;
+        }
+
+        @keyframes fadeUp {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .finder-result h4 {
+            font-family: var(--font-heading);
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 4px;
+        }
+
+        .finder-result p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .finder-result .result-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin: 12px 0 16px;
+        }
+
+        .finder-result .result-meta span {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        @media (max-width: 600px) {
+            .finder-container {
+                padding: 24px 20px;
+            }
+
+            .finder-options {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .finder-options button {
+                font-size: 0.7rem;
+                padding: 10px 12px;
+            }
+        }
+
+        /* ============================================================
+           EXPERTS
+           ============================================================ */
+        .experts-carousel {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 28px;
+        }
+
+        .expert-card {
+            background: var(--surface-soft);
+            border-radius: var(--radius);
+            overflow: hidden;
+            border: 1px solid var(--border);
+            transition: transform 0.5s, box-shadow 0.5s, border-color 0.4s;
+            box-shadow: 0 4px 20px var(--shadow);
+            position: relative;
+        }
+
+        .expert-card:hover {
+            transform: translateY(-6px) scale(1.01);
+            box-shadow: 0 16px 48px var(--shadow);
+            border-color: var(--primary);
+        }
+
+        .expert-card .expert-img {
+            aspect-ratio: 0.9/1;
+            overflow: hidden;
+            background: var(--background-secondary);
+        }
+
+        .expert-card .expert-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.7s ease;
+        }
+
+        .expert-card:hover .expert-img img {
+            transform: scale(1.05);
+        }
+
+        .expert-card .expert-info {
+            padding: 18px 20px 20px;
+        }
+
+        .expert-card .expert-info h4 {
+            font-family: var(--font-heading);
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .expert-card .expert-info .role {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .expert-card .expert-info .bio {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin: 6px 0 10px;
+            font-weight: 300;
+            line-height: 1.5;
+        }
+
+        .expert-card .expert-info .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .expert-card .expert-info .tags span {
+            padding: 3px 12px;
+            border-radius: 20px;
+            background: var(--background);
+            font-size: 0.6rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            border: 1px solid var(--border);
+        }
+
+        @media (max-width: 600px) {
+            .experts-carousel {
+                grid-template-columns: 1fr 1fr;
+                gap: 16px;
+            }
+
+            .expert-card .expert-info {
+                padding: 12px 14px 14px;
+            }
+
+            .expert-card .expert-info h4 {
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .experts-carousel {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ============================================================
+           TRANSFORMATIONS
+           ============================================================ */
+        .transform-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 20px;
+        }
+
+        .transform-item {
+            border-radius: var(--radius);
+            overflow: hidden;
+            aspect-ratio: 0.8/1;
+            position: relative;
+            background: var(--surface-soft);
+            border: 1px solid var(--border);
+            transition: transform 0.5s, box-shadow 0.5s, border-color 0.4s;
+            cursor: pointer;
+        }
+
+        .transform-item:hover {
+            transform: scale(1.03);
+            box-shadow: 0 12px 40px var(--shadow);
+            border-color: var(--primary);
+        }
+
+        .transform-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.7s ease;
+        }
+
+        .transform-item:hover img {
+            transform: scale(1.06);
+        }
+
+        .transform-item .overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(0deg, rgba(0, 0, 0, 0.5) 0%, transparent 60%);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 16px 18px;
+            color: #fff;
+        }
+
+        .transform-item .overlay .label {
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            opacity: 0.7;
+        }
+
+        .transform-item .overlay .name {
+            font-family: var(--font-heading);
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .transform-categories {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 24px;
+        }
+
+        .transform-categories button {
+            padding: 6px 18px;
+            border-radius: 30px;
+            border: 1px solid var(--border);
+            font-size: 0.7rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            transition: all 0.3s;
+            background: transparent;
+        }
+
+        .transform-categories button:hover,
+        .transform-categories button.active {
+            border-color: var(--primary);
+            color: var(--text);
+            background: var(--surface-soft);
+        }
+
+        @media (max-width: 600px) {
+            .transform-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 12px;
+            }
+
+            .transform-item .overlay .name {
+                font-size: 0.9rem;
+            }
+        }
+
+        /* ============================================================
+           BRIDAL
+           ============================================================ */
+        .bridal-timeline {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 16px;
+            margin: 28px 0;
+        }
+
+        .bridal-step {
+            padding: 16px 18px;
+            border-radius: var(--radius-sm);
+            background: var(--surface-soft);
+            border: 1px solid var(--border);
+            text-align: center;
+            transition: all 0.4s;
+        }
+
+        .bridal-step:hover {
+            border-color: var(--primary);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px var(--shadow);
+        }
+
+        .bridal-step .week {
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .bridal-step h5 {
+            font-family: var(--font-heading);
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text);
+            margin: 4px 0;
+        }
+
+        .bridal-step p {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            font-weight: 300;
+        }
+
+        /* ============================================================
+           MEMBERSHIP
+           ============================================================ */
+        .membership-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 28px;
+            margin-top: 12px;
+        }
+
+        .membership-card {
+            background: var(--surface-soft);
+            border-radius: var(--radius);
+            padding: 32px 28px;
+            border: 1px solid var(--border);
+            transition: all 0.5s;
+            position: relative;
+            box-shadow: 0 4px 20px var(--shadow);
+        }
+
+        .membership-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 16px 48px var(--shadow);
+            border-color: var(--primary);
+        }
+
+        .membership-card.featured {
+            border-color: var(--primary);
+            background: var(--surface);
+            box-shadow: 0 8px 40px var(--glow);
+        }
+
+        .membership-card.featured::before {
+            content: '★ RECOMMENDED';
+            position: absolute;
+            top: -10px;
+            right: 20px;
+            font-size: 0.55rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            padding: 4px 14px;
+            border-radius: 30px;
+            background: var(--primary);
+            color: #fff;
+        }
+
+        .membership-card h4 {
+            font-family: var(--font-heading);
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .membership-card .price {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text);
+            margin: 8px 0 4px;
+        }
+
+        .membership-card .price span {
+            font-size: 0.9rem;
+            font-weight: 400;
+            color: var(--text-muted);
+        }
+
+        .membership-card .perks {
+            margin: 16px 0 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .membership-card .perks li {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .membership-card .perks li i {
+            color: var(--primary);
+            font-size: 0.6rem;
+        }
+
+        /* ============================================================
+           BOOKING
+           ============================================================ */
+        .booking-container {
+            background: var(--surface-soft);
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            padding: 40px 48px;
+            box-shadow: 0 8px 40px var(--shadow);
+            transition: background 0.4s, border-color 0.4s;
+        }
+
+        .booking-progress {
+            display: flex;
+            gap: 6px;
+            margin-bottom: 28px;
+            justify-content: center;
+        }
+
+        .booking-progress .step {
+            flex: 1;
+            height: 4px;
+            border-radius: 4px;
+            background: var(--border);
+            transition: background 0.5s;
+            max-width: 60px;
+        }
+
+        .booking-progress .step.active {
+            background: var(--primary);
+        }
+
+        .booking-progress .step.done {
+            background: var(--primary);
+            opacity: 0.3;
+        }
+
+        .booking-step-content {
+            animation: fadeUp 0.5s ease;
+        }
+
+        .booking-step-content .step-title {
+            font-family: var(--font-heading);
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 4px;
+        }
+
+        .booking-step-content .step-sub {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-bottom: 20px;
+        }
+
+        .booking-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+
+        .booking-options button {
+            padding: 10px 14px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border);
+            background: transparent;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            transition: all 0.3s;
+            text-align: center;
+        }
+
+        .booking-options button:hover {
+            border-color: var(--primary);
+            color: var(--text);
+        }
+
+        .booking-options button.selected {
+            border-color: var(--primary);
+            background: var(--primary);
+            color: #fff;
+        }
+
+        .booking-nav {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 24px;
+            gap: 12px;
+        }
+
+        .booking-nav button {
+            padding: 10px 28px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.8rem;
+            transition: all 0.3s;
+        }
+
+        .booking-nav .prev {
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+        }
+
+        .booking-nav .prev:hover {
+            border-color: var(--primary);
+            color: var(--text);
+        }
+
+        .booking-nav .next {
+            background: var(--primary);
+            color: #fff;
+            box-shadow: 0 4px 20px var(--glow);
+        }
+
+        .booking-nav .next:hover {
+            background: var(--primary-dark);
+            transform: scale(1.02);
+        }
+
+        .booking-nav .next:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .booking-summary {
+            background: var(--background);
+            border-radius: var(--radius-sm);
+            padding: 20px 24px;
+            border: 1px solid var(--border);
+            margin: 16px 0;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px 20px;
+        }
+
+        .booking-summary .item {
+            font-size: 0.8rem;
+            display: flex;
+            justify-content: space-between;
+            color: var(--text-muted);
+        }
+
+        .booking-summary .item .val {
+            color: var(--text);
+            font-weight: 500;
+        }
+
+        .booking-success {
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        .booking-success i {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 12px;
+        }
+
+        .booking-success h3 {
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            color: var(--text);
+        }
+
+        .booking-success p {
+            color: var(--text-muted);
+            max-width: 400px;
+            margin: 4px auto 0;
+        }
+
+        @media (max-width: 600px) {
+            .booking-container {
+                padding: 24px 16px;
+            }
+
+            .booking-options {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .booking-summary {
+                grid-template-columns: 1fr;
+            }
+
+            .booking-nav {
+                flex-direction: column;
+            }
+
+            .booking-nav button {
+                width: 100%;
+                text-align: center;
+            }
+        }
+
+        /* ============================================================
+           SHOP
+           ============================================================ */
+        .shop-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 24px;
+        }
+
+        .shop-item {
+            background: var(--surface-soft);
+            border-radius: var(--radius);
+            overflow: hidden;
+            border: 1px solid var(--border);
+            transition: all 0.4s;
+            box-shadow: 0 4px 16px var(--shadow);
+        }
+
+        .shop-item:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 40px var(--shadow);
+            border-color: var(--primary);
+        }
+
+        .shop-item .shop-img {
+            aspect-ratio: 1/1;
+            overflow: hidden;
+            background: var(--background-secondary);
+        }
+
+        .shop-item .shop-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.7s ease;
+        }
+
+        .shop-item:hover .shop-img img {
+            transform: scale(1.06);
+        }
+
+        .shop-item .shop-body {
+            padding: 14px 16px 18px;
+        }
+
+        .shop-item .shop-body h4 {
+            font-family: var(--font-heading);
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .shop-item .shop-body .price {
+            font-weight: 700;
+            color: var(--text);
+            font-size: 1rem;
+            margin: 2px 0 6px;
+        }
+
+        .shop-item .shop-body .desc {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-weight: 300;
+            margin-bottom: 10px;
+        }
+
+        .shop-item .shop-body .actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .shop-item .shop-body .actions button {
+            padding: 6px 16px;
+            border-radius: 30px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            border: 1px solid var(--border);
+            transition: all 0.3s;
+            background: transparent;
+            color: var(--text);
+        }
+
+        .shop-item .shop-body .actions button:hover {
+            border-color: var(--primary);
+            background: var(--primary);
+            color: #fff;
+        }
+
+        .shop-item .shop-body .actions button.wish {
+            width: 32px;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-size: 0.8rem;
+        }
+
+        /* ============================================================
+           CART
+           ============================================================ */
+        .cart-drawer {
+            position: fixed;
+            top: 0;
+            right: -420px;
+            width: 400px;
+            max-width: 90vw;
+            height: 100vh;
+            z-index: 9999;
+            background: var(--surface);
+            border-left: 1px solid var(--border);
+            box-shadow: -8px 0 40px var(--shadow);
+            padding: 24px 28px;
+            transition: right 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+        }
+
+        .cart-drawer.open {
+            right: 0;
+        }
+
+        .cart-drawer .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .cart-drawer .cart-header h3 {
+            font-family: var(--font-heading);
+            font-size: 1.4rem;
+            font-weight: 600;
+        }
+
+        .cart-drawer .cart-header button {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            transition: color 0.3s;
+        }
+
+        .cart-drawer .cart-header button:hover {
+            color: var(--text);
+        }
+
+        .cart-drawer .cart-items {
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        .cart-drawer .cart-item {
+            display: flex;
+            gap: 14px;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .cart-drawer .cart-item .item-img {
+            width: 56px;
+            height: 56px;
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+            background: var(--background-secondary);
+            flex-shrink: 0;
+        }
+
+        .cart-drawer .cart-item .item-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .cart-drawer .cart-item .item-info {
+            flex: 1;
+        }
+
+        .cart-drawer .cart-item .item-info h5 {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .cart-drawer .cart-item .item-info .qty {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        .cart-drawer .cart-item .item-info .qty button {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            border: 1px solid var(--border);
+            font-size: 0.7rem;
+            transition: all 0.3s;
+        }
+
+        .cart-drawer .cart-item .item-info .qty button:hover {
+            border-color: var(--primary);
+        }
+
+        .cart-drawer .cart-item .item-price {
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: var(--text);
+        }
+
+        .cart-drawer .cart-total {
+            border-top: 1px solid var(--border);
+            padding-top: 16px;
+            display: flex;
+            justify-content: space-between;
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-top: 12px;
+        }
+
+        .cart-drawer .cart-checkout {
+            margin-top: 12px;
+            padding: 12px;
+            border-radius: 40px;
+            background: var(--primary);
+            color: #fff;
+            font-weight: 600;
+            text-align: center;
+            transition: background 0.3s;
+            width: 100%;
+        }
+
+        .cart-drawer .cart-checkout:hover {
+            background: var(--primary-dark);
+        }
+
+        .cart-drawer .empty-cart {
+            text-align: center;
+            color: var(--text-muted);
+            padding: 40px 0;
+        }
+
+        .cart-drawer .empty-cart i {
+            font-size: 2.4rem;
+            margin-bottom: 8px;
+            opacity: 0.3;
+        }
+
+        .cart-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 9998;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(4px);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s ease;
+        }
+
+        .cart-overlay.open {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        /* ============================================================
+           REVIEWS
+           ============================================================ */
+        .reviews-marquee {
+            overflow: hidden;
+            display: flex;
+            gap: 24px;
+            padding: 8px 0;
+            white-space: nowrap;
+            animation: marquee 40s linear infinite;
+        }
+
+        .reviews-marquee .review-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 14px;
+            background: var(--surface-soft);
+            padding: 12px 24px 12px 16px;
+            border-radius: 60px;
+            border: 1px solid var(--border);
+            flex-shrink: 0;
+            font-size: 0.8rem;
+        }
+
+        .reviews-marquee .review-item img {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .reviews-marquee .review-item .stars {
+            color: var(--primary);
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+        }
+
+        .reviews-marquee .review-item .location {
+            color: var(--text-muted);
+            font-size: 0.65rem;
+            font-weight: 300;
+        }
+
+        @keyframes marquee {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        /* ============================================================
+           JOURNAL
+           ============================================================ */
+        .journal-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 28px;
+        }
+
+        .journal-card {
+            background: var(--surface-soft);
+            border-radius: var(--radius);
+            overflow: hidden;
+            border: 1px solid var(--border);
+            transition: all 0.4s;
+            box-shadow: 0 4px 16px var(--shadow);
+        }
+
+        .journal-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 40px var(--shadow);
+            border-color: var(--primary);
+        }
+
+        .journal-card .journal-img {
+            aspect-ratio: 1.3/1;
+            overflow: hidden;
+            background: var(--background-secondary);
+        }
+
+        .journal-card .journal-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.7s ease;
+        }
+
+        .journal-card:hover .journal-img img {
+            transform: scale(1.05);
+        }
+
+        .journal-card .journal-body {
+            padding: 16px 20px 20px;
+        }
+
+        .journal-card .journal-body .cat {
+            font-size: 0.55rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .journal-card .journal-body h4 {
+            font-family: var(--font-heading);
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text);
+            margin: 4px 0;
+        }
+
+        .journal-card .journal-body .meta {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            display: flex;
+            gap: 12px;
+            margin-bottom: 8px;
+        }
+
+        .journal-card .journal-body .excerpt {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-weight: 300;
+            line-height: 1.5;
+        }
+
+        /* ============================================================
+           GIFT
+           ============================================================ */
+        .gift-preview {
+            background: var(--surface-soft);
+            border-radius: var(--radius);
+            padding: 32px 40px;
+            border: 1px solid var(--border);
+            text-align: center;
+            max-width: 500px;
+            margin: 0 auto;
+            transition: all 0.4s;
+            box-shadow: 0 8px 32px var(--shadow);
+        }
+
+        .gift-preview .card-design {
+            padding: 40px 20px;
+            border-radius: var(--radius-sm);
+            background: var(--background);
+            border: 2px dashed var(--border);
+            margin-bottom: 16px;
+            transition: border-color 0.4s;
+        }
+
+        .gift-preview .card-design h4 {
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            color: var(--text);
+        }
+
+        .gift-preview .card-design .amount {
+            font-size: 2.4rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .gift-preview .card-design .msg {
+            font-style: italic;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-top: 8px;
+        }
+
+        .gift-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .gift-options input,
+        .gift-options select {
+            padding: 10px 14px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border);
+            background: var(--background);
+            color: var(--text);
+            font-size: 0.8rem;
+            width: 100%;
+            transition: border-color 0.3s;
+        }
+
+        .gift-options input:focus,
+        .gift-options select:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        @media (max-width: 600px) {
+            .gift-options {
+                grid-template-columns: 1fr;
+            }
+
+            .gift-preview {
+                padding: 20px 16px;
+            }
+        }
+
+        /* ============================================================
+           LOCATION & CONTACT
+           ============================================================ */
+        .location-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+
+        .location-map {
+            background: var(--surface-soft);
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            aspect-ratio: 1.2/1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .location-map .map-placeholder {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            opacity: 0.5;
+        }
+
+        .location-map .map-placeholder i {
+            font-size: 2.4rem;
+        }
+
+        .location-info {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .location-info .branch-tabs {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .location-info .branch-tabs button {
+            padding: 6px 18px;
+            border-radius: 30px;
+            border: 1px solid var(--border);
+            font-size: 0.7rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            transition: all 0.3s;
+            background: transparent;
+        }
+
+        .location-info .branch-tabs button:hover,
+        .location-info .branch-tabs button.active {
+            border-color: var(--primary);
+            color: var(--text);
+            background: var(--surface-soft);
+        }
+
+        .location-info .branch-detail {
+            background: var(--surface-soft);
+            border-radius: var(--radius-sm);
+            padding: 18px 22px;
+            border: 1px solid var(--border);
+        }
+
+        .location-info .branch-detail h4 {
+            font-family: var(--font-heading);
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .location-info .branch-detail p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin: 2px 0;
+        }
+
+        .location-info .branch-detail .status {
+            display: inline-block;
+            padding: 2px 12px;
+            border-radius: 20px;
+            font-size: 0.6rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            background: var(--primary);
+            color: #fff;
+            margin-top: 6px;
+        }
+
+        .location-info .branch-detail .status.closed {
+            background: var(--text-muted);
+        }
+
+        @media (max-width: 768px) {
+            .location-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .location-map {
+                aspect-ratio: 1.4/1;
+            }
+        }
+
+        /* ============================================================
+           CONTACT FORM
+           ============================================================ */
+        .contact-form {
+            background: var(--surface-soft);
+            border-radius: var(--radius);
+            padding: 36px 40px;
+            border: 1px solid var(--border);
+            box-shadow: 0 8px 32px var(--shadow);
+            transition: background 0.4s, border-color 0.4s;
+        }
+
+        .contact-form .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .contact-form .form-group {
+            margin-bottom: 16px;
+        }
+
+        .contact-form .form-group label {
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            color: var(--text-muted);
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .contact-form .form-group input,
+        .contact-form .form-group select,
+        .contact-form .form-group textarea {
+            width: 100%;
+            padding: 10px 14px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border);
+            background: var(--background);
+            color: var(--text);
+            font-size: 0.85rem;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            font-family: var(--font-body);
+        }
+
+        .contact-form .form-group input:focus,
+        .contact-form .form-group select:focus,
+        .contact-form .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px var(--glow);
+        }
+
+        .contact-form .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .contact-form .form-group .checkbox {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .contact-form .form-group .checkbox input {
+            width: auto;
+            accent-color: var(--primary);
+        }
+
+        .contact-form .form-success {
+            text-align: center;
+            padding: 20px 0;
+            display: none;
+        }
+
+        .contact-form .form-success.show {
+            display: block;
+            animation: fadeUp 0.6s ease;
+        }
+
+        .contact-form .form-success i {
+            font-size: 2.4rem;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+
+        .contact-form .form-success h4 {
+            font-family: var(--font-heading);
+            font-size: 1.4rem;
+            color: var(--text);
+        }
+
+        @media (max-width: 600px) {
+            .contact-form {
+                padding: 24px 16px;
+            }
+
+            .contact-form .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ============================================================
+           FOOTER
+           ============================================================ */
+        .footer {
+            background: var(--background-secondary);
+            border-top: 1px solid var(--border);
+            padding: 60px 0 30px;
+            transition: background 0.6s, border-color 0.6s;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-brand h3 {
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        .footer-brand p {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            font-weight: 300;
+            max-width: 280px;
+            margin-top: 6px;
+            line-height: 1.6;
+        }
+
+        .footer-brand .social {
+            display: flex;
+            gap: 12px;
+            margin-top: 14px;
+        }
+
+        .footer-brand .social a {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            transition: all 0.3s;
+            font-size: 0.85rem;
+        }
+
+        .footer-brand .social a:hover {
+            border-color: var(--primary);
+            color: var(--text);
+            background: var(--surface-soft);
+        }
+
+        .footer-col h5 {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 12px;
+        }
+
+        .footer-col a {
+            display: block;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            padding: 4px 0;
+            transition: color 0.3s;
+        }
+
+        .footer-col a:hover {
+            color: var(--text);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid var(--border);
+            padding-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+            font-size: 0.7rem;
+            color: var(--text-muted);
+        }
+
+        .footer-bottom .legal {
+            display: flex;
+            gap: 20px;
+        }
+
+        .footer-bottom .legal a {
+            color: var(--text-muted);
+            transition: color 0.3s;
+        }
+
+        .footer-bottom .legal a:hover {
+            color: var(--text);
+        }
+
+        .footer-phrase {
+            font-family: var(--font-heading);
+            font-size: clamp(1.8rem, 4vw, 3.2rem);
+            font-weight: 700;
+            font-style: italic;
+            color: var(--text);
+            text-align: center;
+            padding: 20px 0 30px;
+            letter-spacing: 0.02em;
+            opacity: 0.6;
+            border-top: 1px solid var(--border);
+            margin-top: 20px;
+        }
+
+        @media (max-width: 1024px) {
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 28px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+            .footer-bottom .legal {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+
+        /* ============================================================
+           TOAST
+           ============================================================ */
+        .toast-container {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 99999;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            pointer-events: none;
+        }
+
+        .toast {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 14px 24px;
+            box-shadow: 0 8px 32px var(--shadow);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.85rem;
+            color: var(--text);
+            transform: translateX(120%);
+            transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            pointer-events: all;
+            min-width: 200px;
+        }
+
+        .toast.show {
+            transform: translateX(0);
+        }
+
+        .toast i {
+            color: var(--primary);
+            font-size: 1.1rem;
+        }
+
+        /* ============================================================
+           BACK TO TOP
+           ============================================================ */
+        .back-top {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            z-index: 999;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 20px var(--shadow);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            transition: all 0.3s;
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(20px);
+        }
+
+        .back-top.visible {
+            opacity: 1;
+            pointer-events: all;
+            transform: translateY(0);
+        }
+
+        .back-top:hover {
+            border-color: var(--primary);
+            color: var(--text);
+            transform: translateY(-4px);
+        }
+
+        /* ============================================================
+           RESPONSIVE HELPERS
+           ============================================================ */
+        @media (max-width: 768px) {
+            section {
+                padding: 50px 0;
+            }
+
+            .section-title {
+                font-size: clamp(1.8rem, 6vw, 2.6rem);
+            }
+
+            .section-header {
+                margin-bottom: 28px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            section {
+                padding: 36px 0;
+            }
+
+            .container {
+                padding: 0 14px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important;
+            }
+
+            .hero-scroll-indicator {
+                display: none;
+            }
+
+            .reviews-marquee {
+                animation: none;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ============================================================
+    PRELOADER
+    ============================================================ -->
+    <div id="preloader" aria-hidden="true">
+        <div class="preloader-glow"></div>
+        <div class="preloader-monogram">
+            <span>A</span><span>u</span><span>r</span><span>a</span>
+            <span style="margin:0 4px;">•</span>
+            <span>B</span><span>e</span><span>a</span><span>u</span><span>t</span><span>y</span>
+        </div>
+        <div class="preloader-bar-wrap">
+            <div class="preloader-bar" id="preloaderBar"></div>
+        </div>
+        <div class="preloader-percent" id="preloaderPercent">0%</div>
+    </div>
+
+    <!-- ============================================================
+    CUSTOM CURSOR
+    ============================================================ -->
+    <div class="cursor-dot" id="cursorDot"></div>
+    <div class="cursor-ring" id="cursorRing"></div>
+
+    <!-- ============================================================
+    NAVIGATION
+    ============================================================ -->
+    <nav class="navbar" id="navbar" role="navigation" aria-label="Main navigation">
+        <a href="#" class="nav-logo" aria-label="AuraBeauty Home">
+            <span class="logo-icon">A</span>
+            <span>AuraBeauty</span>
+        </a>
+
+        <ul class="nav-links" role="menubar">
+            <li role="none"><a href="#manifesto" role="menuitem">Salon</a></li>
+            <li role="none"><a href="#rituals" role="menuitem">Rituals</a></li>
+            <li role="none"><a href="#experts" role="menuitem">Experts</a></li>
+            <li role="none"><a href="#transformations" role="menuitem">Transformations</a></li>
+            <li role="none"><a href="#membership" role="menuitem">Membership</a></li>
+            <li role="none"><a href="#journal" role="menuitem">Journal</a></li>
+            <li role="none"><a href="#contact" role="menuitem">Contact</a></li>
+        </ul>
+
+        <div class="nav-cta">
+            <div class="nav-controls">
+                <button id="themeToggle" aria-label="Toggle theme" title="Toggle theme">
+                    <i class="fas fa-moon" id="themeIcon"></i>
+                </button>
+                <button id="generateTheme" aria-label="Generate new look" title="Generate new look">
+                    <i class="fas fa-palette"></i>
+                </button>
+                <button id="resetTheme" aria-label="Reset theme" title="Reset theme">
+                    <i class="fas fa-undo"></i>
+                </button>
+                <button id="cartToggle" aria-label="Shopping cart" title="Shopping cart">
+                    <i class="fas fa-bag-shopping"></i>
+                    <span id="cartCount">0</span>
+                </button>
+                <button id="langToggle" aria-label="Language" title="Language">
+                    <i class="fas fa-globe"></i>
+                </button>
+            </div>
+            <a href="#booking" class="btn-book">Book Appointment</a>
+            <div class="nav-hamburger" id="hamburger" role="button" aria-label="Toggle menu" tabindex="0">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu" role="dialog" aria-modal="true" aria-label="Mobile navigation">
+        <a href="#manifesto">Salon</a>
+        <a href="#rituals">Rituals</a>
+        <a href="#experts">Experts</a>
+        <a href="#transformations">Transformations</a>
+        <a href="#membership">Membership</a>
+        <a href="#journal">Journal</a>
+        <a href="#contact">Contact</a>
+        <a href="#booking" class="btn-book">Book Appointment</a>
+    </div>
+
+    <!-- ============================================================
+    HERO
+    ============================================================ -->
+    <section class="hero" id="hero" aria-label="Hero">
+        <div class="container">
+            <div class="hero-grid">
+                <div class="hero-content">
+                    <div class="hero-eyebrow">Modern European Beauty Atelier</div>
+                    <h1 class="hero-headline">
+                        <span class="line"><span>Your Beauty.</span></span>
+                        <span class="line"><span>Reimagined.</span></span>
+                    </h1>
+                    <p class="hero-sub">Personalized hair, skin and wellness experiences created around your confidence,
+                        lifestyle and individuality.</p>
+                    <div class="hero-buttons">
+                        <a href="#booking" class="btn-primary">Book Your Experience</a>
+                        <a href="#rituals" class="btn-secondary">Discover Our Rituals</a>
+                    </div>
+                    <div class="hero-trust">
+                        <span class="hero-trust-item"><i class="fas fa-check-circle"></i> 10+ Years Expertise</span>
+                        <span class="hero-trust-item"><i class="fas fa-star"></i> 4.9 Client Rating</span>
+                        <span class="hero-trust-item"><i class="fas fa-certificate"></i> Certified Professionals</span>
+                        <span class="hero-trust-item"><i class="fas fa-leaf"></i> Ethical Products</span>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="hero-image-wrap">
+                        <img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?w=800&h=1000&fit=crop&crop=center"
+                            alt="Luxury beauty salon interior" loading="eager"
+                            onerror="this.style.display='none';this.parentElement.style.background='var(--primary)'" />
+                        <div class="hero-floating-card">
+                            <div class="label">Next Available</div>
+                            <div class="value">Today, 2:30 PM</div>
+                            <div class="sub">London • Open until 8 PM</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="hero-scroll-indicator">
+            <span>Scroll</span>
+            <div class="line"></div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    MANIFESTO
+    ============================================================ -->
+    <section id="manifesto" aria-label="Salon manifesto">
+        <div class="container">
+            <div class="manifesto-grid">
+                <div class="manifesto-text">
+                    <span class="section-label">Our Philosophy</span>
+                    <h2 class="section-title">Beauty Should<br />Feel Personal</h2>
+                    <p>At <strong>AuraBeauty</strong>, we believe that true beauty is not a formula — it's a feeling.
+                        Every consultation begins with understanding <strong>you</strong>: your lifestyle, your
+                        confidence, your vision.</p>
+                    <p style="margin-top:12px;">From our <strong>European-trained experts</strong> to our consciously
+                        curated products, every detail is designed to make you feel seen, celebrated, and transformed.
+                    </p>
+                    <div class="manifesto-values">
+                        <div class="manifesto-value">
+                            <span class="num">01</span>
+                            <h4>Individual Beauty</h4>
+                            <p>Personalized rituals for your unique identity</p>
+                        </div>
+                        <div class="manifesto-value">
+                            <span class="num">02</span>
+                            <h4>Expert Craft</h4>
+                            <p>European techniques, modern mastery</p>
+                        </div>
+                        <div class="manifesto-value">
+                            <span class="num">03</span>
+                            <h4>Conscious Products</h4>
+                            <p>Ethical, sustainable, and effective</p>
+                        </div>
+                        <div class="manifesto-value">
+                            <span class="num">04</span>
+                            <h4>Effortless Luxury</h4>
+                            <p>Refined experiences, not pretension</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="manifesto-image">
+                    <img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=800&h=900&fit=crop&crop=center"
+                        alt="Luxury beauty treatment" loading="lazy"
+                        onerror="this.style.display='none';this.parentElement.style.background='var(--primary)'" />
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    SIGNATURE RITUALS
+    ============================================================ -->
+    <section id="rituals" aria-label="Signature rituals">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">Our Services</span>
+                <h2 class="section-title">Signature Rituals</h2>
+                <p class="section-desc">Curated beauty experiences designed to elevate your natural radiance.</p>
+            </div>
+            <div class="rituals-categories" id="ritualCategories">
+                <button class="active" data-cat="all">All</button>
+                <button data-cat="hair">Hair Design</button>
+                <button data-cat="skin">Skin Studio</button>
+                <button data-cat="nails">Nail Atelier</button>
+                <button data-cat="makeup">Makeup Studio</button>
+                <button data-cat="wellness">Body &amp; Wellness</button>
+            </div>
+            <div class="rituals-grid" id="ritualsGrid"></div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    BEAUTY FINDER
+    ============================================================ -->
+    <section id="finder" aria-label="Beauty finder">
+        <div class="container">
+            <div class="section-header centered">
+                <span class="section-label">Discover</span>
+                <h2 class="section-title">Find Your Perfect Beauty Ritual</h2>
+                <p class="section-desc">Answer a few questions and we'll recommend your ideal experience.</p>
+            </div>
+            <div class="finder-container" id="finderContainer">
+                <div class="finder-steps" id="finderSteps">
+                    <span class="step-dot active"></span>
+                    <span class="step-dot"></span>
+                    <span class="step-dot"></span>
+                </div>
+                <div id="finderContent"></div>
+                <div class="finder-result" id="finderResult"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    BEAUTY EXPERTS
+    ============================================================ -->
+    <section id="experts" aria-label="Beauty experts">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">Our Team</span>
+                <h2 class="section-title">Beauty Experts</h2>
+                <p class="section-desc">European-trained professionals dedicated to your transformation.</p>
+            </div>
+            <div class="experts-carousel" id="expertsGrid"></div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    TRANSFORMATIONS
+    ============================================================ -->
+    <section id="transformations" aria-label="Transformations gallery">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">Before &amp; After</span>
+                <h2 class="section-title">Transformations</h2>
+                <p class="section-desc">Real results from real clients, crafted with care and expertise.</p>
+            </div>
+            <div class="transform-categories" id="transformCategories">
+                <button class="active" data-cat="all">All</button>
+                <button data-cat="haircut">Haircuts</button>
+                <button data-cat="color">Hair Colour</button>
+                <button data-cat="skin">Skin</button>
+                <button data-cat="makeup">Makeup</button>
+                <button data-cat="bridal">Bridal</button>
+            </div>
+            <div class="transform-grid" id="transformGrid"></div>
+            <p style="font-size:0.7rem;color:var(--text-muted);margin-top:16px;text-align:center;font-style:italic;">
+                Individual results may vary.</p>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    BRIDAL BEAUTY JOURNEY
+    ============================================================ -->
+    <section id="bridal" aria-label="Bridal beauty journey">
+        <div class="container">
+            <div class="section-header centered">
+                <span class="section-label">Wedding</span>
+                <h2 class="section-title">Your Wedding Beauty Story</h2>
+                <p class="section-desc">From consultation to the aisle — a seamless bridal beauty journey.</p>
+            </div>
+            <div class="bridal-timeline">
+                <div class="bridal-step"><span class="week">12 Weeks</span>
+                    <h5>Consultation</h5>
+                    <p>Skin &amp; hair planning</p>
+                </div>
+                <div class="bridal-step"><span class="week">8 Weeks</span>
+                    <h5>Trial Run</h5>
+                    <p>Makeup &amp; styling test</p>
+                </div>
+                <div class="bridal-step"><span class="week">4 Weeks</span>
+                    <h5>Prep</h5>
+                    <p>Skincare &amp; nail prep</p>
+                </div>
+                <div class="bridal-step"><span class="week">1 Week</span>
+                    <h5>Finalize</h5>
+                    <p>Touch-up &amp; details</p>
+                </div>
+                <div class="bridal-step"><span class="week">Wedding Day</span>
+                    <h5>Your Moment</h5>
+                    <p>Full bridal styling</p>
+                </div>
+            </div>
+            <div style="text-align:center;margin-top:12px;">
+                <a href="#booking" class="btn-primary">Book Bridal Consultation</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    MEMBERSHIP
+    ============================================================ -->
+    <section id="membership" aria-label="Membership">
+        <div class="container">
+            <div class="section-header centered">
+                <span class="section-label">Exclusive</span>
+                <h2 class="section-title">Membership Experience</h2>
+                <p class="section-desc">Elevate your beauty routine with personalized care and exclusive privileges.</p>
+            </div>
+            <div class="membership-grid" id="membershipGrid"></div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    BOOKING
+    ============================================================ -->
+    <section id="booking" aria-label="Book appointment">
+        <div class="container">
+            <div class="section-header centered">
+                <span class="section-label">Reserve</span>
+                <h2 class="section-title">Book Your Experience</h2>
+                <p class="section-desc">Secure your ritual with our seamless booking journey.</p>
+            </div>
+            <div class="booking-container" id="bookingContainer">
+                <div class="booking-progress" id="bookingProgress">
+                    <span class="step active"></span>
+                    <span class="step"></span>
+                    <span class="step"></span>
+                    <span class="step"></span>
+                    <span class="step"></span>
+                </div>
+                <div id="bookingContent"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    BEAUTY EDIT SHOP
+    ============================================================ -->
+    <section id="shop" aria-label="Beauty shop">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">Shop</span>
+                <h2 class="section-title">The Beauty Edit</h2>
+                <p class="section-desc">Curated luxury products for your ritual at home.</p>
+            </div>
+            <div class="shop-grid" id="shopGrid"></div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    REVIEWS
+    ============================================================ -->
+    <section id="reviews" aria-label="Client reviews">
+        <div class="container">
+            <div class="section-header centered">
+                <span class="section-label">Testimonials</span>
+                <h2 class="section-title">Beauty Stories Across Europe</h2>
+            </div>
+            <div class="reviews-marquee" id="reviewsMarquee"></div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    BEAUTY JOURNAL
+    ============================================================ -->
+    <section id="journal" aria-label="Beauty journal">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">Read</span>
+                <h2 class="section-title">The Beauty Journal</h2>
+                <p class="section-desc">Insights, trends, and expert advice from our atelier.</p>
+            </div>
+            <div class="journal-grid" id="journalGrid"></div>
+            <div style="text-align:center;margin-top:32px;">
+                <button class="btn-secondary" style="padding:10px 32px;"
+                    onclick="showToast('Newsletter subscribed!')">Subscribe to Newsletter</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    GIFT CARDS
+    ============================================================ -->
+    <section id="gift" aria-label="Gift cards">
+        <div class="container">
+            <div class="section-header centered">
+                <span class="section-label">Give</span>
+                <h2 class="section-title">The Perfect Gift</h2>
+                <p class="section-desc">Share the gift of beauty with a personalized AuraBeauty card.</p>
+            </div>
+            <div class="gift-preview">
+                <div class="card-design" id="giftCardDesign">
+                    <h4>AuraBeauty</h4>
+                    <div class="amount" id="giftAmountDisplay">€150</div>
+                    <div class="msg" id="giftMsgDisplay">For the one who shines</div>
+                </div>
+                <div class="gift-options">
+                    <input type="number" id="giftAmount" value="150" step="10" min="25" placeholder="Amount (EUR)" />
+                    <input type="text" id="giftMessage" value="For the one who shines" placeholder="Your message" />
+                    <select id="giftRecipient">
+                        <option value="friend">Friend</option>
+                        <option value="partner">Partner</option>
+                        <option value="family">Family</option>
+                        <option value="colleague">Colleague</option>
+                    </select>
+                    <input type="date" id="giftDate" />
+                </div>
+                <button class="btn-primary" style="margin-top:16px;width:100%;"
+                    onclick="showToast('Gift card created!')">Send Gift Card</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    LOCATION & CONTACT
+    ============================================================ -->
+    <section id="contact" aria-label="Contact and location">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">Visit</span>
+                <h2 class="section-title">Our Ateliers</h2>
+                <p class="section-desc">Find us in Europe's most beautiful cities.</p>
+            </div>
+            <div class="location-grid">
+                <div class="location-map">
+                    <div class="map-placeholder">
+                        <i class="fas fa-map-location-dot"></i>
+                        <span>Interactive Map</span>
+                        <span style="font-size:0.7rem;">London • Paris • Berlin • Zurich</span>
+                    </div>
+                </div>
+                <div class="location-info">
+                    <div class="branch-tabs" id="branchTabs">
+                        <button class="active" data-branch="0">London</button>
+                        <button data-branch="1">Paris</button>
+                        <button data-branch="2">Berlin</button>
+                        <button data-branch="3">Zurich</button>
+                    </div>
+                    <div class="branch-detail" id="branchDetail">
+                        <h4>AuraBeauty London</h4>
+                        <p>42 Sloane Street, London SW1X 9AD</p>
+                        <p><i class="fas fa-phone" style="width:18px;"></i> +44 20 7123 4567</p>
+                        <p><i class="fas fa-envelope" style="width:18px;"></i> london@aurabeauty.com</p>
+                        <p><i class="fas fa-clock" style="width:18px;"></i> Mon–Sat 9:00 – 20:00</p>
+                        <span class="status">Open Now</span>
+                    </div>
+                    <div style="display:flex;gap:12px;flex-wrap:wrap;">
+                        <a href="#" class="btn-secondary" style="padding:8px 20px;font-size:0.75rem;"><i
+                                class="fab fa-whatsapp"></i> WhatsApp</a>
+                        <a href="#" class="btn-secondary" style="padding:8px 20px;font-size:0.75rem;"><i
+                                class="fas fa-directions"></i> Directions</a>
+                    </div>
+                </div>
+            </div>
+            <div style="margin-top:48px;">
+                <h3 style="font-family:var(--font-heading);font-size:1.4rem;font-weight:600;margin-bottom:16px;">Get in
+                    Touch</h3>
+                <div class="contact-form" id="contactForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="cfName">Full Name</label>
+                            <input type="text" id="cfName" placeholder="Your name" />
+                        </div>
+                        <div class="form-group">
+                            <label for="cfEmail">Email</label>
+                            <input type="email" id="cfEmail" placeholder="you@example.com" />
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="cfPhone">Phone</label>
+                            <input type="tel" id="cfPhone" placeholder="+44 700 000 0000" />
+                        </div>
+                        <div class="form-group">
+                            <label for="cfBranch">Preferred Branch</label>
+                            <select id="cfBranch">
+                                <option value="london">London</option>
+                                <option value="paris">Paris</option>
+                                <option value="berlin">Berlin</option>
+                                <option value="zurich">Zurich</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="cfService">Service Interest</label>
+                        <select id="cfService">
+                            <option value="hair">Hair Design</option>
+                            <option value="skin">Skin Studio</option>
+                            <option value="nails">Nail Atelier</option>
+                            <option value="makeup">Makeup Studio</option>
+                            <option value="wellness">Body &amp; Wellness</option>
+                            <option value="bridal">Bridal Beauty</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="cfMessage">Message</label>
+                        <textarea id="cfMessage" placeholder="Tell us about your beauty goals…"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label class="checkbox">
+                            <input type="checkbox" id="cfPrivacy" /> I agree to the privacy policy and consent to being
+                            contacted.
+                        </label>
+                    </div>
+                    <button class="btn-primary" id="cfSubmit">Send Message</button>
+                    <div class="form-success" id="cfSuccess">
+                        <i class="fas fa-check-circle"></i>
+                        <h4>Thank You</h4>
+                        <p>We'll be in touch within 24 hours.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    FOOTER
+    ============================================================ -->
+    <footer class="footer" role="contentinfo">
+        <div class="container">
+            <div class="footer-phrase">Beauty. Confidence. Individuality.</div>
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <h3>AuraBeauty</h3>
+                    <p>Modern European Beauty Atelier — personalized hair, skin, and wellness experiences.</p>
+                    <div class="social">
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Pinterest"><i class="fab fa-pinterest-p"></i></a>
+                        <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                        <a href="#" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h5>Salon</h5>
+                    <a href="#manifesto">Our Philosophy</a>
+                    <a href="#experts">Experts</a>
+                    <a href="#transformations">Transformations</a>
+                    <a href="#journal">Journal</a>
+                </div>
+                <div class="footer-col">
+                    <h5>Rituals</h5>
+                    <a href="#rituals">Hair Design</a>
+                    <a href="#rituals">Skin Studio</a>
+                    <a href="#rituals">Nail Atelier</a>
+                    <a href="#rituals">Wellness</a>
+                </div>
+                <div class="footer-col">
+                    <h5>Contact</h5>
+                    <a href="#contact">London</a>
+                    <a href="#contact">Paris</a>
+                    <a href="#contact">Berlin</a>
+                    <a href="#contact">Zurich</a>
+                    <a href="#booking">Book Now</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <span>&copy; 2026 AuraBeauty. All rights reserved.</span>
+                <div class="legal">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms</a>
+                    <a href="#">Cookie Settings</a>
+                    <a href="#">Accessibility</a>
+                </div>
+                <span style="display:flex;align-items:center;gap:6px;">
+                    <i class="fas fa-globe"></i>
+                    <select
+                        style="background:transparent;border:none;color:var(--text-muted);font-size:0.7rem;font-family:var(--font-body);"
+                        id="footerLang">
+                        <option value="en">English</option>
+                        <option value="fr">Français</option>
+                        <option value="de">Deutsch</option>
+                        <option value="it">Italiano</option>
+                        <option value="es">Español</option>
+                        <option value="nl">Nederlands</option>
+                    </select>
+                </span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ============================================================
+    CART DRAWER
+    ============================================================ -->
+    <div class="cart-overlay" id="cartOverlay"></div>
+    <div class="cart-drawer" id="cartDrawer" role="dialog" aria-modal="true" aria-label="Shopping cart">
+        <div class="cart-header">
+            <h3>Your Edit</h3>
+            <button id="cartClose" aria-label="Close cart">&times;</button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <div class="empty-cart">
+                <i class="fas fa-bag-shopping"></i>
+                <p>Your edit is empty.</p>
+            </div>
+        </div>
+        <div class="cart-total">
+            <span>Total</span>
+            <span id="cartTotal">€0</span>
+        </div>
+        <button class="cart-checkout" onclick="showToast('Proceeding to checkout…')">Checkout</button>
+    </div>
+
+    <!-- ============================================================
+    BACK TO TOP
+    ============================================================ -->
+    <button class="back-top" id="backTop" aria-label="Back to top">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <!-- ============================================================
+    TOAST CONTAINER
+    ============================================================ -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- ============================================================
+    JAVASCRIPT — All Vanilla
+    ============================================================ -->
+    <script>
+        (function () {
+            'use strict';
+
+            // ============================================================
+            // DATA
+            // ============================================================
+            const PALETTES = [
+                {
+                    name: 'Lavender Smoke', background: '#f6f2ed', backgroundSecondary: '#ede7e0', surface: '#ffffff',
+                    surfaceSoft: '#f9f5f0', primary: '#a3907d', primaryDark: '#7a6b5c', secondary: '#c9b9a8',
+                    accent: '#b8a08c', accentSoft: '#e8dfd7', text: '#1e1a16', textMuted: '#6b5f55',
+                    border: '#e0d8d0', shadow: 'rgba(30,26,22,0.08)', glow: 'rgba(163,144,125,0.15)',
+                    gradientStart: '#f6f2ed', gradientEnd: '#ede7e0'
+                },
+                {
+                    name: 'Ocean Teal', background: '#f0f4f2', backgroundSecondary: '#e4ece8', surface: '#ffffff',
+                    surfaceSoft: '#f6faf8', primary: '#5f8a7a', primaryDark: '#3e6659', secondary: '#a3bfb4',
+                    accent: '#7ba392', accentSoft: '#dce8e2', text: '#1a2420', textMuted: '#4d6159',
+                    border: '#d0ded8', shadow: 'rgba(26,36,32,0.08)', glow: 'rgba(95,138,122,0.15)',
+                    gradientStart: '#f0f4f2', gradientEnd: '#e4ece8'
+                },
+                {
+                    name: 'Sapphire Blue', background: '#f0f2f6', backgroundSecondary: '#e4e8f0', surface: '#ffffff',
+                    surfaceSoft: '#f6f8fc', primary: '#5a6f8a', primaryDark: '#3e5066', secondary: '#9aafc4',
+                    accent: '#7a8fa5', accentSoft: '#dce4ec', text: '#161c24', textMuted: '#4d5966',
+                    border: '#d0d8e0', shadow: 'rgba(22,28,36,0.08)', glow: 'rgba(90,111,138,0.15)',
+                    gradientStart: '#f0f2f6', gradientEnd: '#e4e8f0'
+                },
+                {
+                    name: 'Terracotta', background: '#f5ede6', backgroundSecondary: '#ece2d8', surface: '#ffffff',
+                    surfaceSoft: '#faf3ec', primary: '#b58a70', primaryDark: '#8d6b55', secondary: '#d4b8a4',
+                    accent: '#c49a80', accentSoft: '#e8dcd2', text: '#1e1612', textMuted: '#6b5a4e',
+                    border: '#e0d4ca', shadow: 'rgba(30,22,18,0.08)', glow: 'rgba(181,138,112,0.15)',
+                    gradientStart: '#f5ede6', gradientEnd: '#ece2d8'
+                },
+                {
+                    name: 'Dusty Rose', background: '#f5edee', backgroundSecondary: '#ede2e4', surface: '#ffffff',
+                    surfaceSoft: '#faf4f5', primary: '#b0888a', primaryDark: '#8a6769', secondary: '#d4b6b8',
+                    accent: '#c49a9c', accentSoft: '#e8dadd', text: '#1e1616', textMuted: '#6b5556',
+                    border: '#e0d0d2', shadow: 'rgba(30,22,22,0.08)', glow: 'rgba(176,136,138,0.15)',
+                    gradientStart: '#f5edee', gradientEnd: '#ede2e4'
+                },
+                {
+                    name: 'Cobalt Blue', background: '#f0f2f8', backgroundSecondary: '#e4e8f2', surface: '#ffffff',
+                    surfaceSoft: '#f6f8fe', primary: '#4a5f8a', primaryDark: '#2f4466', secondary: '#8a9fc4',
+                    accent: '#6a7fa5', accentSoft: '#dce2ec', text: '#141c26', textMuted: '#4a5566',
+                    border: '#d0d8e4', shadow: 'rgba(20,28,38,0.08)', glow: 'rgba(74,95,138,0.15)',
+                    gradientStart: '#f0f2f8', gradientEnd: '#e4e8f2'
+                },
+                {
+                    name: 'Mauve', background: '#f4eff0', backgroundSecondary: '#ece4e6', surface: '#ffffff',
+                    surfaceSoft: '#faf6f7', primary: '#a88a8e', primaryDark: '#7a676a', secondary: '#ccb6b8',
+                    accent: '#b89a9e', accentSoft: '#e6dadd', text: '#1e1617', textMuted: '#6b5558',
+                    border: '#e0d2d4', shadow: 'rgba(30,22,23,0.08)', glow: 'rgba(168,138,142,0.15)',
+                    gradientStart: '#f4eff0', gradientEnd: '#ece4e6'
+                },
+                {
+                    name: 'Forest Blue', background: '#f0f2f0', backgroundSecondary: '#e4e8e4', surface: '#ffffff',
+                    surfaceSoft: '#f6faf6', primary: '#5a7a6a', primaryDark: '#3e5a4e', secondary: '#9ab4a4',
+                    accent: '#7a9a8a', accentSoft: '#dce8e0', text: '#161e18', textMuted: '#4d6156',
+                    border: '#d0ded4', shadow: 'rgba(22,30,24,0.08)', glow: 'rgba(90,122,106,0.15)',
+                    gradientStart: '#f0f2f0', gradientEnd: '#e4e8e4'
+                },
+                {
+                    name: 'Rosewood', background: '#f5ede8', backgroundSecondary: '#ede2da', surface: '#ffffff',
+                    surfaceSoft: '#faf4ee', primary: '#b0806a', primaryDark: '#8a5f4e', secondary: '#d4b4a4',
+                    accent: '#c49480', accentSoft: '#e8dcd4', text: '#1e1612', textMuted: '#6b5a4e',
+                    border: '#e0d4ca', shadow: 'rgba(30,22,18,0.08)', glow: 'rgba(176,128,106,0.15)',
+                    gradientStart: '#f5ede8', gradientEnd: '#ede2da'
+                },
+                {
+                    name: 'Midnight Navy', background: '#f0f2f4', backgroundSecondary: '#e4e6ec', surface: '#ffffff',
+                    surfaceSoft: '#f6f8fc', primary: '#4a5a7a', primaryDark: '#2e3e5a', secondary: '#8a9ab8',
+                    accent: '#6a7a9a', accentSoft: '#dce2ec', text: '#141a22', textMuted: '#4a5566',
+                    border: '#d0d8e0', shadow: 'rgba(20,26,34,0.08)', glow: 'rgba(74,90,122,0.15)',
+                    gradientStart: '#f0f2f4', gradientEnd: '#e4e6ec'
+                },
+                {
+                    name: 'Deep Aubergine', background: '#f4eeec', backgroundSecondary: '#ece4e0', surface: '#ffffff',
+                    surfaceSoft: '#faf6f2', primary: '#8a6a6a', primaryDark: '#664a4a', secondary: '#c4a8a8',
+                    accent: '#a88282', accentSoft: '#e6dada', text: '#1e1614', textMuted: '#6b5552',
+                    border: '#e0d0ce', shadow: 'rgba(30,22,20,0.08)', glow: 'rgba(138,106,106,0.15)',
+                    gradientStart: '#f4eeec', gradientEnd: '#ece4e0'
+                },
+                {
+                    name: 'Slate Blue', background: '#f0f0f2', backgroundSecondary: '#e4e4e8', surface: '#ffffff',
+                    surfaceSoft: '#f6f6fa', primary: '#6a7a8a', primaryDark: '#4a5a6a', secondary: '#aab4c0',
+                    accent: '#8a9aaa', accentSoft: '#dce2e8', text: '#161a1e', textMuted: '#4d5560',
+                    border: '#d0d4dc', shadow: 'rgba(22,26,30,0.08)', glow: 'rgba(106,122,138,0.15)',
+                    gradientStart: '#f0f0f2', gradientEnd: '#e4e4e8'
+                }
+            ];
+
+            const rituals = [
+                {
+                    id: 1, category: 'hair', name: 'Signature Cut', desc: 'Precision cutting tailored to your face shape and lifestyle.',
+                    duration: '60 min', price: '€120', suitable: 'All hair types'
+                },
+                {
+                    id: 2, category: 'hair', name: 'Luxury Blow-Dry', desc: 'Volumizing, smoothing blow-dry with heat protection.',
+                    duration: '45 min', price: '€75', suitable: 'All hair types'
+                },
+                {
+                    id: 3, category: 'hair', name: 'Balayage', desc: 'Hand-painted highlights for natural, sun-kissed dimension.',
+                    duration: '120 min', price: '€210', suitable: 'All hair types'
+                },
+                {
+                    id: 4, category: 'hair', name: 'Colour Transformation', desc: 'Bold or subtle — a complete colour metamorphosis.',
+                    duration: '150 min', price: '€260', suitable: 'All hair types'
+                },
+                {
+                    id: 5, category: 'skin', name: 'Hydration Facial', desc: 'Deep hydration with hyaluronic acid and botanical extracts.',
+                    duration: '60 min', price: '€140', suitable: 'Dry, dehydrated skin'
+                },
+                {
+                    id: 6, category: 'skin', name: 'Brightening Ritual', desc: 'Vitamin C and enzyme treatment for radiant luminosity.',
+                    duration: '75 min', price: '€170', suitable: 'Dull, uneven skin'
+                },
+                {
+                    id: 7, category: 'skin', name: 'Anti-Aging Treatment', desc: 'Peptide-rich therapy for firmness and elasticity.',
+                    duration: '90 min', price: '€200', suitable: 'Mature skin'
+                },
+                {
+                    id: 8, category: 'nails', name: 'Signature Manicure', desc: 'Nourishing treatment with perfect polish finish.',
+                    duration: '45 min', price: '€55', suitable: 'All nail types'
+                },
+                {
+                    id: 9, category: 'nails', name: 'Luxury Pedicure', desc: 'Complete foot rejuvenation with massage and polish.',
+                    duration: '60 min', price: '€75', suitable: 'All nail types'
+                },
+                {
+                    id: 10, category: 'makeup', name: 'Bridal Makeup', desc: 'Flawless, long-wearing makeup for your wedding day.',
+                    duration: '90 min', price: '€220', suitable: 'All skin types'
+                },
+                {
+                    id: 11, category: 'makeup', name: 'Event Makeup', desc: 'Red-carpet ready makeup for any special occasion.',
+                    duration: '60 min', price: '€150', suitable: 'All skin types'
+                },
+                {
+                    id: 12, category: 'wellness', name: 'Relaxation Massage', desc: 'Full-body massage to release tension and restore balance.',
+                    duration: '60 min', price: '€130', suitable: 'All body types'
+                },
+                {
+                    id: 13, category: 'wellness', name: 'Aromatherapy', desc: 'Essential oil journey for deep relaxation and wellbeing.',
+                    duration: '75 min', price: '€160', suitable: 'All body types'
+                },
+            ];
+
+            const experts = [
+                {
+                    name: 'Elise Fournier', role: 'Creative Hair Director', years: 14, specialties: ['Cutting',
+                        'Colour', 'Balayage'
+                    ], cert: 'L\'Oréal Paris Certified', lang: 'EN, FR', img: 'https://images.unsplash.com/photo-1580618672591-eb180b1a973f?w=400&h=500&fit=crop&crop=center'
+                },
+                {
+                    name: 'Mia Schmidt', role: 'Colour Specialist', years: 10, specialties: ['Vivid Colours',
+                        'Balayage', 'Correction'
+                    ], cert: 'Wella Master Colourist', lang: 'EN, DE', img: 'https://images.unsplash.com/photo-1595152772835-219674b2a8a6?w=400&h=500&fit=crop&crop=center'
+                },
+                {
+                    name: 'Sofia Rossi', role: 'Advanced Skin Therapist', years: 12, specialties: ['Facial',
+                        'Anti-Aging', 'LED'
+                    ], cert: 'CIDESCO Certified', lang: 'EN, IT', img: 'https://images.unsplash.com/photo-1567532939604-b6b5b0db2604?w=400&h=500&fit=crop&crop=center'
+                },
+                {
+                    name: 'Amara Okafor', role: 'Bridal Beauty Artist', years: 8, specialties: ['Bridal Makeup',
+                        'Hairstyling', 'Airbrush'
+                    ], cert: 'MAC Pro Artist', lang: 'EN, FR', img: 'https://images.unsplash.com/photo-1517365830460-955ce3ccd263?w=400&h=500&fit=crop&crop=center'
+                },
+                {
+                    name: 'Lea Dubois', role: 'Nail Design Expert', years: 9, specialties: ['Gel Art', 'Sculpting',
+                        'Bridal Nails'
+                    ], cert: 'CND Certified', lang: 'EN, FR, NL', img: 'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=400&h=500&fit=crop&crop=center'
+                },
+                {
+                    name: 'Jonas Berg', role: 'Wellness Therapist', years: 11, specialties: ['Massage',
+                        'Aromatherapy', 'Body Treatments'
+                    ], cert: 'ITEC Diploma', lang: 'EN, DE, SV', img: 'https://images.unsplash.com/photo-1546456073-92b9f0a8d413?w=400&h=500&fit=crop&crop=center'
+                },
+            ];
+
+            const transformations = [
+                { id: 1, category: 'haircut', label: 'Precision Cut', img: 'https://images.unsplash.com/photo-1562322140-8baeececf3df?w=400&h=500&fit=crop&crop=center' },
+                { id: 2, category: 'color', label: 'Balayage Glow', img: 'https://images.unsplash.com/photo-1595476108010-b4d1f102b1b1?w=400&h=500&fit=crop&crop=center' },
+                { id: 3, category: 'skin', label: 'Radiant Renewal', img: 'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=400&h=500&fit=crop&crop=center' },
+                { id: 4, category: 'makeup', label: 'Bridal Glam', img: 'https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?w=400&h=500&fit=crop&crop=center' },
+                { id: 5, category: 'bridal', label: 'The Aisle Look', img: 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=400&h=500&fit=crop&crop=center' },
+                { id: 6, category: 'haircut', label: 'Textured Layers', img: 'https://images.unsplash.com/photo-1580618672591-eb180b1a973f?w=400&h=500&fit=crop&crop=center' },
+                { id: 7, category: 'color', label: 'Copper Glow', img: 'https://images.unsplash.com/photo-1562322140-8baeececf3df?w=400&h=500&fit=crop&crop=center' },
+                { id: 8, category: 'skin', label: 'Hydration Boost', img: 'https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=400&h=500&fit=crop&crop=center' },
+            ];
+
+            const shopItems = [
+                {
+                    id: 1, name: 'Repair Hair Serum', desc: 'Restorative serum for damaged hair.', price: 48, rating: 4.8,
+                    size: '50ml', img: 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=300&h=300&fit=crop&crop=center'
+                },
+                {
+                    id: 2, name: 'Botanical Face Oil', desc: 'Nourishing blend of 7 organic oils.', price: 62, rating: 4.9,
+                    size: '30ml', img: 'https://images.unsplash.com/photo-1556228720-195a672e8a03?w=300&h=300&fit=crop&crop=center'
+                },
+                {
+                    id: 3, name: 'Vitamin C Glow Serum', desc: 'Brightening and firming vitamin C complex.', price: 55,
+                    rating: 4.7, size: '30ml', img: 'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=300&h=300&fit=crop&crop=center'
+                },
+                {
+                    id: 4, name: 'Hydration Cream', desc: 'Intense moisture with hyaluronic acid.', price: 45, rating: 4.6,
+                    size: '50ml', img: 'https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=300&h=300&fit=crop&crop=center'
+                },
+                {
+                    id: 5, name: 'Luxury Body Elixir', desc: 'Silky body oil with botanical extracts.', price: 38,
+                    rating: 4.5, size: '100ml', img: 'https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=300&h=300&fit=crop&crop=center'
+                },
+                {
+                    id: 6, name: 'Cuticle Treatment', desc: 'Nourishing cuticle oil with vitamin E.', price: 22, rating: 4.4,
+                    size: '15ml', img: 'https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?w=300&h=300&fit=crop&crop=center'
+                },
+            ];
+
+            const reviews = [
+                {
+                    name: 'Camille', location: 'Paris', text: 'The most luxurious facial I\'ve ever experienced. My skin glowed for days.',
+                    rating: 5, img: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop&crop=center'
+                },
+                {
+                    name: 'Oliver', location: 'London', text: 'AuraBeauty transformed my hair completely. I feel like a new person.',
+                    rating: 5, img: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=center'
+                },
+                {
+                    name: 'Sophie', location: 'Berlin', text: 'The bridal team made me feel so confident on my wedding day. Pure magic.',
+                    rating: 5, img: 'https://images.unsplash.com/photo-1494790108379-be9c2b0ee8e6?w=100&h=100&fit=crop&crop=center'
+                },
+                {
+                    name: 'Lars', location: 'Zurich', text: 'Professional, kind, and incredibly skilled. Best salon experience in Europe.',
+                    rating: 5, img: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&fit=crop&crop=center'
+                },
+                {
+                    name: 'Elena', location: 'Milan', text: 'I travel from Italy just for my treatments here. Worth every minute.',
+                    rating: 5, img: 'https://images.unsplash.com/photo-1489424731084-a5d8b219a5bb?w=100&h=100&fit=crop&crop=center'
+                },
+                {
+                    name: 'David', location: 'Amsterdam', text: 'The massage therapy healed my back tension. I left feeling weightless.',
+                    rating: 5, img: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=center'
+                },
+                {
+                    name: 'Isabella', location: 'Vienna', text: 'A truly sophisticated salon with an artistic touch. Highly recommend.',
+                    rating: 5, img: 'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=100&h=100&fit=crop&crop=center'
+                },
+                {
+                    name: 'Thomas', location: 'Copenhagen', text: 'The skin studio is next-level. My complexion has never looked better.',
+                    rating: 5, img: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=100&h=100&fit=crop&crop=center'
+                },
+            ];
+
+            const journalArticles = [
+                {
+                    cat: 'Skin Science', title: 'The Power of Peptides in Skincare', date: 'May 12, 2026', read: '5 min',
+                    img: 'https://images.unsplash.com/photo-1556228720-195a672e8a03?w=400&h=300&fit=crop&crop=center'
+                },
+                {
+                    cat: 'Hair Care', title: 'The Art of Balayage: A Modern Classic', date: 'May 4, 2026', read: '4 min',
+                    img: 'https://images.unsplash.com/photo-1595476108010-b4d1f102b1b1?w=400&h=300&fit=crop&crop=center'
+                },
+                {
+                    cat: 'Bridal', title: 'Your Wedding Beauty Timeline', date: 'Apr 28, 2026', read: '7 min',
+                    img: 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=400&h=300&fit=crop&crop=center'
+                },
+                {
+                    cat: 'Wellness', title: 'Aromatherapy for Deep Relaxation', date: 'Apr 20, 2026', read: '3 min',
+                    img: 'https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=400&h=300&fit=crop&crop=center'
+                },
+            ];
+
+            const memberships = [
+                {
+                    name: 'Beauty Essential', price: 89,
+                    desc: 'One monthly treatment, priority booking, product discounts, birthday reward.',
+                    perks: ['1 treatment/month', 'Priority booking', '10% product discount', 'Birthday reward'],
+                    featured: false
+                },
+                {
+                    name: 'Signature Experience', price: 179,
+                    desc: 'Two treatments per month, personal consultation, upgrades, exclusive events.',
+                    perks: ['2 treatments/month', 'Personal consultation', 'Complimentary upgrades',
+                        'Exclusive event access', 'Member rates'
+                    ], featured: true
+                },
+                {
+                    name: 'Private Concierge', price: 329,
+                    desc: 'Dedicated expert, personalized calendar, private booking hours, premium collection.',
+                    perks: ['Dedicated expert', 'Personalized calendar', 'Private booking hours',
+                        'Event preparation', 'Premium product collection', 'Priority support'
+                    ], featured: false
+                }
+            ];
+
+            // ============================================================
+            // STATE
+            // ============================================================
+            let currentPalette = 0;
+            let originalPalette = 0;
+            let isDark = false;
+            let cart = [];
+            let bookingStep = 0;
+            let bookingData = {
+                category: '', ritual: '', expert: '', branch: '', date: '', time: '', extras: [],
+                client: {}
+            };
+            let finderStep = 0;
+            let finderAnswers = { goal: '', concern: '', service: '' };
+            let currentLang = 'en';
+
+            // ============================================================
+            // HELPERS
+            // ============================================================
+            function getPalette(idx) { return PALETTES[idx % PALETTES.length]; }
+
+            function randomPaletteIdx() { return Math.floor(Math.random() * PALETTES.length); }
+
+            function setCSSVars(palette) {
+                const root = document.documentElement;
+                for (const [key, value] of Object.entries(palette)) {
+                    if (key === 'name') continue;
+                    root.style.setProperty('--' + key, value);
+                }
+                // extra vars
+                root.style.setProperty('--preloader-bg', palette.background);
+                root.style.setProperty('--glow-color', palette.glow);
+                root.style.setProperty('--nav-bg', `rgba(${hexToRgb(palette.background)},0.72)`);
+                root.style.setProperty('--card-bg', `rgba(${hexToRgb(palette.surface)},0.6)`);
+                if (isDark) applyDarkOverrides(palette);
+            }
+
+            function hexToRgb(hex) {
+                const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+                return result ? `${parseInt(result[1], 16)},${parseInt(result[2], 16)},${parseInt(result[3], 16)}` :
+                    '255,255,255';
+            }
+
+            function darkenColor(hex, percent) {
+                let r = parseInt(hex.slice(1, 3), 16), g = parseInt(hex.slice(3, 5), 16), b = parseInt(hex.slice(5, 7), 16);
+                r = Math.max(0, Math.round(r * (1 - percent / 100)));
+                g = Math.max(0, Math.round(g * (1 - percent / 100)));
+                b = Math.max(0, Math.round(b * (1 - percent / 100)));
+                return `#${r.toString(16).padStart(2, '0')}${g.toString(16).padStart(2, '0')}${b.toString(16).padStart(2, '0')}`;
+            }
+
+            function lightenColor(hex, percent) {
+                let r = parseInt(hex.slice(1, 3), 16), g = parseInt(hex.slice(3, 5), 16), b = parseInt(hex.slice(5, 7), 16);
+                r = Math.min(255, Math.round(r + (255 - r) * (percent / 100)));
+                g = Math.min(255, Math.round(g + (255 - g) * (percent / 100)));
+                b = Math.min(255, Math.round(b + (255 - b) * (percent / 100)));
+                return `#${r.toString(16).padStart(2, '0')}${g.toString(16).padStart(2, '0')}${b.toString(16).padStart(2, '0')}`;
+            }
+
+            function applyDarkOverrides(palette) {
+                const root = document.documentElement;
+                const darkBg = darkenColor(palette.background, 85);
+                const darkBgSec = darkenColor(palette.backgroundSecondary, 80);
+                const darkSurface = darkenColor(palette.surface, 75);
+                const darkSurfaceSoft = darkenColor(palette.surfaceSoft, 78);
+                const darkText = lightenColor(palette.text, 85);
+                const darkTextMuted = lightenColor(palette.textMuted, 60);
+                const darkBorder = darkenColor(palette.border, 50);
+                root.style.setProperty('--background', darkBg);
+                root.style.setProperty('--background-secondary', darkBgSec);
+                root.style.setProperty('--surface', darkSurface);
+                root.style.setProperty('--surface-soft', darkSurfaceSoft);
+                root.style.setProperty('--text', darkText);
+                root.style.setProperty('--text-muted', darkTextMuted);
+                root.style.setProperty('--border', darkBorder);
+                root.style.setProperty('--nav-bg', `rgba(${hexToRgb(darkBg)},0.8)`);
+                root.style.setProperty('--card-bg', `rgba(${hexToRgb(darkSurface)},0.7)`);
+                root.style.setProperty('--shadow', 'rgba(0,0,0,0.4)');
+                root.style.setProperty('--preloader-bg', darkBg);
+            }
+
+            function applyPalette(idx, animate = true) {
+                const pal = getPalette(idx);
+                currentPalette = idx;
+                setCSSVars(pal);
+                if (animate) {
+                    document.documentElement.style.transition =
+                        'background 0.6s ease, color 0.6s ease, border-color 0.6s ease, box-shadow 0.6s ease';
+                    setTimeout(() => document.documentElement.style.transition = '', 700);
+                }
+                // update cursor
+                document.querySelector('.cursor-dot').style.background = pal.primary;
+                document.querySelector('.cursor-ring').style.borderColor = pal.primary;
+                // preloader glow
+                const glow = document.querySelector('.preloader-glow');
+                if (glow) glow.style.background = pal.glow;
+                // save
+                try {
+                    localStorage.setItem('aura-palette', idx);
+                    localStorage.setItem('aura-palette-original', originalPalette);
+                } catch (e) { }
+            }
+
+            function applyTheme(dark) {
+                isDark = dark;
+                const root = document.documentElement;
+                const icon = document.getElementById('themeIcon');
+                if (dark) {
+                    root.setAttribute('data-theme', 'dark');
+                    icon.className = 'fas fa-sun';
+                    document.getElementById('themeToggle').setAttribute('aria-label', 'Switch to light mode');
+                } else {
+                    root.removeAttribute('data-theme');
+                    icon.className = 'fas fa-moon';
+                    document.getElementById('themeToggle').setAttribute('aria-label', 'Switch to dark mode');
+                }
+                const pal = getPalette(currentPalette);
+                setCSSVars(pal);
+                try { localStorage.setItem('aura-theme', dark ? 'dark' : 'light'); } catch (e) { }
+            }
+
+            function toggleTheme() {
+                applyTheme(!isDark);
+                showToast(isDark ? 'Dark mode' : 'Light mode');
+            }
+
+            function generateNewLook() {
+                let newIdx = randomPaletteIdx();
+                while (newIdx === currentPalette && PALETTES.length > 1) newIdx = randomPaletteIdx();
+                originalPalette = newIdx;
+                applyPalette(newIdx, true);
+                showToast('New luxury theme applied');
+            }
+
+            function resetTheme() {
+                applyPalette(originalPalette, true);
+                showToast('Theme reset');
+            }
+
+            function showToast(msg, icon = 'fa-check-circle') {
+                const container = document.getElementById('toastContainer');
+                const toast = document.createElement('div');
+                toast.className = 'toast';
+                toast.innerHTML = `<i class="fas ${icon}"></i><span>${msg}</span>`;
+                container.appendChild(toast);
+                requestAnimationFrame(() => toast.classList.add('show'));
+                setTimeout(() => {
+                    toast.classList.remove('show');
+                    setTimeout(() => toast.remove(), 500);
+                }, 2800);
+            }
+
+            // ============================================================
+            // RENDER FUNCTIONS
+            // ============================================================
+            function renderRituals(filter = 'all') {
+                const grid = document.getElementById('ritualsGrid');
+                const filtered = filter === 'all' ? rituals : rituals.filter(r => r.category === filter);
+                grid.innerHTML = filtered.map(r => `
+                    <div class="ritual-card" data-category="${r.category}">
+                        <div class="card-img">
+                            <img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=400&h=300&fit=crop&crop=center&random=${r.id}" alt="${r.name}" loading="lazy" onerror="this.style.display='none';this.parentElement.style.background='var(--primary)'" />
+                        </div>
+                        <div class="card-body">
+                            <h4>${r.name}</h4>
+                            <p class="desc">${r.desc}</p>
+                            <div class="meta">
+                                <span><i class="far fa-clock"></i> ${r.duration}</span>
+                                <span><i class="fas fa-tag"></i> ${r.price}</span>
+                            </div>
+                            <div class="card-actions">
+                                <button class="btn-sm primary" onclick="window.bookRitual('${r.name}')">Book</button>
+                                <button class="btn-sm" onclick="showToast('Details for ${r.name}')">Details</button>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            function renderExperts() {
+                const grid = document.getElementById('expertsGrid');
+                grid.innerHTML = experts.map(e => `
+                    <div class="expert-card">
+                        <div class="expert-img">
+                            <img src="${e.img}" alt="${e.name}" loading="lazy" onerror="this.style.display='none';this.parentElement.style.background='var(--primary)'" />
+                        </div>
+                        <div class="expert-info">
+                            <h4>${e.name}</h4>
+                            <div class="role">${e.role}</div>
+                            <div class="bio">${e.years} years • ${e.lang}</div>
+                            <div class="tags">${e.specialties.map(s => `<span>${s}</span>`).join('')}</div>
+                            <button class="btn-sm primary" style="margin-top:10px;padding:6px 16px;border-radius:30px;font-size:0.7rem;font-weight:600;background:var(--primary);color:#fff;border:none;" onclick="showToast('Book with ${e.name}')">Book</button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            function renderTransformations(filter = 'all') {
+                const grid = document.getElementById('transformGrid');
+                const filtered = filter === 'all' ? transformations : transformations.filter(t => t.category === filter);
+                grid.innerHTML = filtered.map(t => `
+                    <div class="transform-item" onclick="showToast('View transformation: ${t.label}')">
+                        <img src="${t.img}" alt="${t.label}" loading="lazy" onerror="this.style.display='none';this.parentElement.style.background='var(--primary)'" />
+                        <div class="overlay">
+                            <span class="label">${t.category}</span>
+                            <span class="name">${t.label}</span>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            function renderShop() {
+                const grid = document.getElementById('shopGrid');
+                grid.innerHTML = shopItems.map(item => `
+                    <div class="shop-item">
+                        <div class="shop-img">
+                            <img src="${item.img}" alt="${item.name}" loading="lazy" onerror="this.style.display='none';this.parentElement.style.background='var(--primary)'" />
+                        </div>
+                        <div class="shop-body">
+                            <h4>${item.name}</h4>
+                            <div class="price">€${item.price}</div>
+                            <div class="desc">${item.desc} • ${item.size}</div>
+                            <div style="display:flex;gap:4px;margin-bottom:6px;color:var(--primary);font-size:0.7rem;">${'★'.repeat(Math.floor(item.rating))}${item.rating % 1 >= 0.5 ? '½' : ''} ${item.rating}</div>
+                            <div class="actions">
+                                <button onclick="addToCart(${item.id})"><i class="fas fa-plus"></i> Add</button>
+                                <button class="wish" onclick="showToast('Added to wishlist')"><i class="far fa-heart"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            function renderMemberships() {
+                const grid = document.getElementById('membershipGrid');
+                grid.innerHTML = memberships.map(m => `
+                    <div class="membership-card ${m.featured ? 'featured' : ''}">
+                        <h4>${m.name}</h4>
+                        <div class="price">€${m.price} <span>/mo</span></div>
+                        <p style="font-size:0.8rem;color:var(--text-muted);font-weight:300;margin-bottom:8px;">${m.desc}</p>
+                        <ul class="perks">${m.perks.map(p => `<li><i class="fas fa-check-circle"></i> ${p}</li>`).join('')}</ul>
+                        <button class="btn-primary" style="width:100%;padding:10px;" onclick="showToast('Join ${m.name}')">Join Now</button>
+                    </div>
+                `).join('');
+            }
+
+            function renderReviews() {
+                const container = document.getElementById('reviewsMarquee');
+                const doubled = [...reviews, ...reviews];
+                container.innerHTML = doubled.map(r => `
+                    <span class="review-item">
+                        <img src="${r.img}" alt="${r.name}" onerror="this.style.display='none'" />
+                        <span>
+                            <strong>${r.name}</strong>
+                            <span class="location">${r.location}</span>
+                            <span class="stars">${'★'.repeat(r.rating)}</span>
+                            <span style="font-size:0.7rem;color:var(--text-muted);margin-left:4px;">“${r.text.slice(0, 50)}…”</span>
+                        </span>
+                    </span>
+                `).join('');
+            }
+
+            function renderJournal() {
+                const grid = document.getElementById('journalGrid');
+                grid.innerHTML = journalArticles.map(a => `
+                    <div class="journal-card">
+                        <div class="journal-img">
+                            <img src="${a.img}" alt="${a.title}" loading="lazy" onerror="this.style.display='none';this.parentElement.style.background='var(--primary)'" />
+                        </div>
+                        <div class="journal-body">
+                            <div class="cat">${a.cat}</div>
+                            <h4>${a.title}</h4>
+                            <div class="meta"><span>${a.date}</span><span>${a.read}</span></div>
+                            <button class="btn-sm" style="padding:6px 16px;border-radius:30px;font-size:0.7rem;font-weight:600;border:1px solid var(--border);background:transparent;color:var(--text);transition:all 0.3s;margin-top:6px;" onclick="showToast('Reading: ${a.title}')">Read More</button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            function renderFinder() {
+                const content = document.getElementById('finderContent');
+                const steps = ['goal', 'concern', 'service'];
+                const labels = [
+                    ['Hair Transformation', 'Skin Radiance', 'Bridal Preparation', 'Everyday Maintenance',
+                        'Anti-Aging', 'Relaxation', 'Nail Care', 'Event Styling'],
+                    ['Dryness', 'Oily', 'Sensitivity', 'Dullness', 'Fine Lines', 'Acne', 'Pigmentation', 'Texture'],
+                    ['Hair Design', 'Skin Studio', 'Nail Atelier', 'Makeup Studio', 'Wellness', 'Bridal']
+                ];
+                const current = finderStep;
+                if (current < 3) {
+                    const opts = labels[current];
+                    const key = steps[current];
+                    content.innerHTML = `
+                        <p style="font-size:0.9rem;font-weight:600;color:var(--text);margin-bottom:12px;">${['What is your beauty goal?', 'What is your main concern?', 'Which service interests you?'][current]}</p>
+                        <div class="finder-options">
+                            ${opts.map(o => `
+                                <button class="${finderAnswers[key] === o ? 'selected' : ''}" onclick="selectFinderOption('${key}','${o}')">${o}</button>
+                            `).join('')}
+                        </div>
+                        <div style="display:flex;gap:12px;justify-content:flex-end;">
+                            ${current > 0 ? `<button class="btn-secondary" style="padding:8px 20px;font-size:0.75rem;" onclick="finderPrev()">Back</button>` : ''}
+                            <button class="btn-primary" style="padding:8px 24px;font-size:0.75rem;" onclick="finderNext()">${current < 2 ? 'Next' : 'Get Results'}</button>
+                        </div>
+                    `;
+                } else {
+                    content.innerHTML =
+                        `<p style="text-align:center;color:var(--text-muted);">All set! Click "Get Results" above.</p>`;
+                }
+            }
+
+            function renderBooking() {
+                const content = document.getElementById('bookingContent');
+                const steps = [
+                    {
+                        title: 'Select Category', options: ['Hair Design', 'Skin Studio', 'Nail Atelier',
+                            'Makeup Studio', 'Wellness']
+                    },
+                    { title: 'Choose Ritual', options: rituals.map(r => r.name) },
+                    { title: 'Choose Expert', options: experts.map(e => e.name) },
+                    { title: 'Select Branch', options: ['London', 'Paris', 'Berlin', 'Zurich'] },
+                    { title: 'Select Date & Time', options: ['Today', 'Tomorrow', 'In 2 days'] },
+                ];
+                const step = bookingStep;
+                if (step < steps.length) {
+                    const s = steps[step];
+                    const key = ['category', 'ritual', 'expert', 'branch', 'date'][step];
+                    const val = bookingData[key] || '';
+                    content.innerHTML = `
+                        <div class="booking-step-content">
+                            <div class="step-title">${s.title}</div>
+                            <div class="step-sub">Please select one option.</div>
+                            <div class="booking-options">
+                                ${s.options.map(o => `
+                                    <button class="${val === o ? 'selected' : ''}" onclick="selectBookingOption('${key}','${o}')">${o}</button>
+                                `).join('')}
+                            </div>
+                            <div class="booking-nav">
+                                <button class="prev" onclick="bookingPrev()" ${step === 0 ? 'disabled' : ''}>Back</button>
+                                <button class="next" onclick="bookingNext()" ${!val ? 'disabled' : ''}>${step < steps.length - 1 ? 'Next' : 'Review'}</button>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    content.innerHTML = `
+                        <div class="booking-step-content">
+                            <div class="step-title">Review Your Booking</div>
+                            <div class="step-sub">Confirm your details below.</div>
+                            <div class="booking-summary">
+                                <div class="item"><span>Category</span><span class="val">${bookingData.category || '-'}</span></div>
+                                <div class="item"><span>Ritual</span><span class="val">${bookingData.ritual || '-'}</span></div>
+                                <div class="item"><span>Expert</span><span class="val">${bookingData.expert || '-'}</span></div>
+                                <div class="item"><span>Branch</span><span class="val">${bookingData.branch || '-'}</span></div>
+                                <div class="item"><span>Date</span><span class="val">${bookingData.date || '-'}</span></div>
+                                <div class="item"><span>Time</span><span class="val">${bookingData.time || '2:30 PM'}</span></div>
+                            </div>
+                            <div class="booking-nav">
+                                <button class="prev" onclick="bookingPrev()">Back</button>
+                                <button class="next" onclick="confirmBooking()">Confirm Booking</button>
+                            </div>
+                        </div>
+                    `;
+                }
+                const dots = document.querySelectorAll('#bookingProgress .step');
+                dots.forEach((dot, i) => {
+                    dot.className = 'step';
+                    if (i < step) dot.classList.add('done');
+                    if (i === step) dot.classList.add('active');
+                });
+            }
+
+            // ============================================================
+            // INTERACTIONS
+            // ============================================================
+            window.bookRitual = function (name) {
+                bookingData.ritual = name;
+                showToast(`Booked: ${name}`);
+                document.getElementById('booking').scrollIntoView({ behavior: 'smooth' });
+            };
+
+            window.selectFinderOption = function (key, value) {
+                finderAnswers[key] = value;
+                renderFinder();
+            };
+
+            window.finderNext = function () {
+                const keys = ['goal', 'concern', 'service'];
+                if (finderStep < 3) {
+                    if (!finderAnswers[keys[finderStep]]) {
+                        showToast('Please select an option', 'fa-exclamation-circle');
+                        return;
+                    }
+                    finderStep++;
+                    renderFinder();
+                    updateFinderSteps();
+                    if (finderStep === 3) {
+                        const result = document.getElementById('finderResult');
+                        result.innerHTML = `
+                            <h4>Your Perfect Ritual</h4>
+                            <p>Based on your preferences, we recommend:</p>
+                            <div style="margin:12px 0;padding:12px 16px;background:var(--surface-soft);border-radius:var(--radius-sm);border:1px solid var(--border);">
+                                <strong style="font-family:var(--font-heading);font-size:1.2rem;">Signature Hydration Facial</strong>
+                                <div class="result-meta">
+                                    <span><i class="far fa-clock"></i> 60 min</span>
+                                    <span><i class="fas fa-tag"></i> €140</span>
+                                    <span><i class="fas fa-user"></i> Sofia Rossi</span>
+                                </div>
+                                <p style="font-size:0.8rem;color:var(--text-muted);">Preparation: Arrive with clean skin. Avoid retinol 48h prior.</p>
+                            </div>
+                            <button class="btn-primary" onclick="document.getElementById('booking').scrollIntoView({behavior:'smooth'})">Book Now</button>
+                        `;
+                        result.classList.add('show');
+                    } else {
+                        document.getElementById('finderResult').classList.remove('show');
+                    }
+                }
+            };
+
+            window.finderPrev = function () {
+                if (finderStep > 0) {
+                    finderStep--;
+                    renderFinder();
+                    updateFinderSteps();
+                    if (finderStep < 3) {
+                        document.getElementById('finderResult').classList.remove('show');
+                    }
+                }
+            };
+
+            function updateFinderSteps() {
+                const dots = document.querySelectorAll('#finderSteps .step-dot');
+                dots.forEach((dot, i) => {
+                    dot.className = 'step-dot';
+                    if (i < finderStep) dot.classList.add('done');
+                    if (i === finderStep) dot.classList.add('active');
+                });
+            }
+
+            window.selectBookingOption = function (key, value) {
+                bookingData[key] = value;
+                renderBooking();
+            };
+
+            window.bookingNext = function () {
+                const keys = ['category', 'ritual', 'expert', 'branch', 'date'];
+                if (bookingStep < keys.length) {
+                    if (!bookingData[keys[bookingStep]]) {
+                        showToast('Please select an option', 'fa-exclamation-circle');
+                        return;
+                    }
+                    bookingStep++;
+                    renderBooking();
+                }
+            };
+
+            window.bookingPrev = function () {
+                if (bookingStep > 0) {
+                    bookingStep--;
+                    renderBooking();
+                }
+            };
+
+            window.confirmBooking = function () {
+                showToast('Booking confirmed! Check your email for details.', 'fa-check-circle');
+                const content = document.getElementById('bookingContent');
+                content.innerHTML = `
+                    <div class="booking-success">
+                        <i class="fas fa-check-circle"></i>
+                        <h3>Your Experience Awaits</h3>
+                        <p>We've sent a confirmation to your email. We look forward to welcoming you.</p>
+                        <button class="btn-primary" style="margin-top:16px;" onclick="showToast('Added to Google Calendar')"><i class="fab fa-google"></i> Add to Calendar</button>
+                        <button class="btn-secondary" style="margin-top:12px;margin-left:8px;" onclick="showToast('Added to Apple Calendar')"><i class="fab fa-apple"></i> Apple Calendar</button>
+                    </div>
+                `;
+                document.querySelectorAll('#bookingProgress .step').forEach(d => d.className = 'step done');
+            };
+
+            // ============================================================
+            // CART
+            // ============================================================
+            window.addToCart = function (id) {
+                const item = shopItems.find(i => i.id === id);
+                if (!item) return;
+                const existing = cart.find(c => c.id === id);
+                if (existing) existing.qty += 1;
+                else cart.push({ ...item, qty: 1 });
+                updateCartUI();
+                showToast(`${item.name} added to cart`);
+            };
+
+            function updateCartUI() {
+                const items = document.getElementById('cartItems');
+                const total = document.getElementById('cartTotal');
+                const count = document.getElementById('cartCount');
+                const totalSum = cart.reduce((sum, i) => sum + i.price * i.qty, 0);
+                count.textContent = cart.reduce((sum, i) => sum + i.qty, 0);
+                total.textContent = `€${totalSum}`;
+                if (cart.length === 0) {
+                    items.innerHTML =
+                        `<div class="empty-cart"><i class="fas fa-bag-shopping"></i><p>Your edit is empty.</p></div>`;
+                } else {
+                    items.innerHTML = cart.map((item, idx) => `
+                        <div class="cart-item">
+                            <div class="item-img"><img src="${item.img}" alt="${item.name}" onerror="this.style.display='none'" /></div>
+                            <div class="item-info">
+                                <h5>${item.name}</h5>
+                                <div class="qty">
+                                    <button onclick="cartQty(${idx},-1)">−</button>
+                                    <span>${item.qty}</span>
+                                    <button onclick="cartQty(${idx},1)">+</button>
+                                    <button onclick="removeFromCart(${idx})" style="background:none;border:none;color:var(--text-muted);font-size:0.7rem;margin-left:4px;"><i class="fas fa-trash"></i></button>
+                                </div>
+                            </div>
+                            <div class="item-price">€${item.price * item.qty}</div>
+                        </div>
+                    `).join('');
+                }
+            }
+
+            window.cartQty = function (idx, delta) {
+                if (cart[idx]) {
+                    cart[idx].qty += delta;
+                    if (cart[idx].qty <= 0) cart.splice(idx, 1);
+                    updateCartUI();
+                }
+            };
+
+            window.removeFromCart = function (idx) {
+                cart.splice(idx, 1);
+                updateCartUI();
+                showToast('Item removed');
+            };
+
+            // ============================================================
+            // CURSOR
+            // ============================================================
+            function initCursor() {
+                const dot = document.getElementById('cursorDot');
+                const ring = document.getElementById('cursorRing');
+                let mouseX = 0, mouseY = 0;
+                let ringX = 0, ringY = 0;
+                if (window.matchMedia('(pointer: fine)').matches) {
+                    document.addEventListener('mousemove', (e) => {
+                        mouseX = e.clientX;
+                        mouseY = e.clientY;
+                        dot.style.transform = `translate(${mouseX - 3}px, ${mouseY - 3}px)`;
+                    });
+                    function animateRing() {
+                        ringX += (mouseX - ringX) * 0.12;
+                        ringY += (mouseY - ringY) * 0.12;
+                        ring.style.transform = `translate(${ringX - 18}px, ${ringY - 18}px)`;
+                        requestAnimationFrame(animateRing);
+                    }
+                    animateRing();
+                    document.querySelectorAll('a, button, .ritual-card, .expert-card, .shop-item, .journal-card, .transform-item')
+                        .forEach(el => {
+                            el.addEventListener('mouseenter', () => ring.classList.add('hover'));
+                            el.addEventListener('mouseleave', () => ring.classList.remove('hover'));
+                        });
+                }
+            }
+
+            // ============================================================
+            // NAV
+            // ============================================================
+            function initNav() {
+                const hamburger = document.getElementById('hamburger');
+                const mobileMenu = document.getElementById('mobileMenu');
+                hamburger.addEventListener('click', () => {
+                    hamburger.classList.toggle('open');
+                    mobileMenu.classList.toggle('open');
+                    document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
+                });
+                mobileMenu.querySelectorAll('a').forEach(link => {
+                    link.addEventListener('click', () => {
+                        hamburger.classList.remove('open');
+                        mobileMenu.classList.remove('open');
+                        document.body.style.overflow = '';
+                    });
+                });
+                const navbar = document.getElementById('navbar');
+                window.addEventListener('scroll', () => {
+                    navbar.classList.toggle('scrolled', window.scrollY > 60);
+                });
+                // active link
+                const links = document.querySelectorAll('.nav-links a');
+                const sections = document.querySelectorAll('section[id]');
+                window.addEventListener('scroll', () => {
+                    let current = '';
+                    sections.forEach(section => {
+                        const top = section.offsetTop - 120;
+                        if (window.scrollY >= top) current = section.getAttribute('id');
+                    });
+                    links.forEach(link => {
+                        link.classList.toggle('active', link.getAttribute('href') === `#${current}`);
+                    });
+                });
+                // back to top
+                const backTop = document.getElementById('backTop');
+                window.addEventListener('scroll', () => {
+                    backTop.classList.toggle('visible', window.scrollY > 600);
+                });
+                backTop.addEventListener('click', () => {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                });
+            }
+
+            // ============================================================
+            // SCROLL REVEALS (Intersection Observer)
+            // ============================================================
+            function initScrollReveals() {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.style.opacity = '1';
+                            entry.target.style.transform = 'translateY(0)';
+                        }
+                    });
+                }, { threshold: 0.15 });
+                document.querySelectorAll('.ritual-card, .expert-card, .shop-item, .journal-card, .transform-item, .membership-card, .manifesto-value')
+                    .forEach(el => {
+                        el.style.opacity = '0';
+                        el.style.transform = 'translateY(30px)';
+                        el.style.transition = 'opacity 0.7s cubic-bezier(0.25,0.46,0.45,0.94), transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94)';
+                        observer.observe(el);
+                    });
+                // also trigger for those already visible
+                setTimeout(() => {
+                    document.querySelectorAll('.ritual-card, .expert-card, .shop-item, .journal-card, .transform-item, .membership-card, .manifesto-value')
+                        .forEach(el => {
+                            const rect = el.getBoundingClientRect();
+                            if (rect.top < window.innerHeight) {
+                                el.style.opacity = '1';
+                                el.style.transform = 'translateY(0)';
+                            }
+                        });
+                }, 200);
+            }
+
+            // ============================================================
+            // PRELOADER
+            // ============================================================
+            function initPreloader() {
+                const bar = document.getElementById('preloaderBar');
+                const percent = document.getElementById('preloaderPercent');
+                const preloader = document.getElementById('preloader');
+                let progress = 0;
+                const interval = setInterval(() => {
+                    progress += Math.random() * 8 + 2;
+                    if (progress >= 100) {
+                        progress = 100;
+                        clearInterval(interval);
+                        setTimeout(() => {
+                            preloader.classList.add('hide');
+                            document.body.style.overflow = '';
+                        }, 400);
+                    }
+                    bar.style.width = progress + '%';
+                    percent.textContent = Math.floor(progress) + '%';
+                }, 120);
+                // fallback hide after 4s
+                setTimeout(() => {
+                    if (!preloader.classList.contains('hide')) {
+                        bar.style.width = '100%';
+                        percent.textContent = '100%';
+                        setTimeout(() => {
+                            preloader.classList.add('hide');
+                            document.body.style.overflow = '';
+                        }, 400);
+                    }
+                }, 4000);
+                document.body.style.overflow = 'hidden';
+            }
+
+            // ============================================================
+            // THEME CONTROLS
+            // ============================================================
+            function initThemeControls() {
+                document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+                document.getElementById('generateTheme').addEventListener('click', generateNewLook);
+                document.getElementById('resetTheme').addEventListener('click', resetTheme);
+
+                // cart
+                document.getElementById('cartToggle').addEventListener('click', () => {
+                    document.getElementById('cartDrawer').classList.toggle('open');
+                    document.getElementById('cartOverlay').classList.toggle('open');
+                });
+                document.getElementById('cartClose').addEventListener('click', () => {
+                    document.getElementById('cartDrawer').classList.remove('open');
+                    document.getElementById('cartOverlay').classList.remove('open');
+                });
+                document.getElementById('cartOverlay').addEventListener('click', () => {
+                    document.getElementById('cartDrawer').classList.remove('open');
+                    document.getElementById('cartOverlay').classList.remove('open');
+                });
+
+                // language
+                const langBtn = document.getElementById('langToggle');
+                const langs = ['en', 'fr', 'de', 'it', 'es', 'nl'];
+                let langIdx = 0;
+                langBtn.addEventListener('click', () => {
+                    langIdx = (langIdx + 1) % langs.length;
+                    currentLang = langs[langIdx];
+                    showToast(`Language: ${currentLang.toUpperCase()}`);
+                });
+                document.getElementById('footerLang').addEventListener('change', (e) => {
+                    currentLang = e.target.value;
+                    showToast(`Language: ${currentLang.toUpperCase()}`);
+                });
+
+                // restore state
+                try {
+                    const savedPalette = localStorage.getItem('aura-palette');
+                    const savedOriginal = localStorage.getItem('aura-palette-original');
+                    const savedTheme = localStorage.getItem('aura-theme');
+                    if (savedPalette !== null) {
+                        const idx = parseInt(savedPalette);
+                        if (!isNaN(idx) && idx >= 0 && idx < PALETTES.length) currentPalette = idx;
+                    }
+                    if (savedOriginal !== null) {
+                        const idx = parseInt(savedOriginal);
+                        if (!isNaN(idx) && idx >= 0 && idx < PALETTES.length) originalPalette = idx;
+                        else originalPalette = currentPalette;
+                    } else {
+                        originalPalette = currentPalette;
+                    }
+                    if (savedTheme === 'dark') isDark = true;
+                    else if (savedTheme === 'light') isDark = false;
+                    else isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                } catch (e) {
+                    originalPalette = currentPalette;
+                    isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                }
+
+                applyPalette(currentPalette, false);
+                applyTheme(isDark);
+
+                // gift card preview
+                document.getElementById('giftAmount').addEventListener('input', (e) => {
+                    document.getElementById('giftAmountDisplay').textContent = `€${e.target.value || 0}`;
+                });
+                document.getElementById('giftMessage').addEventListener('input', (e) => {
+                    document.getElementById('giftMsgDisplay').textContent = e.target.value || 'For the one who shines';
+                });
+                const today = new Date().toISOString().split('T')[0];
+                document.getElementById('giftDate').value = today;
+            }
+
+            // ============================================================
+            // FILTERS
+            // ============================================================
+            function initRitualFilters() {
+                const btns = document.querySelectorAll('#ritualCategories button');
+                btns.forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        btns.forEach(b => b.classList.remove('active'));
+                        btn.classList.add('active');
+                        renderRituals(btn.dataset.cat);
+                    });
+                });
+            }
+
+            function initTransformFilters() {
+                const btns = document.querySelectorAll('#transformCategories button');
+                btns.forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        btns.forEach(b => b.classList.remove('active'));
+                        btn.classList.add('active');
+                        renderTransformations(btn.dataset.cat);
+                    });
+                });
+            }
+
+            // ============================================================
+            // BRANCH TABS
+            // ============================================================
+            function initBranchTabs() {
+                const branches = [
+                    {
+                        name: 'AuraBeauty London', addr: '42 Sloane Street, London SW1X 9AD', phone: '+44 20 7123 4567',
+                        email: 'london@aurabeauty.com', hours: 'Mon–Sat 9:00 – 20:00', status: 'Open Now'
+                    },
+                    {
+                        name: 'AuraBeauty Paris', addr: '12 Rue de la Paix, 75002 Paris', phone: '+33 1 23 45 67 89',
+                        email: 'paris@aurabeauty.com', hours: 'Mon–Sat 9:30 – 19:30', status: 'Open Now'
+                    },
+                    {
+                        name: 'AuraBeauty Berlin', addr: 'Kurfürstendamm 42, 10719 Berlin', phone: '+49 30 123 4567',
+                        email: 'berlin@aurabeauty.com', hours: 'Mon–Sat 9:00 – 20:00', status: 'Open Now'
+                    },
+                    {
+                        name: 'AuraBeauty Zurich', addr: 'Bahnhofstrasse 88, 8001 Zürich', phone: '+41 44 123 45 67',
+                        email: 'zurich@aurabeauty.com', hours: 'Mon–Fri 9:00 – 19:00, Sat 10:00 – 17:00',
+                        status: 'Closed'
+                    },
+                ];
+                const tabs = document.querySelectorAll('#branchTabs button');
+                const detail = document.getElementById('branchDetail');
+                tabs.forEach((tab, idx) => {
+                    tab.addEventListener('click', () => {
+                        tabs.forEach(t => t.classList.remove('active'));
+                        tab.classList.add('active');
+                        const b = branches[idx];
+                        detail.innerHTML = `
+                            <h4>${b.name}</h4>
+                            <p>${b.addr}</p>
+                            <p><i class="fas fa-phone" style="width:18px;"></i> ${b.phone}</p>
+                            <p><i class="fas fa-envelope" style="width:18px;"></i> ${b.email}</p>
+                            <p><i class="fas fa-clock" style="width:18px;"></i> ${b.hours}</p>
+                            <span class="status ${b.status === 'Closed' ? 'closed' : ''}">${b.status}</span>
+                        `;
+                    });
+                });
+            }
+
+            // ============================================================
+            // CONTACT FORM
+            // ============================================================
+            function initContactForm() {
+                document.getElementById('cfSubmit').addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const name = document.getElementById('cfName').value.trim();
+                    const email = document.getElementById('cfEmail').value.trim();
+                    const msg = document.getElementById('cfMessage').value.trim();
+                    const privacy = document.getElementById('cfPrivacy').checked;
+                    if (!name || !email || !msg) {
+                        showToast('Please fill in all required fields.', 'fa-exclamation-circle');
+                        return;
+                    }
+                    if (!email.includes('@')) {
+                        showToast('Please enter a valid email.', 'fa-exclamation-circle');
+                        return;
+                    }
+                    if (!privacy) {
+                        showToast('Please agree to the privacy policy.', 'fa-exclamation-circle');
+                        return;
+                    }
+                    document.getElementById('cfSuccess').classList.add('show');
+                    document.querySelector('#contactForm .form-row').style.display = 'none';
+                    document.querySelector('#contactForm .form-group').style.display = 'none';
+                    document.getElementById('cfSubmit').style.display = 'none';
+                    showToast('Message sent! We\'ll be in touch.');
+                });
+            }
+
+            // ============================================================
+            // INIT
+            // ============================================================
+            document.addEventListener('DOMContentLoaded', () => {
+                initPreloader();
+                initCursor();
+                initNav();
+                initThemeControls();
+
+                renderRituals('all');
+                renderExperts();
+                renderTransformations('all');
+                renderShop();
+                renderMemberships();
+                renderReviews();
+                renderJournal();
+                renderFinder();
+                renderBooking();
+                updateCartUI();
+
+                initRitualFilters();
+                initTransformFilters();
+                initBranchTabs();
+                initContactForm();
+                initScrollReveals();
+
+                // keyboard for hamburger
+                document.getElementById('hamburger').addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        document.getElementById('hamburger').click();
+                    }
+                });
+
+                console.log('✨ AuraBeauty loaded successfully (vanilla)');
+                console.log('🎨 Palette:', getPalette(currentPalette).name);
+                console.log('🌓 Theme:', isDark ? 'Dark' : 'Light');
+            });
+
+        })();
+    </script>
+</body>
+
+</html>
